@@ -1,0 +1,79 @@
+{% if entry != blank %}
+  {% assign bg_color = entry.background_color | default: "#fff" %}
+  {% assign image = entry.image %}
+  {% assign title = entry.title %}
+  {% assign sub_title = entry.sub_title %}
+  {% assign caption = entry.caption %}
+  {% assign geek_caption = entry.geek_caption %}
+{% else %}
+  {% assign bg_color = "#FFB9A6" %}
+  {% assign image = false %}
+  {% assign title = "Lorem Ipsum" %}
+  {% assign sub_title = "Lorem Ipsum" %}
+  {% assign caption = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." %}
+  {% assign geek_caption = "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam" %}
+{% endif %}
+
+<div class="product-probiotics__item carousel__item">
+  <div class="product-probiotics__card {% if image == blank %}text-only{% endif %}"
+    x-data='{
+      geekMode: false
+    }'
+    :class='geekMode ? "geek-mode" : ""'
+    x-init='
+      $watch( "geekMode", () => {
+        setTimeout( () => {
+          window.dispatchEvent(new Event("resize"));
+        }, 400 );
+      } );
+    '
+    style="
+      --bg-color: {{ bg_color }};
+    ">
+    {% if image != blank %}
+      <div class="product-probiotics__card-image">
+      {%- assign default_alt = "maybe an image about " | append: entry.title -%}
+      {% assign alt = image.alt | default: default_alt %}
+      {% render 'component__lazyload-image',
+        image: image,
+        width: 300,
+        alt: alt %}
+    </div>
+    {% endif %}
+
+    <div class="product-probiotics__card-content">
+      {% if title != blank %}
+        <p class="product-probiotics__card-title">
+          {{ title }}
+        </p>
+      {% endif %}
+
+      {% if sub_title != blank %}
+        <p class="product-probiotics__card-sub-title">
+          {{ sub_title }}
+        </p>
+      {% endif %}
+
+      {% if caption != blank %}
+        <p class="product-probiotics__card-caption">
+          <span
+            class="geek-text"
+            x-show='!geekMode'
+            :aria-hidden="geekMode"
+            x-cloak>{{ caption }}</span>
+          {% if geek_caption != blank %}
+            <span
+              class="geek-text"
+              x-show='geekMode'
+              :aria-hidden="!geekMode"
+              x-cloak>
+              {{ geek_caption }}
+            </span>
+          {% endif %}
+        </p>
+      {% endif %}
+
+      {% render 'component__geek-switch', mode: "dark-mode" %}
+    </div>
+  </div>
+</div>

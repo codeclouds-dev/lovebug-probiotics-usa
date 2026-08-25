@@ -1,0 +1,281 @@
+<!doctype html>
+
+  <!--
+  ========================================================================================================
+  =============================== Site by MANUFACTUR.co ==================================================
+  ========================================================================================================
+  -->
+  <html class="no-js {% if settings.enable_entrance_animations %}with-enter-animations{% endif %} {% if request.design_mode %}design-mode{% endif %}" lang="{{ request.locale.iso_code }}" id="pageHTML" data-toggler=".is-fixed">
+    <head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta name="theme-color" content="{{ settings.brand_color }}">
+        <link rel="canonical" href="{{ request.origin }}{{ request.path }}">  
+      <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
+      <meta name="robots" content="max-image-preview:large, index, follow">
+      
+      {% render 'preload__fonts' %}
+      <style media="screen">
+        {%- render 'foundation-min' -%}
+        {%- render 'quickload-css' -%}
+      </style>
+  
+      {% render 'css-variables' %}
+      {%- render "style-tags" -%}
+  
+      {%- if settings.favicon != blank -%}
+        <link rel="icon" type="image/png" href="{{ settings.favicon | img_url: '32x32' }}">
+        <link rel="apple-touch-icon" href="{{ settings.favicon | img_url: '32x32' }}">
+      {%- endif -%}
+  
+      {%- unless settings.type_header_font.system? and settings.type_body_font.system? -%}
+        <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
+      {%- endunless -%}
+  
+  
+      {% if page_description %}
+        <meta name="description" content="{{ page_description | escape }}">
+      {% elsif request.path == '/account/register' %}
+        <meta name="description" content="Create your Lovebug account to enjoy faster checkout, track orders, and receive exclusive offers on probiotics and wellness products.">
+      {% elsif request.path == '/policies/privacy-policy' %}
+        <meta name="description" content="Learn how Lovebug protects your privacy. Read our Privacy Policy for full details on how your personal data is collected and used.">
+      {% elsif request.path == '/account/login' %}
+        <meta name="description" content="Login to your Lovebug account to manage orders, track shipments, and access member-only offers and health tips.">
+      {% elsif request.path == '/collections/bestsellers' %}
+        <meta name="description" content="Shop Lovebug’s best-selling probiotics loved by thousands. These customer favorites deliver real results for gut and immune health.">
+      {% elsif request.path == '/pages/reviews' %}
+        <meta name="description" content="See what real customers are saying about Lovebug probiotics. Read verified reviews and testimonials to shop with confidence.">
+      {% elsif request.path == '/policies/shipping-policy' %}
+        <meta name="description" content="Get information about Lovebug’s shipping methods, delivery timelines, and international shipping options in our Shipping Policy.">
+      {% elsif request.path == '/collections/all' %}
+        <meta name="description" content="Browse our complete collection of Lovebug probiotics and supplements for women, children, and families. Support your gut health today.">
+      {% elsif request.path == '/cart' %}
+        <meta name="description" content="Review your selected Lovebug products and proceed to checkout. Enjoy fast shipping and clinically backed probiotic solutions.">
+      {% elsif request.path == '/pages/faqs' %}
+        <meta name="description" content="Have questions about probiotics, shipping, or subscriptions? Visit Lovebug’s FAQ page for quick answers and helpful info.">
+      {% elsif request.path == '/pages/about-us' %}
+        <meta name="description" content="Learn about Lovebug’s mission to promote gut health through science-backed probiotics. Meet the team and discover our story.">
+      {% elsif request.path == '/pages/what-the' %}
+        <meta name="description" content="Discover the science behind Lovebug probiotics and how they support your digestive health, immunity, and overall wellness.">
+      {% elsif request.path == '/blogs/news' %}
+        <meta name="description" content="Stay updated with the latest news, wellness tips, and gut health insights on the official Lovebug blog. Your health journey starts here.">
+      {% elsif request.path == '/pages/create-a-superhero' %}
+        <meta name="description" content="Join Lovebug’s “Create a Superhero” initiative and empower kids to learn about gut health through fun, creativity, and education.">
+      {% else %}
+        <meta name="description" content="Lovebug – Your trusted source for gut-friendly probiotics for the whole family.">
+      {% endif %}
+
+      {% if template == 'blog' and current_tags contains 'Babies' %}
+      <title>Baby Health & Gut Tips | LoveBug Blog for New Parents</title>
+      {% elsif template == 'blog' and current_tags contains 'Children' %}
+        <title>Children’s Gut Health & Wellness Articles | LoveBug Blog</title>
+      {% elsif template == 'blog' and current_tags contains 'Diet' %}
+        <title>Diet & Nutrition Advice for Gut Health | LoveBug Blog</title>
+      {% elsif template == 'blog' and current_tags contains 'Women' %}
+        <title>Women's Wellness & Gut Health Tips | LoveBug Blog</title>
+      {% elsif template == 'blog' %}
+        <title>LoveBug Blog: Health, Wellness & Gut Tips for All Ages</title>
+      {% elsif template == 'customers/login' %}
+      <title>Login to Your LoveBug Account | Access Probiotic Orders & Info</title>
+      {% elsif template == 'customers/account' %}
+      <title>Your LoveBug Account Dashboard | Manage Orders & Info</title>
+      {% else %}
+      <title>{{ page_title }}</title>
+      {% endif %}
+
+  
+      {% render 'meta-tags' %}
+  
+      {{ content_for_header }}
+  
+      {%- liquid 
+        assign body_font_bold = settings.type_body_font | font_modify: 'weight', 'bold'
+        assign body_font_italic = settings.type_body_font | font_modify: 'style', 'italic'
+        assign body_font_bold_italic = body_font_bold | font_modify: 'style', 'italic'
+      %}
+  
+      {% style %}
+        {{ settings.type_body_font | font_face: font_display: 'swap' }}
+        {{ body_font_bold | font_face: font_display: 'swap' }}
+        {{ body_font_italic | font_face: font_display: 'swap' }}
+        {{ body_font_bold_italic | font_face: font_display: 'swap' }}
+        {{ settings.type_header_font | font_face: font_display: 'swap' }}
+      {% endstyle %}
+      
+      {%- render 'scripts__initializers' -%}
+      {% render 'scripts__deferred-tags', position: "header" %}
+      {%- render 'js-variables' -%}
+  
+      <script>document.documentElement.className = document.documentElement.className.replace('no-js', 'js');</script>
+      {% render 'schema__all' %}
+  
+  
+      {% capture CFH %}{{ content_for_header  }}{% endcapture %}
+      {% if CFH contains 'preview_bar_injector-' %}
+        <!-- CMS External Scripts on Header -->
+        {% unless request.design_mode %}
+          {{ settings.external_scripts_header }}
+        {% endunless %}
+      {% endif %}
+
+      {% unless request.design_mode %}
+        <script>
+          if( !window.location.host.includes( "127.0.0.1" ) ) {
+            window.markerConfig = {
+              project: '67996e927836173921397d2b',
+              source: 'snippet'
+            };
+              
+            !function(e,r,a){if(!e.__Marker){e.__Marker={};var t=[],n={__cs:t};["show","hide","isVisible","capture","cancelCapture","unload","reload","isExtensionInstalled","setReporter","clearReporter","setCustomData","on","off"].forEach(function(e){n[e]=function(){var r=Array.prototype.slice.call(arguments);r.unshift(e),t.push(r)}}),e.Marker=n;var s=r.createElement("script");s.async=1,s.src="https://edge.marker.io/latest/shim.js";var i=r.getElementsByTagName("script")[0];i.parentNode.insertBefore(s,i)}}(window,document);
+          }
+        </script>
+        <!-- Google Tag Manager -->
+        
+       <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-MHLTQQDZ');</script>
+<!-- End Google Tag Manager -->
+       {% render 'datalayer' %}
+        <!-- End Google Tag Manager -->
+      {% endunless %}
+
+      <script src="{{ 'preloads.js' | asset_url }}" defer></script>
+
+<!-- Cookie Consent Banner -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.css" />
+<script src="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.js"></script>
+<script>
+  window.addEventListener("load", function(){
+    window.cookieconsent.initialise({
+      palette: {
+        popup: { background: "#000" },
+        button: { background: "#f1d600" }
+      },
+      theme: "classic",
+      position: "bottom",
+      content: {
+        message: "This website uses cookies to ensure you get the best experience.",
+        dismiss: "Got it!",
+        link: "Learn more",
+        href: "/policies/privacy-policy"
+      }
+    });
+  });
+</script>
+
+       {% render 'rebuy-extensions' %} 
+       
+       <script src="https://analytics.ahrefs.com/analytics.js" data-key="bZ/7uAiSsxNDya+XPBuYhQ" async></script>
+  </head>
+  
+  
+    {% if settings.top_offset_element == "main" %}
+      {% assign top_offset_class = "top-offset-to-main" %}
+    {% elsif settings.top_offset_element == "first_section" %}
+      {% assign top_offset_class = "top-offset-to-first-section" %}
+    {% endif %}
+    {% assign top_offset = "--top-offset: " | append: settings.top_offset | append: "px;" %}
+    {% assign top_offset_mobile = "--top-offset-mobile: " | append: settings.top_offset_mobile | append: "px;" %}
+  
+    {% assign header_style = "" %}
+  
+    {% if page.metafields.mfr_fields.header_style %}
+      {% assign header_style = "dark-theme-header" %}
+    {% endif %}
+  
+    <body id="{{ page_title | handle }}" class="template-{{ template.name | handle }} {{ top_offset_class }} {{ header_style }} {% if customer != blank %}customer-logged-in{% endif %}" 
+      style="{{ top_offset }} {{ top_offset_mobile }}"
+      x-data>
+      {% unless request.design_mode %}
+       <!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MHLTQQDZ"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+      {% endunless %}
+      
+      <div style="display:none"> {% section 'preloader' %} </div>
+  
+      <a class="skip-to-content-link button visually-hidden" href="#MainContent">
+        {{ "accessibility.skip_to_text" | t }}
+      </a>
+  
+      
+  
+      <div style="display:none"> {% sections 'offcanvas-group' %} </div>
+  
+      <ul hidden>
+        <li id="a11y-refresh-page-message">{{ 'accessibility.refresh_page' | t }}</li>
+      </ul>
+  
+      <style>
+        .off-canvas:not(.is-loaded) {
+          display: none;
+        }
+      </style>
+  
+      <header class="header" id="header" data-inview>
+        <div style="display:none"> {% sections 'header-group' %} </div>
+      </header>
+      <main 
+        id="MainContent" 
+        class="content-for-layout focus-none" 
+        role="main" 
+        tabindex="-1">
+        <h1 class="visually-hidden"> {{ page_title }}</h1>
+        {{ content_for_layout }}
+      </main>
+      <footer class="footer" id="footer">
+        {% sections 'footer-group' %}
+      </footer>
+
+      {% sections 'modals-group' %}
+      
+      <script>
+        window.routes = {
+          cart_add_url: '{{ routes.cart_add_url }}',
+          cart_change_url: '{{ routes.cart_change_url }}',
+          cart_update_url: '{{ routes.cart_update_url }}'
+        };
+  
+        window.cartStrings = {
+          error: `{{ 'sections.cart.cart_error' | t }}`,
+          quantityError: `{{ 'sections.cart.cart_quantity_error_html' | t }}`
+        }
+  
+        window.variantStrings = {
+          addToCart: `{{ 'products.product.add_to_cart' | t }}`,
+          soldOut: `{{ 'products.product.sold_out' | t }}`,
+          unavailable: `{{ 'products.product.unavailable' | t }}`,
+        }
+      </script>
+
+      <script>
+      const url = new URL(window.location.href);
+      const fullCanonical = url.origin + url.pathname + url.search;
+      let canonicalTag = document.querySelector('link[rel="canonical"]');
+      console.log("canonicalTag",canonicalTag);
+      canonicalTag.setAttribute('href', fullCanonical);
+      console.log("canonicalTag",canonicalTag);
+      </script>
+
+      {% render 'scripts__deferred-tags', position: "footer" %}
+  
+      {% capture CFH %}{{ content_for_header  }}{% endcapture %}
+      {% if CFH contains 'preview_bar_injector-' %}
+        {% unless request.design_mode %}
+          {{ settings.external_scripts }}
+        {% endunless %}
+      {% endif %}
+      
+      {% render 'dress-up__character',
+        cloud_text: settings.dress_up_cloud_text,
+        cloud_url_mobile: settings.dress_up_cloud_url_mobile,
+        cloud_url_desktop: settings.dress_up_cloud_url_desktop %}
+
+  
+    </body>
+  </html>

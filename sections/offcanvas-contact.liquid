@@ -1,0 +1,450 @@
+{%- capture contact_form -%}
+  {% comment %} Error messages {% endcomment %}
+  {% if form.errors %}
+    {% for field in form.errors %}
+      <span class="errors">
+        {% if field == 'form' %}
+          {{ form.errors.messages[field] }}
+        {% else %}
+          <strong>{{ form.errors.translated_fields[field] }}</strong> {{ form.errors.messages[field] }}
+        {% endif %}
+      </span>
+    {% endfor %}
+  {% endif %}
+
+  {% for block in section.blocks %}
+
+    <div class="form-{{ block.type }}">
+
+      {% case block.type %}
+
+        {% comment %} Email and name fields {% endcomment %}
+        {% when 'email' %}
+          <div class="form-inner">
+            <label for="contactFormName">Name</label>
+            <input type="text" id="contactFormName" name="contact[name]" tabindex="0" placeholder="{{ block.settings.name_placeholder }}" autocapitalize="words" required value="{% if form.name %}{{ form.name }}{% elsif customer %}{{ customer.name }}{% endif %}">
+          </div>
+
+          <div class="form-inner">
+            <label for="contactFormEmail">Email</label>
+            <input type="email" id="contactFormEmail" name="contact[email]" placeholder="{{ block.settings.email_placeholder }}" autocorrect="off" autocapitalize="off" required value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}">
+          </div>
+
+        {% comment %} Dynamic fields {% endcomment %}
+        {% when 'field' %}
+          {% assign id = block.id | prepend: 'field' %}
+
+          <label for="{{ id }}">{{ block.settings.label | escape }}</label>
+          {% if block.settings.type == 'input' %}
+            <input type="text"
+          {% else %}
+            <textarea 
+          {% endif %}
+              id="{{ id }}" name="contact[{{ block.settings.label | handleize }}]" 
+              placeholder="{{ block.settings.placeholder | escape }}" 
+              autocorrect="off" autocapitalize="off" autocomplete="off"
+              {% if block.settings.required -%} required {%- endif %}>
+          {%- if block.settings.type == 'textarea' -%}
+            </textarea>
+          {%- endif -%}
+
+        {% comment %} Dynamic dropdown {% endcomment %}
+        {% when 'dropdown' %}
+          {% assign id = block.id | prepend: 'dropdown' %}
+          {% assign options = block.settings.options | newline_to_br | strip_newlines | split: '<br />' %}
+
+          <label for="{{ id }}">{{ block.settings.label | escape }}</label>
+          <div class="form__select">
+            <select id="{{ id }}" name="contact[{{ block.settings.label | handleize }}]" {% if block.settings.required %}required{% endif %}>
+              <option value="" disabled selected>{{ block.settings.placeholder | default: block.settings.label | escape }}</option>
+              {% for option in options %}
+                <option value="{{ option }}">{{ option }}</option>
+              {% endfor %}
+            </select>
+            {% render 'icon-caret.liquid' %}
+          </div>
+
+        {% comment %} Button field {% endcomment %}
+        {% when 'button' %}
+          <button type="submit" class="button {{ block.settings.color_theme }}">
+            <span class="text">{{ block.settings.label | escape }}</span>
+          </button>
+
+        {% when "cta" %}
+          <a class="panel__cta" href="{{ block.settings.url}}">
+            {{ block.settings.label }}
+          </a>
+      {% endcase %}
+
+    </div>
+  {% endfor %}
+{%- endcapture -%}
+
+{% capture success_message %}
+  {% assign success_message = section.blocks | where: "type", "success_message" | first %}
+
+  {% if success_message != blank %}
+    <div class="offcanvas-contact__success-message">
+      {% if success_message.settings.title != blank %}
+        <p class="h2 offcanvas-contact__success-message-title">
+          {{ success_message.settings.title }}
+        </p>
+      {% endif %}
+      {% if success_message.settings.desc != blank %}
+        <p class="small offcanvas-contact__success-message-desc">
+          {{ success_message.settings.desc }}
+        </p>
+      {% endif %}
+      {% if success_message.settings.embed_code != blank %}
+        <div class="offcanvas-contact__success-message-embed-code">
+          {{ success_message.settings.embed_code }}
+        </div>
+      {% endif %}
+    </div>
+  {% endif %}
+{% endcapture %}
+
+{%- capture contact_content -%}
+  {% render 'renderer__color-scheme', name: "section", color_scheme: section.settings.color_scheme, selector: ".shopify-section", section_id: "offCanvasContact" %}
+  {% render 'style-tags__section', asset_file_name: "offcanvas-contact.css", lazyload: true %}
+
+  <div class="offcanvas-contact__content off-canvas__wrapper offcanvas-contact__wrapper"
+    style="
+      --input-bg-color: {{ section.settings.input_bg }};
+      --input-border-color: {{ section.settings.input_border }};
+    ">
+
+    <button class="close-button close" 
+      aria-label="Close Contact" 
+      type="button"
+      x-data
+      x-on:click='$store["offCanvasContact"].closeOffcanvas()'>
+      {%- render "icon__offcanvas-close" -%}
+    </button>
+    
+    <div class="offcanvas-contact__panel offcanvas-contact-panel">
+      <div class="offcanvas-contact__head">
+        <div class="offcanvas-contact__head-inner section-content">
+          {% if section.settings.title != blank %}
+            {% assign id = section.id | append: "--contact" %}
+            <div id="{{ id }}" class="offcanvas-contact__title">
+              {% render "block__title", 
+                block_id: id,
+                text: section.settings.title,
+                header_style: "h4",
+                disable_animation: true %}
+            </div>
+          {% endif %}
+          
+          {% if section.settings.desc != blank %}
+            <div class="offcanvas-contact__desc">
+              {% assign split_mailto = section.settings.desc | split: "[mailto]" | last | split: "[/mailto]" | first %}
+              {% assign mailto_on_text = "[mailto]" | append: split_mailto | append: "[/mailto]" %}
+              {%- capture mailto_link -%}
+                <a href="mailto:{{- split_mailto -}}">{{- split_mailto -}}</a>
+              {%- endcapture -%}
+              {{ section.settings.desc | replace: mailto_on_text, mailto_link }}
+            </div>
+          {% endif %}
+        </div>
+        {% if section.settings.lottie_file_url != blank %}
+          <div class="offcanvas-contact__lottie">
+            <lottie-player src="{{ section.settings.lottie_file_url }}"  
+              background="transparent"  
+              speed="1"
+              loop
+              autoplay>
+            </lottie-player>
+          </div>
+        {% endif %}
+      </div>
+      
+      <div class="offcanvas-contact__body">
+    
+        {% if section.settings.allow_embed %}
+          <div class="offcanvas-contact__form--embed">
+            {{ section.settings.embed_code }}
+          </div>
+        {% else %}
+          <div class="offcanvas-contact__form"> 
+            {% assign form_id = section.id | prepend: 'form-' %}
+            
+            {% form 'contact', id: form_id, class: 'simple-form mfr-contact' %}
+    
+              <!-- Notification -->
+              {% if form.posted_successfully? %}
+                {% include "component__notification", 
+                    show: true, 
+                    type: "success", 
+                    title: "Success!", 
+                    description: "Form submission success!",
+                    id: "form-notification" %}
+              {% elsif form.errors != blank %}
+                {% include "component__notification", 
+                    show: true, 
+                    type: "error", 
+                    title: "Error", 
+                    description: "There are some error(s) after Contact form submission",
+                    errors: form.errors
+                    id: "form-notification" %}
+              {% endif %}
+    
+              {% comment %} Success message {% endcomment %}
+              {% if form.posted_successfully? %}
+                {{ success_message }}
+              {% else %}
+                {{ contact_form }}
+              {% endif %}
+    
+              
+    
+            {% endform %}
+    
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+{%- endcapture -%}
+
+{%- capture x_init -%}
+  const urlParams = new URLSearchParams(window.location.search);
+
+  if (urlParams.get("contact_posted") === "true") {
+    $store.offCanvas.contact = true
+  }
+{%- endcapture -%}
+
+{% render 'mfr-component__offcanvas',
+  id: "offCanvasContact",
+  class: "offcanvas-contact",
+  position: "right",
+  content: contact_content,
+  x_init: x_init %}
+
+{% schema %}
+{
+  "name": "Offcanvas Contact",
+  "enabled_on": {
+    "groups": ["custom.offcanvas"]
+  },
+  "limit": 1,
+  "settings": [
+    {
+      "type": "text",
+      "id": "lottie_file_url",
+      "label": "Lottie File URL"
+    },
+    {
+      "type": "header",
+      "content": "Color Schemes Settings"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "default": "scheme_1",
+      "label": "Color Scheme",
+      "info": "This will be the color scheme of the header initially."
+    },
+    {
+      "type": "checkbox",
+      "id": "allow_embed",
+      "label": "Allow Embed?",
+      "info": "If enabled, the contact offcanvas will show the embed code instead of input blocks"
+    },
+    {
+      "type": "textarea",
+      "id": "embed_code",
+      "label": "Embed Code"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Get in touch"
+    },
+    {
+      "type": "richtext",
+      "id": "desc",
+      "label": "Description"
+    },
+
+    {
+      "type": "header",
+      "content": "Color Settings"
+    },
+    {
+      "type": "color",
+      "id": "input_bg",
+      "label": "Input Background Color",
+      "default": "#F99FC6"
+    },
+    {
+      "type": "color",
+      "id": "input_border",
+      "label": "Input border Color",
+      "default": "#F3436E"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "field",
+      "name": "Form field",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "info": "Fields should have unique labels"
+        },
+        {
+          "type": "select",
+          "id": "type",
+          "label": "Type",
+          "options": [
+            {
+              "value": "input",
+              "label": "Single line"
+            },
+            {
+              "value": "textarea",
+              "label": "Multi line"
+            }
+          ],
+          "default": "input"
+        },
+        {
+          "type": "text",
+          "id": "placeholder",
+          "label": "Placeholder"
+        },
+        {
+          "type": "checkbox",
+          "id": "required",
+          "label": "Required"
+        }
+      ]
+    },
+    {
+      "type": "dropdown",
+      "name": "Dropdown",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "info": "Fields should have unique labels"
+        },
+        {
+          "type": "textarea",
+          "id": "options",
+          "label": "Options",
+          "info": "Separated by new line"
+        },
+        {
+          "type": "checkbox",
+          "id": "required",
+          "label": "Required"
+        }
+      ]
+    },
+    {
+      "type": "email",
+      "name": "Name & Email",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "name_placeholder",
+          "label": "Name Placeholder",
+          "default": "first & last name..."
+        },
+        {
+          "type": "text",
+          "id": "email_placeholder",
+          "label": "Email Placeholder",
+          "default": "enter your email address..."
+        }
+      ]
+    },
+    {
+      "type": "button",
+      "name": "Submit button",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Submit"
+        },
+        {
+          "type": "select",
+          "id": "color_theme",
+          "label": "Color Theme",
+          "options": [
+            {
+              "value": "primary",
+              "label": "Primary"
+            },
+            {
+              "value": "secondary",
+              "label": "Secondary"
+            },
+            {
+              "value": "tertiary",
+              "label": "Tertiary"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "cta",
+      "name": "CTA",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "url",
+          "id": "url",
+          "label": "Url"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label"
+        }
+      ]
+    },
+    {
+      "type": "success_message",
+      "name": "Success Message",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Thanks for Reaching Out!"
+        },
+        {
+          "type": "textarea",
+          "id": "desc",
+          "label": "Description",
+          "default": "We’ll be getting back to you shortly! In the meantime, wanna chat?"
+        },
+        {
+          "type": "textarea",
+          "id": "embed_code",
+          "label": "Embed Code"
+        }
+      ]
+    },
+  ],
+  "presets": [
+    {
+      "name": "Offcanvas Contact"
+    }
+  ]
+}
+{% endschema %}

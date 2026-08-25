@@ -1,0 +1,432 @@
+<link rel="stylesheet" href="{{ 'section-main-page.css' | asset_url }}" media="print" onload="this.media='all'">
+<noscript>{{ 'section-main-page.css' | asset_url | stylesheet_tag }}</noscript>
+{%- comment -%}
+--------------------------------------
+assign section settings to variables
+--------------------------------------
+{%- endcomment -%}
+
+{% if section.settings.border_bottom %}
+  <style>
+    #shopify-section-{{ section.id }} {
+      position: relative;
+      &:before {
+        content: '';
+        pointer-events: none;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 1.5px;
+        background: linear-gradient(130deg,#795A2E,#4F391F);
+        z-index: 2;
+      }
+    }
+  </style>
+{% endif %}
+
+{% render 'style-tags__section', asset_file_name: "mfr-core__main-page.css" %}
+{%- assign text_alignment = section.settings.text_alignment -%}
+{%- assign container_width = section.settings.container_width -%}
+{%- assign max_width = section.settings.max_width -%}
+{%- assign grid_gutter = section.settings.grid_gutter -%}
+{%- assign color_theme = section.settings.color_theme -%}
+{%- assign custom_class = section.settings.custom_class -%}
+
+{%- assign section_id = section.settings.custom_id | default: section.id -%}
+{% render 'renderer__color-scheme', name: "section", color_scheme: section.settings.color_scheme, selector: ".shopify-section", section_id: section_id %}
+
+{%- if max_width != 0 and container_width == "" -%}
+  {%- capture max_width_style -%}
+    style="max-width: {{ max_width }}rem;" 
+  {%- endcapture -%}
+{%- endif -%}
+
+
+
+{% capture spacer %}
+  --top-spacing-mobile: {{ section.settings.top_spacing_mobile }}px;
+  --bottom-spacing-mobile: {{ section.settings.bottom_spacing_mobile }}px;
+  --top-spacing-desktop: {{ section.settings.top_spacing_desktop }}px;
+  --bottom-spacing-desktop: {{ section.settings.bottom_spacing_desktop }}px;
+{% endcapture %}
+
+<section class="main-page mfr-core__main-page {{ custom_class }} " id="{{ section_id }}">
+  <div class="section-spacer background {{ grid_gutter }}" style="{{ spacer }}">
+    <div class="grid-container {{ container_width }}" {{ max_width_style }}>
+      <div class="grid-x align-center">
+        <div class="cell small-12 large-12 section-content {{ color_theme }} {{ text_alignment }}">
+          <div class="inner">
+            {% unless section.settings.hide_page_title %}
+            <div class="main-page__title">
+              {% render "block__title", 
+                text: page.title | escape,
+                header_style: "h1"
+              %}
+            </div>
+            {% endunless %}
+            <div class="main-page__body">
+             <a href="/pages/page-quiz">{{ page.content }}</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  {%- render 'component__gradient-bg-styles' -%}
+  {%- render 'component__accent-graphics' -%}
+</section>
+
+{%- render 'component__section-dividers', is_video_background: true -%}
+
+{% schema %}
+{
+  "name": "t:sections.main-page.name",
+  "tag": "section",
+  "class": "spaced-section",
+  "disabled_on": {
+    "groups": ["header","footer","custom.offcanvas","custom.modals"]
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_page_title",
+      "label": "Hide Page Title"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "options": [
+          { "value": "", "label": "Left" },
+          { "value": "text-center", "label": "Center" }
+          ],
+      "label": "Text Alignment",
+      "default": "text-center"
+    },
+    {
+      "type": "select",
+      "id": "container_width",
+      "options": [
+          { "value": "full", "label": "Full" },
+          { "value": "", "label": "Contain" }
+          ],
+      "label": "Width",
+      "default": "full"
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "rem",
+      "label": "Max Content Width",
+      "default": 0
+    },
+    {
+      "type": "select",
+      "id": "grid_gutter",
+      "options": [
+          { "value": "grid-gutter", "label": "Padding" },
+          { "value": "", "label": "No Padding" }
+          ],
+      "label": "Section Padding",
+      "default": ""
+    },
+      {
+        "type": "header",
+        "content": "Color Schemes Settings"
+      },
+      {
+        "type": "color_scheme",
+        "id": "color_scheme",
+        "default": "scheme_1",
+        "label": "Color Scheme",
+        "info": "This will be the color scheme of the header initially."
+      },
+
+    {
+      "type": "header",
+      "content": "Mobile Section Spacing"
+    },
+    {
+      "type": "range",
+      "id": "top_spacing_mobile",
+      "min": 0,
+      "max": 500,
+      "step": 10,
+      "unit": "px",
+      "label": "Top Spacing",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "bottom_spacing_mobile",
+      "min": 0,
+      "max": 500,
+      "step": 10,
+      "unit": "px",
+      "label": "Bottom Spacing",
+      "default": 100
+    },
+
+    {
+      "type": "header",
+      "content": "Desktop Section Spacing"
+    },
+    {
+      "type": "range",
+      "id": "top_spacing_desktop",
+      "min": 0,
+      "max": 500,
+      "step": 10,
+      "unit": "px",
+      "label": "Top Spacing",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "bottom_spacing_desktop",
+      "min": 0,
+      "max": 500,
+      "step": 10,
+      "unit": "px",
+      "label": "Bottom Spacing",
+      "default": 100
+    },
+
+    {
+      "type":"header",
+      "content":"Background"
+    },
+    {
+      "type": "color_background",
+      "id": "bg_color",
+      "label": "Background Color/Gradient"
+    },
+
+    {
+      "type": "image_picker",
+      "id": "bg_image_mobile",
+      "label": "Background Image - Mobile"
+    },
+    {
+      "type": "image_picker",
+      "id": "bg_image",
+      "label": "Background Image - Desktop"
+    },
+
+
+    {
+      "type": "header",
+      "content": "Divider Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "top_wave_divider",
+      "label": "Top Wave Divider",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "bottom_wave_divider",
+      "label": "Bottom Wave Divider",
+      "default": false
+    },
+    {
+      "type":"header",
+      "content":"Attribute Settings"
+    },
+    {
+      "type": "text",
+      "id": "custom_class",
+      "label": "Custom class"
+    },
+    {
+      "type": "text",
+      "id": "custom_id",
+      "label": "Custom ID"
+    }
+  ],
+  "blocks": [
+    {
+        "type": "accent_graphic", 
+        "name": "Accent Graphic",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "icon",
+            "label": "Icon"
+          },
+          {
+            "type":"html",
+            "id":"svg_code",
+            "label":"Graphic SVG Code",
+            "info":"Paste SVG code for vector graphic"
+          },
+          {
+            "type":"header",
+            "content":"Visibility"
+          },
+          {
+            "type": "select",
+            "id": "visibility",
+            "options": [
+                { "value": "always", "label": "Always" },
+                { "value": "desktop_only", "label": "Desktop Only" },
+                { "value": "mobile_only", "label": "Mobile Only" }
+                ],
+            "label": "Show on..",
+            "default": "always"
+          },
+          {
+            "type":"header",
+            "content":"Value Type"
+          },
+          {
+            "type": "select",
+            "id": "value_type",
+            "options": [
+                { "value": "px", "label": "Pixels" },
+                { "value": "%", "label": "Percentage" }
+                ],
+            "label": "Position Value Type",
+            "default": "%",
+            "info": "Pixel values are multiplied by 5"
+          },
+          {
+            "type":"header",
+            "content":"Position"
+          },
+          {
+            "type": "select",
+            "id": "x_setting",
+            "options": [
+                { "value": "left", "label": "Left" },
+                { "value": "center", "label": "Center" },
+                { "value": "right", "label": "Right" }
+                ],
+            "label": "X Position",
+            "default": "left"
+          },
+          {
+            "type": "select",
+            "id": "y_setting",
+            "options": [
+                { "value": "top", "label": "Top" },
+                { "value": "bottom", "label": "Bottom" }
+                ],
+            "label": "Y Position",
+            "default": "top"
+          },
+          { 
+            "type":"header",
+            "content":"Large Screen Settings"
+          },
+          {
+            "type": "range",
+            "id": "width_large",
+            "min": 10,
+            "max": 400,
+            "step": 10,
+            "unit": "px",
+            "label": "Graphic Width",
+            "default": 150
+          },
+          {
+            "type": "range",
+            "id": "position_x_large",
+            "min": -100,
+            "max": 100,
+            "step": 2,
+            "label": "X Position",
+            "default": 10
+          },
+          {
+            "type": "range",
+            "id": "position_y_large",
+            "min": -100,
+            "max": 100,
+            "step": 2,
+            "label": "Y Position",
+            "default": 10
+          },
+          {
+            "type":"header",
+            "content":"Small Screen Settings"
+          },
+          {
+            "type": "range",
+            "id": "width_small",
+            "min": 10,
+            "max": 400,
+            "step": 10,
+            "unit": "px",
+            "label": "Graphic Width",
+            "default": 150
+          },
+          {
+            "type": "range",
+            "id": "position_x_small",
+            "min": -100,
+            "max": 100,
+            "step": 2,
+            "label": "X Position",
+            "default": 10
+          },
+          {
+            "type": "range",
+            "id": "position_y_small",
+            "min": -100,
+            "max": 100,
+            "step": 2,
+            "label": "Y Position",
+            "default": 10
+          },
+          {
+            "type":"header",
+            "content":"Animation Settings"
+          },
+          {
+            "type": "select",
+            "id": "animation",
+            "options": [
+                { "value": "none", "label": "None" },
+                { "value": "rotating", "label": "Rotate" },
+                { "value": "floating", "label": "Float" },
+                { "value": "spark", "label": "Spark" }
+              ],
+            "label": "Animation",
+            "default": "none"
+          },
+
+          {
+            "type":"header",
+            "content":"Appearance Settings"
+          },
+          {
+            "type": "range",
+            "id": "rotate",
+            "min": 0,
+            "max": 360,
+            "step": 36,
+            "unit": "%",
+            "label": "Rotate",
+            "default": 0
+          },
+          {
+            "type": "checkbox",
+            "id": "flip",
+            "label": "Flip Graphics?",
+            "default": false
+          }
+        ]
+      }
+  ]
+}
+{% endschema %}

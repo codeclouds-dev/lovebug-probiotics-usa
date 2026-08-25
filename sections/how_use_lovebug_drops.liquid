@@ -1,0 +1,112 @@
+<section class="lovebug_drops">
+  <div class="grid-container">
+    <div class="grid-x align-center">
+      <div class="cell small-12 section-content text-center">
+        <div class="inner">
+          {{ section.settings.heading_new }}
+           
+        <div class="howtouse-row">     
+          {%- for block in section.blocks -%}
+            {% case block.type %}
+
+            {%- when 'image' -%} 
+           
+            
+                <div class="block">
+                    <div class="icon">
+                
+             {{ block.settings.img  | image_url: width: 200 | image_tag }}
+              
+                        
+                    </div>
+                     <p>{{ block.settings.description_text }}</p>
+                </div>
+           
+            {%- endcase -%}
+            
+          {%- endfor -%}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+{% schema %}
+{
+  "name": "Ab Lovebug Drops",
+  "settings":[
+     {
+          "type": "textarea",
+          "id": "heading_new",
+          "label": "Heading",
+          "default": "How to use lovebug drops"
+        },
+  ],
+  "blocks": [
+   
+    {
+      "type": "heading",
+      "name": "Main Heading",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "inline_richtext",
+          "id": "heading",
+          "label": "Heading",
+          "default": "How to use lovebug drops"
+        },
+        {
+          "type": "checkbox",
+          "id": "disable_animation",
+          "label": "Disable Animation",
+          "default": false
+        },
+        {
+          "type": "select",
+          "id": "header_style",
+          "label": "Header Style",
+          "default": "h1",
+          "options": [
+            { "value": "h1", "label": "H1" },
+            { "value": "h2", "label": "H2" },
+            { "value": "h3", "label": "H3" }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "image",
+      "name": "Small Image",
+      
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "img",
+          "label": "Image",
+          
+        },
+        {
+          "type": "textarea",
+          "id": "description_text",
+          "label": "Description text",
+          
+        },
+      ]
+    },
+   
+  ],
+  "presets": [
+    {
+      "name": "Ab Lovebug Drops",
+      "blocks": [
+      
+        { "type": "heading" },
+        { "type": "image" },
+       
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,83 @@
+{%- comment -%}
+  Capture-phase click interceptor for the LP product form's Add To Cart
+  button.
+
+  Why this hooks click and not submit: the ATC button has no
+  type="submit" and no form-submit handler — its only listener is an
+  Alpine @click that opens the off-canvas cart. The actual POST to
+  /cart/add.js is performed by Rebuy's SmartCartV2, which binds its own
+  click handler on the ATC button, reads the form (via serializeArray),
+  and fetches /cart/add.js directly. The form's `submit` event is never
+  dispatched, so a submit listener never fires.
+
+  Why this matters: Recharge's storefront app embed renders a hidden
+  `<select name="selling_plan">` (the plan dropdown) inside the product
+  form whose default selected option carries the subscription plan id.
+  Native FormData and jQuery's serializeArray pick it up regardless of
+  what our Alpine UI shows. Recharge also injects radios named
+  `selling_plan_<plan_id>` with values "subsave" / "onetime"; the
+  "subsave" radio is checked at page load and our UI doesn't sync with
+  it either. Either source on its own is enough for Shopify's cart to
+  add the item as a subscription, since `selling_plan_<id>=<any>` is
+  treated as equivalent to `selling_plan=<id>`.
+
+  The fix: a capture-phase click listener on the ATC button. Capture
+  phase fires before any bubble-phase listener Rebuy or anything else
+  binds, so we can disable the offending inputs synchronously before
+  Rebuy reads the form. Disabled inputs are skipped by both
+  serializeArray and FormData.
+
+  We never re-enable inputs once disabled. Our own
+  `<input name="selling_plan">` is re-created by `<template x-if>` in
+  product-form__subscription-options-lp.liquid whenever sellingPlanType
+  flips back to "subscription", so subscription-mode ATC continues to
+  serialize the correct plan id from our Alpine input.
+
+  Required parameter: section_id — the id of the section's root
+  element, used to scope the selector to this section's form (avoids
+  :not() descendant matching, which is flaky across browsers).
+{%- endcomment -%}
+<script>
+  (function () {
+    var sectionEl = document.getElementById({{ section_id | json }});
+    if (!sectionEl) return;
+
+    var form = sectionEl.querySelector('form.product-top__form');
+    if (!form) return;
+
+    var atcButton = form.querySelector('button.add-to-cart');
+    if (!atcButton) return;
+
+    atcButton.addEventListener('click', function () {
+      var sellingPlanType = null;
+
+      if (window.Alpine && typeof Alpine.$data === 'function') {
+        try {
+          var state = Alpine.$data(form);
+          if (state) sellingPlanType = state.sellingPlanType;
+        } catch (_) {
+          // Alpine present but data unavailable — fall through to radio.
+        }
+      }
+
+      if (sellingPlanType == null) {
+        var checked = form.querySelector('input[name="purchase_selector"]:checked');
+        sellingPlanType = checked ? checked.value : null;
+      }
+
+      if (sellingPlanType !== 'one-time') return;
+
+      // No tag-name prefix on these selectors — Recharge contributes a
+      // `<select name="selling_plan">` (the plan dropdown) as well as
+      // `<input type="radio" name="selling_plan_<id>">` controls, and
+      // both need to be neutralized. disabled controls of any tag type
+      // are skipped by both FormData and serializeArray.
+      var controls = form.querySelectorAll(
+        '[name="selling_plan"], [name^="selling_plan_"]'
+      );
+      for (var i = 0; i < controls.length; i++) {
+        controls[i].disabled = true;
+      }
+    }, true);
+  })();
+</script>

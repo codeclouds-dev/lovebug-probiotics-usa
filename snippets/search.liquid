@@ -1,0 +1,44 @@
+<script src="{{ 'predictive-search.js' | asset_url }}" defer="defer"></script>
+
+<predictive-search class="search">  
+
+  <div class="search__input">
+    <label for="search-input" class="ada-hide-element">Search</label>
+    <input id='search-input' type="text" placeholder="Search">
+
+    
+    {% comment %} <div class="search__close">
+      <p class="search__no-results">0 results</p>
+
+      <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M1 1L21 21" stroke="#D8D8D8" stroke-width="1.6"/>
+        <path d="M21 1L0.999999 21" stroke="#D8D8D8" stroke-width="1.6"/>
+      </svg>
+        
+    </div> {% endcomment %}
+  </div>
+
+  <div class="search__content">
+    
+    {% if searches.links.size > 0 %}
+      <div class="search__initial">
+        <h4>
+          {{ searches_heading }}
+        </h4>
+
+        <ul>
+          {% for link in searches.links %}
+            <li>
+              <a href="/search?q={{ link.title | url_encode }}&type=product&options[unavailable_products]=hide&options[prefix]=last">{{ link.title }}</a>
+            </li>  
+          {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+
+    
+    <div class="search-results" id="search-results" style="display: none;"></div>
+
+  </div>
+
+</predictive-search>

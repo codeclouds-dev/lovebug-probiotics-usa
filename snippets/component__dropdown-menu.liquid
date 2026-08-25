@@ -1,0 +1,12 @@
+<div class="header-menu__dropdown-menu dropdown-menu" 
+  data-dropdown-menu="trigger--{{ link.handle }}">
+  <div class="dropdown-menu__inner">
+    {% for child_link in link.links %}
+      <a href="{{ child_link.url }}"
+          title="{{ child_link.title }}" 
+          class="dropdown-menu__child-link">
+          {{ child_link.title }}
+      </a>
+    {% endfor %}
+  </div>
+</div>

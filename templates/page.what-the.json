@@ -1,0 +1,1450 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "mfr_core_hero_banner_YdxTcz": {
+      "type": "mfr-core__hero-banner",
+      "blocks": {
+        "small_text_YGwiib": {
+          "type": "small_text",
+          "disabled": true,
+          "settings": {
+            "text": "Start Here",
+            "small_text_color": ""
+          }
+        },
+        "heading_ffzfX9": {
+          "type": "heading",
+          "settings": {
+            "heading": "What The 🤬",
+            "disable_animation": true,
+            "header_style": "h1",
+            "make_xl": "",
+            "highlight_color": "",
+            "underline_color": "",
+            "max_width": 0
+          }
+        },
+        "image_EXp8CC": {
+          "type": "image",
+          "settings": {
+            "image_mobile": "shopify://shop_images/what-the-mobile-banner-new_d7d77e76-3647-495c-a946-1006c62ce666.jpg",
+            "image_desktop": "shopify://shop_images/what-the-new-image-banner-desktop.jpg",
+            "lazyload_image": false
+          }
+        }
+      },
+      "block_order": [
+        "small_text_YGwiib",
+        "heading_ffzfX9",
+        "image_EXp8CC"
+      ],
+      "settings": {
+        "disable_entrance_animation": true,
+        "content_alignment": "align-center",
+        "text_alignment": "text-center",
+        "container_width": "",
+        "max_width": 0,
+        "grid_gutter": "",
+        "color_scheme": "scheme-1",
+        "top_spacing_mobile": 60,
+        "bottom_spacing_mobile": 500,
+        "top_spacing_desktop": 170,
+        "bottom_spacing_desktop": 360,
+        "bg_color": "",
+        "top_wave_divider": false,
+        "bottom_wave_divider": false,
+        "custom_class": "",
+        "custom_id": ""
+      }
+    },
+    "mfr_core_image_with_text_fXJjYY": {
+      "type": "mfr-core__image-with-text",
+      "blocks": {
+        "heading_4Mz9KB": {
+          "type": "heading",
+          "settings": {
+            "heading": "Why We Started Lovebug",
+            "header_style": "h4",
+            "make_xl": "",
+            "with_line": false,
+            "highlight_color": "",
+            "underline_color": "",
+            "max_width": 17
+          }
+        },
+        "text_MiFiXM": {
+          "type": "text",
+          "settings": {
+            "text": "<p>During the birth of my son, Hudson, I was put on broad-spectrum antibiotics as a preventive measure for group B strep (GBS). Over the next few months,  both Hudson and I started getting very sick. Initially doctors wanted me to put my newborn on steroids which would have only masked his symptoms. I was desperate to uncover what was causing our health issues, and solve the underlying problem. Ultimately, I discovered that both Hudson and I had a severe imbalance in our gut bacteria caused by all the antibiotics I was given during labor. I was horrified to learn that the 25% of moms that are given antibiotics during labor for GBS and the 33% of mothers that have C-sections are never told about the impact that these medical interventions have or how to mitigate the effects after birth. I created Lovebug because I never wanted another parent to go through what I went through. </p>",
+            "text_style": "medium",
+            "font_family": "",
+            "color": "",
+            "bold_color": "",
+            "underline_color": "",
+            "max_width": 26
+          }
+        },
+        "accent_graphic_3fNNYn": {
+          "type": "accent_graphic",
+          "disabled": true,
+          "settings": {
+            "icon": "shopify://shop_images/Asset_3_4x_2_-min.png",
+            "svg_code": "",
+            "visibility": "desktop_only",
+            "value_type": "%",
+            "x_setting": "left",
+            "y_setting": "top",
+            "width_large": 170,
+            "position_x_large": 34,
+            "position_y_large": 60,
+            "width_small": 120,
+            "position_x_small": 10,
+            "position_y_small": 10,
+            "animation": "floating",
+            "rotate": 0,
+            "flip": false
+          }
+        },
+        "accent_graphic_3hiXBP": {
+          "type": "accent_graphic",
+          "settings": {
+            "icon": "shopify://shop_images/Asset_3_4x_2_-min.png",
+            "svg_code": "",
+            "visibility": "mobile_only",
+            "value_type": "%",
+            "x_setting": "right",
+            "y_setting": "top",
+            "width_large": 180,
+            "position_x_large": 34,
+            "position_y_large": 60,
+            "width_small": 120,
+            "position_x_small": 2,
+            "position_y_small": 0,
+            "animation": "floating",
+            "rotate": 0,
+            "flip": false
+          }
+        },
+        "accent_graphic_xMhBCB": {
+          "type": "accent_graphic",
+          "settings": {
+            "icon": "shopify://shop_images/Group_70_4x-min.png",
+            "svg_code": "",
+            "visibility": "always",
+            "value_type": "%",
+            "x_setting": "right",
+            "y_setting": "top",
+            "width_large": 150,
+            "position_x_large": 0,
+            "position_y_large": 10,
+            "width_small": 70,
+            "position_x_small": 0,
+            "position_y_small": 44,
+            "animation": "floating",
+            "rotate": 0,
+            "flip": false
+          }
+        },
+        "accent_graphic_A3aRFp": {
+          "type": "accent_graphic",
+          "settings": {
+            "icon": "shopify://shop_images/Group_77_4x-min.png",
+            "svg_code": "",
+            "visibility": "always",
+            "value_type": "%",
+            "x_setting": "left",
+            "y_setting": "top",
+            "width_large": 50,
+            "position_x_large": 50,
+            "position_y_large": 82,
+            "width_small": 30,
+            "position_x_small": 4,
+            "position_y_small": 86,
+            "animation": "floating",
+            "rotate": 0,
+            "flip": false
+          }
+        }
+      },
+      "block_order": [
+        "heading_4Mz9KB",
+        "text_MiFiXM",
+        "accent_graphic_3fNNYn",
+        "accent_graphic_3hiXBP",
+        "accent_graphic_xMhBCB",
+        "accent_graphic_A3aRFp"
+      ],
+      "settings": {
+        "image_mobile": "shopify://shop_images/393629173_633589608946184_2078007633699468967_n_copy_4x-min.jpg",
+        "image": "shopify://shop_images/393629173_633589608946184_2078007633699468967_n_copy_4x-min.jpg",
+        "lazyload_image": true,
+        "static_image": false,
+        "media_caption": "",
+        "image_rounding": "rounded",
+        "image_offset": "",
+        "media_max_width_mobile": 28,
+        "media_max_width": 40,
+        "hide_image_on_mobile": false,
+        "text_side_desktop": "text-left",
+        "text_side_mobile": "text-top",
+        "add_overlap": false,
+        "vertical_alignment": "flex-start",
+        "image_column_size": "half",
+        "enable_border": false,
+        "text_alignment": "",
+        "container_width": "",
+        "max_width": 0,
+        "grid_gutter": "",
+        "color_scheme": "",
+        "top_spacing_mobile": 70,
+        "bottom_spacing_mobile": 40,
+        "top_spacing_desktop": 110,
+        "bottom_spacing_desktop": 100,
+        "bg_color": "",
+        "top_wave_divider": true,
+        "bottom_wave_divider": false,
+        "custom_class": "",
+        "custom_id": ""
+      }
+    },
+    "mfr_lb_press_cards_XeyVQa": {
+      "type": "mfr-lb__press-cards",
+      "blocks": {
+        "heading_rYwGM9": {
+          "type": "heading",
+          "settings": {
+            "heading": "Problematic Trends",
+            "disable_animation": false,
+            "header_style": "h2",
+            "make_xl": "",
+            "highlight_color": "",
+            "underline_color": "",
+            "max_width": 0
+          }
+        },
+        "text_PLprDx": {
+          "type": "text",
+          "settings": {
+            "text": "<p>US life expectancy has dropped dramatically over the last decade. Children born today are the first generation expected to live shorter lives than their parents. That would make us the first generation of parents to allow this. We cannot stand by and let that happen!</p>",
+            "disable_animation": false,
+            "text_style": "large",
+            "color": "",
+            "max_width": 36
+          }
+        },
+        "entry_dgGDc4": {
+          "type": "entry",
+          "settings": {
+            "caption": "<strong>U.S. to fall from 49th to 66th globally in life expectancy rankings.</strong><br><br>Today, Italians live 8 years longer than Americans!",
+            "image": "shopify://shop_images/Combined_Shape_4x-min.png",
+            "label": "",
+            "url": "https://www.forbes.com/sites/joshuacohen/2025/01/01/alarming-stagnation-in-us-life-expectancy-continues/"
+          }
+        },
+        "entry_ntcxWK": {
+          "type": "entry",
+          "settings": {
+            "caption": "<strong>Pesticides are bug killers, we are bug lovers. </strong><br><br>“Over 1 billion pounds of pesticides are used in the United States each year”. These pesticides are killing bugs on our food and the good bugs inside our bodies.<br><br><small> <a href=\"https://pmc.ncbi.nlm.nih.gov/articles/PMC2946087/\">Quote by National Institute of Health</a> </small>",
+            "label": "",
+            "url": ""
+          }
+        },
+        "entry_tnbqJA": {
+          "type": "entry",
+          "settings": {
+            "caption": "<strong>Our food is doused in chemicals. </strong><br><br>“10,000 chemicals are allowed [on food] in the United States when only 400 are allowed in Europe. All these chemicals [are] to make the food addictive, to make the food cheap, to do the monocropping… We don't need to wait for the research on this, these chemicals, these neurotoxins are destroying ourselves, destroying our microbiome in ways we don't fully understand.\n<br><br><small><a href=\"https://www.happyscribe.com/public/the-joe-rogan-experience/2210-calley-means-casey-means-md\">Quote by Casey and Cally Means</a></small>",
+            "label": "",
+            "url": ""
+          }
+        },
+        "entry_pAFmCW": {
+          "type": "entry",
+          "settings": {
+            "caption": "<strong>“All disease begins in the gut” - Hippocrates</strong><br><br>\"70 million Americans are suffering from gastrointestinal (GI) diseases”<br><br>\"50% americans have type 2 or pre-diabetes. Auto-immune diseases are going up 13% per year. Chronic disease is exploding amongst children and adults. A happy gut is your first line of defense against disease—nurture it well.<br><br><small><a href=\"https://gastro.org/press-releases/new-survey-finds-forty-percent-of-americans-daily-lives-are-disrupted-by-digestive-troubles/\">AGA</a> </small>",
+            "label": "",
+            "url": ""
+          }
+        }
+      },
+      "block_order": [
+        "heading_rYwGM9",
+        "text_PLprDx",
+        "entry_dgGDc4",
+        "entry_ntcxWK",
+        "entry_tnbqJA",
+        "entry_pAFmCW"
+      ],
+      "settings": {
+        "text_alignment": "text-center",
+        "container_width": "",
+        "max_width": 0,
+        "grid_gutter": "",
+        "color_scheme": "",
+        "top_spacing_mobile": 50,
+        "bottom_spacing_mobile": 100,
+        "top_spacing_desktop": 70,
+        "bottom_spacing_desktop": 170,
+        "bg_color": "",
+        "top_wave_divider": false,
+        "bottom_wave_divider": false,
+        "custom_class": "",
+        "custom_id": ""
+      }
+    },
+    "mfr_lb_geek_cards_BfPP47": {
+      "type": "mfr-lb__geek-cards",
+      "blocks": {
+        "heading_6TfcHq": {
+          "type": "heading",
+          "settings": {
+            "heading": "[highlight]Problems[/highlight] with Antibiotics",
+            "disable_animation": false,
+            "header_style": "h1",
+            "make_xl": "",
+            "highlight_color": "#f7c127",
+            "underline_color": "",
+            "max_width": 40
+          }
+        },
+        "entry_YBwATY": {
+          "type": "entry",
+          "settings": {
+            "title": "Inappropriate Prescriptions",
+            "caption": "Antibiotic overuse disrupts gut bacteria, leading to poor digestion and weakened immunity. Probiotics restore balance by replenishing beneficial bacteria, supporting gut health and overall well-being. <br><br>[geek-text]Healthcare professionals prescribed 211.1 million antibiotic prescriptions” per year.<u><a href=\"https://archive.cdc.gov/#/details?url=https://www.cdc.gov/antibiotic-use/data/report-2021.html\"> - CDC Archive</a></u> [/geek-text]<br>\n[geek-text]That’s equivalent to almost 7 antibiotic prescriptions for every 10 people. Up to 50% of antibiotic prescriptions are inappropriate according to the <u><a href=\"https://pmc.ncbi.nlm.nih.gov/articles/PMC6440589/\">NIH</a></u>. [/geek-text]",
+            "bg_color": "#ffb9a6",
+            "text_color": "#2b3990"
+          }
+        },
+        "entry_zeVWXA": {
+          "type": "entry",
+          "settings": {
+            "title": "Overuse of Antibiotics",
+            "caption": "Antibiotics, while sometimes life-saving, can also kill beneficial bacteria in the gut, weakening the microbiome and leaving room for harmful bacteria to thrive.<br><br>\n[geek-text]Not only are antibiotics over prescribed by our doctors, “80% of the antibiotics sold in America are given to live-stock”, <u><a href=\"https://www.science.org/content/article/are-antibiotics-turning-livestock-superbug-factories#:~:text=Almost%2080%25%20of%20all%20antibiotics,be%20more%20than%20200%2C000%20tons.\">Science.org</a></u>, those are animals that we then eat.  [/geek-text]<br>\n[geek-text]Antibiotics are not just in our food, they’re also often in our water supply. Probiotics help replenish and support the growth of good bacteria, restoring balance after antibiotic exposure.[/geek-text]",
+            "bg_color": "#4fd4da",
+            "text_color": "#2b3990"
+          }
+        },
+        "entry_wQx7ak": {
+          "type": "entry",
+          "settings": {
+            "title": "Leaky Gut and Stress",
+            "caption": "Chronic stress can have a profound impact on gut health by altering the gut microbiome and increasing gut permeability (often referred to as \"leaky gut\").<br><br>\n[geek-text]Stress-related changes in the gut can contribute to digestive issues like bloating, constipation, and even mood disturbances. Probiotics help maintain the integrity of the gut barrier and support emotional well-being by balancing the gut-brain axis. “The heightened inflammation that frequently accompanies stress and depression triggers blooms of pathogenic bacteria that encourage dysbiosis and a leaky gut”. <u><a href=\"https://pmc.ncbi.nlm.nih.gov/articles/PMC7213601\">NIH</a></u> [/geek-text]\n<br>[geek-text]Chronic inflammation is linked to DNA damage and can lead to  many types of diseases and even cancer.[/geek-text]",
+            "bg_color": "#ffcb36",
+            "text_color": "#2b3990"
+          }
+        },
+        "entry_eTQAea": {
+          "type": "entry",
+          "settings": {
+            "title": "Environmental Toxins and Western Diet",
+            "caption": "Exposure to environmental pollutants and chemicals can disrupt the gut microbiome, contributing to inflammation and gut dysbiosis.<br><br>\n[geek-text]Probiotics can help mitigate some of these effects by supporting the gut’s natural defense mechanisms and promoting a healthy microbiome. The Western diet, high in processed foods and sugar, harms gut health by reducing beneficial bacteria and increasing inflammation. Probiotics help restore balance, supporting digestion and overall well-being. “Western diet can negatively affect gut microbiota by causing dysbiosis and gut barrier dysfunction, leading to low-grade systemic inflammation” <u><a href=\"https://www.sciencedirect.com/science/article/pii/S1521691824000489#:~:text=Western%20diet%20can%20negatively%20affect,in%20the%20development%20of%20NCDs.\">- Science Direct </a></u><br>[/geek-text]\n<br>[geek-text]“This yearly (2020) report found that nearly 99 percent of almost 10,000 samples of fresh, frozen and processed foods had pesticide residues”. <u><a href=\"https://www.usda.gov/about-usda/news/blog/eat-confidence\">-USDA</a></u>[/geek-text]",
+            "bg_color": "#ffe9e2",
+            "text_color": "#2b3990"
+          }
+        },
+        "accent_graphic_7Wqiak": {
+          "type": "accent_graphic",
+          "settings": {
+            "icon": "shopify://shop_images/Group_103_4x_2_-min.png",
+            "svg_code": "",
+            "visibility": "always",
+            "value_type": "%",
+            "x_setting": "right",
+            "y_setting": "top",
+            "width_large": 50,
+            "position_x_large": 10,
+            "position_y_large": 24,
+            "width_small": 40,
+            "position_x_small": 2,
+            "position_y_small": 12,
+            "animation": "rotating",
+            "rotate": 0,
+            "flip": false
+          }
+        },
+        "accent_graphic_pThHRg": {
+          "type": "accent_graphic",
+          "settings": {
+            "icon": "shopify://shop_images/Group_103_4x_2_-min.png",
+            "svg_code": "",
+            "visibility": "always",
+            "value_type": "%",
+            "x_setting": "left",
+            "y_setting": "top",
+            "width_large": 50,
+            "position_x_large": 16,
+            "position_y_large": 16,
+            "width_small": 50,
+            "position_x_small": 2,
+            "position_y_small": 0,
+            "animation": "rotating",
+            "rotate": 0,
+            "flip": false
+          }
+        },
+        "accent_graphic_WKNEeq": {
+          "type": "accent_graphic",
+          "settings": {
+            "icon": "shopify://shop_images/Group_424_4x-min.png",
+            "svg_code": "",
+            "visibility": "always",
+            "value_type": "%",
+            "x_setting": "right",
+            "y_setting": "top",
+            "width_large": 100,
+            "position_x_large": 18,
+            "position_y_large": 14,
+            "width_small": 60,
+            "position_x_small": 2,
+            "position_y_small": 2,
+            "animation": "rotating",
+            "rotate": 0,
+            "flip": false
+          }
+        },
+        "accent_graphic_Hdc4KH": {
+          "type": "accent_graphic",
+          "settings": {
+            "icon": "shopify://shop_images/Group_1461_4x-min.png",
+            "svg_code": "",
+            "visibility": "desktop_only",
+            "value_type": "%",
+            "x_setting": "right",
+            "y_setting": "bottom",
+            "width_large": 140,
+            "position_x_large": -26,
+            "position_y_large": 0,
+            "width_small": 150,
+            "position_x_small": 10,
+            "position_y_small": 10,
+            "animation": "floating",
+            "rotate": 0,
+            "flip": false
+          }
+        }
+      },
+      "block_order": [
+        "heading_6TfcHq",
+        "entry_YBwATY",
+        "entry_zeVWXA",
+        "entry_wQx7ak",
+        "entry_eTQAea",
+        "accent_graphic_7Wqiak",
+        "accent_graphic_pThHRg",
+        "accent_graphic_WKNEeq",
+        "accent_graphic_Hdc4KH"
+      ],
+      "settings": {
+        "lottie_file_url": "https://cdn.shopify.com/s/files/1/0509/9677/3062/files/stomach_bad.json?v=1737946776",
+        "text_alignment": "text-center",
+        "container_width": "",
+        "max_width": 0,
+        "grid_gutter": "",
+        "color_scheme": "scheme-3d6d5546-cc24-4027-ae43-eb909eaaabba",
+        "top_spacing_mobile": 90,
+        "bottom_spacing_mobile": 30,
+        "top_spacing_desktop": 100,
+        "bottom_spacing_desktop": 70,
+        "bg_color": "",
+        "top_wave_divider": true,
+        "bottom_wave_divider": false,
+        "custom_class": "",
+        "custom_id": ""
+      }
+    },
+    "mfr_lb_icon_text_grid_qJwCcG": {
+      "type": "mfr-lb__icon-text-grid",
+      "blocks": {
+        "small_text_fLxWpP": {
+          "type": "small_text",
+          "settings": {
+            "text": "Lovebug is firmly rooted in science.",
+            "small_text_color": ""
+          }
+        },
+        "heading_M3jx4Y": {
+          "type": "heading",
+          "settings": {
+            "heading": "What We’re Doing About it",
+            "disable_animation": false,
+            "header_style": "h1",
+            "make_xl": "",
+            "highlight_color": "",
+            "underline_color": "",
+            "max_width": 38
+          }
+        },
+        "text_6LwfFq": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Our team of researchers spent countless hours developing our products, using targeted blends of probiotic strains shown to have specific health benefits.</p>",
+            "disable_animation": false,
+            "text_style": "xlarge",
+            "color": "",
+            "max_width": 40
+          }
+        },
+        "entry_RbJ7DU": {
+          "type": "entry",
+          "settings": {
+            "icon": "shopify://shop_images/Group_21_4x_4c1a9753-c4b2-4868-8a0c-c5e9c983682a.svg",
+            "title": "Counter Underexposure",
+            "caption": "<br>Probiotics counter overexposure to harmful factors like antibiotics, processed foods, and toxins by replenishing beneficial bacteria, restoring gut balance, and strengthening overall health."
+          }
+        },
+        "entry_GqJziq": {
+          "type": "entry",
+          "settings": {
+            "icon": "shopify://shop_images/Group_66_Copy_2.svg",
+            "title": "Educate Families",
+            "caption": "<br> Lovebug is passionate about health education, and our probiotics were formulated by scientists. We promote healthier choices by educating families on the role of probiotics in restoring gut balance, improving digestion, and supporting overall wellness."
+          }
+        },
+        "entry_jHF6JK": {
+          "type": "entry",
+          "disabled": true,
+          "settings": {
+            "icon": "shopify://shop_images/Group_66_Copy_2.svg",
+            "title": "Educate Families",
+            "caption": "<br>We believe at Lovebug that the first step to a healthy lifestyle is education. The most important thing you can do to improve your health is get educated. Lovebug is passionate about health education, and our probiotics were formulated by scientists. We promote healthier choices by educating families on the role of probiotics in restoring gut balance, improving digestion, and supporting overall wellness."
+          }
+        },
+        "entry_DVpckw": {
+          "type": "entry",
+          "disabled": true,
+          "settings": {
+            "icon": "shopify://shop_images/Group_66_Copy_3.svg",
+            "title": "Provide Solutions",
+            "caption": "<br>Lovebug provides solutions in helping families restore gut balance, improve digestion, and support overall health, offering a simple way to counter the effects of poor diet and environmental stressors. We have different probiotics for everyone in the family!  We are the first company to build a staged line of probiotics from birth to age 4 to help build a baby’s microbiome.  We know how important it is to nurture the microbiome to build the foundation for lifelong health."
+          }
+        },
+        "entry_gJie8J": {
+          "type": "entry",
+          "settings": {
+            "icon": "shopify://shop_images/Group_66_Copy_3.svg",
+            "title": "Provide Solutions",
+            "caption": "<br>Lovebug provides solutions in helping families restore gut balance, improve digestion, and support overall health, offering a simple way to counter the effects of poor diet and environmental stressors. We have different probiotics for everyone in the family!"
+          }
+        },
+        "entry_NYfeWr": {
+          "type": "entry",
+          "settings": {
+            "icon": "shopify://shop_images/Group_66_Copy_4.svg",
+            "title": "We’re Here to Have Fun!",
+            "caption": "<br>At Lovebug we’re as passionate about education as we are about fun! We know we only get one body, and we want everyone to understand that learning about and caring for your body is a good time. We put the FUN in FUNctional health!"
+          }
+        },
+        "accent_graphic_QJE7JA": {
+          "type": "accent_graphic",
+          "settings": {
+            "icon": "shopify://shop_images/Group_51_4x-min.png",
+            "svg_code": "",
+            "visibility": "always",
+            "value_type": "%",
+            "x_setting": "left",
+            "y_setting": "top",
+            "width_large": 90,
+            "position_x_large": 20,
+            "position_y_large": 26,
+            "width_small": 80,
+            "position_x_small": 6,
+            "position_y_small": 6,
+            "animation": "floating",
+            "rotate": 0,
+            "flip": false
+          }
+        },
+        "accent_graphic_yqMccY": {
+          "type": "accent_graphic",
+          "settings": {
+            "icon": "shopify://shop_images/Group_39_4x_2_-min.png",
+            "svg_code": "",
+            "visibility": "always",
+            "value_type": "%",
+            "x_setting": "right",
+            "y_setting": "top",
+            "width_large": 250,
+            "position_x_large": 10,
+            "position_y_large": 16,
+            "width_small": 120,
+            "position_x_small": 2,
+            "position_y_small": 28,
+            "animation": "floating",
+            "rotate": 0,
+            "flip": false
+          }
+        }
+      },
+      "block_order": [
+        "small_text_fLxWpP",
+        "heading_M3jx4Y",
+        "text_6LwfFq",
+        "entry_RbJ7DU",
+        "entry_GqJziq",
+        "entry_jHF6JK",
+        "entry_DVpckw",
+        "entry_gJie8J",
+        "entry_NYfeWr",
+        "accent_graphic_QJE7JA",
+        "accent_graphic_yqMccY"
+      ],
+      "settings": {
+        "text_alignment": "text-center",
+        "container_width": "",
+        "max_width": 0,
+        "grid_gutter": "",
+        "color_scheme": "",
+        "top_spacing_mobile": 30,
+        "bottom_spacing_mobile": 70,
+        "top_spacing_desktop": 70,
+        "bottom_spacing_desktop": 50,
+        "bg_color": "#2B3990",
+        "top_wave_divider": false,
+        "bottom_wave_divider": false,
+        "custom_class": "",
+        "custom_id": ""
+      }
+    },
+    "mfr_lb_lottie_text_section_U3die4": {
+      "type": "mfr-lb__lottie-text-section",
+      "blocks": {
+        "heading_Fnnq64": {
+          "type": "heading",
+          "settings": {
+            "heading": "[highlight]Health[/highlight] Starts in the Gut",
+            "disable_animation": false,
+            "header_style": "h1",
+            "make_xl": "",
+            "highlight_color": "#ffdd00",
+            "underline_color": "",
+            "max_width": 30
+          }
+        },
+        "text_niirCq": {
+          "type": "text",
+          "settings": {
+            "text": "<p>A balanced microbiome is key to digestion, immunity, and overall well-being. Probiotics help nourish and restore your gut, supporting your body’s natural processes for a healthier, happier life.</p>",
+            "disable_animation": false,
+            "text_style": "xlarge",
+            "color": "",
+            "max_width": 24
+          }
+        },
+        "accent_graphic_8RxrDy": {
+          "type": "accent_graphic",
+          "settings": {
+            "icon": "shopify://shop_images/Group_103_4x_2_-min.png",
+            "svg_code": "",
+            "visibility": "desktop_only",
+            "value_type": "%",
+            "x_setting": "right",
+            "y_setting": "top",
+            "width_large": 50,
+            "position_x_large": 32,
+            "position_y_large": 4,
+            "width_small": 50,
+            "position_x_small": 10,
+            "position_y_small": 10,
+            "animation": "rotating",
+            "rotate": 0,
+            "flip": false
+          }
+        },
+        "accent_graphic_eRQcjD": {
+          "type": "accent_graphic",
+          "settings": {
+            "icon": "shopify://shop_images/Group_3_1.svg",
+            "svg_code": "",
+            "visibility": "always",
+            "value_type": "%",
+            "x_setting": "right",
+            "y_setting": "top",
+            "width_large": 110,
+            "position_x_large": 10,
+            "position_y_large": 16,
+            "width_small": 90,
+            "position_x_small": -58,
+            "position_y_small": 44,
+            "animation": "floating",
+            "rotate": 0,
+            "flip": false
+          }
+        },
+        "accent_graphic_3iTiWB": {
+          "type": "accent_graphic",
+          "settings": {
+            "icon": "shopify://shop_images/Group_3_4x_426e8116-3d68-4a77-b680-e3735d66176d.svg",
+            "svg_code": "",
+            "visibility": "always",
+            "value_type": "%",
+            "x_setting": "left",
+            "y_setting": "top",
+            "width_large": 130,
+            "position_x_large": 52,
+            "position_y_large": 68,
+            "width_small": 100,
+            "position_x_small": -50,
+            "position_y_small": 78,
+            "animation": "floating",
+            "rotate": 0,
+            "flip": false
+          }
+        }
+      },
+      "block_order": [
+        "heading_Fnnq64",
+        "text_niirCq",
+        "accent_graphic_8RxrDy",
+        "accent_graphic_eRQcjD",
+        "accent_graphic_3iTiWB"
+      ],
+      "settings": {
+        "lottie_file_url": "https://cdn.shopify.com/s/files/1/0509/9677/3062/files/stomach_good.json?v=1736913907",
+        "order_mobile": "text-top",
+        "order_desktop": "text-left",
+        "vertical_alignment": "center",
+        "image_column_size": "two-thirds",
+        "text_alignment": "text-center",
+        "container_width": "",
+        "max_width": 0,
+        "grid_gutter": "",
+        "color_scheme": "scheme-3d6d5546-cc24-4027-ae43-eb909eaaabba",
+        "top_spacing_mobile": 70,
+        "bottom_spacing_mobile": 90,
+        "top_spacing_desktop": 50,
+        "bottom_spacing_desktop": 100,
+        "bg_color": "",
+        "top_wave_divider": false,
+        "bottom_wave_divider": false,
+        "custom_class": "",
+        "custom_id": ""
+      }
+    },
+    "mfr_core_text_section_DUKiTp": {
+      "type": "mfr-core__text-section",
+      "blocks": {
+        "small_text_Q67J77": {
+          "type": "small_text",
+          "settings": {
+            "text": "About Your Gut…",
+            "small_text_color": ""
+          }
+        },
+        "heading_pCagPM": {
+          "type": "heading",
+          "settings": {
+            "heading": "What are probiotics anyway?",
+            "disable_animation": false,
+            "header_style": "h1",
+            "make_xl": "",
+            "highlight_color": "",
+            "underline_color": "",
+            "max_width": 43
+          }
+        },
+        "geek_switch_twWDXY": {
+          "type": "geek_switch",
+          "settings": {}
+        },
+        "text_7QhkK3": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Probiotics are live bacteria and yeasts that are beneficial for your health, especially your digestive system. Often called \"good\" or \"friendly\" bacteria, probiotics help maintain a balanced gut microbiome by promoting the growth of healthy bacteria. These good bugs support digestion, boost immunity, and can even improve mood and mental health by influencing the gut-brain connection. Essentially, probiotics help keep your gut—and your whole body—healthy and functioning at its best! </p><p>[geek-text]You are your own ecosystem. [/geek-text]</p><p>[geek-text]The human body is home to trillions of bacteria, with estimates suggesting that the number of microbial cells in the body is approximately equal to or even exceeds the number of human cells. Most of these bacteria reside in the gut, where they outnumber human cells by about 10 to 1. In fact, the human microbiome—the collective genome of all these microorganisms—has been found to contain roughly 100 times as many genes as our own genome.[/geek-text]</p><p>[geek-text]These bacteria are not merely passive residents; they play a crucial role in regulating our health. Each species of bacteria in the microbiome contains its own unique DNA, which encodes the machinery necessary for survival, reproduction, and metabolic processes. When we ingest food or interact with the environment, these bacteria metabolize nutrients in ways that are directly beneficial to us, such as fermenting fiber into short-chain fatty acids like butyrate, which are vital for gut health and immune regulation.[/geek-text]</p><p>[geek-text]The DNA of these microbes also communicates with our own cells. This occurs through multiple mechanisms, including the release of microbial metabolites and signaling molecules that can influence gene expression in human cells. For example, short-chain fatty acids produced by gut bacteria can interact with our intestinal epithelial cells, modulating gene expression related to inflammation, barrier function, and immune responses. This interaction can extend beyond the gut; these microbial products can enter the bloodstream and affect distant organs, including the brain, liver, and heart, by regulating systemic inflammation and metabolism.[/geek-text]</p><p>[geek-text]In addition to their metabolic and immunological contributions, bacteria in the gut also influence the way our DNA behaves at a cellular level. Some microbial metabolites are involved in epigenetic regulation, meaning they can modify how our genes are expressed without altering the underlying DNA sequence. This may influence processes like cell growth, apoptosis (programmed cell death), and the development of diseases such as cancer, diabetes, and cardiovascular conditions.[/geek-text]</p><p>[geek-text]One clear example of this interplay between our microbial DNA and human DNA is the regulation of immune function. Our immune cells interact with microbial components through pattern recognition receptors, and these interactions help to shape the immune system's responses. Dysregulation in the microbiome—such as an overgrowth of pathogenic bacteria or a loss of beneficial strains—can result in chronic inflammation and immune system dysfunction, potentially leading to diseases like autoimmune disorders, allergies, and metabolic syndrome.[/geek-text]</p><p>[geek-text]Furthermore, research has shown that gut bacteria can communicate with the central nervous system via the gut-brain axis. Microbial signals, including neurotransmitters and metabolic by-products, can influence mood, behavior, and even cognitive function by interacting with our brain cells and modifying gene expression in areas like the hypothalamus or hippocampus. This bi-directional communication between gut bacteria and the brain is a key area of research, especially in understanding mental health conditions like depression and anxiety.[/geek-text]</p><p>[geek-text]In essence, the trillions of bacteria in our bodies form a dynamic, mutually beneficial ecosystem with our human cells. Their DNA interacts with our own at the molecular level, influencing gene expression, metabolic processes, immune function, and even brain activity. This symbiotic relationship is crucial for maintaining health, and any disruption in this balance—due to factors like poor diet, antibiotics, or illness—can have widespread effects on our well-being.[/geek-text]</p>",
+            "disable_animation": false,
+            "text_style": "xlarge",
+            "color": "",
+            "max_width": 50
+          }
+        },
+        "accent_graphic_Wa9CjK": {
+          "type": "accent_graphic",
+          "settings": {
+            "icon": "shopify://shop_images/1_copy_4x-min.png",
+            "svg_code": "",
+            "visibility": "always",
+            "geek_mode_visibility": "",
+            "value_type": "%",
+            "x_setting": "left",
+            "y_setting": "top",
+            "width_large": 170,
+            "position_x_large": 10,
+            "position_y_large": -18,
+            "width_small": 120,
+            "position_x_small": 2,
+            "position_y_small": -14,
+            "animation": "floating",
+            "rotate": 0,
+            "flip": false
+          }
+        },
+        "accent_graphic_wNKJpK": {
+          "type": "accent_graphic",
+          "settings": {
+            "icon": "shopify://shop_images/2_4x-min_2.png",
+            "svg_code": "",
+            "visibility": "always",
+            "geek_mode_visibility": "",
+            "value_type": "%",
+            "x_setting": "right",
+            "y_setting": "top",
+            "width_large": 160,
+            "position_x_large": 10,
+            "position_y_large": 8,
+            "width_small": 90,
+            "position_x_small": -50,
+            "position_y_small": 2,
+            "animation": "floating",
+            "rotate": 0,
+            "flip": false
+          }
+        },
+        "accent_graphic_bbHChd": {
+          "type": "accent_graphic",
+          "settings": {
+            "icon": "shopify://shop_images/2_4x_7055513d-8d52-4fba-a848-9300d764206c.png",
+            "svg_code": "",
+            "visibility": "always",
+            "geek_mode_visibility": "",
+            "value_type": "%",
+            "x_setting": "left",
+            "y_setting": "top",
+            "width_large": 80,
+            "position_x_large": -50,
+            "position_y_large": 36,
+            "width_small": 80,
+            "position_x_small": -50,
+            "position_y_small": 38,
+            "animation": "floating",
+            "rotate": 0,
+            "flip": false
+          }
+        },
+        "accent_graphic_E8wwaH": {
+          "type": "accent_graphic",
+          "settings": {
+            "icon": "shopify://shop_images/2_4x-min_4.png",
+            "svg_code": "",
+            "visibility": "always",
+            "geek_mode_visibility": "",
+            "value_type": "%",
+            "x_setting": "right",
+            "y_setting": "top",
+            "width_large": 150,
+            "position_x_large": -50,
+            "position_y_large": 44,
+            "width_small": 80,
+            "position_x_small": -50,
+            "position_y_small": 48,
+            "animation": "floating",
+            "rotate": 0,
+            "flip": false
+          }
+        },
+        "accent_graphic_YceNfm": {
+          "type": "accent_graphic",
+          "settings": {
+            "icon": "shopify://shop_images/Group_58.svg",
+            "svg_code": "",
+            "visibility": "always",
+            "geek_mode_visibility": "",
+            "value_type": "%",
+            "x_setting": "right",
+            "y_setting": "top",
+            "width_large": 130,
+            "position_x_large": 16,
+            "position_y_large": 70,
+            "width_small": 70,
+            "position_x_small": -10,
+            "position_y_small": 80,
+            "animation": "floating",
+            "rotate": 0,
+            "flip": false
+          }
+        }
+      },
+      "block_order": [
+        "small_text_Q67J77",
+        "heading_pCagPM",
+        "geek_switch_twWDXY",
+        "text_7QhkK3",
+        "accent_graphic_Wa9CjK",
+        "accent_graphic_wNKJpK",
+        "accent_graphic_bbHChd",
+        "accent_graphic_E8wwaH",
+        "accent_graphic_YceNfm"
+      ],
+      "settings": {
+        "hide_text_buttons_blocks": false,
+        "text_block_size": "",
+        "icon_text_block_layout": "",
+        "text_alignment": "center-align-text",
+        "container_width": "",
+        "max_width": 0,
+        "grid_gutter": "",
+        "color_scheme": "",
+        "top_spacing_mobile": 120,
+        "bottom_spacing_mobile": 140,
+        "top_spacing_desktop": 90,
+        "bottom_spacing_desktop": 250,
+        "bg_color": "#FFE9E2",
+        "top_wave_divider": true,
+        "bottom_wave_divider": false,
+        "custom_class": "",
+        "custom_id": ""
+      }
+    },
+    "mfr_lb_icon_text_image_yJjjeA": {
+      "type": "mfr-lb__icon-text-image",
+      "blocks": {
+        "heading_VygmkK": {
+          "type": "heading",
+          "settings": {
+            "heading": "The [highlight]Benefits[/highlight] of Lovebug Probiotics",
+            "disable_animation": false,
+            "header_style": "h1",
+            "make_xl": "",
+            "highlight_color": "#f7c127",
+            "underline_color": "",
+            "max_width": 46
+          }
+        },
+        "text_g9qnQ6": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Lovebug offers a range of health benefits, all rooted in science-backed, high-quality probiotic strains. Here’s how they can help you:</p>",
+            "disable_animation": false,
+            "text_style": "large",
+            "color": "",
+            "max_width": 32
+          }
+        },
+        "main_image_EUbrzA": {
+          "type": "main_image",
+          "settings": {
+            "image": "shopify://shop_images/Group_14_4x-min.png"
+          }
+        },
+        "icon_text_UAz7J9": {
+          "type": "icon_text",
+          "settings": {
+            "icon": "shopify://shop_images/Group_66.svg",
+            "title": "Firmly Rooted In Science",
+            "caption": "Developed with leading research, our probiotics target specific health needs, from immunity and digestion to mood and overall wellness."
+          }
+        },
+        "icon_text_zzhrGz": {
+          "type": "icon_text",
+          "settings": {
+            "icon": "shopify://shop_images/Group_66_1.svg",
+            "title": "Family-Focused",
+            "caption": "When we learned about the transformative power of probiotics in improving health, we became committed to helping families facing similar challenges. By conducting thorough research, working with leading scientists, Lovebug created a line of probiotics designed to support wellness and make it easier for families to find effective, reliable solutions for their health."
+          }
+        },
+        "icon_text_JncTat": {
+          "type": "icon_text",
+          "settings": {
+            "icon": "shopify://shop_images/Group_66_2.svg",
+            "title": "Third Party testing",
+            "caption": "Our products are third-party tested and manufactured in cGMP facilities.  Many formulations include prebiotics, the fiber that fuels probiotics, enhancing their effectiveness and supporting a thriving gut ecosystem."
+          }
+        },
+        "icon_text_NcxK4g": {
+          "type": "icon_text",
+          "settings": {
+            "icon": "shopify://shop_images/Group_66_3.svg",
+            "title": "Multi-Strain Superior Probiotics",
+            "caption": "Lovebug uses clinically proven, potent strains like Bifidobacterium lactis and Saccharomyces boulardii that have been shown to improve gut health, strengthen the immune system, and promote overall wellness."
+          }
+        },
+        "button_AXFgLq": {
+          "type": "button",
+          "settings": {
+            "button_label": "Our Journey",
+            "button_link": "shopify://pages/about-us",
+            "color_theme": "secondary"
+          }
+        },
+        "accent_graphic_rq3jrU": {
+          "type": "accent_graphic",
+          "settings": {
+            "icon": "shopify://shop_images/3_4x-min.png",
+            "svg_code": "",
+            "visibility": "always",
+            "geek_mode_visibility": "",
+            "value_type": "%",
+            "x_setting": "left",
+            "y_setting": "top",
+            "width_large": 100,
+            "position_x_large": 18,
+            "position_y_large": -8,
+            "width_small": 50,
+            "position_x_small": 10,
+            "position_y_small": -4,
+            "animation": "rotating",
+            "rotate": 0,
+            "flip": false
+          }
+        }
+      },
+      "block_order": [
+        "heading_VygmkK",
+        "text_g9qnQ6",
+        "main_image_EUbrzA",
+        "icon_text_UAz7J9",
+        "icon_text_zzhrGz",
+        "icon_text_JncTat",
+        "icon_text_NcxK4g",
+        "button_AXFgLq",
+        "accent_graphic_rq3jrU"
+      ],
+      "settings": {
+        "text_alignment": "text-center",
+        "container_width": "",
+        "max_width": 0,
+        "grid_gutter": "",
+        "color_scheme": "scheme-3d6d5546-cc24-4027-ae43-eb909eaaabba",
+        "top_spacing_mobile": 90,
+        "bottom_spacing_mobile": 130,
+        "top_spacing_desktop": 100,
+        "bottom_spacing_desktop": 170,
+        "bg_color": "",
+        "notepad_bg": false,
+        "top_wave_divider": true,
+        "bottom_wave_divider": false,
+        "custom_class": "",
+        "custom_id": ""
+      }
+    },
+    "mfr_lb_icon_text_geek_3kxa6k": {
+      "type": "mfr-lb__icon-text-geek",
+      "blocks": {
+        "heading_B8HYi3": {
+          "type": "heading",
+          "settings": {
+            "heading": "Our Strains",
+            "disable_animation": false,
+            "header_style": "h1",
+            "make_xl": "",
+            "highlight_color": "",
+            "underline_color": "",
+            "max_width": 0
+          }
+        },
+        "geek_switch_UyxdTf": {
+          "type": "geek_switch",
+          "settings": {}
+        },
+        "entry_Kwwhjr": {
+          "type": "entry",
+          "settings": {
+            "icon": "shopify://shop_images/Bifidobacterium_longum.png",
+            "title": "Bifidobacterium longum",
+            "caption": "<p>Benefits:</p><ul><li>May aid in digestion and alleviates gastrointestinal discomfort, such as bloating or constipation.</li><li>Can support the immune system by enhancing gut barrier function and reducing inflammation.</li><li>Produces short-chain fatty acids (SCFAs) that could maintain gut health and regulate metabolism.</li></ul>",
+            "width_mobile": 279.6,
+            "width_desktop": 361,
+            "icon_bg_color": "#596ce2",
+            "bg_color": "#3e52ce",
+            "text_color": "#ffffff",
+            "offset_direction": "",
+            "offset_value": 0,
+            "rotation": -2,
+            "column_alignment": "flex-end"
+          }
+        },
+        "entry_nrFrRi": {
+          "type": "entry",
+          "settings": {
+            "icon": "shopify://shop_images/Bifidobacterium_Lactis.svg",
+            "title": "Bifidobacterium Lactis",
+            "caption": "<p>Benefits:</p><ul><li>May improve digestion and helps break down lactose, reducing symptoms of lactose intolerance.</li><li>Can enhance immune function by stimulating white blood cell activity.</li><li>Can reduces inflammation and promotes bowel regularity.</li></ul>",
+            "width_mobile": 283.5,
+            "width_desktop": 366,
+            "icon_bg_color": "#4453b0",
+            "bg_color": "#2b3990",
+            "text_color": "#ffffff",
+            "offset_direction": "",
+            "offset_value": 0,
+            "rotation": 2,
+            "column_alignment": "center"
+          }
+        },
+        "entry_imEkBk": {
+          "type": "entry",
+          "settings": {
+            "icon": "shopify://shop_images/Lactobacillus_Rhamnosus.svg",
+            "title": "Lactobacillus Rhamnosus",
+            "caption": "<p>Benefits:</p><ul><li>Best known for its ability to prevent and treat diarrhea, especially antibiotic-associated diarrhea.</li><li>May promote vaginal health by balancing microbial flora and reducing yeast infections.</li><li>Could reduce symptoms of allergies and atopic dermatitis by modulating immune responses</li></ul>",
+            "width_mobile": 283.5,
+            "width_desktop": 362,
+            "icon_bg_color": "#b6c7fd",
+            "bg_color": "#9cb4ff",
+            "text_color": "#2b3990",
+            "offset_direction": "",
+            "offset_value": 0,
+            "rotation": -3,
+            "column_alignment": "flex-start"
+          }
+        },
+        "entry_B7Cimh": {
+          "type": "entry",
+          "settings": {
+            "icon": "shopify://shop_images/Group_17_1.svg",
+            "title": "Fructo-Oligosaccharides (FOS) 100MG",
+            "caption": "<p>NOT A STRAIN - food for the good bugs<br/>Benefits:</p><ul><li>Acts as a prebiotic, feeding beneficial gut bacteria like Bifidobacteria and Lactobacilli.</li><li>Can improve mineral absorption, such as calcium and magnesium, which are crucial for bone health.</li><li>Could reduce constipation by increasing stool bulk and promoting healthy bowel movements.</li></ul>",
+            "width_mobile": 369,
+            "width_desktop": 499,
+            "icon_bg_color": "#4453b0",
+            "bg_color": "#2b3990",
+            "text_color": "#ffffff",
+            "offset_direction": "",
+            "offset_value": 10,
+            "rotation": -1,
+            "column_alignment": "flex-end"
+          }
+        },
+        "entry_UHrjaC": {
+          "type": "entry",
+          "settings": {
+            "icon": "shopify://shop_images/Lactobacillus_Paracasei_f0a97d0c-d208-4192-b5f5-f255b0eef0f2.svg",
+            "title": "Lactobacillus Paracasei",
+            "caption": "<p>Benefits:</p><ul><li>May boost immune function by stimulating antibody production.</li><li>Can help alleviate symptoms of allergies, such as rhinitis, by modulating immune responses.</li><li>May improve skin health by reducing inflammation and oxidative stress</li></ul>",
+            "width_mobile": 280,
+            "width_desktop": 360,
+            "icon_bg_color": "#b6c7fd",
+            "bg_color": "#9cb4ff",
+            "text_color": "#2b3990",
+            "offset_direction": "",
+            "offset_value": 10,
+            "rotation": -2,
+            "column_alignment": "center"
+          }
+        },
+        "entry_JVHDXT": {
+          "type": "entry",
+          "settings": {
+            "icon": "shopify://shop_images/Lactobacillus_Casei_dab4dd85-443b-40bd-b91e-c37d711d20fc.svg",
+            "title": "Lactobacillus Casei",
+            "caption": "<p>Benefits:</p><ul><li>May aid in digestion by breaking down complex carbohydrates and proteins.</li><li>Can reduce symptoms of irritable bowel syndrome (IBS), including bloating and abdominal pain.*</li><li>May enhance immune function and prevents infections by outcompeting harmful bacteria.</li></ul>",
+            "width_mobile": 240.1,
+            "width_desktop": 310,
+            "icon_bg_color": "#f2f7f8",
+            "bg_color": "#ffffff",
+            "text_color": "#2b3990",
+            "offset_direction": "",
+            "offset_value": 10,
+            "rotation": 2,
+            "column_alignment": "flex-start"
+          }
+        },
+        "entry_WeFBmW": {
+          "type": "entry",
+          "settings": {
+            "icon": "shopify://shop_images/Lactobacillus_Salivarius.svg",
+            "title": "Lactobacillus Salivarius",
+            "caption": "<p>Benefits:</p><ul><li>May promote oral health by reducing the growth of harmful bacteria that cause cavities and gum disease.</li><li>Can aid in digestion by breaking down proteins and preventing gut infections.</li><li>Can support immune function and reduces inflammation.</li></ul>",
+            "width_mobile": 266,
+            "width_desktop": 343,
+            "icon_bg_color": "#f2f7f8",
+            "bg_color": "#ffffff",
+            "text_color": "#2b3990",
+            "offset_direction": "",
+            "offset_value": 0,
+            "rotation": 0,
+            "column_alignment": "flex-end"
+          }
+        },
+        "entry_wVC8nj": {
+          "type": "entry",
+          "settings": {
+            "icon": "shopify://shop_images/Streptococcus_Thermophilus_d1588e61-3041-4fd6-ac1c-8b0cfeb10a59.svg",
+            "title": "Streptococcus Thermophilus",
+            "caption": "<p>Benefits:</p><ul><li>Produces lactase, aiding in the digestion of lactose and reducing symptoms of lactose intolerance.</li><li>Can contributes to gut health by producing SCFAs and reducing gut inflammation.</li><li>May support immune function by producing antimicrobial substances.</li></ul>",
+            "width_mobile": 316,
+            "width_desktop": 408,
+            "icon_bg_color": "#596ce2",
+            "bg_color": "#3e52ce",
+            "text_color": "#ffffff",
+            "offset_direction": "",
+            "offset_value": 4,
+            "rotation": 1,
+            "column_alignment": "center"
+          }
+        },
+        "entry_CB3rRL": {
+          "type": "entry",
+          "settings": {
+            "icon": "shopify://shop_images/Lactobacillus_Acidophilus_4ccf7f5e-2680-4fa6-b8ed-4d8f0f020fce.svg",
+            "title": "Lactobacillus Acidophilus",
+            "caption": "<p>Benefits:</p><ul><li>May help restore the natural balance of gut bacteria, particularly after antibiotic use.</li><li>Could reduce cholesterol levels by metabolizing bile acids in the gut.</li><li>May support vaginal health and can prevent yeast infections by balancing pH levels.*</li></ul>",
+            "width_mobile": 279.6,
+            "width_desktop": 361,
+            "icon_bg_color": "#b6c7fd",
+            "bg_color": "#9cb4ff",
+            "text_color": "#2b3990",
+            "offset_direction": "",
+            "offset_value": 4,
+            "rotation": -2,
+            "column_alignment": "flex-start"
+          }
+        },
+        "entry_TcygbM": {
+          "type": "entry",
+          "settings": {
+            "icon": "shopify://shop_images/Lactobacillus_Gasseri_81d02995-397b-4f60-abf3-2582025ba00c.svg",
+            "title": "Lactobacillus Gasseri",
+            "caption": "<p>Benefits:</p><ul><li>Can aid in weight management by regulating fat metabolism and reducing abdominal fat.</li><li>Could reduce inflammation and helps manage conditions like IBS and Crohn’s disease*.</li><li>May support vaginal health and prevents bacterial vaginosis.*</li></ul>",
+            "width_mobile": 268.8,
+            "width_desktop": 347,
+            "icon_bg_color": "#b6c7fd",
+            "bg_color": "#9cb4ff",
+            "text_color": "#2b3990",
+            "offset_direction": "",
+            "offset_value": 0,
+            "rotation": -3,
+            "column_alignment": "flex-end"
+          }
+        },
+        "entry_rtJmXx": {
+          "type": "entry",
+          "settings": {
+            "icon": "shopify://shop_images/Bifidobacterium_Bifidums.svg",
+            "title": "Bifidobacterium Bifidums",
+            "caption": "<p>Benefits:</p><ul><li>Enhances gut health by reducing harmful bacteria and promoting beneficial bacteria.</li><li>Helps prevent diarrhea and constipation by improving gut motility.</li><li>Boosts immune function by supporting the gut's mucosal barrier.</li></ul>",
+            "width_mobile": 298.2,
+            "width_desktop": 385,
+            "icon_bg_color": "#4453b0",
+            "bg_color": "#2b3990",
+            "text_color": "#ffffff",
+            "offset_direction": "",
+            "offset_value": 4,
+            "rotation": -1,
+            "column_alignment": "center"
+          }
+        },
+        "entry_6jBPMC": {
+          "type": "entry",
+          "settings": {
+            "icon": "shopify://shop_images/Prebiotic_Chicory_Root.svg",
+            "title": "Prebiotic: Chicory Root",
+            "caption": "<p>Benefits:</p><ul><li>Rich in inulin, a type of soluble fiber that acts as a prebiotic and feeds beneficial gut bacteria.</li><li>Can promote healthy digestion and prevents constipation by improving stool consistency.</li><li>Can help regulate blood sugar levels by slowing carbohydrate digestion.</li></ul>",
+            "width_mobile": 279.6,
+            "width_desktop": 361,
+            "icon_bg_color": "#596ce2",
+            "bg_color": "#3e52ce",
+            "text_color": "#ffffff",
+            "offset_direction": "",
+            "offset_value": 4,
+            "rotation": 2,
+            "column_alignment": "flex-start"
+          }
+        },
+        "text_Le3yHW": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Probiotics and prebiotics work synergistically to improve gut health, enhance the immune system, and support overall well-being. Each strain and compound provides targeted benefits, making them essential components of a balanced diet or supplement regimen.</p>",
+            "disable_animation": false,
+            "text_style": "large",
+            "color": "",
+            "max_width": 38
+          }
+        }
+      },
+      "block_order": [
+        "heading_B8HYi3",
+        "geek_switch_UyxdTf",
+        "entry_Kwwhjr",
+        "entry_nrFrRi",
+        "entry_imEkBk",
+        "entry_B7Cimh",
+        "entry_UHrjaC",
+        "entry_JVHDXT",
+        "entry_WeFBmW",
+        "entry_wVC8nj",
+        "entry_CB3rRL",
+        "entry_TcygbM",
+        "entry_rtJmXx",
+        "entry_6jBPMC",
+        "text_Le3yHW"
+      ],
+      "settings": {
+        "text_alignment": "text-center",
+        "container_width": "",
+        "max_width": 0,
+        "grid_gutter": "",
+        "color_scheme": "",
+        "top_spacing_mobile": 110,
+        "bottom_spacing_mobile": 70,
+        "top_spacing_desktop": 50,
+        "bottom_spacing_desktop": 50,
+        "bg_color": "#E9F4FC",
+        "top_wave_divider": true,
+        "bottom_wave_divider": false,
+        "custom_class": "",
+        "custom_id": ""
+      }
+    },
+    "mfr_lb_image_card_grid_UibW4k": {
+      "type": "mfr-lb__image-card-grid",
+      "blocks": {
+        "small_text_FUX6pz": {
+          "type": "small_text",
+          "settings": {
+            "text": "Get To Know",
+            "small_text_color": ""
+          }
+        },
+        "heading_JLkgQy": {
+          "type": "heading",
+          "settings": {
+            "heading": "Our Products",
+            "disable_animation": false,
+            "header_style": "h1",
+            "make_xl": "",
+            "highlight_color": "",
+            "underline_color": "",
+            "max_width": 0
+          }
+        },
+        "image_card_ifAzqj": {
+          "type": "image_card",
+          "settings": {
+            "url": "shopify://collections/newborn-4",
+            "image": "shopify://shop_images/442A6925.jpg",
+            "title": "For Babies",
+            "sub_title": "Littlest Heroes"
+          }
+        },
+        "image_card_PBe3D6": {
+          "type": "image_card",
+          "settings": {
+            "url": "shopify://collections/for-kids",
+            "image": "shopify://shop_images/442A9768.jpg",
+            "title": "For Toddlers & Kids",
+            "sub_title": "Little Heroes"
+          }
+        },
+        "image_card_KxFWwz": {
+          "type": "image_card",
+          "settings": {
+            "url": "shopify://collections/general-health",
+            "image": "shopify://shop_images/442A3721.jpg",
+            "title": "Big Heroes",
+            "sub_title": "For Adults"
+          }
+        }
+      },
+      "block_order": [
+        "small_text_FUX6pz",
+        "heading_JLkgQy",
+        "image_card_ifAzqj",
+        "image_card_PBe3D6",
+        "image_card_KxFWwz"
+      ],
+      "settings": {
+        "text_alignment": "text-center",
+        "container_width": "",
+        "max_width": 0,
+        "grid_gutter": "",
+        "color_scheme": "",
+        "top_spacing_mobile": 100,
+        "bottom_spacing_mobile": 100,
+        "top_spacing_desktop": 50,
+        "bottom_spacing_desktop": 50,
+        "bg_color": "",
+        "top_wave_divider": true,
+        "bottom_wave_divider": false,
+        "custom_class": "",
+        "custom_id": ""
+      }
+    },
+    "mfr_core_icon_text_grid_f3eXVT": {
+      "type": "mfr-core__icon-text-grid",
+      "blocks": {
+        "icon_text_ff4fwV": {
+          "type": "icon_text",
+          "settings": {
+            "icon": "shopify://shop_images/bestsellers-icon-min.png",
+            "text": "Bestsellers",
+            "url": "shopify://collections/bestsellers"
+          }
+        },
+        "icon_text_AUcWej": {
+          "type": "icon_text",
+          "settings": {
+            "icon": "shopify://shop_images/what-the-quicklink-image.png",
+            "text": "What The 🤬",
+            "url": "shopify://pages/what-the"
+          }
+        },
+        "icon_text_qeKmaN": {
+          "type": "icon_text",
+          "settings": {
+            "icon": "shopify://shop_images/general-banner-desktop.jpg",
+            "text": "The Gut Bible",
+            "url": "shopify://blogs/news"
+          }
+        },
+        "icon_text_FtBGeh": {
+          "type": "icon_text",
+          "settings": {
+            "icon": "shopify://shop_images/women-icon-min.png",
+            "text": "Women",
+            "url": "shopify://collections/women"
+          }
+        },
+        "icon_text_F8WmtE": {
+          "type": "icon_text",
+          "settings": {
+            "icon": "shopify://shop_images/general-icon-min.png",
+            "text": "General",
+            "url": "shopify://collections/general-health"
+          }
+        }
+      },
+      "block_order": [
+        "icon_text_ff4fwV",
+        "icon_text_AUcWej",
+        "icon_text_qeKmaN",
+        "icon_text_FtBGeh",
+        "icon_text_F8WmtE"
+      ],
+      "settings": {
+        "text_alignment": "text-center",
+        "container_width": "",
+        "max_width": 0,
+        "grid_gutter": "",
+        "color_scheme": "",
+        "top_spacing_mobile": 50,
+        "bottom_spacing_mobile": 80,
+        "top_spacing_desktop": 50,
+        "bottom_spacing_desktop": 120,
+        "bg_color": "",
+        "top_wave_divider": false,
+        "bottom_wave_divider": false,
+        "custom_class": "",
+        "custom_id": ""
+      }
+    }
+  },
+  "order": [
+    "mfr_core_hero_banner_YdxTcz",
+    "mfr_core_image_with_text_fXJjYY",
+    "mfr_lb_press_cards_XeyVQa",
+    "mfr_lb_geek_cards_BfPP47",
+    "mfr_lb_icon_text_grid_qJwCcG",
+    "mfr_lb_lottie_text_section_U3die4",
+    "mfr_core_text_section_DUKiTp",
+    "mfr_lb_icon_text_image_yJjjeA",
+    "mfr_lb_icon_text_geek_3kxa6k",
+    "mfr_lb_image_card_grid_UibW4k",
+    "mfr_core_icon_text_grid_f3eXVT"
+  ]
+}

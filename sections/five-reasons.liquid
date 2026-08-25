@@ -1,0 +1,137 @@
+{%- assign s = section.settings -%}
+
+{{ 'section-five-reasons.css' | asset_url | stylesheet_tag }}
+
+<div class="five-reasons-section" style="background-color: {{ s.bg_color }};">
+
+  {% render 'component__section-dividers' %}
+
+  <div class="five-reasons-container">
+
+    {%- if s.heading != blank -%}
+      <h2 class="five-reasons-heading">{{ s.heading | newline_to_br }}</h2>
+    {%- endif -%}
+
+    <div class="five-reasons-grid">
+      {%- for block in section.blocks -%}
+        <div class="five-reasons-item" {{ block.shopify_attributes }}>
+          <div class="five-reasons-badge" aria-hidden="true">
+            <span>{{ forloop.index }}.</span>
+          </div>
+          {%- if block.settings.title != blank -%}
+            <h3 class="five-reasons-title">{{ block.settings.title }}</h3>
+          {%- endif -%}
+          {%- if block.settings.text != blank -%}
+            <p class="five-reasons-text">{{ block.settings.text }}</p>
+          {%- endif -%}
+        </div>
+      {%- endfor -%}
+    </div>
+
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Five Reasons",
+    "tag": "section",
+    "class": "section-five-reasons",
+    "max_blocks": 6,
+    "settings": [
+      {
+        "type": "header",
+        "content": "Section Background & Dividers"
+      },
+      {
+        "type": "color",
+        "id": "bg_color",
+        "label": "Background Color",
+        "default": "#2B3990"
+      },
+      {
+        "type": "checkbox",
+        "id": "top_wave_divider",
+        "label": "Show Top Wave Divider",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "bottom_wave_divider",
+        "label": "Show Bottom Wave Divider",
+        "default": false
+      },
+      {
+        "type": "header",
+        "content": "Section Text"
+      },
+      {
+        "type": "textarea",
+        "id": "heading",
+        "label": "Heading",
+        "default": "5 Reasons You’ll Love Our Drops"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "reason",
+        "name": "Reason",
+        "settings": [
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Title",
+            "default": "Eases Colic & Gas"
+          },
+          {
+            "type": "textarea",
+            "id": "text",
+            "label": "Text",
+            "default": "Targeted strains help calm fussy tummies, turning hard days into peaceful ones."
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Five Reasons",
+        "blocks": [
+          {
+            "type": "reason",
+            "settings": {
+              "title": "Eases Colic & Gas",
+              "text": "Targeted strains help calm fussy tummies, turning hard days into peaceful ones."
+            }
+          },
+          {
+            "type": "reason",
+            "settings": {
+              "title": "Promotes Regularity",
+              "text": "Supports smooth, consistent digestion, so there are fewer surprises at diaper changes."
+            }
+          },
+          {
+            "type": "reason",
+            "settings": {
+              "title": "Replenishes Naturally",
+              "text": "Restores what modern birth can disrupt, including C-sections and formula feeding."
+            }
+          },
+          {
+            "type": "reason",
+            "settings": {
+              "title": "Supports Immune Health",
+              "text": "Helps strengthen a developing immune system from day one."
+            }
+          },
+          {
+            "type": "reason",
+            "settings": {
+              "title": "Mess-Free & Tasteless",
+              "text": "No fighting, no spills. Just one easy drop, every single day."
+            }
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

@@ -1,0 +1,1018 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "hide_page_title": true,
+        "text_alignment": "",
+        "container_width": "full",
+        "max_width": 0,
+        "grid_gutter": "grid-gutter",
+        "color_scheme": "",
+        "top_spacing_mobile": 30,
+        "bottom_spacing_mobile": 80,
+        "top_spacing_desktop": 50,
+        "bottom_spacing_desktop": 100,
+        "bg_color": "",
+        "top_wave_divider": false,
+        "bottom_wave_divider": false,
+        "custom_class": "",
+        "custom_id": ""
+      }
+    },
+    "mfr_core_hero_banner_YdxTcz": {
+      "type": "mfr-core__hero-banner",
+      "blocks": {
+        "small_text_YGwiib": {
+          "type": "small_text",
+          "settings": {
+            "text": "Probiotics for the Whole Family",
+            "small_text_color": ""
+          }
+        },
+        "heading_ffzfX9": {
+          "type": "heading",
+          "settings": {
+            "heading": "Behind The Capes",
+            "disable_animation": false,
+            "header_style": "h1",
+            "make_xl": "",
+            "highlight_color": "",
+            "underline_color": "",
+            "max_width": 23
+          }
+        },
+        "image_EXp8CC": {
+          "type": "image",
+          "settings": {
+            "image_mobile": "shopify://shop_images/Extended_-_About_-_Mobile.jpg",
+            "image_desktop": "shopify://shop_images/Extended_-_About.jpg",
+            "lazyload_image": false
+          }
+        }
+      },
+      "block_order": [
+        "small_text_YGwiib",
+        "heading_ffzfX9",
+        "image_EXp8CC"
+      ],
+      "settings": {
+        "disable_entrance_animation": true,
+        "content_alignment": "align-left",
+        "text_alignment": "text-center",
+        "container_width": "",
+        "max_width": 0,
+        "grid_gutter": "",
+        "color_scheme": "scheme-3d6d5546-cc24-4027-ae43-eb909eaaabba",
+        "top_spacing_mobile": 60,
+        "bottom_spacing_mobile": 500,
+        "top_spacing_desktop": 190,
+        "bottom_spacing_desktop": 250,
+        "bg_color": "",
+        "top_wave_divider": false,
+        "bottom_wave_divider": false,
+        "custom_class": "",
+        "custom_id": ""
+      }
+    },
+    "mfr_core_text_section_nckz6N": {
+      "type": "mfr-core__text-section",
+      "blocks": {
+        "icon_3zRQwH": {
+          "type": "icon",
+          "settings": {
+            "file_lottie_url": "https://cdn.shopify.com/s/files/1/0509/9677/3062/files/logo.json?v=1736925481",
+            "icon_width": 392,
+            "mobile_max_width": 276
+          }
+        },
+        "heading_yYd66K": {
+          "type": "heading",
+          "settings": {
+            "heading": "Build The Foundation of Lifelong Health",
+            "disable_animation": false,
+            "header_style": "h4",
+            "make_xl": "",
+            "highlight_color": "",
+            "underline_color": "",
+            "max_width": 25
+          }
+        },
+        "text_CzAe8H": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Probiotics play a crucial role in building the foundation for lifelong health by supporting and maintaining a balanced gut microbiome, which is vital for overall well-being. By consistently taking probiotics, you can foster a healthy gut microbiome to improve digestion, build a stronger immune system, boost mood, and  lower the risk of chronic disease, which all contributes to long-term health and vitality</p>",
+            "disable_animation": false,
+            "text_style": "large",
+            "color": "",
+            "max_width": 50
+          }
+        },
+        "accent_graphic_Rnwb7q": {
+          "type": "accent_graphic",
+          "settings": {
+            "icon": "shopify://shop_images/1_copy.svg",
+            "svg_code": "",
+            "visibility": "always",
+            "geek_mode_visibility": "",
+            "value_type": "%",
+            "x_setting": "left",
+            "y_setting": "top",
+            "width_large": 170,
+            "position_x_large": 10,
+            "position_y_large": 40,
+            "width_small": 120,
+            "position_x_small": -40,
+            "position_y_small": 0,
+            "animation": "rotating",
+            "rotate": 0,
+            "flip": false
+          }
+        },
+        "accent_graphic_rRGEAt": {
+          "type": "accent_graphic",
+          "settings": {
+            "icon": "shopify://shop_images/Group_70_4x-min.png",
+            "svg_code": "",
+            "visibility": "always",
+            "geek_mode_visibility": "",
+            "value_type": "%",
+            "x_setting": "right",
+            "y_setting": "top",
+            "width_large": 110,
+            "position_x_large": 12,
+            "position_y_large": 10,
+            "width_small": 70,
+            "position_x_small": -20,
+            "position_y_small": 26,
+            "animation": "floating",
+            "rotate": 0,
+            "flip": false
+          }
+        }
+      },
+      "block_order": [
+        "icon_3zRQwH",
+        "heading_yYd66K",
+        "text_CzAe8H",
+        "accent_graphic_Rnwb7q",
+        "accent_graphic_rRGEAt"
+      ],
+      "settings": {
+        "hide_text_buttons_blocks": false,
+        "text_block_size": "",
+        "icon_text_block_layout": "",
+        "text_alignment": "center-align-text",
+        "container_width": "",
+        "max_width": 0,
+        "grid_gutter": "grid-gutter",
+        "color_scheme": "",
+        "top_spacing_mobile": 70,
+        "bottom_spacing_mobile": 20,
+        "top_spacing_desktop": 100,
+        "bottom_spacing_desktop": 60,
+        "bg_color": "",
+        "top_wave_divider": true,
+        "bottom_wave_divider": false,
+        "custom_class": "",
+        "custom_id": ""
+      }
+    },
+    "mfr_lb_note_media_h8C3L9": {
+      "type": "mfr-lb__note-media",
+      "blocks": {
+        "icon_xFVKBC": {
+          "type": "icon",
+          "settings": {
+            "icon": "shopify://shop_images/Group_2_4x-min.png",
+            "file_lottie_url": "",
+            "icon_width": 300
+          }
+        },
+        "heading_xiMJx8": {
+          "type": "heading",
+          "settings": {
+            "heading": "By a Mom for Moms",
+            "disable_animation": false,
+            "header_style": "h3",
+            "make_xl": "",
+            "highlight_color": "",
+            "underline_color": "",
+            "max_width": 0
+          }
+        },
+        "geek_switch_7EP9AN": {
+          "type": "geek_switch",
+          "settings": {}
+        },
+        "text_KUGdQb": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Our story starts with bugs. During the birth of her son Hudson, Lovebug Probiotics co-founder Ashley Harris was put on broad-spectrum antibiotics as a preventive measure. Over the next few months both Ashley and Hudson started getting sick. Ashley began suffering constant migraines and noticed a weakened immune system. Her son was very colicky, had digestive issues and then right around the same time both Ashley and Hudson developed eczema. Frustrated, Ashley began a quest to discover what was happening to her and her son, and why. </p><p>[geek-text]A few weeks after Hudson was born, he developed horrible colic and eczema.  Initially, doctors wanted me to give him steroids which would have temporarily suppressed the eczema, but would not have solved the underlying problem. I refused to put my newborn on steroids and was determined to find the root cause. After serious research and testing we discovered that Hudson’s eczema was due to a severe imbalance in his gut bacteria and the fact that he didn’t receive enough of the beneficial bacteria during birth, and instead too many antibiotics.[/geek-text]</p><p>[geek-text]Eczema, or atopic dermatitis, is a chronic inflammatory skin condition causing itchy, red, and inflamed skin. While traditionally linked to genetic, environmental, and immune factors, research highlights the role of an imbalanced microbiome — the ecosystem of microorganisms living on and in our body — in its development.[/geek-text]</p><p>[geek-text]The <strong>skin microbiome</strong> plays a vital role in protecting against pathogens and regulating immunity. In eczema patients, disruptions in the microbiome often lead to inflammation and skin damage. Overgrowth of <em>Staphylococcus aureus</em>, found in 70-90% of eczema cases, reduces beneficial bacterial diversity and weakens the skin barrier. This contributes to water loss, increased allergen sensitivity, and immune dysregulation.[/geek-text]</p><p>[geek-text]Similarly, the <strong>gut microbiome</strong>, integral to immune function and inflammation, influences eczema via the gut-skin axis. Dysbiosis, marked by reduced beneficial bacteria like <em>Bifidobacteria</em> and increased harmful microbes, can cause systemic inflammation, leaky gut, and heightened immune responses, worsening eczema.[/geek-text]</p><p>[geek-text]I started giving Hudson probiotics and taking them myself. Within a few weeks, I had a completely new baby on my hands.  Hudson’s skin cleared up completely and his colic went away. It turns out that he was crying incessantly because he didn’t have the right bacteria in his gut to digest breastmilk which was why he was in so much pain. Blown away by the transformative power of probiotics, I was determined to educate other parents and create a cleaner, better line or probiotics for everyone in the family.[/geek-text]</p>",
+            "disable_animation": false,
+            "text_style": "large",
+            "color": "",
+            "max_width": 0
+          }
+        },
+        "signature_4RHADU": {
+          "type": "signature",
+          "settings": {
+            "image": "shopify://shop_images/Ashley_Harris_4x-min.png"
+          }
+        },
+        "accent_graphic_irbitA": {
+          "type": "accent_graphic",
+          "settings": {
+            "icon": "shopify://shop_images/Group_23_Copy_4x-min.png",
+            "svg_code": "",
+            "visibility": "always",
+            "geek_mode_visibility": "",
+            "value_type": "%",
+            "x_setting": "right",
+            "y_setting": "top",
+            "width_large": 120,
+            "position_x_large": 2,
+            "position_y_large": -6,
+            "width_small": 80,
+            "position_x_small": -10,
+            "position_y_small": -2,
+            "animation": "floating",
+            "rotate": 0,
+            "flip": false
+          }
+        }
+      },
+      "block_order": [
+        "icon_xFVKBC",
+        "heading_xiMJx8",
+        "geek_switch_7EP9AN",
+        "text_KUGdQb",
+        "signature_4RHADU",
+        "accent_graphic_irbitA"
+      ],
+      "settings": {
+        "note_background": "#ffe9e2",
+        "alternate_layout": true,
+        "video": "shopify://files/videos/interview.mp4",
+        "text_alignment": "",
+        "container_width": "",
+        "max_width": 0,
+        "grid_gutter": "",
+        "color_scheme": "",
+        "top_spacing_mobile": 20,
+        "bottom_spacing_mobile": 140,
+        "top_spacing_desktop": 60,
+        "bottom_spacing_desktop": 170,
+        "bg_color": "",
+        "top_wave_divider": false,
+        "bottom_wave_divider": false,
+        "custom_class": "",
+        "custom_id": ""
+      }
+    },
+    "mfr_lb_geek_cards_yaWMLy": {
+      "type": "mfr-lb__geek-cards",
+      "blocks": {
+        "heading_j6zhyR": {
+          "type": "heading",
+          "settings": {
+            "heading": "The 4 Pillars of [highlight]Probiotics[/highlight]",
+            "disable_animation": false,
+            "header_style": "h1",
+            "make_xl": "",
+            "highlight_color": "#f7c127",
+            "underline_color": "",
+            "max_width": 30
+          }
+        },
+        "text_F7pBy4": {
+          "type": "text",
+          "settings": {
+            "text": "<p>2500 years ago, Hippocrates said “All Disease Begins in The Gut”, and therefore so does healing it.</p>",
+            "disable_animation": false,
+            "text_style": "xlarge",
+            "color": "",
+            "max_width": 37
+          }
+        },
+        "entry_VMkG7w": {
+          "type": "entry",
+          "settings": {
+            "title": "Immunity",
+            "caption": "About 70% of our  immune system resides in the gut. Probiotics like Lactobacillus rhamnosus GG and Bifidobacterium lactis have been shown to enhance immune response by modulating gut-associated lymphoid tissue (GALT) and promoting the production of immune cells such as T-cells (Frontiers in Immunology, 2020). [geek-text]<br>An imbalanced gut with not enough of the good bacteria means you are likely to get sick more often and for longer periods of time.[/geek-text]",
+            "bg_color": "#ffb9a6",
+            "text_color": "#2b3990"
+          }
+        },
+        "entry_NymQHy": {
+          "type": "entry",
+          "settings": {
+            "title": "Skin",
+            "caption": "Probiotics enhance skin health by modulating the gut-skin axis, which influences skin conditions such as acne, eczema, and rosacea.[geek-text]<br>Studies indicate that gut microbiota dysbiosis can exacerbate inflammatory skin disorders, while probiotic supplementation helps restore balance, reducing inflammation and promoting skin barrier function (Bowe et al., 2014; Sivan et al., 2020). Probiotics improve hydration, strengthen the skin barrier, and protect against environmental damage by regulating gut health, thus fostering clearer and more resilient skin (Zhang et al., 2020)[geek-text]",
+            "bg_color": "#4fd4da",
+            "text_color": "#2b3990"
+          }
+        },
+        "entry_YEe3qz": {
+          "type": "entry",
+          "settings": {
+            "title": "Brain Health",
+            "caption": "A balanced gut microbiome has a profound impact on brain health and mood. 95% of serotonin (the brain’s feel good chemical) is made in the gut. If you suffer from an imbalanced microbiome with not enough good bacteria it will have a profound impact on the brain and mood.[geek-text]<br>The gut-brain axis connects the gut and brain, influencing mental well-being. Probiotics can help reduce symptoms of anxiety, stress, and depression by supporting gut health and the production of neurotransmitters like serotonin. Emerging research on the gut-brain axis shows that probiotics can influence mood and reduce symptoms of anxiety and depression by enhancing gut health and serotonin production. Studies show that probiotics such as Lactobacillus helveticus and Bifidobacterium longum can support mental well-being by improving gut microbiome balance (Psychiatry Research, 2017).[/geek-text]",
+            "bg_color": "#ffcb36",
+            "text_color": "#2b3990"
+          }
+        },
+        "entry_BNt9Ww": {
+          "type": "entry",
+          "settings": {
+            "title": "Gut Health",
+            "caption": "Probiotics help maintain a healthy balance of good bacteria in the gut, which is essential for digestion, nutrient absorption, and gut integrity. A balanced gut microbiome can prevent digestive issues like bloating, constipation, and gas.[geek-text]<br>Probiotics help regulate digestion and maintain gut motility, reducing the risk of gastrointestinal conditions like irritable bowel syndrome (IBS), diarrhea, and acid reflux.Probiotics help maintain a healthy balance of gut bacteria, crucial for proper digestion and nutrient absorption. Research shows that a balanced gut microbiome is linked to improved digestion, reduced inflammation, and better gut barrier function (Journal of Clinical Gastroenterology, 2019).Probiotics have been shown to help reduce the risk of chronic diseases, including cardiovascular disease and type 2 diabetes, by reducing inflammation, improving cholesterol levels, and supporting metabolic health (Nature Reviews Endocrinology, 2020).[/geek-text]",
+            "bg_color": "#ffe9e2",
+            "text_color": "#2b3990"
+          }
+        },
+        "accent_graphic_ctdege": {
+          "type": "accent_graphic",
+          "settings": {
+            "icon": "shopify://shop_images/Group_58.svg",
+            "svg_code": "",
+            "visibility": "always",
+            "value_type": "%",
+            "x_setting": "left",
+            "y_setting": "top",
+            "width_large": 130,
+            "position_x_large": 10,
+            "position_y_large": 0,
+            "width_small": 90,
+            "position_x_small": 10,
+            "position_y_small": 4,
+            "animation": "floating",
+            "rotate": 0,
+            "flip": false
+          }
+        },
+        "accent_graphic_rFzFCg": {
+          "type": "accent_graphic",
+          "settings": {
+            "icon": "shopify://shop_images/Group_8_4x-min.png",
+            "svg_code": "",
+            "visibility": "always",
+            "value_type": "%",
+            "x_setting": "right",
+            "y_setting": "top",
+            "width_large": 100,
+            "position_x_large": 6,
+            "position_y_large": 18,
+            "width_small": 60,
+            "position_x_small": 2,
+            "position_y_small": 32,
+            "animation": "floating",
+            "rotate": 0,
+            "flip": false
+          }
+        },
+        "accent_graphic_rQycLp": {
+          "type": "accent_graphic",
+          "settings": {
+            "icon": "shopify://shop_images/2_copy_4x-min.png",
+            "svg_code": "",
+            "visibility": "always",
+            "value_type": "%",
+            "x_setting": "left",
+            "y_setting": "top",
+            "width_large": 160,
+            "position_x_large": -20,
+            "position_y_large": 40,
+            "width_small": 100,
+            "position_x_small": -50,
+            "position_y_small": 32,
+            "animation": "floating",
+            "rotate": 0,
+            "flip": false
+          }
+        },
+        "accent_graphic_A3LWNg": {
+          "type": "accent_graphic",
+          "settings": {
+            "icon": "shopify://shop_images/Group_16_4x-min.png",
+            "svg_code": "",
+            "visibility": "always",
+            "value_type": "%",
+            "x_setting": "right",
+            "y_setting": "top",
+            "width_large": 110,
+            "position_x_large": 4,
+            "position_y_large": 58,
+            "width_small": 70,
+            "position_x_small": -14,
+            "position_y_small": 62,
+            "animation": "floating",
+            "rotate": 0,
+            "flip": false
+          }
+        },
+        "accent_graphic_qeqCY6": {
+          "type": "accent_graphic",
+          "settings": {
+            "icon": "shopify://shop_images/2_4x_941a6eac-8c44-4714-899f-0318b7df3c96.png",
+            "svg_code": "",
+            "visibility": "always",
+            "value_type": "%",
+            "x_setting": "right",
+            "y_setting": "top",
+            "width_large": 210,
+            "position_x_large": 14,
+            "position_y_large": -28,
+            "width_small": 140,
+            "position_x_small": 10,
+            "position_y_small": -14,
+            "animation": "floating",
+            "rotate": 0,
+            "flip": false
+          }
+        },
+        "accent_graphic_Rz938g": {
+          "type": "accent_graphic",
+          "settings": {
+            "icon": "shopify://shop_images/Group_6_2x_3d926416-1692-48af-94a1-c647e8ddd464.png",
+            "svg_code": "",
+            "visibility": "always",
+            "value_type": "%",
+            "x_setting": "left",
+            "y_setting": "bottom",
+            "width_large": 300,
+            "position_x_large": 58,
+            "position_y_large": 14,
+            "width_small": 250,
+            "position_x_small": 18,
+            "position_y_small": 6,
+            "animation": "floating",
+            "rotate": 0,
+            "flip": false
+          }
+        },
+        "button_fYpxx6": {
+          "type": "button",
+          "settings": {
+            "button_label": "What The 🤬",
+            "button_link": "shopify://pages/what-the",
+            "color_theme": "secondary"
+          }
+        }
+      },
+      "block_order": [
+        "heading_j6zhyR",
+        "text_F7pBy4",
+        "entry_VMkG7w",
+        "entry_NymQHy",
+        "entry_YEe3qz",
+        "entry_BNt9Ww",
+        "accent_graphic_ctdege",
+        "accent_graphic_rFzFCg",
+        "accent_graphic_rQycLp",
+        "accent_graphic_A3LWNg",
+        "accent_graphic_qeqCY6",
+        "accent_graphic_Rz938g",
+        "button_fYpxx6"
+      ],
+      "settings": {
+        "lottie_file_url": "",
+        "text_alignment": "text-center",
+        "container_width": "full",
+        "max_width": 0,
+        "grid_gutter": "",
+        "color_scheme": "scheme-3d6d5546-cc24-4027-ae43-eb909eaaabba",
+        "top_spacing_mobile": 130,
+        "bottom_spacing_mobile": 230,
+        "top_spacing_desktop": 150,
+        "bottom_spacing_desktop": 280,
+        "bg_color": "",
+        "top_wave_divider": true,
+        "bottom_wave_divider": false,
+        "custom_class": "",
+        "custom_id": ""
+      }
+    },
+    "mfr_core_text_section_jtcNLL": {
+      "type": "mfr-core__text-section",
+      "blocks": {
+        "heading_8M6t3j": {
+          "type": "heading",
+          "settings": {
+            "heading": "The 4 Pillars of [highlight]Probiotics[/highlight]",
+            "disable_animation": false,
+            "header_style": "h1",
+            "make_xl": "",
+            "highlight_color": "#f7c127",
+            "underline_color": "",
+            "max_width": 30
+          }
+        },
+        "geek_switch_FCmRkm": {
+          "type": "geek_switch",
+          "disabled": true,
+          "settings": {}
+        },
+        "text_3Eqat6": {
+          "type": "text",
+          "settings": {
+            "text": "<p>2500 years ago, Hypocrates said “All Disease Begins in The Gut”, and therefore so does healing it.</p>",
+            "disable_animation": false,
+            "text_style": "xlarge",
+            "color": "",
+            "max_width": 37
+          }
+        },
+        "button_VdFV8g": {
+          "type": "button",
+          "settings": {
+            "button_label": "What The 🤬",
+            "button_link": "shopify://pages/what-the",
+            "color_theme": "secondary",
+            "button_width": ""
+          }
+        },
+        "accent_graphic_tx7met": {
+          "type": "accent_graphic",
+          "settings": {
+            "icon": "shopify://shop_images/Group_58.svg",
+            "svg_code": "",
+            "visibility": "always",
+            "geek_mode_visibility": "",
+            "value_type": "%",
+            "x_setting": "left",
+            "y_setting": "top",
+            "width_large": 130,
+            "position_x_large": 10,
+            "position_y_large": 0,
+            "width_small": 90,
+            "position_x_small": 10,
+            "position_y_small": 4,
+            "animation": "floating",
+            "rotate": 0,
+            "flip": false
+          }
+        },
+        "accent_graphic_yYBcA6": {
+          "type": "accent_graphic",
+          "settings": {
+            "icon": "shopify://shop_images/Group_8_4x-min.png",
+            "svg_code": "",
+            "visibility": "always",
+            "geek_mode_visibility": "",
+            "value_type": "%",
+            "x_setting": "right",
+            "y_setting": "top",
+            "width_large": 100,
+            "position_x_large": 6,
+            "position_y_large": 18,
+            "width_small": 60,
+            "position_x_small": 2,
+            "position_y_small": 32,
+            "animation": "floating",
+            "rotate": 0,
+            "flip": false
+          }
+        },
+        "accent_graphic_XtaVrH": {
+          "type": "accent_graphic",
+          "settings": {
+            "icon": "shopify://shop_images/2_copy_4x-min.png",
+            "svg_code": "",
+            "visibility": "always",
+            "geek_mode_visibility": "",
+            "value_type": "%",
+            "x_setting": "left",
+            "y_setting": "top",
+            "width_large": 160,
+            "position_x_large": -20,
+            "position_y_large": 40,
+            "width_small": 100,
+            "position_x_small": -50,
+            "position_y_small": 32,
+            "animation": "floating",
+            "rotate": 0,
+            "flip": false
+          }
+        },
+        "accent_graphic_hETkLK": {
+          "type": "accent_graphic",
+          "settings": {
+            "icon": "shopify://shop_images/Group_16_4x-min.png",
+            "svg_code": "",
+            "visibility": "always",
+            "geek_mode_visibility": "",
+            "value_type": "%",
+            "x_setting": "right",
+            "y_setting": "top",
+            "width_large": 110,
+            "position_x_large": 4,
+            "position_y_large": 58,
+            "width_small": 70,
+            "position_x_small": -14,
+            "position_y_small": 82,
+            "animation": "floating",
+            "rotate": 0,
+            "flip": false
+          }
+        },
+        "accent_graphic_8dmgzC": {
+          "type": "accent_graphic",
+          "settings": {
+            "icon": "shopify://shop_images/2_4x_941a6eac-8c44-4714-899f-0318b7df3c96.png",
+            "svg_code": "",
+            "visibility": "always",
+            "geek_mode_visibility": "",
+            "value_type": "%",
+            "x_setting": "right",
+            "y_setting": "top",
+            "width_large": 210,
+            "position_x_large": 14,
+            "position_y_large": -28,
+            "width_small": 140,
+            "position_x_small": 10,
+            "position_y_small": -14,
+            "animation": "floating",
+            "rotate": 0,
+            "flip": false
+          }
+        }
+      },
+      "block_order": [
+        "heading_8M6t3j",
+        "geek_switch_FCmRkm",
+        "text_3Eqat6",
+        "button_VdFV8g",
+        "accent_graphic_tx7met",
+        "accent_graphic_yYBcA6",
+        "accent_graphic_XtaVrH",
+        "accent_graphic_hETkLK",
+        "accent_graphic_8dmgzC"
+      ],
+      "disabled": true,
+      "settings": {
+        "hide_text_buttons_blocks": false,
+        "text_block_size": "",
+        "icon_text_block_layout": "",
+        "text_alignment": "center-align-text",
+        "container_width": "",
+        "max_width": 0,
+        "grid_gutter": "grid-gutter",
+        "color_scheme": "scheme-3d6d5546-cc24-4027-ae43-eb909eaaabba",
+        "top_spacing_mobile": 130,
+        "bottom_spacing_mobile": 130,
+        "top_spacing_desktop": 150,
+        "bottom_spacing_desktop": 280,
+        "bg_color": "",
+        "top_wave_divider": true,
+        "bottom_wave_divider": false,
+        "custom_class": "",
+        "custom_id": ""
+      }
+    },
+    "mfr_lb_three_column_lottie_Tnz3Hi": {
+      "type": "mfr-lb__three-column-lottie",
+      "blocks": {
+        "heading_w6Vdkf": {
+          "type": "heading",
+          "settings": {
+            "heading": "Our Values",
+            "disable_animation": false,
+            "header_style": "h2",
+            "make_xl": "",
+            "highlight_color": "#f7c127",
+            "underline_color": "",
+            "max_width": 0
+          }
+        },
+        "text_iVpAD3": {
+          "type": "text",
+          "settings": {
+            "text": "<p>At Lovebug, we believe in the power of a healthy gut for a healthier, happier life. Our values are rooted in science, sustainability, and integrity. We are committed to using high-quality, clinically proven probiotics to support digestive health and overall wellness. With a focus on transparency, we ensure that every product is made with the finest ingredients and backed by trusted research, so you can feel confident in your family’s health journey with Lovebug.</p>",
+            "disable_animation": false,
+            "text_style": "large",
+            "color": "",
+            "max_width": 30
+          }
+        },
+        "geek_info_qHVTcM": {
+          "type": "geek_info",
+          "settings": {
+            "title": "Firmly Rooted in Science",
+            "caption": "Developed with leading research, our probiotics target specific health needs, from immunity and digestion to mood and overall wellness."
+          }
+        },
+        "geek_info_mfQKg6": {
+          "type": "geek_info",
+          "settings": {
+            "title": "Clean Ingredients",
+            "caption": "No unnecessary fillers, allergens, or artificial junk—just high-quality, effective strains you can trust. 12 scientifically proven strains with high CFU (colony-fomring units) count."
+          }
+        },
+        "geek_info_PPNddm": {
+          "type": "geek_info",
+          "settings": {
+            "title": "Family-Focused",
+            "caption": "Created by a mom for moms, we understand the importance of safe, gentle, and effective products for all ages."
+          }
+        },
+        "geek_info_JbYgzx": {
+          "type": "geek_info",
+          "settings": {
+            "title": "Award-Winning Quality",
+            "caption": "Lovebug is consistently recognized for excellence, offering premium probiotics you can rely on."
+          }
+        },
+        "accent_graphic_9wbE7f": {
+          "type": "accent_graphic",
+          "settings": {
+            "icon": "shopify://shop_images/Group_34.svg",
+            "svg_code": "",
+            "visibility": "always",
+            "geek_mode_visibility": "",
+            "value_type": "%",
+            "x_setting": "left",
+            "y_setting": "top",
+            "width_large": 120,
+            "position_x_large": 10,
+            "position_y_large": -18,
+            "width_small": 90,
+            "position_x_small": 4,
+            "position_y_small": -6,
+            "animation": "floating",
+            "rotate": 0,
+            "flip": false
+          }
+        },
+        "accent_graphic_em3xHP": {
+          "type": "accent_graphic",
+          "settings": {
+            "icon": "shopify://shop_images/Group_51_4x-min.png",
+            "svg_code": "",
+            "visibility": "always",
+            "geek_mode_visibility": "",
+            "value_type": "%",
+            "x_setting": "left",
+            "y_setting": "top",
+            "width_large": 90,
+            "position_x_large": 66,
+            "position_y_large": 0,
+            "width_small": 90,
+            "position_x_small": 4,
+            "position_y_small": 30,
+            "animation": "floating",
+            "rotate": 0,
+            "flip": false
+          }
+        },
+        "accent_graphic_HtmDhB": {
+          "type": "accent_graphic",
+          "settings": {
+            "icon": "shopify://shop_images/Group_39_4x_2_-min.png",
+            "svg_code": "",
+            "visibility": "always",
+            "geek_mode_visibility": "",
+            "value_type": "%",
+            "x_setting": "left",
+            "y_setting": "top",
+            "width_large": 250,
+            "position_x_large": 28,
+            "position_y_large": -10,
+            "width_small": 150,
+            "position_x_small": 74,
+            "position_y_small": -4,
+            "animation": "floating",
+            "rotate": 0,
+            "flip": false
+          }
+        }
+      },
+      "block_order": [
+        "heading_w6Vdkf",
+        "text_iVpAD3",
+        "geek_info_qHVTcM",
+        "geek_info_mfQKg6",
+        "geek_info_PPNddm",
+        "geek_info_JbYgzx",
+        "accent_graphic_9wbE7f",
+        "accent_graphic_em3xHP",
+        "accent_graphic_HtmDhB"
+      ],
+      "settings": {
+        "lottie_file_url": "https://cdn.shopify.com/s/files/1/0509/9677/3062/files/stomach_good.json?v=1736913907",
+        "image": "shopify://shop_images/Group_4_4x_1_-min.png",
+        "text_alignment": "text-center",
+        "container_width": "",
+        "max_width": 0,
+        "grid_gutter": "",
+        "color_scheme": "scheme-1",
+        "top_spacing_mobile": 50,
+        "bottom_spacing_mobile": 270,
+        "top_spacing_desktop": 60,
+        "bottom_spacing_desktop": 140,
+        "bg_color": "#E9F4FC",
+        "top_wave_divider": true,
+        "bottom_wave_divider": false,
+        "custom_class": "",
+        "custom_id": ""
+      }
+    },
+    "mfr_lb_image_card_grid_UibW4k": {
+      "type": "mfr-lb__image-card-grid",
+      "blocks": {
+        "small_text_FUX6pz": {
+          "type": "small_text",
+          "settings": {
+            "text": "Get To Know",
+            "small_text_color": ""
+          }
+        },
+        "heading_JLkgQy": {
+          "type": "heading",
+          "settings": {
+            "heading": "Our Products",
+            "disable_animation": false,
+            "header_style": "h1",
+            "make_xl": "",
+            "highlight_color": "",
+            "underline_color": "",
+            "max_width": 0
+          }
+        },
+        "image_card_ifAzqj": {
+          "type": "image_card",
+          "settings": {
+            "url": "shopify://collections/newborn-4",
+            "image": "shopify://shop_images/442A6925.jpg",
+            "title": "For Babies",
+            "sub_title": "Littlest Heroes"
+          }
+        },
+        "image_card_PBe3D6": {
+          "type": "image_card",
+          "settings": {
+            "url": "shopify://collections/for-kids",
+            "image": "shopify://shop_images/442A9768.jpg",
+            "title": "For Toddlers & Kids",
+            "sub_title": "Little Heroes"
+          }
+        },
+        "image_card_KxFWwz": {
+          "type": "image_card",
+          "settings": {
+            "url": "shopify://collections/general-health",
+            "image": "shopify://shop_images/442A3721.jpg",
+            "title": "For Adults",
+            "sub_title": "Big Heroes"
+          }
+        }
+      },
+      "block_order": [
+        "small_text_FUX6pz",
+        "heading_JLkgQy",
+        "image_card_ifAzqj",
+        "image_card_PBe3D6",
+        "image_card_KxFWwz"
+      ],
+      "settings": {
+        "text_alignment": "text-center",
+        "container_width": "",
+        "max_width": 0,
+        "grid_gutter": "",
+        "color_scheme": "",
+        "top_spacing_mobile": 100,
+        "bottom_spacing_mobile": 100,
+        "top_spacing_desktop": 50,
+        "bottom_spacing_desktop": 50,
+        "bg_color": "",
+        "top_wave_divider": true,
+        "bottom_wave_divider": false,
+        "custom_class": "",
+        "custom_id": ""
+      }
+    },
+    "mfr_core_icon_text_grid_f3eXVT": {
+      "type": "mfr-core__icon-text-grid",
+      "blocks": {
+        "icon_text_ff4fwV": {
+          "type": "icon_text",
+          "settings": {
+            "icon": "shopify://shop_images/bestsellers-icon-min.png",
+            "text": "Bestsellers",
+            "url": "shopify://collections/bestsellers"
+          }
+        },
+        "icon_text_AUcWej": {
+          "type": "icon_text",
+          "settings": {
+            "icon": "shopify://shop_images/what-the-quick-link-new.png",
+            "text": "What The 🤬",
+            "url": "shopify://pages/what-the"
+          }
+        },
+        "icon_text_qeKmaN": {
+          "type": "icon_text",
+          "settings": {
+            "icon": "shopify://shop_images/general-banner-desktop.jpg",
+            "text": "The Gut Bible",
+            "url": "shopify://blogs/news"
+          }
+        },
+        "icon_text_FtBGeh": {
+          "type": "icon_text",
+          "settings": {
+            "icon": "shopify://shop_images/women-icon-min.png",
+            "text": "Women",
+            "url": "shopify://collections/women"
+          }
+        },
+        "icon_text_F8WmtE": {
+          "type": "icon_text",
+          "settings": {
+            "icon": "shopify://shop_images/general-icon-min.png",
+            "text": "General",
+            "url": "shopify://collections/general-health"
+          }
+        }
+      },
+      "block_order": [
+        "icon_text_ff4fwV",
+        "icon_text_AUcWej",
+        "icon_text_qeKmaN",
+        "icon_text_FtBGeh",
+        "icon_text_F8WmtE"
+      ],
+      "settings": {
+        "text_alignment": "text-center",
+        "container_width": "",
+        "max_width": 0,
+        "grid_gutter": "",
+        "color_scheme": "",
+        "top_spacing_mobile": 50,
+        "bottom_spacing_mobile": 80,
+        "top_spacing_desktop": 50,
+        "bottom_spacing_desktop": 120,
+        "bg_color": "",
+        "top_wave_divider": false,
+        "bottom_wave_divider": false,
+        "custom_class": "",
+        "custom_id": ""
+      }
+    },
+    "17690044198d3ee36e": {
+      "type": "apps",
+      "blocks": {
+        "okendo_quizzes_widget_kf63Fw": {
+          "type": "shopify://apps/okendo/blocks/quizzes-widget/bb689e69-ea70-4661-8fb7-ad24a2e23c29",
+          "settings": {
+            "channel_quiz_id": "",
+            "full_screen": false,
+            "header_offset": 0
+          }
+        }
+      },
+      "block_order": [
+        "okendo_quizzes_widget_kf63Fw"
+      ],
+      "settings": {
+        "text_alignment": "text-center",
+        "container_width": "full",
+        "max_width": 0,
+        "grid_gutter": "",
+        "color_scheme": "",
+        "top_spacing_mobile": 100,
+        "bottom_spacing_mobile": 100,
+        "top_spacing_desktop": 100,
+        "bottom_spacing_desktop": 100,
+        "bg_color": "",
+        "top_wave_divider": false,
+        "bottom_wave_divider": false,
+        "custom_class": "",
+        "custom_id": ""
+      }
+    }
+  },
+  "order": [
+    "main",
+    "mfr_core_hero_banner_YdxTcz",
+    "mfr_core_text_section_nckz6N",
+    "mfr_lb_note_media_h8C3L9",
+    "mfr_lb_geek_cards_yaWMLy",
+    "mfr_core_text_section_jtcNLL",
+    "mfr_lb_three_column_lottie_Tnz3Hi",
+    "mfr_lb_image_card_grid_UibW4k",
+    "mfr_core_icon_text_grid_f3eXVT",
+    "17690044198d3ee36e"
+  ]
+}

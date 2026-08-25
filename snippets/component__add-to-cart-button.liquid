@@ -1,0 +1,68 @@
+{% if product.available %}
+  {%- assign open_off_canvas = '
+      x-data
+      x-on:click="$store[`offCanvasCart`].openOffcanvas()"
+    ' -%}
+{% else %}
+  {%- assign open_off_canvas = '' -%}
+{% endif %}
+
+{% if show_price == true or show_price == "true" %}
+  {% if product.available %}
+    {%- assign has_price_class = 'with-price' -%}
+  {% endif %}
+{% else %}
+  {%- assign has_price_class = '' -%}
+{% endif %}
+
+{% assign button_class = button_class %}
+
+{% assign product = product %}
+
+{% if for_subscription %}
+  {% assign first_selling_plan = product.selected_or_first_available_selling_plan_allocation %}
+  {% assign selling_plan_id = first_selling_plan.selling_plan.id %}
+  {% assign selling_plan_input = '<input type="hidden" name="selling_plan" value="' 
+    | append: selling_plan_id 
+    | append: '">' %}
+{% else %}
+  {% assign selling_plan_input = "" %}
+{% endif %}
+
+{% if selected_id != blank %}
+  {% assign id = selected_id %}
+{% else %}
+  {% assign id = product.id %}
+{% endif %}
+
+
+
+
+<form method="post" action="/cart/add">
+  <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+
+   <button class="button {{ button_class }} {{ has_price_class }} add-to-cart " {% unless product.available -%} disabled {%- endunless %} {{ open_off_canvas }}>
+    <div class="button-text">
+      {% if product.available %}
+        {% if button_label != blank %}
+          {{ button_label }}
+        {% else %}
+          {{ 'products.product.add_to_cart' | t }}
+        {% endif %}
+      {% else %} 
+        {{ 'products.product.sold_out' | t }}
+      {% endif %}
+    </div>
+    
+    {%- if product.available -%}
+      {%- if show_price == true or show_price == "true" -%}
+        {% if for_subscription %}
+          <span class="price">{{ first_selling_plan.price | money }}</span>
+          <span class="price old">{{ first_selling_plan.compare_at_price | money }}</span>
+        {% else %}
+          {%- render 'price', product: product -%}
+        {% endif %}
+      {%- endif -%}
+    {%- endif -%}
+  </button>
+</form>

@@ -1,0 +1,9 @@
+{% capture tag_list %}
+{%- for tag in product.tags -%}
+  {{ tag | downcase | handleize }} 
+{%- endfor -%}
+{% endcapture %}
+
+<div class="product-carousel__item carousel__item relative all {{ tag_list }}">
+  {% render "partial__product-card", product: assigned_product, metaobject: metaobject %}
+</div>

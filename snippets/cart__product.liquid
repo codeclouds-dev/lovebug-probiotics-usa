@@ -1,0 +1,73 @@
+<div class="cart-form__product cart-product"
+    rv-each-item="cart.items"
+    rv-hide="item.properties._bundle_hash">
+    <div class="cart-product__inner">
+        <!-- Cart Product Left -->
+        <div class="cart-product__left" rv-bg="item.properties._bg_color">
+            <div class="cart-product__image"
+                data-label="{{ "customer.order.product" | t }}">
+                <img rv-src="item.properties._image | default item.image" rv-alt="item.title">
+            </div>
+        </div>
+
+        <!-- Cart Product Center -->
+        <div class="cart-product__center">
+            <a class="cart-product__name" rv-href="item.url" rv-text="item.properties._nice_title | default item.product_title"></a>
+            <span class="cart-product__detail" rv-show="item.properties._variant_nice_title" rv-text="item.properties._variant_nice_title"></span>
+            <div class="cart-product__spacer"></div>
+            <ul class="cart-product__options" rv-show="item.variant_options | check_options">
+                <li rv-each-option="item.variant_options" rv-text="option | render_options"></li>
+            </ul>
+
+            <div class="cart-product__freq" rv-show="item.selling_plan_allocation">
+                {% render 'icon__rotate', color: "#ED40A9" %}
+                <span rv-text="item.selling_plan_allocation.selling_plan.name | convert_to_days "></span>
+            </div>
+
+
+            <ul class="cart-product__discounts" rv-show="item.discounts | check_discounts">
+                <li rv-each-discount="item.discounts" rv-show="discount | render_discounts" rv-text="discount.title"></li>
+            </ul>
+
+            <div class="cart-product__text" rv-if="item | hasSubscription" >{{ section.settings.product_subscription_details }}</div>
+            <div class="cart-product__quantity quantity">
+                <div class="quantity-picker__counter" data-label="{{ "cart.label.quantity" | t }}">
+                <button class="quantity-picker__minus" href="#" rv-data-cart-update="index | plus 1"
+                    rv-data-cart-quantity="item.quantity | minus 1" title="Minus">
+                    {% comment %} {%- render "icon-quantity-minus" -%} {% endcomment %}
+                </button>
+                <span class="quantity-picker__number item-quantity" rv-text="item.quantity"></span>
+                    <button class="quantity-picker__plus" href="#" rv-data-cart-update="index | plus 1"
+                        rv-data-cart-quantity="item.quantity | plus 1" title="Plus">
+                        {% comment %} {%- render "icon-quantity-plus" -%} {% endcomment %}
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="cart-product__right">
+            <button class="cart-product__remove" rv-data-cart-remove-id="item.key" title="Remove">
+                {% comment %} {%- render "icon-remove" -%} {% endcomment %}
+
+                {%- render "icon__offcanvas-close" -%}
+            </button>
+
+            <span class="cart-product__price" rv-text="item.line_price | money"></span>
+            <span class="cart-product__original-price" rv-show="item | render_discount_price" rv-text="item.original_line_price | money"></span>
+        </div>
+    </div>
+
+    {%- comment -%}
+    {% if section.settings.subscription_cta_label != blank %}
+        <div class="cart-product__footer"
+            rv-hide="item.selling_plan_allocation">
+            <button class="cart-product__upgrade"
+                rv-data-update-to-subscription="index | plus 1"
+                rv-data-subscription-id="item.properties._subscription_id"
+                >
+                <span>{{ section.settings.subscription_cta_label }}</span>
+            </button>
+        </div>
+    {% endif %}
+    {%- endcomment -%}
+</div>

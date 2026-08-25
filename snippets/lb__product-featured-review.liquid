@@ -1,0 +1,34 @@
+{% if featured_review != blank %}
+  {% assign image = featured_review.image %}
+  {% assign review = featured_review.review %}
+  {% assign name = featured_review.name %}
+{% else %}
+  {% assign image = false %}
+  {% assign review = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla at justo vitae lorem molestie euismod.' %}
+  {% assign name = "John Doe" %}
+{% endif %}
+<div class="featured-review"
+  data-stagger-inview=".featured-review__image,.featured-review__review,.featured-review__name">
+  <div class="featured-review__image">
+    <div class="featured-review__image-inner">
+      {% assign default_alt = "maybe an image of " | append: featured_review.name %}
+      {% assign alt = image.alt | default: default_alt %}
+      {% render 'component__lazyload-image',
+        image: image,
+        width: 240,
+        alt: alt %}
+    </div>
+    {%- capture plus_svg -%}
+      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="48" height="48">
+        <path fill="#2B3990" transform="translate(2 0.999989)" d="M44 21.995394C44 30.177391 39.538052 37.307575 32.920086 41.101032C29.701328 42.945126 25.972401 44.000011 21.998674 44.000011C9.8515673 44.000011 0 34.154686 0 21.995394C0 15.754811 2.6020429 10.114295 6.7814474 6.1133595C10.733334 2.3257334 16.095707 0 21.998674 0C34.150555 0 44 9.8484001 44 21.995394" fill-rule="evenodd"/>
+        <path fill="white" transform="translate(13 12)" d="M22 6.9489942L22 15.054416L15.056816 15.054416L15.056816 22L6.9476957 22L6.9476957 15.054416L0 15.054416L0 6.9489942L6.9476957 6.9489942L6.9476957 0L15.056816 0L15.056816 6.9489942L22 6.9489942Z" fill-rule="evenodd"/>
+      </svg>
+    {%- endcapture -%}
+    {% render 'component__svg-encoder',
+      svg_code: plus_svg,
+      width: 44,
+      alt: "plus icon" %}
+  </div>
+  <p class="featured-review__review h4">{{ review }}</p>
+  <span class="featured-review__name">{{ name }}</span>
+</div>

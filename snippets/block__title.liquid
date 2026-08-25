@@ -1,0 +1,128 @@
+{% comment %} {% assign disable_animation = true %} {% endcomment %}
+{% comment %}
+    Attributes
+
+    - block_id
+    - text
+    - header_style
+    - bold_color
+    - underline_color
+    - max_width
+{% endcomment %}
+
+{% if color != blank %}
+    {% assign has_custom_color = "has-custom-color" %}
+    {% assign color_style = "background-image: " | append: color | append: ";" %}
+    <style>
+        #block--{{ block_id }} .has-custom-color .split-text {
+          {{ color_style }}
+          background-size: 100%;
+          -webkit-background-clip: text;
+          -moz-background-clip: text;
+          /* -webkit-text-fill-color: transparent; 
+          -moz-text-fill-color: transparent; */
+        }
+    </style>
+{% else %}
+    {% assign has_custom_color = "" %}
+    {% assign color_style = "" %}
+{% endif %}
+
+{% if highlight_color != "" and highlight_color != "rgba(0,0,0,0)" %}
+  {% assign highlighted_style = "--title-block-bold-color: " | append: highlight_color | append: ";" %}
+{% else %}
+  {% assign highlighted_style = "" %}
+{% endif %}
+
+{% if make_xl == 'xl-title' %}
+  {% assign make_xl = "xl-title" %}
+{% else %}
+  {% assign make_xl = "" %}
+{% endif %}
+
+{% if underline_color != "" and underline_color != "rgba(0,0,0,0)" %}
+  {% assign underline_color_style = "--title-underline-color: " | append: underline_color | append: ";" %}
+
+  {% capture underline_component %}
+      {% if block_id != blank %}
+          <style>
+              #block--{{ block_id }} .custom-underline {
+                --underline-color: {{ underline_color }};
+                {% comment %} background-image: ; {% endcomment %}
+              }
+              #block--{{ block_id }} .highlighted {
+                --highlighted-color: {{ highlighted_style }};
+                {% comment %} background-color: ; {% endcomment %}
+                background-color: {{ highlighted_style }};
+              }
+          </style>
+      {% endif %}
+  {% endcapture %}
+{% else %}
+  {% assign underline_color_style = "" %}
+{% endif %}
+
+{% if max_width != blank and max_width != 0 %}
+  {%- capture max_width -%}
+    --block-max-width: {{ max_width }}rem;
+  {%- endcapture -%}
+{% else %}
+  {% assign max_width = "" %}
+{% endif %}
+
+{% assign with_line_class = '' %}
+
+{% if with_line %}
+  {% assign with_line_class = 'accent-line' %}
+{% endif %}
+
+{% comment %} {%- if accent_graphic != "" -%}
+  {%- capture accent_graphic_svg -%}
+    {%- if accent_graphic == "bubbles" -%}highlighted_color
+      {%- render 'icon__animated-bubbles' -%}
+    {%- elsif accent_graphic == "leaves" -%}
+      {%- render 'icon__animated-leaves' -%}
+    {%- endif -%}
+  {%- endcapture -%}
+  {%- assign accent_graphic_class = "section-title--accent-graphic-svg--" | append: accent_graphic -%}
+  {%- assign accent_graphic_position_class = "mobile--" | append: accent_graphic_position_mobile -%}
+  {%- assign accent_graphic_position_class_mobile = "desktop--" | append: accent_graphic_position -%}
+  {%- assign accent_graphic_color = accent_graphic_color | default: "currentColor" -%}
+  {%- assign has_accent_graphic = true -%}
+{%- else -%}
+  {%- assign accent_graphic_class = "" -%}
+  {%- assign accent_graphic_position_class = "" -%}
+  {%- assign has_accent_graphic = false -%}
+  {%- assign accent_graphic_color = "" -%}
+{%- endif -%} {% endcomment %}
+
+
+<div
+  id="block--{{ block_id }}"
+  class="section-title {{ header_style }} {{ make_xl }} {{ with_line_class }}"
+  style="{{ highlighted_style }} {{ underline_color_style }} {{ max_width }}"
+  data-inview>
+  {{ underline_component }}
+  {% comment %} {% if has_accent_graphic != false %}
+    <div class="section-title--accent-graphic-svg {{ accent_graphic_class }} {{ accent_graphic_position_class }} {{ accent_graphic_position_class_mobile }}"
+      style="--accent-graphic-color: {{ accent_graphic_color }};">
+      {{ accent_graphic_svg }}
+    </div>
+  {% endif %} {% endcomment %}
+  
+  <div class="section-title__inner {{ has_custom_color }}" 
+    {% unless disable_animation %}
+      data-split-text="fadeUp"
+    {% endunless %}>
+    {{ text 
+      | replace: "<p>", ""
+      | replace: "</p>", ""
+      | replace: "[underline]", "<span class='custom-underline'>" 
+      | replace: "[/underline]", "</span>"
+      | replace: "[highlight]", "<span class='highlighted'>"
+      | replace: "[/highlight]", "</span>"
+      | replace: "[text-gradient]", "<span class='text-gradient'>"
+      | replace: "[/text-gradient]", "</span>"
+      | replace: "[br]", "<br>" }}
+  </div>
+</div>

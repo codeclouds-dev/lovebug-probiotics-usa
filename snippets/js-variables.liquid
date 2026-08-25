@@ -1,0 +1,10 @@
+<script>
+  window.mfrEnableSmoothScroll = {% if settings.enable_smooth_scroll %}true{% else %}false{% endif %};
+  const moistSrc = "{{ 'moist-bg.jpg' | asset_img_url: 'master' }}";
+  const cartData = {{ cart | json }};
+  const bundleLimit = {{ settings.bundle_limit | default: 0 }};
+  const bundleMaxPerProduct = {{ settings.bundle_product_limit | default: 0 }};
+  const bundleMinimumProducts = {{ settings.bundle_minimum | default: 0  }};
+  const gsapSmoothness = {{ settings.gsap_smoothness | default: "0.5" }};
+  const gsapSmoothnessMobile = {{ gsap_smoothness_mobile | default: "0.1" }};
+</script>

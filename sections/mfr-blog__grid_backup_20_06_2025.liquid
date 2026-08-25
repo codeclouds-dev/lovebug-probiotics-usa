@@ -1,0 +1,930 @@
+{%- comment -%}
+--------------------------------------
+assign section settings to variables
+--------------------------------------
+{%- endcomment -%}
+
+{% render 'style-tags__section', asset_file_name: "mfr-blog__grid.css" %}
+{%- assign text_alignment = section.settings.text_alignment -%}
+{%- assign container_width = section.settings.container_width -%}
+{%- assign max_width = section.settings.max_width -%}
+{%- assign grid_gutter = section.settings.grid_gutter -%}
+{%- assign color_theme = section.settings.color_theme -%}
+{%- assign custom_class = section.settings.custom_class -%}
+
+{%- assign section_id = section.settings.custom_id | default: section.id -%}
+{% render 'renderer__color-scheme', name: "section", color_scheme: section.settings.color_scheme, selector: ".shopify-section", section_id: section_id %}
+
+{%- if max_width != 0 and container_width == "" -%}
+  {%- capture max_width_style -%}
+    style="max-width: {{ max_width }}rem;" 
+  {%- endcapture -%}
+{%- endif -%}
+
+
+
+{% if section.settings.text_alignment != blank %}
+  {% assign content_alignment = "align-center" %}
+{% else %}
+  {% assign content_alignment = "" %}
+{% endif %}
+
+{% assign icons = section.blocks | where: "type", "icon" %}
+{% assign small_texts = section.blocks | where: "type", "small_text" %}
+{% assign headings = section.blocks | where: "type", "heading" %}
+{% assign texts = section.blocks | where: "type", "text" %}
+{% assign buttons = section.blocks | where: "type", "button" %}
+{% assign filters = section.blocks | where: "type", "filter" %}
+{% comment %} {% assign blog = section.settings.blog %} {% endcomment %}
+
+{% capture spacer %}
+  --top-spacing-mobile: {{ section.settings.top_spacing_mobile }}px;
+  --bottom-spacing-mobile: {{ section.settings.bottom_spacing_mobile }}px;
+  --top-spacing-desktop: {{ section.settings.top_spacing_desktop }}px;
+  --bottom-spacing-desktop: {{ section.settings.bottom_spacing_desktop }}px;
+{% endcapture %}
+
+{%- capture articles_json_script -%}
+  {% assign articles = blog.articles %}
+  {% assign allArticlesCount = blog.articles_count %}
+  
+  {% paginate blog.articles by allArticlesCount %}
+    {% assign chunks = allArticlesCount | divided_by: 20.0 | ceil %}
+    {% for chunk in (1..chunks) %}
+      {% if forloop.first %}
+        {%- capture articles_json -%}
+          [
+            {%- for article in blog.articles limit: 20 -%}
+              {%- assign image = article.metafields.mfr_fields.blog_card_image | default: article.image -%}
+              {
+                "id":{{- article.id -}},
+                "title":"{{- article.title | escape -}}",
+                "image":"{%- if image != blank %}{{- image | image_url: width: 720 -}}{%- endif -%}",
+                "tag":{{- article.tags | json -}},
+                "url":"{{- article.url -}}",
+                "readingTime":"{{- article.content | strip_html | split: " " | size | divided_by: 200 | plus: 1 -}} mins"
+              },
+            {%- endfor -%}
+          ]
+        {%- endcapture -%}
+      {% else %}
+        {%- capture articles_json -%}
+          [
+            {%- for article in blog.articles limit: 20 offset: continue -%}
+              {%- assign image = article.metafields.mfr_fields.blog_card_image | default: article.image -%}
+              {
+                "id":{{- article.id -}},
+                "title":"{{- article.title | escape -}}",
+                "image":"{%- if image != blank %}{{- image | image_url: width: 420 -}}{%- endif -%}",
+                "tag": {{- article.tags | json -}},
+                "url":"{{- article.url -}}",
+                "readingTime":"{{- article.content | strip_html | split: " " | size | divided_by: 200 | plus: 1 -}} mins"
+              },
+            {%- endfor -%}
+          ]
+        {%- endcapture -%}
+      {% endif %}
+      <script
+        class="blog-grid__json"
+        type="application/json"
+        x-data>
+        {%- assign articles_json = articles_json | replace: ',}', '}' | replace: ',]', ']' -%}
+        {{- articles_json | newline_to_br | replace: "<br />", ""  | replace: "  ", "" | replace: "\n", "" }}
+      </script>
+    {% endfor %}
+  {% endpaginate %}
+{%- endcapture -%}
+{% comment %}
+  Insert your custom section content here 
+{% endcomment %}
+{% capture custom_section_content %}
+  <div class="blog-grid"
+    x-data='{
+      shownArticles:[],
+      postPerPage: 8,
+      currentPage: 1,
+      hasNextPage: false,
+      currentFilter: false,
+      searchFilter: false,
+      getArticles() {
+        const allArticles = [];
+        const articles = Array.from(document.querySelectorAll(".blog-grid__json")).map((el) => {
+          try {
+            return JSON.parse(el.textContent);
+          } catch (error) {
+            console.error("Invalid JSON in script tag:", el, error);
+            return null;
+          }
+        });
+
+        return articles.length ? articles.flat() : [];
+      },
+      paginate(page_number, articles = false) {
+        this.articles = this.getArticles()
+        const page_size = this.postPerPage;
+
+        // Filter articles based on currentFilter
+        if (this.currentFilter) {
+          this.articles = this.articles.filter(article => 
+            article.tag && article.tag?.includes(this.currentFilter)
+          );
+        }
+
+        // Filter articles by search term across all values
+        if (this.searchFilter) {
+          const searchTerm = this.searchFilter.toLowerCase();
+          const parser = new DOMParser();
+          this.articles = this.articles.filter(article => {
+            let decodedTitle = parser.parseFromString(article.title, "text/html").body.textContent;
+            return decodedTitle.toLowerCase().includes(searchTerm);
+          } );
+        }
+
+        // human-readable page numbers usually start with 1, so we reduce 1 in the first argument
+        return this.articles.slice(
+          (page_number - 1) * page_size,
+          page_number * page_size
+        );
+      },
+      updateHasNextPage() {
+        this.hasNextPage = this.paginate(this.currentPage + 1).length;
+      },
+      getFilterFromURL() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const parser = new DOMParser();
+        return !urlParams.get("filter") ? false : parser.parseFromString(urlParams.get("filter"), "text/html").body.textContent;
+      },
+      setFilterInURL() {
+        const url = new URL(window.location.href);
+
+        if(this.currentFilter) 
+          url.searchParams.set("filter", this.currentFilter);
+        else 
+          url.searchParams.delete("filter");
+        
+        window.history.replaceState(null, "", url);
+      }
+    }'
+    x-init='
+      $watch( "shownArticles", () => {
+        lozad("img.lozad").observe();
+        if(window.quickLinkListen) window.quickLinkListen();
+      } );
+
+      currentFilter = getFilterFromURL();
+    '>
+    {% if filters != blank %}
+      <div class="blog-grid__filters"
+        data-stagger-inview=".blog-grid__filters-inner li button, .blog-grid__search">
+
+        <div class="blog-grid__search">
+          <input type="text" name="search" 
+            placeholder="SEARCH TOPICS"
+            @keyup='
+              searchFilter = $el.value != "" ? $el.value : false
+              currentPage = 1
+              shownArticles = paginate(currentPage);
+              updateHasNextPage()
+            '>
+          {%- capture search_svg -%}
+            {% render 'icon__search' %}
+          {%- endcapture -%}
+          {% render 'component__svg-encoder',
+            svg_code: search_svg,
+            width: 15,
+            alt: "search icon" %}
+        </div>
+
+        <ul class="blog-grid__filters-inner"
+          x-data='{
+            withScroll: $el.scrollWidth > $el.clientWidth,
+            setFilter(filter) {
+              currentFilter = filter
+              currentPage = 1
+              shownArticles = paginate(currentPage);
+              updateHasNextPage()
+              setFilterInURL();
+            }
+          }'
+          :class='withScroll ? "with-scroll" : ""'
+          x-resize='
+            withScroll = $el.scrollWidth > $el.clientWidth
+          '>
+          <li>
+            <button 
+              :class='!currentFilter ? "is-active" : ""'
+              @click='setFilter(false)'>All Posts</button>
+          </li>
+          {%- for filter in filters -%}
+            <li>
+              <button
+                :class='currentFilter == filterValue ? "is-active" : ""'
+                x-data='{
+                  filterValue: "{{ filter.settings.label }}"
+                }'
+                @click='setFilter(filterValue)'>
+                {{ filter.settings.label }}
+              </button>
+            </li>
+          {%- endfor -%}
+        </ul>
+      </div>
+    {% endif %}
+    <div class="blog-grid__inner"
+      x-init='
+        shownArticles = paginate(currentPage);
+        updateHasNextPage()
+      '>
+      <template x-for="(entry, index) in shownArticles">
+        <div class="blog-grid__entry">
+          <a class=" blog-card"
+            :class='
+              entry.tag?.map((str) => {
+                return str.toLowerCase().replace(/\s+/g, "-");
+              }).join(" ")
+            ' 
+            :href="entry.url">
+            <div class="blog-card__media">
+              <ul class="blog-card__tags"
+                x-show='entry.tag.length'
+                x-cloak>
+                <template x-for='tag in entry.tag'>
+                  <li>
+                    <span x-text='tag'></span>
+                  </li>
+                </template>
+              </ul>
+              <img 
+                class="lozad"
+                :src="entry.image" 
+                :alt='"maybe an image about the article " + entry.title'
+                height="350px"
+                width="314px"
+                x-show='entry.image != ""'
+                x-cloak>
+            </div>
+            <div class="blog-card__info">
+              <span class="blog-card__title" 
+                x-text='
+                  const parser = new DOMParser();
+                  return parser.parseFromString(entry.title, "text/html").body.textContent
+                '></span>
+              <span class="blog-card__reading-time"
+                x-show='entry.readingTime != ""'
+                x-cloak>
+                Read time: <span x-text='entry.readingTime'></span>
+              </span>
+            </div>
+          </a>
+        </div>
+      </template>
+
+      <div class="blog-grid__load-more" x-show='hasNextPage' x-cloak>
+        <button
+          class="button primary"
+          x-data
+          @click='
+            currentPage = currentPage + 1;
+            shownArticles = [
+              ...shownArticles,
+              ...paginate(currentPage)
+            ];
+            updateHasNextPage()
+          '>
+          Load More
+        </button>
+      </div>
+    </div>
+    {{ articles_json_script }}
+  </div>
+{% endcapture %}
+
+<section class="mfr-blog__grid {{ custom_class }} " id="{{ section_id }}">
+  <div class="section-spacer background {{ grid_gutter }}" style="{{ spacer }}">
+    <div class="grid-container {{ container_width }}" {{ max_width_style }}>
+      <div class="grid-x align-center">
+        {% if icons != blank or small_texts != blank or headings != blank or texts != blank or buttons != blank %}
+          <div class="cell small-12 large-12 section-content {{ color_theme }} {{ text_alignment }}">
+            <div class="inner">
+              {%- for block in section.blocks -%}
+                {% case block.type %}
+                
+                  {%- when 'icon' -%}
+                    {% render 'renderer__block-icon', block: block %} 
+                
+                  {%- when 'small_text' -%}
+                    {% render "renderer__block-small-text", block: block %}
+                    
+                  {%- when 'heading' -%}
+                    {% render "renderer__block-title", block: block %}
+                    
+                  {%- when 'text' -%}
+                    {% render "renderer__block-text", block: block %}
+
+                {%- endcase -%}
+              {%- endfor -%}
+
+              {% if buttons != blank %}
+                <div class="button-set {{ content_alignment }}">
+                  {%- for block in section.blocks -%}
+                    {% case block.type %}
+                      {%- when 'button' -%}
+                        {% render 'renderer__block-button', block: block %}
+                    {%- endcase -%}
+                  {%- endfor -%}
+                </div>
+              {% endif %}
+            </div>
+          </div>
+        {% endif %}
+
+        <div class="cell small-12 large-12">
+          {{ custom_section_content }}
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  {%- render 'component__gradient-bg-styles' -%}
+  {%- render 'component__accent-graphics' -%}
+  {%- render 'component__section-dividers', is_video_background: true -%}
+</section>
+
+
+{% schema %}
+{
+  "name":"Blog: Grid",
+  "disabled_on": {
+    "groups": [
+      "header", "footer", "custom.offcanvas","custom.modals"
+    ]
+  },
+  "settings":[
+    {
+      "type": "header",
+      "content": "Section Settings"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "options": [
+          { "value": "", "label": "Left" },
+          { "value": "text-center", "label": "Center" }
+          ],
+      "label": "Text Alignment",
+      "default": "text-center"
+    },
+    {
+      "type": "select",
+      "id": "container_width",
+      "options": [
+          { "value": "full", "label": "Full" },
+          { "value": "", "label": "Contain" }
+          ],
+      "label": "Width",
+      "default": "full"
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "rem",
+      "label": "Max Content Width",
+      "default": 0
+    },
+    {
+      "type": "select",
+      "id": "grid_gutter",
+      "options": [
+          { "value": "grid-gutter", "label": "Padding" },
+          { "value": "", "label": "No Padding" }
+          ],
+      "label": "Section Padding",
+      "default": ""
+    },
+      {
+        "type": "header",
+        "content": "Color Schemes Settings"
+      },
+      {
+        "type": "color_scheme",
+        "id": "color_scheme",
+        "default": "scheme_1",
+        "label": "Color Scheme",
+        "info": "This will be the color scheme of the header initially."
+      },
+
+    {
+      "type": "header",
+      "content": "Mobile Section Spacing"
+    },
+    {
+      "type": "range",
+      "id": "top_spacing_mobile",
+      "min": 0,
+      "max": 500,
+      "step": 10,
+      "unit": "px",
+      "label": "Top Spacing",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "bottom_spacing_mobile",
+      "min": 0,
+      "max": 500,
+      "step": 10,
+      "unit": "px",
+      "label": "Bottom Spacing",
+      "default": 100
+    },
+
+    {
+      "type": "header",
+      "content": "Desktop Section Spacing"
+    },
+    {
+      "type": "range",
+      "id": "top_spacing_desktop",
+      "min": 0,
+      "max": 500,
+      "step": 10,
+      "unit": "px",
+      "label": "Top Spacing",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "bottom_spacing_desktop",
+      "min": 0,
+      "max": 500,
+      "step": 10,
+      "unit": "px",
+      "label": "Bottom Spacing",
+      "default": 100
+    },
+
+    {
+      "type":"header",
+      "content":"Background"
+    },
+    {
+      "type": "color_background",
+      "id": "bg_color",
+      "label": "Background Color/Gradient"
+    },
+
+    {
+      "type": "image_picker",
+      "id": "bg_image_mobile",
+      "label": "Background Image - Mobile"
+    },
+    {
+      "type": "image_picker",
+      "id": "bg_image",
+      "label": "Background Image - Desktop"
+    },
+
+
+    {
+      "type": "header",
+      "content": "Divider Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "top_wave_divider",
+      "label": "Top Wave Divider",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "bottom_wave_divider",
+      "label": "Bottom Wave Divider",
+      "default": false
+    },
+    {
+      "type":"header",
+      "content":"Attribute Settings"
+    },
+    {
+      "type": "text",
+      "id": "custom_class",
+      "label": "Custom class"
+    },
+    {
+      "type": "text",
+      "id": "custom_id",
+      "label": "Custom ID"
+    }
+  ],
+  "blocks":[
+    {
+      "type": "icon", 
+      "name": "Icon",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon"
+        },
+        {
+          "type": "text",
+          "id": "file_lottie_url",
+          "label": "File Lottie URL"
+        },
+        {
+          "type": "number",
+          "id": "icon_width",
+          "label": "Image width",
+          "default": 150,
+          "info": "in pixels."
+        }
+      ]
+    },
+    {
+      "type":"small_text",
+      "name":"Accent Text",
+      "limit":1,
+      "settings":[
+        {
+          "type":"text",
+          "id":"text",
+          "default":"Accent Text",
+          "label":"Text"
+        },
+        {
+          "type": "color",
+          "id": "small_text_color",
+          "label": "Color"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "name": "Heading",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "inline_richtext",
+          "id": "heading",
+          "default": "Heading H1",
+          "label": "Heading H1"
+        },
+        {
+          "type": "checkbox",
+          "id": "disable_animation",
+          "label": "Disable Animation",
+          "default": false
+        },
+        {
+          "type": "select",
+          "id": "header_style",
+          "options": [
+              { "value": "h1", "label": "H1"},
+              { "value": "h2", "label": "H2"},
+              { "value": "h3", "label": "H3"},
+              { "value": "h4", "label": "H4"},
+              { "value": "h5", "label": "H5"},
+              { "value": "h6", "label": "H6"}
+              ],
+          "label": "Header Style",
+          "default": "h1"
+        },
+
+        {
+          "type": "header",
+          "content": "Accent Settings"
+        },
+        {
+          "type": "select",
+          "id": "make_xl",
+          "options": [
+              { "value": "", "label": "Normal"},
+              { "value": "xl-title", "label": "Oversize"}
+              ],
+          "label": "H1 Size",
+          "default": "",
+          "info": "H1s can be set to oversize if they need to be extra big"
+        },
+
+        {
+            "type": "color",
+            "id": "highlight_color",
+            "label": "Highlight Color",
+            "info": "Use [highlight][/highlight] to highlight text"
+        },
+        {
+            "type": "color",
+            "id": "underline_color",
+            "label": "Underline Color",
+            "info": "Use [underline][/underline] to underline text"
+        },
+
+        {
+          "type": "header",
+          "content": "Width Settings"
+        },
+        {
+            "type": "range",
+            "id": "max_width",
+            "min": 0,
+            "max": 60,
+            "step": 1,
+            "unit": "rem",
+            "label": "Max Width",
+            "default": 0
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "name": "Text",
+      "limit": 2,
+      "settings": [
+        
+        {
+          "type": "richtext",
+          "id": "text",
+          "default": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum vel metus auctor.</p>",
+          "label": "Text"
+        },
+        {
+          "type": "checkbox",
+          "id": "disable_animation",
+          "label": "Disable Animation",
+          "default": false
+        },
+        {
+          "type":"select",
+          "id":"text_style",
+          "options":[
+            { "value":"", "label":"Default" },
+            { "value":"xsmall", "label":"xSmall" },
+            { "value":"small", "label":"Small" },
+            { "value":"regular", "label":"Regular" },
+            { "value":"large", "label":"Large" },
+            { "value":"xlarge", "label":"xLarge" }
+          ],
+          "label":"Style",
+          "default":"regular"
+        },
+        {
+          "type": "color",
+          "id": "color",
+          "label": "Color",
+          "info": "Leave it blank to use system settings."
+        },
+        {
+            "type": "range",
+            "id": "max_width",
+            "min": 0,
+            "max": 50,
+            "step": 1,
+            "unit": "rem",
+            "label": "Width",
+            "default": 0
+        }
+      ]
+    },
+    {
+      "type":"button",
+      "name":"Button",
+      "limit":2,
+      "settings":[
+        {
+          "type":"text",
+          "id":"button_label",
+          "default":"Button label",
+          "label":"Button",
+          "info":"Leave the label blank to hide the button."
+        },
+        {
+          "type":"url",
+          "id":"button_link",
+          "label":"Button Link"
+        },
+        {
+          "type": "select",
+          "id": "color_theme",
+          "label": "Color Theme",
+          "options": [
+            {
+              "value": "primary",
+              "label": "Primary"
+            },
+            {
+              "value": "secondary",
+              "label": "Secondary"
+            },
+            {
+              "value": "tertiary",
+              "label": "Tertiary"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "filter",
+      "name": "Filter",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Lorem ipsum"
+        }
+      ]
+    },
+    {
+      "type": "accent_graphic", 
+      "name": "Accent Graphic",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon"
+        },
+        {
+          "type":"html",
+          "id":"svg_code",
+          "label":"Graphic SVG Code",
+          "info":"Paste SVG code for vector graphic"
+        },
+        {
+          "type":"header",
+          "content":"Visibility"
+        },
+        {
+          "type": "select",
+          "id": "visibility",
+          "options": [
+              { "value": "always", "label": "Always" },
+              { "value": "desktop_only", "label": "Desktop Only" },
+              { "value": "mobile_only", "label": "Mobile Only" }
+              ],
+          "label": "Show on..",
+          "default": "always"
+        },
+        {
+          "type":"header",
+          "content":"Value Type"
+        },
+        {
+          "type": "select",
+          "id": "value_type",
+          "options": [
+              { "value": "px", "label": "Pixels" },
+              { "value": "%", "label": "Percentage" }
+              ],
+          "label": "Position Value Type",
+          "default": "%",
+          "info": "Pixel values are multiplied by 5"
+        },
+        {
+          "type":"header",
+          "content":"Position"
+        },
+        {
+          "type": "select",
+          "id": "x_setting",
+          "options": [
+              { "value": "left", "label": "Left" },
+              { "value": "center", "label": "Center" },
+              { "value": "right", "label": "Right" }
+              ],
+          "label": "X Position",
+          "default": "left"
+        },
+        {
+          "type": "select",
+          "id": "y_setting",
+          "options": [
+              { "value": "top", "label": "Top" },
+              { "value": "bottom", "label": "Bottom" }
+              ],
+          "label": "Y Position",
+          "default": "top"
+        },
+        { 
+          "type":"header",
+          "content":"Large Screen Settings"
+        },
+        {
+          "type": "range",
+          "id": "width_large",
+          "min": 10,
+          "max": 400,
+          "step": 10,
+          "unit": "px",
+          "label": "Graphic Width",
+          "default": 150
+        },
+        {
+          "type": "range",
+          "id": "position_x_large",
+          "min": -100,
+          "max": 100,
+          "step": 2,
+          "label": "X Position",
+          "default": 10
+        },
+        {
+          "type": "range",
+          "id": "position_y_large",
+          "min": -100,
+          "max": 100,
+          "step": 2,
+          "label": "Y Position",
+          "default": 10
+        },
+        {
+          "type":"header",
+          "content":"Small Screen Settings"
+        },
+        {
+          "type": "range",
+          "id": "width_small",
+          "min": 10,
+          "max": 400,
+          "step": 10,
+          "unit": "px",
+          "label": "Graphic Width",
+          "default": 150
+        },
+        {
+          "type": "range",
+          "id": "position_x_small",
+          "min": -100,
+          "max": 100,
+          "step": 2,
+          "label": "X Position",
+          "default": 10
+        },
+        {
+          "type": "range",
+          "id": "position_y_small",
+          "min": -100,
+          "max": 100,
+          "step": 2,
+          "label": "Y Position",
+          "default": 10
+        },
+        {
+          "type":"header",
+          "content":"Animation Settings"
+        },
+        {
+          "type": "select",
+          "id": "animation",
+          "options": [
+              { "value": "none", "label": "None" },
+              { "value": "rotating", "label": "Rotate" },
+              { "value": "floating", "label": "Float" },
+              { "value": "spark", "label": "Spark" }
+            ],
+          "label": "Animation",
+          "default": "none"
+        },
+
+        {
+          "type":"header",
+          "content":"Appearance Settings"
+        },
+        {
+          "type": "range",
+          "id": "rotate",
+          "min": 0,
+          "max": 360,
+          "step": 36,
+          "unit": "%",
+          "label": "Rotate",
+          "default": 0
+        },
+        {
+          "type": "checkbox",
+          "id": "flip",
+          "label": "Flip Graphics?",
+          "default": false
+        }
+      ]
+    }
+  ],
+  "presets":[
+    {
+      "name":"Blog: Grid",
+      "blocks":[
+        {
+          "type":"heading"
+        },
+        {
+          "type":"text"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,52 @@
+{% comment %} <script>
+    function onLoadMainStylesheet() {
+        var url = "{{ 'theme.css' | asset_url }}";
+        var link = document.querySelector('link[href="' + url + '"]');
+        link.loaded = true;
+        link.dispatchEvent(new CustomEvent('stylesLoaded'));
+    }
+    window.theme_stylesheet = '{{ 'theme.css' | asset_url }}';
+</script> {% endcomment %}
+{% comment %} <link rel="preload" href="{{ 'theme.css' | asset_url }}" as="style"> {% endcomment %}
+
+{% comment %} <link class="mfr-stylesheet" rel="stylesheet" href="{{ 'theme.css' | asset_url }}" media="print" onload="this.media='all';">
+<noscript>
+  {{ 'theme.css' 
+    | asset_url
+    | stylesheet_tag: preload: true }}
+</noscript>
+<link class="mfr-stylesheet" rel="stylesheet" href="{{ 'header.css' | asset_url }}" media="print" onload="this.media='all';">
+<noscript>
+  {{ 'header.css' 
+    | asset_url
+    | stylesheet_tag: preload: true }}
+</noscript>
+<link class="mfr-stylesheet" rel="stylesheet" href="{{ 'hero.css' | asset_url }}" media="print" onload="this.media='all';">
+<noscript>
+  {{ 'hero.css' 
+    | asset_url
+    | stylesheet_tag: preload: true }}
+</noscript>
+<link class="mfr-stylesheet" rel="stylesheet" href="{{ 'footer.css' | asset_url }}" media="print" onload="this.media='all';">
+<noscript>
+  {{ 'footer.css' 
+    | asset_url
+    | stylesheet_tag: preload: true }}
+</noscript> {% endcomment %}
+{{ 'header.css' 
+  | asset_url
+  | stylesheet_tag: preload: true }}
+{{ 'theme.css' 
+  | asset_url
+  | stylesheet_tag: preload: true }}
+{{ 'footer.css' 
+  | asset_url
+  | stylesheet_tag: preload: true }}
+  {{ 'new.css' 
+  | asset_url
+  | stylesheet_tag: preload: true }}
+  {% if template contains 'product' and product.handle == 'baby-probiotic-drops-a-b' %}
+  {{ 'ab.css' 
+  | asset_url
+  | stylesheet_tag: preload: true }}
+  {% endif %}

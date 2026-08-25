@@ -1,0 +1,138 @@
+{%- assign s = section.settings -%}
+
+{{- 'section-image-with-heading.css' | asset_url | stylesheet_tag -}}
+
+<div class="image-heading-section" style="background-color: {{ s.bg_color }};">
+  {% render 'component__section-dividers' %}
+
+  <div class="image-heading-container">
+    <div class="header-content">
+      
+      {%- if s.heading_mobile != blank -%}
+        <h2 class="section-heading section-heading--desktop">{{ s.heading | newline_to_br }}</h2>
+        <h2 class="section-heading section-heading--mobile">{{ s.heading_mobile | newline_to_br }}</h2>
+      {%- elsif s.heading != blank -%}
+        <h2 class="section-heading">{{ s.heading | newline_to_br }}</h2>
+      {%- endif -%}
+
+      {%- if s.subheading != blank -%}
+        <p class="section-subheading">{{ s.subheading }}</p>
+      {%- endif -%}
+    </div>
+
+    <div class="image-content">
+      <div class="img-mobile">
+        {%- assign mobile_fallback = s.image_mobile | default: s.image_desktop -%}
+        {%- if mobile_fallback != blank -%}
+          {{ mobile_fallback | image_url: width: 800 | image_tag: loading: 'lazy' }}
+        {%- else -%}
+          {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+        {%- endif -%}
+      </div>
+
+      <div class="img-desktop">
+        {%- if s.image_desktop != blank -%}
+          {{ s.image_desktop | image_url: width: 1400 | image_tag: loading: 'lazy' }}
+        {%- else -%}
+          {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+
+  {%- if s.icon != blank -%}
+    <div class="floating-icon-wrapper">
+      {{ s.icon | image_url: width: 300 | image_tag: loading: 'lazy' }}
+    </div>
+  {%- endif -%}
+
+  {%- if s.floating_icon != blank -%}
+    <div class="desktop-floating-icon-wrapper">
+      {{ s.floating_icon | image_url: width: 400 | image_tag: class: 'floating-icon-img', loading: 'lazy' }}
+    </div>
+  {%- endif -%}
+</div>
+
+{% schema %}
+  {
+    "name": "Image with Heading",
+    "tag": "section",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Section Background & Dividers"
+      },
+      {
+        "type": "color",
+        "id": "bg_color",
+        "label": "Background Color",
+        "default": "#E9F4FC"
+      },
+      {
+        "type": "checkbox",
+        "id": "top_wave_divider",
+        "label": "Show Top Wave Divider",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "bottom_wave_divider",
+        "label": "Show Bottom Wave Divider",
+        "default": false
+      },
+      {
+        "type": "header",
+        "content": "Section Text"
+      },
+      {
+        "type": "textarea",
+        "id": "heading",
+        "label": "Heading",
+        "default": "Not All Baby Probiotics\nAre Created Equal"
+      },
+      {
+        "type": "textarea",
+        "id": "heading_mobile",
+        "label": "Mobile Heading",
+        "default": "Not All Baby\n Probiotics Are\nCreated Equal",
+        "info": "Optional. Use to customize line breaks specifically for mobile screens."
+      },
+      {
+        "type": "text",
+        "id": "subheading",
+        "label": "Subheading",
+        "default": "See Why Parents Choose LoveBug"
+      },
+      {
+        "type": "header",
+        "content": "Images"
+      },
+      {
+        "type": "image_picker",
+        "id": "icon",
+        "label": "Floating Icon"
+      },
+      {
+        "type": "image_picker",
+        "id": "floating_icon",
+        "label": "Desktop Floating Icon"
+      },
+      {
+        "type": "image_picker",
+        "id": "image_desktop",
+        "label": "Desktop Image"
+      },
+      {
+        "type": "image_picker",
+        "id": "image_mobile",
+        "label": "Mobile Image (Optional)",
+        "info": "Leave blank to use the desktop image on mobile."
+      }
+    ],
+    "presets": [
+      {
+        "name": "Image with Heading"
+      }
+    ]
+  }
+{% endschema %}

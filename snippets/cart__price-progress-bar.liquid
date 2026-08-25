@@ -1,0 +1,101 @@
+{% render 'renderer__color-scheme', name: "section", color_scheme: block.settings.color_scheme_progress_bar, selector: ".price-progress-bar" %}
+
+{% if block.settings.price != 0 and block.settings.price != blank %}
+    {% assign priceSetting = block.settings.price | times: '100' %}
+    <script>
+        window.priceProgressBar = window.priceProgressBar || {};
+        window.priceProgressBar.productIds = [];
+        window.priceProgressBar.requiredTotal = 0;
+    </script>
+    <script>
+          {%- comment -%}
+            Build the cartCondition object for the scripts to be able to access it.
+          {%- endcomment -%}
+          window.priceProgressBar = window.cartCondition || {};
+          window.priceProgressBar.productIds = [
+            {%- for condition_product in block.settings.collection.products -%}
+              {{ condition_product.id }}, 
+            {%- endfor -%}
+          ];
+
+          window.priceProgressBar.requiredTotal = Number( {{ priceSetting }} );
+    </script>
+    <div class="price-progress-bar">
+
+        <div class="price-progress-bar__label"
+            style="
+                --progress-bar-track-color: {{ block.settings.track_color }};
+                --progress-bar-track-bg-color: {{ block.settings.track_bg_color }};
+            ">
+            <div class="price-progress-bar__label-success"
+                rv-show="cart.items | is_price_progress_bar_success {{ priceSetting }}">
+                {{ block.settings.success_message }}
+            </div>
+            <div class="price-progress-bar__label-fail"
+                rv-hide="cart.items | is_price_progress_bar_success {{ priceSetting }}">
+                {%- capture price_element -%}
+                    <span class="quantity-progress-bar__quantity"
+                        rv-text="cart.items | get_price_progress_bar_remaining {{ priceSetting }}">
+                    </span>
+                {%- endcapture -%}
+                {{ block.settings.condition_label 
+                    | replace: "[price]", price_element }}
+            </div>
+        </div>
+        
+        <div class="price-progress-bar__progress progress-bar"
+            style="
+                --progress-bar-track-color: {{ block.settings.track_color }};
+                --progress-bar-track-bg-color: {{ block.settings.track_bg_color }};
+            ">
+            <div class="progress-bar__track"></div>
+            <div class="progress-bar__value" 
+                rv-class-completed="cart.items | is_price_progress_bar_success {{ priceSetting }}" 
+                rv-width="cart.items | get_price_progress_bar_percentage {{ priceSetting }}"></div>
+        </div>
+
+        <script>
+            onReady(() => {
+                const includeSubscription = true;
+                const compareCartTotal = true;
+
+                function initPriceProgressBar() {
+                    const productIds = window.priceProgressBar.productIds;
+                    const requiredTotal = window.priceProgressBar.requiredTotal;
+                    const getQualifiedItemsTotal = ( items ) => {
+                        let itemPrice = 0;
+                        let total = 0;
+                        $.each( items, ( i, e ) => {
+                            if( includeSubscription ) {
+                                if( productIds.includes( e.product_id ) ) {
+                                    itemPrice = e.quantity * e.price;
+                                    total += itemPrice;
+                                }
+                            }
+                            else {
+                                if( typeof e.selling_plan_allocation === "undefined" 
+                                    && productIds.includes( e.product_id ) ) {
+                                    itemPrice = e.quantity * e.price;
+                                    total += itemPrice;
+                                }
+                            }
+                        } )
+                        
+                        return compareCartTotal ? CartJS.cart.total_price : total;
+                    }
+                    
+                    rivets.formatters.is_price_progress_bar_success = ( items, price ) => 
+                        getQualifiedItemsTotal( items ) >= price;
+
+                    rivets.formatters.get_price_progress_bar_percentage = ( items, price ) => 
+                        `${ getQualifiedItemsTotal( items ) / price * 100 }%`;
+
+                    rivets.formatters.get_price_progress_bar_remaining = ( items, price ) => 
+                        ( price - getQualifiedItemsTotal(items) ) / 100;
+                }
+                {% comment %} waitForObjectAndRun( "rivets", () => initPriceProgressBar() ); {% endcomment %}
+                 initPriceProgressBar();
+            });
+        </script>
+    </div>
+{% endif %}

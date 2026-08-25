@@ -1,0 +1,45 @@
+{%- if icon_text != blank -%}
+  {% assign has_text_class = "has-text" %}
+{%- else -%}
+  {% assign has_text_class = "has-text" %}
+{%- endif -%}
+
+{% if icon != "" and svg_code == blank %}
+  {% capture image_size %}{{ icon_width }}x{% endcapture %}
+  <div class="icon icon-id-{{ id }} {% if visibility == 'mobile_only' %}icon--show-on-mobile-only{% elsif visibility == 'desktop_only' %}icon--show-on-desktop-only{% endif %}" data-scroll>
+    <img loading="lazy" src="{{ icon | img_url: image_size }};"
+    srcset="{{ icon | img_url: image_size }} 1x, {{ icon | img_url: image_size, scale: 2 }} 2x"
+    alt="{{ icon.alt }}"
+    role="presentation"
+    itemprop="icon">
+    {{ icon_text }}
+  </div>
+{% elsif svg_code != blank %}
+  <div 
+    class="{{ has_text_class }} icon icon-id-{{ id }} {% if visibility == 'mobile_only' %}icon--show-on-mobile-only{% elsif visibility == 'desktop_only' %}icon--show-on-desktop-only{% endif %}" 
+    data-scroll>
+      {% render "component__svg-encoder", 
+        svg_code: svg_code, 
+        alt: "svg floating icon with parallax effect" %}
+      <span class="icon-text custom-font-name-3">{{ icon_text }}</span>
+  </div>
+{% endif %}
+<style>
+  #{{ section.id }} .icon.icon-id-{{ id }} {
+    {{ inline_styling }}
+  }
+  {%- if icon_text != blank -%}
+    #{{ section.id }} .icon.icon-id-{{ id }} img{
+      width: {{ icon_width }}px;
+    }
+  {%- else -%}
+    #{{ section.id }} .icon.icon-id-{{ id }} {
+      max-width:{{ icon_width }}px;
+    }
+  {%- endif -%}
+  {%- if icon_text_color != blank -%}
+    #{{ section.id }} .icon.icon-id-{{ id }} .icon-text {
+      color: {{ icon_text_color }};
+    }
+  {%- endif -%}
+</style>

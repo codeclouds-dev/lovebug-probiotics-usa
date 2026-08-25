@@ -1,0 +1,199 @@
+<!doctype html>
+
+  <!--
+  ========================================================================================================
+  =============================== Site by MANUFACTUR.co ==================================================
+  ========================================================================================================
+  -->
+  <html class="no-js {% if settings.enable_entrance_animations %}with-enter-animations{% endif %} {% if request.design_mode %}design-mode{% endif %}" lang="{{ request.locale.iso_code }}" id="pageHTML" data-toggler=".is-fixed">
+    <head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta name="theme-color" content="{{ settings.brand_color }}">
+      <link rel="canonical" href="{{ canonical_url }}">
+      <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
+      <meta name="robots" content="max-image-preview:large, index, follow">
+      
+      {% render 'preload__fonts' %}
+      <style media="screen">
+        {%- render 'foundation-min' -%}
+        {%- render 'quickload-css' -%}
+      </style>
+  
+      {% render 'css-variables' %}
+      {%- render "style-tags" -%}
+  
+      {%- if settings.favicon != blank -%}
+        <link rel="icon" type="image/png" href="{{ settings.favicon | img_url: '32x32' }}">
+        <link rel="apple-touch-icon" href="{{ settings.favicon | img_url: '32x32' }}">
+      {%- endif -%}
+  
+      {%- unless settings.type_header_font.system? and settings.type_body_font.system? -%}
+        <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
+      {%- endunless -%}
+  
+      <title>{{ page_title }}</title>
+  
+      {% if page_description %}
+        <meta name="description" content="{{ page_description | escape }}">
+      {% endif %}
+  
+      {% render 'meta-tags' %}
+  
+      {{ content_for_header }}
+  
+      {%- liquid 
+        assign body_font_bold = settings.type_body_font | font_modify: 'weight', 'bold'
+        assign body_font_italic = settings.type_body_font | font_modify: 'style', 'italic'
+        assign body_font_bold_italic = body_font_bold | font_modify: 'style', 'italic'
+      %}
+  
+      {% style %}
+        {{ settings.type_body_font | font_face: font_display: 'swap' }}
+        {{ body_font_bold | font_face: font_display: 'swap' }}
+        {{ body_font_italic | font_face: font_display: 'swap' }}
+        {{ body_font_bold_italic | font_face: font_display: 'swap' }}
+        {{ settings.type_header_font | font_face: font_display: 'swap' }}
+      {% endstyle %}
+      
+      {%- render 'scripts__initializers' -%}
+      {% render 'scripts__deferred-tags', position: "header" %}
+      {%- render 'js-variables' -%}
+  
+      <script>document.documentElement.className = document.documentElement.className.replace('no-js', 'js');</script>
+      {% render 'schema__all' %}
+  
+  
+      {% capture CFH %}{{ content_for_header  }}{% endcapture %}
+      {% if CFH contains 'preview_bar_injector-' %}
+        <!-- CMS External Scripts on Header -->
+        {% unless request.design_mode %}
+          {{ settings.external_scripts_header }}
+        {% endunless %}
+      {% endif %}
+
+      {% unless request.design_mode %}
+        <script>
+          if( !window.location.host.includes( "127.0.0.1" ) ) {
+            window.markerConfig = {
+              project: '67996e927836173921397d2b',
+              source: 'snippet'
+            };
+              
+            !function(e,r,a){if(!e.__Marker){e.__Marker={};var t=[],n={__cs:t};["show","hide","isVisible","capture","cancelCapture","unload","reload","isExtensionInstalled","setReporter","clearReporter","setCustomData","on","off"].forEach(function(e){n[e]=function(){var r=Array.prototype.slice.call(arguments);r.unshift(e),t.push(r)}}),e.Marker=n;var s=r.createElement("script");s.async=1,s.src="https://edge.marker.io/latest/shim.js";var i=r.getElementsByTagName("script")[0];i.parentNode.insertBefore(s,i)}}(window,document);
+          }
+        </script>
+        <!-- Google Tag Manager -->
+        <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-MHLTQQDZ');</script>
+        <!-- End Google Tag Manager -->
+      {% endunless %}
+
+      <script src="{{ 'preloads.js' | asset_url }}" defer></script>
+      
+  </head>
+  
+    {% if settings.top_offset_element == "main" %}
+      {% assign top_offset_class = "top-offset-to-main" %}
+    {% elsif settings.top_offset_element == "first_section" %}
+      {% assign top_offset_class = "top-offset-to-first-section" %}
+    {% endif %}
+    {% assign top_offset = "--top-offset: " | append: settings.top_offset | append: "px;" %}
+    {% assign top_offset_mobile = "--top-offset-mobile: " | append: settings.top_offset_mobile | append: "px;" %}
+  
+    {% assign header_style = "" %}
+  
+    {% if page.metafields.mfr_fields.header_style %}
+      {% assign header_style = "dark-theme-header" %}
+    {% endif %}
+  
+    <body id="{{ page_title | handle }}" class="template-{{ template.name | handle }} {{ top_offset_class }} {{ header_style }} {% if customer != blank %}customer-logged-in{% endif %}" 
+      style="{{ top_offset }} {{ top_offset_mobile }}"
+      x-data>
+      {% unless request.design_mode %}
+        <!-- Google Tag Manager (noscript) -->
+        <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MHLTQQDZ"
+        height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+        <!-- End Google Tag Manager (noscript) -->
+      {% endunless %}
+      <!-- <h1 class="visually-hidden">{{ page.title }}</h1> -->
+      
+      {% section 'preloader' %}
+  
+      <a class="skip-to-content-link button visually-hidden" href="#MainContent">
+        {{ "accessibility.skip_to_text" | t }}
+      </a>
+  
+      {% comment %} <div class="offcanvas-login off-canvas position-right" id="offCanvasLogin" data-off-canvas data-transition="overlap">
+        {% section 'offcanvas-login' %}
+      </div> {% endcomment %}
+  
+      {% sections 'offcanvas-group' %}
+  
+      <ul hidden>
+        <li id="a11y-refresh-page-message">{{ 'accessibility.refresh_page' | t }}</li>
+      </ul>
+  
+      <style>
+        .off-canvas:not(.is-loaded) {
+          display: none;
+        }
+      </style>
+  
+      <header class="header" id="header" data-inview>
+        {% sections 'header-group' %}
+      </header>
+      <main 
+        id="MainContent" 
+        class="content-for-layout focus-none" 
+        role="main" 
+        tabindex="-1">
+        <h1 class="visually-hidden">{{ shop.name }} | {{ page.name }}</h1>
+        {{ content_for_layout }}
+      </main>
+      <footer class="footer" id="footer">
+        {% sections 'footer-group' %}
+      </footer>
+
+      {% sections 'modals-group' %}
+      
+      <script>
+        window.routes = {
+          cart_add_url: '{{ routes.cart_add_url }}',
+          cart_change_url: '{{ routes.cart_change_url }}',
+          cart_update_url: '{{ routes.cart_update_url }}'
+        };
+  
+        window.cartStrings = {
+          error: `{{ 'sections.cart.cart_error' | t }}`,
+          quantityError: `{{ 'sections.cart.cart_quantity_error_html' | t }}`
+        }
+  
+        window.variantStrings = {
+          addToCart: `{{ 'products.product.add_to_cart' | t }}`,
+          soldOut: `{{ 'products.product.sold_out' | t }}`,
+          unavailable: `{{ 'products.product.unavailable' | t }}`,
+        }
+      </script>
+
+      {% render 'scripts__deferred-tags', position: "footer" %}
+  
+      {% capture CFH %}{{ content_for_header  }}{% endcapture %}
+      {% if CFH contains 'preview_bar_injector-' %}
+        {% unless request.design_mode %}
+          {{ settings.external_scripts }}
+        {% endunless %}
+      {% endif %}
+      
+      {% render 'dress-up__character',
+        cloud_text: settings.dress_up_cloud_text,
+        cloud_url_mobile: settings.dress_up_cloud_url_mobile,
+        cloud_url_desktop: settings.dress_up_cloud_url_desktop %}
+
+        
+    </body>
+  </html>

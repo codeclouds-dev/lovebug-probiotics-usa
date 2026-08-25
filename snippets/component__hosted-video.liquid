@@ -1,0 +1,91 @@
+{% comment %}
+    Attributes
+
+    - media
+    - autoplay
+    - muted
+    - controls
+    - loop
+    - poster_size
+    - playsinline
+    - width
+    - play_on_view
+    - fullscreen_on_play
+{% endcomment %}
+
+{% assign poster_size = poster_size | default: "700x" %}
+{% assign playsinline = playsinline | default: true %}
+{% if loop == false %}
+    {% assign loop = false %}
+{% else %}
+    {% assign loop = true %}
+{% endif %}
+{% assign controls = controls %}
+{% assign fullscreen_on_play = fullscreen_on_play | default: false %}
+
+{% if width != blank %}
+    {% assign with_fixed_width_class = "mfr-components__video--fixed-width" %}
+    {% assign fixed_width_style = "--video-max-width: " | append: width | append: "px" | append: ";" %}
+    {% assign poster_size = width | append: "x" %}
+{% endif %}
+
+{% if autoplay and muted %}
+  {% assign is_playing_class = "is-playing" %}
+  {% assign button_initial_state = "pause" %}
+{% else %}
+  {% assign is_playing_class = "" %}
+  {% assign button_initial_state = "" %}
+{% endif %}
+
+{% if muted %}
+  {% assign is_muted_class = "is-muted" %}
+{% else %}
+  {% assign is_muted_class = "" %}
+{% endif %}
+
+{% if media.media_type == 'video' %}
+    <div class="mfr-components__video mfr-components__video--hosted-video {{ with_speaker_button_class }} {{ with_fixed_width_class }} {{ is_playing_class }} {{ is_muted_class }}"
+        data-play-on-view="{{ play_on_view }}"
+        data-fullscreen-on-play="{{ fullscreen_on_play }}"
+        data-scroll
+        data-scroll-id="video--{{ section.id }}"
+        id="video--{{ section.id }}"
+        style="{{ fixed_width_style }}">
+        <div class="mfr-components__video-inner">
+          {{ media 
+            | video_tag: image_size: poster_size,
+              autoplay: autoplay,
+              loop: loop,
+              muted: muted,
+              controls: controls,
+              playsinline: playsinline }}
+        </div>
+        {% if custom_poster_mobile != blank %}
+          <div class="mfr-components__video-custom-poster hide-for-large">
+            {% render 'component__lazyload-image', 
+              image: custom_poster_mobile, 
+              alt: custom_poster_mobile.alt,
+              width: width %}
+          </div>
+        {% endif %}
+        {% if custom_poster_desktop != blank %}
+          <div class="mfr-components__video-custom-poster show-for-large">
+            {% render 'component__lazyload-image', 
+              image: custom_poster_desktop, 
+              alt: custom_poster_desktop.alt,
+              width: width %}
+          </div>
+        {% endif %}
+        
+        {% if playButton %}
+          {%- render 'component__play-pause', 
+            class: "mfr-components__video-control-button", 
+            initial_state: button_initial_state -%}
+        {% endif %}
+
+        {% if speakerButton %}
+          <button class="speaker-button"></button>
+        {% endif %}
+      {% render 'script__section', file: "mfr-hosted-video.js" %}
+    </div>
+{% endif %}

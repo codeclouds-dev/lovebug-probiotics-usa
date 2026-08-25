@@ -1,0 +1,16 @@
+{%- liquid
+  assign link_label_1 = block.settings.product_link_1_label
+  assign link_url_1 = block.settings.product_link_1_url
+  assign link_label_2 = block.settings.product_link_2_label
+  assign link_url_2 = block.settings.product_link_2_url
+-%}
+
+<div class="product-top__links">
+  {% if link_label_1 != blank and link_url_1 != blank %}
+    <a href="{{ link_url_1 }}" title="{{ link_label_1 }}" aria-label="{{ link_label_1 }}"><span>{{ link_label_1 | upcase }}</span></a>
+  {% endif %}
+
+  {% if link_label_2 != blank and link_url_2 != blank %}
+    <a href="{{ link_url_2 }}" title="{{ link_label_2 }}" aria-label="{{ link_label_2 }}"><span>{{ link_label_2 | upcase }}</span></a>
+  {% endif %}
+</div>

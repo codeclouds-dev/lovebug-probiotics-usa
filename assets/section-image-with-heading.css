@@ -1,0 +1,147 @@
+/* =======================================
+   Mobile / Base Structural Styles
+======================================= */
+.image-heading-section {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.desktop-floating-icon-wrapper {
+  display: none;
+}
+
+.image-heading-container {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 16px 60px;
+}
+
+/* --- Header Area --- */
+.header-content {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  gap: 12px;
+  padding-bottom: 23px;
+}
+
+.floating-icon-wrapper {
+  position: absolute;
+  top: -35px;
+  left: 10px;
+  z-index: 2;
+  width: 25%;
+}
+
+.section-heading {
+  color: #2B3990;
+  text-align: center;
+  font-family: Recoleta;
+  font-size: 35px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 120%;
+  text-transform: capitalize;
+  margin: 0 !important;
+}
+
+/* Mobile default: hide desktop heading, show mobile heading */
+.section-heading--desktop {
+  display: none;
+}
+.section-heading--mobile {
+  display: block;
+}
+
+.section-subheading {
+  color: #2B3990;
+  text-align: center;
+  font-family: "ES Peak Rounded";
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  text-transform: capitalize;
+}
+
+.image-content {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.img-mobile {
+  display: block;
+  width: 100%;
+}
+.img-mobile img {
+  width: 100%;
+  height: auto;
+}
+
+.img-desktop {
+  display: none;
+}
+
+/* =======================================
+   Desktop Structural Styles
+======================================= */
+@media screen and (min-width: 768px) {
+  .image-heading-container {
+    padding: 20px 80px 120px;
+  }
+
+  .desktop-floating-icon-wrapper {
+    display: block;
+    z-index: 3;
+    position: absolute;
+    top: -120px;
+    right: 0;
+  }
+
+  .header-content {
+    padding-bottom: 48px;
+  }
+
+  .floating-icon-wrapper {
+    top: 0;
+    left: 10%;
+  }
+
+  .section-heading {
+    font-size: 44px;
+  }
+
+  /* Desktop swap: show desktop heading, hide mobile heading */
+  .section-heading--desktop {
+    display: block;
+  }
+  .section-heading--mobile {
+    display: none;
+  }
+
+  .section-subheading {
+    font-size: 20px;
+  }
+
+  .img-mobile {
+    display: none;
+  }
+
+  .img-desktop {
+    display: block;
+    width: 100%;
+    max-width: 843px;
+    margin: auto;
+  }
+  .img-desktop img {
+    width: 100%;
+    height: auto;
+  }
+}

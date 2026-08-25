@@ -1,0 +1,20 @@
+{%- comment -%}
+
+  This snippet is used to display an SVG or an image based on the block settings.
+
+  Attributes needed:
+  - svg_code: The SVG code to be displayed if present.
+  - image: The image URL to be displayed if svg_code is not present.
+  - image.alt: The alt text for the image for accessibility.
+
+{%- endcomment -%}
+
+{% if block.settings.svg_code != blank %}
+  <div class="item-image svg" data-inview>{{ block.settings.svg_code }}</div>
+{% elsif block.settings.image and block.settings.svg_code == blank %}
+  <div class="item-image img" data-aos>
+    <img loading="lazy" src="{{ block.settings.image | img_url: '200x' }}"
+         srcset="{{ block.settings.image | img_url: '200x' }} 1x, {{ block.settings.image | img_url: '200x', scale: 2 }} 2x"
+         alt="{{ block.settings.image.alt }}">
+  </div>
+{% endif %}

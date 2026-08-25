@@ -1,0 +1,205 @@
+{%- assign s = section.settings -%}
+
+{{ 'section-features-board.css' | asset_url | stylesheet_tag }}
+
+
+<div class="paper-board-section" style="background-color: {{ s.bg_color }};">
+  
+  {% render 'component__section-dividers' %}
+
+  <div class="paper-board-container">
+    
+    <div class="paper-wrapper">
+      
+      <img src="{{ 'paper-mob.png' | asset_url }}" class="paper-img-mobile" alt="" loading="lazy">
+      <img src="{{ 'paper-dsk.png' | asset_url }}" class="paper-img-desktop" alt="" loading="lazy">
+
+      <div class="paper-content-overlay">
+        <div class="paper-header">
+          {%- if s.heading != blank -%}
+            <h2 class="paper-heading">{{ s.heading | newline_to_br }}</h2>
+          {%- endif -%}
+          {%- if s.subheading != blank -%}
+            <p class="paper-subheading">{{ s.subheading | newline_to_br }}</p>
+          {%- endif -%}
+        </div>
+
+        <div class="paper-stats-container">
+          {%- assign stat_blocks = section.blocks | where: "type", "addition_stat" -%}
+          {%- for block in stat_blocks -%}
+            {%- liquid
+              if forloop.first
+                assign column = 1
+              else
+                assign column = 3
+              endif
+            -%}
+            
+            <div 
+              class="stat-block"
+              style="grid-column: {{ column }};"
+            >
+              <div class="stat-circle">
+                <span class="stat-number">{{ block.settings.number }}</span>
+              </div>
+              <p class="stat-text">{{ block.settings.text | newline_to_br }}</p>
+            </div>
+
+            {%- if forloop.first -%}
+              <div class="stat-divider-container">
+                <div class="stat-divider">
+                  +
+                </div>
+              </div>
+            {%- endif -%}
+
+          {%- endfor -%}
+        </div>
+
+        <div class="paper-checkmarks-container">
+          {%- assign checkmark_blocks = section.blocks | where: "type", "checkmark_fact" -%}
+          {%- for block in checkmark_blocks -%}
+            <div class="checkmark-block">
+              <div class="checkmark-icon-wrapper-dsk">
+                {% render 'icons', icon: 'starry-checkmark' %}
+              </div>
+              <div class="checkmark-icon-wrapper-mob">
+                {% render 'icons', icon: 'starry-checkmark-mob' %}
+              </div>
+              <div class="checkmark-text">{{ block.settings.text }}</div>
+            </div>
+          {%- endfor -%}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Features Board",
+    "tag": "section",
+    "class": "section-paper-features",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Section Background & Dividers"
+      },
+      {
+        "type": "color",
+        "id": "bg_color",
+        "label": "Background Color",
+        "default": "#96238D"
+      },
+      {
+        "type": "checkbox",
+        "id": "top_wave_divider",
+        "label": "Show Top Wave Divider",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "bottom_wave_divider",
+        "label": "Show Bottom Wave Divider",
+        "default": false
+      },
+      {
+        "type": "header",
+        "content": "Section Text"
+      },
+      {
+        "type": "textarea",
+        "id": "heading",
+        "label": "Heading",
+        "default": "Designed For\nBabies' Unique Needs"
+      },
+      {
+        "type": "textarea",
+        "id": "subheading",
+        "label": "Subheading",
+        "default": "Our Proprietary Formula Made Specifically\nFor Developing Baby Tummies"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "addition_stat",
+        "name": "Math Stat",
+        "limit": 2,
+        "settings": [
+          {
+            "type": "text",
+            "id": "number",
+            "label": "Number / Value",
+            "default": "5",
+            "info": "The number inside the circle."
+          },
+          {
+            "type": "textarea",
+            "id": "text",
+            "label": "Stat Text",
+            "default": "Billion\nCFU",
+            "info": "Use 'enter' to create a line break where you want it."
+          }
+        ]
+      },
+      {
+        "type": "checkmark_fact",
+        "name": "Checkmark Fact",
+        "limit": 4,
+        "settings": [
+          {
+            "type": "richtext",
+            "id": "text",
+            "label": "Fact Text",
+            "default": "<p>Helps support regular bowel movements</p>"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Features Board",
+        "blocks": [
+          {
+            "type": "addition_stat",
+            "settings": {
+              "number": "5",
+              "text": "Billion\nCFU"
+            }
+          },
+          {
+            "type": "addition_stat",
+            "settings": {
+              "number": "6",
+              "text": "Top Probiotic\nStrains"
+            }
+          },
+          {
+            "type": "checkmark_fact",
+            "settings": {
+              "text": "<p>Helps support regular bowel movements</p>"
+            }
+          },
+          {
+            "type": "checkmark_fact",
+            "settings": {
+              "text": "<p>Support for colic & gas</p>"
+            }
+          },
+          {
+            "type": "checkmark_fact",
+            "settings": {
+              "text": "<p>Helps to boost immunity</p>"
+            }
+          },
+          {
+            "type": "checkmark_fact",
+            "settings": {
+              "text": "<p>Can help with occasional digestive upset</p>"
+            }
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

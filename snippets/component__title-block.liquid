@@ -1,0 +1,49 @@
+{%- if text contains "%page_title" -%}
+  {% assign text = text | replace: "%page_title", page.title %}
+{%- endif -%}
+
+{%- assign full_text = text | remove: '<p>'  | remove: '</p>' -%}
+{%- assign words = full_text | split: ' ' -%}
+{%- assign classes = classes -%}
+
+{% if offset_title %}
+  {%- assign offset_title = "offset-title" -%}
+{%- else -%}
+  {%- assign offset_title = "" -%}
+{% endif %}
+
+
+{% if text_size %}
+  {%- assign text_size = "large" -%}
+{%- else -%}
+  {%- assign text_size = "" -%}
+{% endif %}
+
+{% if no_wrap %}
+  {%- assign no_wrap = "no-wrap" -%}
+{%- else -%}
+  {%- assign no_wrap = "" -%}
+{% endif %}
+
+<div class="tw {{ border_type }}" data-scroll data-scroll-class="tw--in-view"
+  {% if block_id != blank %}id="block--{{ block_id }}"{% endif %}
+  {% if max_width != 0 %}style="max-width: {{ max_width }}rem; margin: 0 auto;"{% endif %}>
+  {% if underline_color != blank and block_id != blank %}
+  <style>
+    #block--{{ block_id }} strong:before {
+      background-color: {{ underline_color }};
+    }
+  </style>
+  {% endif %}
+  <h1 class="section-title {{ classes }} {{ text_size }} {{ alignment }} {% if small_text != blank %}with-sub-text{% endif %}">
+    {% for word in words %}
+      <span class="o"><span class="i">{{ word }}</span></span>
+    {% endfor %}
+
+    {% if small_text != blank %}
+      <div class="section-title__sub-text">
+        {{ small_text }}
+      </div>
+    {% endif %}
+  </h1>
+</div>

@@ -1,0 +1,95 @@
+<section class="reason_sec">
+  <div class="grid-container">
+     
+    <div class="reason_cls">
+        <div class="row reasonrow">
+            <div class="col-md-8 col-sm-12">
+              {%- for block in section.blocks -%}
+                  {% render 'renderer__block-title', block: block %}
+              {%- endfor -%} 
+                <p>
+                   {% if section.settings.text %}
+                    {{ section.settings.text }}
+                  {% endif %}
+                </p>
+            </div>
+        
+            <div class="col-md-4 col-sm-12">
+                {% if section.settings.img %}
+              
+              {{ section.settings.img | image_url: width: 2000 | image_tag }}
+              
+                {% endif %}
+            </div>
+        </div>
+     
+    </div>
+
+   
+  </div>
+</section>
+
+
+
+
+{% schema %}
+{
+  "name": "Reason",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "img",
+      "label": "Image"
+    },
+   
+    {
+      "type": "text",
+      "id": "text",
+      "label": "Text"
+    }
+  ],
+  "blocks": [
+   {
+      "type": "heading",
+      "name": "Main Heading",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "inline_richtext",
+          "id": "heading",
+          "label": "Heading",
+          "default": "THE 6-STRAIN \"GUT SHIELD\" EVERY NEWBORN NEEDS FROM DAY 1."
+        },
+        {
+          "type": "checkbox",
+          "id": "disable_animation",
+          "label": "Disable Animation",
+          "default": false
+        },
+        {
+          "type": "select",
+          "id": "header_style",
+          "label": "Header Style",
+          "default": "h1",
+          "options": [
+            { "value": "h1", "label": "H1" },
+            { "value": "h2", "label": "H2" },
+            { "value": "h3", "label": "H3" }
+          ]
+        }
+      ]
+    },
+   
+  ],
+  "presets": [
+    {
+      "name": "Reason Section",
+       "blocks": [
+        
+        { "type": "heading" },
+       
+      ]
+    }
+  ]
+}
+{% endschema %}

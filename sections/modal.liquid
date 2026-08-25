@@ -1,0 +1,223 @@
+{% render 'style-tags__section', asset_file_name: "mfr-core__modal.css" %}
+{% assign modal_id = section.settings.modal_id %}
+{% assign image = section.settings.image %}
+{% assign images = section.blocks | where: "type", "image" %}
+<style>
+  #shopify-section-{{ section.id }} { display: none; }
+</style>
+<div class="reveal mfr-core__modal carousel" id="{{ modal_id }}"
+  data-additional-overlay-classes="mfr-core__modal-overlay"
+  data-reveal 
+  data-deep-link>
+
+  <button class="close-button" data-close aria-label="Close modal" type="button">
+    {%- capture close_icon -%}{% render 'icon__close' %}{%- endcapture -%}
+    {% render 'component__svg-encoder',
+      svg_code: close_icon,
+      alt: "close icon" %}
+  </button>
+
+  <div class="mfr-core__modal-inner">
+    {% if image != blank and images == blank%}
+      <div class="mfr-core__modal-image">
+        {%- capture sizes -%}
+          (max-width: 1023px) 100vw,
+          (max-width: 1221px) calc( 50vw - 84px ),
+          598px
+        {%- endcapture -%}
+        {% render 'component__lazyload-image',
+          image: image,
+          alt: image.alt,
+          width: 600,
+          sizes: sizes %}
+      </div>
+    {% else %}
+      <div class="mfr-core__modal-images carousel"
+        data-mfr-carousel="
+          {
+            selectedAttraction: 0.1,
+            friction: 0.55,
+            prevNextButtons: true,
+            contain: true,
+            cellAlign: 'center',
+            pageDots: false,
+            wrapAround: true,
+            groupCells: true,
+            mobileSettings: {
+              cellAlign: 'center',
+              contain: true,
+              wrapAround: true
+            }
+          }
+        ">
+        <div class="mfr-core__modal-images-carousel carousel__slides">
+          {% for image in images %}
+            <div class="mfr-core__modal-images-inner carousel__item">
+              <div class="mfr-core__modal-images-inner-image">
+                {%- capture sizes -%}
+                  (max-width: 1023px) 100vw,
+                  (max-width: 1221px) calc( 50vw - 84px ),
+                  598px
+                {%- endcapture -%}
+                {% render 'component__lazyload-image',
+                  image: image.settings.image,
+                  alt: image.settings.image.alt,
+                  width: 600,
+                  sizes: sizes %}
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+
+    {% if section.blocks != blank %}
+      <div class="mfr-core__modal-content section-content">
+        <div class="inner">
+          {% for block in section.blocks %}
+            {%- case block.type -%}
+                
+              {%- when 'icon' -%}
+                {% render 'renderer__block-icon', block: block, disable_inview: true %} 
+    
+              {%- when 'small_text' -%}
+                {% render "renderer__block-small-text", block: block %}
+
+              {%- when 'button' -%}
+                {% render 'renderer__block-button', block: block %}
+
+              {%- when "lists" -%}
+                <ul class="mfr-core__modal-list">
+                  {% assign list_items = block.settings.list_items | newline_to_br | strip_newlines | split: '<br />' %}
+                  {% for item in list_items %}
+                    <li>
+                      {{ item }}
+                    </li>
+                  {% endfor %}
+                </ul>
+                
+            {%- endcase -%}
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+  </div>
+  {% render 'script__section', file: "mfr-carousel.js" %}
+</div>
+{% schema %}
+  {
+    "name": "Modal",
+    "enabled_on": {
+      "groups": ["custom.modals"]
+    },
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "image",
+        "label": "Image"
+      },
+      {
+        "type": "text",
+        "id": "modal_id",
+        "label": "Modal ID",
+        "default": "example-modal"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "icon", 
+        "name": "Icon",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "icon",
+            "label": "Icon"
+          }
+        ]
+      },
+      {
+        "type":"small_text",
+        "name":"Accent Text",
+        "settings":[
+          {
+            "type":"text",
+            "id":"text",
+            "default":"Accent Text",
+            "label":"Text"
+          },
+          {
+            "type": "color",
+            "id": "small_text_color",
+            "label": "Color"
+          }
+        ]
+      },
+      {
+        "type": "lists",
+        "name": "Lists",
+        "settings": [
+          {
+            "type": "textarea",
+            "id": "list_items",
+            "label": "List Items",
+            "info": "Separated by new line."
+          }
+        ]
+      },
+      {
+        "type":"button",
+        "name":"Button",
+        "limit":1,
+        "settings":[
+          {
+            "type":"text",
+            "id":"button_label",
+            "default":"Button label",
+            "label":"Button",
+            "info":"Leave the label blank to hide the button."
+          },
+          {
+            "type":"url",
+            "id":"button_link",
+            "label":"Button Link"
+          },
+          {
+            "type": "select",
+            "id": "color_theme",
+            "label": "Color Theme",
+            "options": [
+              {
+                "value": "primary",
+                "label": "Primary"
+              },
+              {
+                "value": "secondary",
+                "label": "Secondary"
+              },
+              {
+                "value": "tertiary",
+                "label": "Tertiary"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "image",
+        "name": "Image",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+          }
+        ]
+      },
+    ],
+    "presets":[
+      {
+        "name":"Modal"
+      }
+    ]
+  }
+{% endschema %}

@@ -1,0 +1,19 @@
+{% if section.settings.top_divider == 'rounded' %}
+    data-section-radius-top
+{% elsif section.settings.top_divider == 'scale' %}
+    data-section-curve-top="{{ section.settings.curve_offset }}px"
+{% endif %}
+
+{% if section.settings.bottom_divider == 'rounded' %}
+    data-section-radius-bottom
+{% elsif section.settings.bottom_divider == 'scale' %}
+    data-section-curve-bottom="{{ section.settings.curve_offset }}px"
+{% endif %}
+
+{% if section.settings.top_divider == 'scale' or section.settings.bottom_divider == 'scale' %}
+    data-section-curve-bg="{{ section.settings.curve_color }}"
+{% endif %}
+
+{% if no_offset_on_mobile %}
+    data-section-curve-on-mobile="true"
+{% endif %}

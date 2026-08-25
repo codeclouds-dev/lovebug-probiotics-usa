@@ -1,0 +1,139 @@
+{%- assign s = section.settings -%}
+{%- assign link_blocks = section.blocks | where: 'type', 'collection_link' -%}
+
+{{- 'section-link-carousel.css' | asset_url | stylesheet_tag -}}
+
+<section
+  class="link-carousel{% if s.hide_on_desktop %} link-carousel--hide-desktop{% endif %} {{ s.custom_class }}"
+  id="{{ s.custom_id | default: section.id }}"
+  style="background-color: {{ s.bg_color }}; --link-carousel-text-color: {{ s.text_color }};"
+>
+  {%- if link_blocks.size > 0 -%}
+    <nav class="link-carousel__track" aria-label="{{ s.aria_label | escape }}">
+      <div class="link-carousel__inner">
+        {%- for block in link_blocks -%}
+          {%- liquid
+            assign collection = block.settings.collection
+            assign label = block.settings.label
+
+            if label == blank and collection != blank
+              assign label = collection.title
+            endif
+
+            if block.settings.link != blank
+              assign link_url = block.settings.link
+            elsif collection != blank
+              assign link_url = collection.url
+            else
+              assign link_url = '#'
+            endif
+          -%}
+
+          {%- if label != blank -%}
+            <a
+              class="link-carousel__item"
+              href="{{ link_url }}"
+              {{ block.shopify_attributes }}
+            >
+              <span class="link-carousel__label">{{ label | escape }}</span>
+            </a>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </nav>
+  {%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "Link Carousel",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Background"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#E8F0FF"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Link Color",
+      "default": "#2B3990"
+    },
+    {
+      "type": "text",
+      "id": "aria_label",
+      "label": "Navigation Label",
+      "default": "Shop by category",
+      "info": "Used for screen readers."
+    },
+    {
+      "type": "header",
+      "content": "Visibility"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_on_desktop",
+      "label": "Hide on desktop",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Attribute Settings"
+    },
+    {
+      "type": "text",
+      "id": "custom_class",
+      "label": "Custom class"
+    },
+    {
+      "type": "text",
+      "id": "custom_id",
+      "label": "Custom ID"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "collection_link",
+      "name": "Collection Link",
+      "settings": [
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "info": "Leave blank to use the collection title."
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Custom Link",
+          "info": "Optional. Overrides the collection URL."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Link Carousel",
+      "blocks": [
+        { "type": "collection_link", "settings": { "label": "Kids" } },
+        { "type": "collection_link", "settings": { "label": "Toddlers" } },
+        { "type": "collection_link", "settings": { "label": "Babies" } },
+        { "type": "collection_link", "settings": { "label": "Adults" } },
+        { "type": "collection_link", "settings": { "label": "Best Sellers" } },
+        { "type": "collection_link", "settings": { "label": "Shop All" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

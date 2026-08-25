@@ -1,0 +1,114 @@
+.five-reasons-section {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.five-reasons-container {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 1296px;
+  margin: 0 auto;
+  padding: 24px 16px 48px;
+}
+.five-reasons-heading {
+  color: #fff;
+  text-align: center;
+  font-family: Recoleta;
+  font-size: 28px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: -0.5px;
+  margin: 0 0 32px !important;
+}
+
+.five-reasons-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 8px;
+  row-gap: 24px;
+}
+.five-reasons-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+.five-reasons-item:last-child:nth-child(odd) {
+  grid-column: 1 / -1;
+  justify-self: center;
+  max-width: 75%;
+}
+
+.five-reasons-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background-color: #fdc769;
+  margin-bottom: 14px;
+}
+.five-reasons-badge span {
+  color: #2b3990;
+  font-family: Recoleta;
+  font-size: 26px;
+  font-weight: 500;
+  line-height: 1;
+}
+
+.five-reasons-title {
+  color: #fff;
+  font-family: "ES Peak Rounded";
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 24px;
+  margin: 0 0 8px !important;
+}
+.five-reasons-text {
+  color: #fff;
+  font-family: "ES Peak Rounded";
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  margin: 0;
+}
+
+@media screen and (min-width: 990px) {
+  .five-reasons-container {
+    padding: 52px 16px 96px;
+  }
+  .five-reasons-heading {
+    font-size: 48px;
+    letter-spacing: -0.92px;
+    margin-bottom: 56px !important;
+  }
+  .five-reasons-grid {
+    grid-template-columns: repeat(5, 1fr);
+    column-gap: 8px;
+  }
+  .five-reasons-item:last-child:nth-child(odd) {
+    grid-column: auto;
+    justify-self: stretch;
+    max-width: none;
+  }
+  .five-reasons-badge {
+    width: 54px;
+    height: 54px;
+    margin-bottom: 16px;
+  }
+  .five-reasons-badge span {
+    font-size: 32px;
+  }
+  .five-reasons-title {
+    font-size: 20px;
+    line-height: 24px;
+  }
+  .five-reasons-text {
+    font-size: 16px;
+    line-height: 22px;
+  }
+}

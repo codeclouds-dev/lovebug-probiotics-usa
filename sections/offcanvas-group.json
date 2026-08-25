@@ -1,0 +1,361 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "type": "custom.offcanvas",
+  "name": "Offcanvas Sections",
+  "sections": {
+    "offcanvas_menu_QmtAiq": {
+      "type": "offcanvas-menu",
+      "blocks": {
+        "search_fffiHL": {
+          "type": "search",
+          "settings": {}
+        },
+        "menu_fwHqhB": {
+          "type": "menu",
+          "settings": {
+            "menu": "mfr-mobile-menu-copy-1"
+          }
+        },
+        "superhero_graphic_tG9UKP": {
+          "type": "superhero_graphic",
+          "settings": {
+            "main_image": "shopify://shop_images/Asset_3_4x-min.png",
+            "accent_1": "shopify://shop_images/1_copy_2_4x-min.png",
+            "accent_2": "shopify://shop_images/2_4x-min.png",
+            "accent_3": "shopify://shop_images/star_1_4x-min.png",
+            "accent_4": "shopify://shop_images/2_4x_copy-min.png",
+            "accent_5": "shopify://shop_images/Group_58_4x-min.png",
+            "accent_6": "shopify://shop_images/Group_34_4x-min.png"
+          }
+        },
+        "mini_menu_ch3PkA": {
+          "type": "mini_menu",
+          "settings": {
+            "menu": "mfr-mobile-menu-2"
+          }
+        },
+        "inner_menu_4pRPxK": {
+          "type": "inner_menu",
+          "settings": {
+            "trigger_label": "Shop",
+            "handle": "shop-menu",
+            "products_label": "Featured"
+          }
+        },
+        "inner_menu_product_PixbHP": {
+          "type": "inner_menu_product",
+          "disabled": true,
+          "settings": {
+            "inner_menu_handle": "shop-menu",
+            "product": "baby-probiotics-ages-6-12-months",
+            "product_badge": "(Ages 0-12 months)"
+          }
+        },
+        "inner_menu_product_m73EdL": {
+          "type": "inner_menu_product",
+          "disabled": true,
+          "settings": {
+            "inner_menu_handle": "shop-menu",
+            "product": "toddler-probiotic-ages-1-4",
+            "product_badge": "(Ages 12 Months to 4 Years)"
+          }
+        },
+        "inner_menu_product_TyzPDj": {
+          "type": "inner_menu_product",
+          "disabled": true,
+          "settings": {
+            "inner_menu_handle": "shop-menu",
+            "product": "infant-probiotics-ages-0-6-months",
+            "product_badge": "(Ages 4+ years)"
+          }
+        },
+        "inner_menu_menu_fyAfXc": {
+          "type": "inner_menu_menu",
+          "settings": {
+            "inner_menu_handle": "shop-menu",
+            "label": "Baby Probiotics",
+            "menu": "baby-probiotics"
+          }
+        },
+        "inner_menu_menu_PqUQRc": {
+          "type": "inner_menu_menu",
+          "settings": {
+            "inner_menu_handle": "shop-menu",
+            "label": "Toddler Probiotics",
+            "menu": "toddler-probiotics"
+          }
+        },
+        "inner_menu_menu_mijcrV": {
+          "type": "inner_menu_menu",
+          "settings": {
+            "inner_menu_handle": "shop-menu",
+            "label": "Kids Probiotics",
+            "menu": "kids-probiotics"
+          }
+        },
+        "inner_menu_menu_rLhzea": {
+          "type": "inner_menu_menu",
+          "settings": {
+            "inner_menu_handle": "shop-menu",
+            "label": "Women’s",
+            "menu": "mfr-little-heroes-woman"
+          }
+        },
+        "inner_menu_menu_e3ACYF": {
+          "type": "inner_menu_menu",
+          "settings": {
+            "inner_menu_handle": "shop-menu",
+            "label": "Adults",
+            "menu": "mfr-little-heroes-wellness"
+          }
+        },
+        "inner_menu_cta_GQ36wB": {
+          "type": "inner_menu_cta",
+          "settings": {
+            "inner_menu_handle": "shop-menu",
+            "button_label": "Shop All",
+            "button_link": "shopify://collections/all",
+            "color_theme": "primary"
+          }
+        },
+        "inner_menu_DUhEiq": {
+          "type": "inner_menu",
+          "settings": {
+            "trigger_label": "Learn",
+            "handle": "learn-menu",
+            "products_label": "Featured"
+          }
+        },
+        "inner_menu_product_QdCGiz": {
+          "type": "inner_menu_product",
+          "disabled": true,
+          "settings": {
+            "inner_menu_handle": "learn-menu",
+            "product": "advanced-strength-daily",
+            "product_badge": "Bestseller"
+          }
+        },
+        "inner_menu_product_bGX9M9": {
+          "type": "inner_menu_product",
+          "disabled": true,
+          "settings": {
+            "inner_menu_handle": "learn-menu",
+            "product": "prenatal-probiotic",
+            "product_badge": "Fearless Women"
+          }
+        },
+        "inner_menu_menu_WPkddH": {
+          "type": "inner_menu_menu",
+          "settings": {
+            "inner_menu_handle": "learn-menu",
+            "label": "Learn",
+            "menu": "mobile_learn_menu"
+          }
+        },
+        "inner_menu_menu_azDgte": {
+          "type": "inner_menu_menu",
+          "disabled": true,
+          "settings": {
+            "inner_menu_handle": "learn-menu",
+            "label": "Women",
+            "menu": "mfr-big-heroes-women"
+          }
+        },
+        "inner_menu_k9FPPC": {
+          "type": "inner_menu",
+          "settings": {
+            "trigger_label": "About",
+            "handle": "about",
+            "products_label": "Featured"
+          }
+        },
+        "inner_menu_menu_AAhnCM": {
+          "type": "inner_menu_menu",
+          "settings": {
+            "inner_menu_handle": "about",
+            "label": "About",
+            "menu": "about_mobile_menu"
+          }
+        },
+        "inner_menu_3DP3Y8": {
+          "type": "inner_menu",
+          "settings": {
+            "trigger_label": "Quiz",
+            "handle": "quiz",
+            "products_label": "Featured"
+          }
+        },
+        "inner_menu_menu_pFhjUf": {
+          "type": "inner_menu_menu",
+          "settings": {
+            "inner_menu_handle": "quiz",
+            "label": "Quiz",
+            "menu": "quiz_mobile_menu"
+          }
+        }
+      },
+      "block_order": [
+        "search_fffiHL",
+        "menu_fwHqhB",
+        "superhero_graphic_tG9UKP",
+        "mini_menu_ch3PkA",
+        "inner_menu_4pRPxK",
+        "inner_menu_product_PixbHP",
+        "inner_menu_product_m73EdL",
+        "inner_menu_product_TyzPDj",
+        "inner_menu_menu_fyAfXc",
+        "inner_menu_menu_PqUQRc",
+        "inner_menu_menu_mijcrV",
+        "inner_menu_menu_rLhzea",
+        "inner_menu_menu_e3ACYF",
+        "inner_menu_cta_GQ36wB",
+        "inner_menu_DUhEiq",
+        "inner_menu_product_QdCGiz",
+        "inner_menu_product_bGX9M9",
+        "inner_menu_menu_WPkddH",
+        "inner_menu_menu_azDgte",
+        "inner_menu_k9FPPC",
+        "inner_menu_menu_AAhnCM",
+        "inner_menu_3DP3Y8",
+        "inner_menu_menu_pFhjUf"
+      ],
+      "settings": {
+        "color_scheme": "scheme-4"
+      }
+    },
+    "offcanvas_contact_9wGjjV": {
+      "type": "offcanvas-contact",
+      "blocks": {
+        "email_enVTf7": {
+          "type": "email",
+          "settings": {
+            "name_placeholder": "Name",
+            "email_placeholder": "Email address"
+          }
+        },
+        "field_NWV6nA": {
+          "type": "field",
+          "settings": {
+            "label": "Phone number",
+            "type": "input",
+            "placeholder": "xxx-xxx-xxxx",
+            "required": false
+          }
+        },
+        "dropdown_jjA7cc": {
+          "type": "dropdown",
+          "settings": {
+            "label": "New or Returning Customer?",
+            "options": "New\nReturning Customer",
+            "required": true
+          }
+        },
+        "field_X9CiWe": {
+          "type": "field",
+          "settings": {
+            "label": "Message",
+            "type": "textarea",
+            "placeholder": "Let us know what we can help",
+            "required": false
+          }
+        },
+        "button_JThkmQ": {
+          "type": "button",
+          "settings": {
+            "label": "Submit",
+            "color_theme": "primary"
+          }
+        },
+        "success_message_p3Ptqk": {
+          "type": "success_message",
+          "settings": {
+            "title": "Thanks for Reaching Out!",
+            "desc": "We’ll be getting back to you shortly! In the meantime, wanna chat?",
+            "embed_code": ""
+          }
+        }
+      },
+      "block_order": [
+        "email_enVTf7",
+        "field_NWV6nA",
+        "dropdown_jjA7cc",
+        "field_X9CiWe",
+        "button_JThkmQ",
+        "success_message_p3Ptqk"
+      ],
+      "settings": {
+        "lottie_file_url": "https://cdn.shopify.com/s/files/1/0509/9677/3062/files/bat_signal.json?v=1738032960",
+        "color_scheme": "scheme-1",
+        "allow_embed": false,
+        "embed_code": "",
+        "title": "Contact Us",
+        "desc": "<p>Customer Service Support:<br/>hello@lovebug.com</p><p><br/>Business Address:<br/>115 East 34th Street, <br/>Suite 1506<br/>New York, NY 10156</p><p>Wholesale Inquiries:<br/>sales@lovebugprobiotics.com</p>",
+        "input_bg": "#e9f4fc",
+        "input_border": "rgba(0,0,0,0)"
+      }
+    },
+    "offcanvas_cart_GhbKBA": {
+      "type": "offcanvas-cart",
+      "blocks": {
+        "price_progress_bar_pywk9t": {
+          "type": "price_progress_bar",
+          "settings": {
+            "collection": "",
+            "price": "60",
+            "color_scheme_progress_bar": "scheme_1",
+            "track_color": "#2b3990",
+            "track_bg_color": "#c3cde4",
+            "condition_label": "<p>You are <strong>$[price] </strong>from free shipping!</p>",
+            "success_message": "<p>You have free shipping!</p>",
+            "enable_promotion_bar": false
+          }
+        },
+        "product_upsell_FinegF": {
+          "type": "product_upsell",
+          "settings": {
+            "color_scheme_upsell": "scheme_1",
+            "title": "",
+            "quantity": 0,
+            "products": [
+              "advanced-strength-daily",
+              "baby-probiotics-ages-6-12-months"
+            ]
+          }
+        }
+      },
+      "block_order": [
+        "price_progress_bar_pywk9t",
+        "product_upsell_FinegF"
+      ],
+      "disabled": true,
+      "settings": {
+        "color_scheme": "scheme-1",
+        "color_scheme_checkout": "",
+        "cart_title": "Cart",
+        "checkout_message": "",
+        "enable_minimum_total_price": false,
+        "condition_label": "",
+        "condition_collection": "",
+        "condition_total": 70,
+        "condition_info": "Add %s to check out",
+        "condition_success": "",
+        "general_message": "",
+        "button_label": "Checkout",
+        "color_theme": "primary"
+      }
+    }
+  },
+  "order": [
+    "offcanvas_menu_QmtAiq",
+    "offcanvas_contact_9wGjjV",
+    "offcanvas_cart_GhbKBA"
+  ]
+}

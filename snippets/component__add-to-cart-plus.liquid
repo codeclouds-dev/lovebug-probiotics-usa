@@ -1,0 +1,25 @@
+{% if product.available %}
+  {%- assign open_off_canvas = 'data-open="offCanvasCart"' -%}
+{% else %}
+  {%- assign open_off_canvas = '' -%}
+{% endif %}
+
+{% assign product = product %}
+
+{% if product.available %}
+  <form data-cart-submit data-product-id="{{ product.id }}">
+    
+    {% render 'component-product-form-hidden-inputs', product: product %}
+
+    <select name="id" style="display:none">
+      {% for variant in product.variants %}
+        <option value="{{ variant.id }}">{{ variant.title }} - {{ variant.price | money }}</option>
+      {% endfor %}
+    </select>
+
+    <button class="add-to-cart-plus" {{ open_off_canvas }} type="submit">
+      {% render 'icon__plus' %}
+    </button>
+
+  </form>
+{% endif %}

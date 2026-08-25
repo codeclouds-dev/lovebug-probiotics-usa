@@ -1,0 +1,267 @@
+{%- assign s = section.settings -%}
+
+{{- 'section-lifestylehero-v2.css' | asset_url | stylesheet_tag -}}
+
+<div class="lifestylehero-v2__top-spacer {{ s.custom_class }}" style="background-color: {{ s.bg_color }};"></div>
+
+<section class="lifestylehero-v2 {{ s.custom_class }}" style="background-color: {{ s.bg_color }};">
+  {%- if s.lifestyle_image_desktop != blank or s.lifestyle_image_mobile != blank -%}
+    <div class="lifestylehero-v2__lifestyle">
+      {% render 'component__responsive-image',
+        mobile_image: s.lifestyle_image_mobile,
+        desktop_image: s.lifestyle_image_desktop,
+        max_width: 2400,
+        loading_lazy: false,
+        desktop_sizing: "100vw",
+        mobile_sizing: "100vw" %}
+    </div>
+  {%- endif -%}
+
+
+  <div class="lifestylehero-v2__content">
+    {%- if s.reviews_text != blank -%}
+      <div class="lifestylehero-v2__reviews">
+        <span class="lifestylehero-v2__stars" style="color: {{ s.stars_color }};">
+          {% render 'icon__five-stars' %}
+        </span>
+        <div class="lifestylehero-v2__reviews-text rte">
+          {{ s.reviews_text }}
+        </div>
+      </div>
+    {%- endif -%}
+
+    {%- if s.badge_image != blank -%}
+      {%- capture badge_style -%}
+        {%- if s.badge_size_mobile != 160 %}--badge-w-mobile: {{ s.badge_size_mobile }}px;{% endif -%}
+        {%- if s.badge_size_desktop != 220 %}--badge-w-desktop: {{ s.badge_size_desktop }}px;{% endif -%}
+      {%- endcapture -%}
+      <div class="lifestylehero-v2__badge" style="{{ badge_style | strip }}">
+        <img
+          src="{{ s.badge_image | image_url: width: 600 }}"
+          srcset="{{ s.badge_image | image_url: width: 300 }} 300w, {{ s.badge_image | image_url: width: 600 }} 600w"
+          sizes="(min-width: 64em) 220px, 160px"
+          alt="{{ s.badge_image.alt | escape }}"
+          loading="eager"
+          width="{{ s.badge_image.width }}"
+          height="{{ s.badge_image.height }}"
+        >
+      </div>
+    {%- endif -%}
+
+    {%- if s.heading != blank -%}
+      <div class="lifestylehero-v2__heading rte">
+        {{ s.heading }}
+      </div>
+    {%- endif -%}
+
+    {%- if s.subheading != blank -%}
+      <div class="lifestylehero-v2__subheading rte">
+        {{ s.subheading }}
+      </div>
+    {%- endif -%}
+
+    {%- if s.cta_text != blank -%}
+      <a
+        class="lifestylehero-v2__cta"
+        href="{{ s.cta_link | default: '#' }}"
+        style="background-color: {{ s.cta_bg_color }}; color: {{ s.cta_text_color }};"
+      >
+        {{ s.cta_text | escape }}
+      </a>
+    {%- endif -%}
+
+    {%- assign feature_blocks = section.blocks | where: 'type', 'feature' -%}
+    {%- if feature_blocks.size > 0 -%}
+      <ul class="lifestylehero-v2__features">
+        {%- for block in feature_blocks -%}
+          <li class="lifestylehero-v2__feature" {{ block.shopify_attributes }}>
+            {%- if block.settings.icon != blank -%}
+              <span class="lifestylehero-v2__feature-icon">
+                <img
+                  src="{{ block.settings.icon | image_url: width: 96 }}"
+                  alt="{{ block.settings.icon.alt | escape }}"
+                  loading="lazy"
+                  width="{{ block.settings.icon.width }}"
+                  height="{{ block.settings.icon.height }}"
+                >
+              </span>
+            {%- endif -%}
+            {%- if block.settings.text != blank -%}
+              <span class="lifestylehero-v2__feature-text">{{ block.settings.text | escape }}</span>
+            {%- endif -%}
+          </li>
+        {%- endfor -%}
+      </ul>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Lifestyle Hero v2",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Background"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#2B3990"
+    },
+    {
+      "type": "image_picker",
+      "id": "lifestyle_image_desktop",
+      "label": "Desktop Background Image",
+      "info": "Composite image (navy + photo + decorative elements). Shown at 1024px and wider. Fills the entire section behind the content."
+    },
+    {
+      "type": "image_picker",
+      "id": "lifestyle_image_mobile",
+      "label": "Mobile Background Image",
+      "info": "Composite image. Shown below 1024px."
+    },
+    {
+      "type": "header",
+      "content": "Review Stars Row"
+    },
+    {
+      "type": "color",
+      "id": "stars_color",
+      "label": "Star Color",
+      "default": "#FFC931"
+    },
+    {
+      "type": "richtext",
+      "id": "reviews_text",
+      "label": "Reviews Text",
+      "default": "<p>Over 10,000+ 5 Star Reviews</p>"
+    },
+    {
+      "type": "header",
+      "content": "Trust Badge"
+    },
+    {
+      "type": "image_picker",
+      "id": "badge_image",
+      "label": "Badge Image",
+      "info": "e.g. Clinicians Choice badge. Leave blank to hide."
+    },
+    {
+      "type": "range",
+      "id": "badge_size_mobile",
+      "label": "Badge Width (Mobile)",
+      "min": 80,
+      "max": 320,
+      "step": 5,
+      "unit": "px",
+      "default": 160,
+      "info": "To match PDP set to '160px'."
+    },
+    {
+      "type": "range",
+      "id": "badge_size_desktop",
+      "label": "Badge Width (Desktop)",
+      "min": 100,
+      "max": 480,
+      "step": 5,
+      "unit": "px",
+      "default": 220,
+      "info": "To match PDP set to '360px'."
+    },
+    {
+      "type": "header",
+      "content": "Headline"
+    },
+    {
+      "type": "richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "<p>Healthy Guts Aren&rsquo;t Born, They&rsquo;re Made.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Subheading"
+    },
+    {
+      "type": "richtext",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "<p>Clean, effective probiotics for the whole family.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Call to Action"
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "Button Text",
+      "default": "Shop Best Sellers"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "Button Link"
+    },
+    {
+      "type": "color",
+      "id": "cta_bg_color",
+      "label": "Button Background",
+      "default": "#9DB4FF"
+    },
+    {
+      "type": "color",
+      "id": "cta_text_color",
+      "label": "Button Text Color",
+      "default": "#2B3990"
+    }, 
+        {
+      "type":"header",
+      "content":"Attribute Settings"
+    },
+    {
+      "type": "text",
+      "id": "custom_class",
+      "label": "Custom class"
+    },
+    {
+      "type": "text",
+      "id": "custom_id",
+      "label": "Custom ID"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "Multi-Strain Formulas"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Lifestyle Hero v2",
+      "blocks": [
+        { "type": "feature", "settings": { "text": "Multi-Strain Formulas" } },
+        { "type": "feature", "settings": { "text": "High CFU Count" } },
+        { "type": "feature", "settings": { "text": "Clinician Approved" } },
+        { "type": "feature", "settings": { "text": "No Junk" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

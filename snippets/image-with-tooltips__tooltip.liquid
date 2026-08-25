@@ -1,0 +1,74 @@
+{% if template contains 'product' %}
+  {% case index %}
+    {% when 1 %}
+      {% assign text_position = 'left' %}
+      {% assign text_position_vertical = 'top' %}
+      {% assign position_x_mobile = '-13' %}
+      {% assign position_y_mobile = '16' %}
+      {% assign position_x = '-13' %}
+      {% assign position_y = '16' %}
+      {% assign rotation = '0' %}
+    {% when 2 %}
+      {% assign text_position = 'left' %}
+      {% assign text_position_vertical = 'top' %}
+      {% assign position_x_mobile = '11' %}
+      {% assign position_y_mobile = '67' %}
+      {% assign position_x = '11' %}
+      {% assign position_y = '67' %}
+      {% assign rotation = '0' %}
+    {% when 3 %}
+      {% assign text_position = 'right' %}
+      {% assign text_position_vertical = 'center' %}
+      {% assign position_x_mobile = '2' %}
+      {% assign position_y_mobile = '26' %}
+      {% assign position_x = '2' %}
+      {% assign position_y = '26' %}
+      {% assign rotation = '50' %}
+    {% when 4 %}
+      {% assign text_position = 'right' %}
+      {% assign text_position_vertical = 'top' %}
+      {% assign position_x_mobile = '-12' %}
+      {% assign position_y_mobile = '63' %}
+      {% assign position_x = '-12' %}
+      {% assign position_y = '63' %}
+      {% assign rotation = '0' %}
+    {% when 5 %}
+      {% assign text_position = 'left' %}
+      {% assign text_position_vertical = 'center' %}
+      {% assign position_x_mobile = '-12' %}
+      {% assign position_y_mobile = '38' %}
+      {% assign position_x = '-12' %}
+      {% assign position_y = '38' %}
+      {% assign rotation = '-56' %}
+    {% when 6 %}
+      {% assign text_position = 'right' %}
+      {% assign text_position_vertical = 'top' %}
+      {% assign position_x_mobile = '17' %}
+      {% assign position_y_mobile = '10' %}
+      {% assign position_x = '17' %}
+      {% assign position_y = '10' %}
+      {% assign rotation = '-36' %}
+    {% else %}
+  {% endcase %}
+{% endif %}
+
+<span class="tooltip-item {{ text_position }} {{ text_position_vertical }}"
+    style="
+    position: absolute; 
+    --mobile-x-position: {{ position_x_mobile }}%;
+    --mobile-y-position: {{ position_y_mobile }}%;
+    --desktop-x-position: {{ position_x }}%;
+    --desktop-y-position: {{ position_y }}%;
+">
+    <div class="tooltip-item__text">
+        <span>{{ title }}</span>
+    </div>
+    <div class="tooltip-item__icon" style="transform: rotate({{ rotation }}deg);">
+        <div class="tooltip-item__icon-inner">
+            {%- capture svg_code -%}
+                {% render 'icon__hand-drawn-arrow' %}
+            {%- endcapture -%}
+            {% render 'component__svg-encoder', svg_code: svg_code, alt: "" %}
+        </div>
+    </div>
+</span>

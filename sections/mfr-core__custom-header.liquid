@@ -1,0 +1,113 @@
+{% if section.settings.mobile_logo != blank or section.settings.desktop_logo or section.settings.mobile_logo_sticky or section.settings.desktop_logo_sticky %}
+	<script>
+		function renderCustomHeaderLogo() {
+			const logoMobile = `{%- if section.settings.mobile_logo != blank -%}{{- section.settings.mobile_logo | image_url: width: 240 | image_tag: width: 240, widths: "240", alt: shop.name -}}{%- endif -%}`;
+			const logoDesktop = `{%- if section.settings.desktop_logo != blank -%}{{- section.settings.desktop_logo | image_url: width: 240 | image_tag: width: 240, widths: "240", alt: shop.name -}}{%- endif -%}`;
+			const logoMobileSticky = `{%- if section.settings.mobile_logo_sticky != blank -%}{{- section.settings.mobile_logo_sticky | image_url: width: 240 | image_tag: width: 240, widths: "240", alt: shop.name -}}{%- endif -%}`;
+			const logoDesktopSticky = `{%- if section.settings.mobile_logo_sticky != blank -%}{{- section.settings.mobile_logo_sticky | image_url: width: 240 | image_tag: width: 240, widths: "240", alt: shop.name -}}{%- endif -%}`;
+			const accountIcon = `{%- if section.settings.account_icon != blank -%}{{- section.settings.account_icon | image_url: width: 46 | image_tag: width: 46, widths: "46", alt: "account icon" -}}{%- endif -%}`;
+
+			if ( logoMobile != "" || logoMobileSticky != "" ) {
+				$( ".header__logo.hide-for-large" ).html( logoMobile + logoMobileSticky ).find( "img:first-child" ).addClass( "is-active" );
+			}
+
+			if ( logoDesktop != "" || logoDesktopSticky != "" ) {
+				$( ".header__logo.show-for-large" ).html( logoDesktop + logoDesktopSticky ).find( "img:first-child" ).addClass( "is-active" );
+			}
+
+			if ( accountIcon != "" ) {
+				$( ".header__account.has-icon" ).html( accountIcon );
+			}
+		}
+
+		onReady( () => renderCustomHeaderLogo() );
+	</script>
+{% endif %}
+
+{% if section.settings.menu_color != blank and section.settings.menu_color != "rgba(0,0,0,0)" %}
+	<style>
+		.header__wrapper-inner {
+			color: {{ section.settings.menu_color }};
+		}
+		.header__wrapper-inner .menu-text {
+			color: {{ section.settings.menu_color }};
+		}
+		.mobile-menu-trigger span {
+			background-color: {{ section.settings.menu_color }};
+		}
+	</style>
+{% endif %}
+
+{% if section.settings.menu_color_sticky != blank and section.settings.menu_color_sticky != "rgba(0,0,0,0)" %}
+	<style>
+		.header__wrapper--sticky .header__wrapper-inner {
+			color: {{ section.settings.menu_color_sticky }};
+		}
+	</style>
+{% endif %}
+
+{% schema %}
+{
+  "name":"Custom Header",
+  "enabled_on": {
+    "groups": ["header"]
+  },
+  "limit": 1,
+  "settings": [
+    {
+			"type": "header",
+			"content": "Logo Settings"
+    },
+    {
+			"type": "image_picker",
+			"id": "mobile_logo",
+			"label": "Mobile Logo"
+    },
+    {
+			"type": "image_picker",
+			"id": "desktop_logo",
+			"label": "Desktop Logo"
+    },
+    {
+			"type": "image_picker",
+			"id": "mobile_logo_sticky",
+			"label": "Mobile Logo - Sticky"
+    },
+    {
+			"type": "image_picker",
+			"id": "desktop_logo_sticky",
+			"label": "Desktop Logo - Sticky"
+    },
+    {
+			"type": "header",
+			"content": "Menu Color Settings"
+    },
+    {
+			"type": "color",
+			"id": "menu_color",
+			"label": "Menu Color"
+    },
+    {
+			"type": "color",
+			"id": "menu_color_sticky",
+			"label": "Sticky Menu Color"
+    },
+    {
+			"type": "header",
+			"content": "Account Settings"
+    },
+    {
+			"type": "image_picker",
+			"id": "account_icon",
+			"label": "Account Icon"
+    }
+  ]
+//   ,
+//     "presets": [
+//       {
+//         "name": "Custom Header",
+//         "blocks": []
+//       }
+//     ]
+}
+{% endschema %}

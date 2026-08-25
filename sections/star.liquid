@@ -1,0 +1,40 @@
+<div class="rateing-withtxt">
+    {% if section.settings.img %}
+    <div class="star-icons">
+         
+        {{ section.settings.img
+        | image_url: width: section.settings.img.width
+        | image_tag
+      }}
+    </div>
+      {% endif %}
+      {% if section.settings.text %}
+      {{ section.settings.text }}
+     {% endif %}
+</div>
+
+{% schema %}
+{
+  "name": "Star Section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "img",
+      "label": "Image"
+    },
+   
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text"
+    }
+  ],
+ 
+  "presets": [
+    {
+      "name": "Star Section",
+      
+    }
+  ]
+}
+{% endschema %}

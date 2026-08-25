@@ -1,0 +1,108 @@
+.product-sticky-bar {
+  transform: translateY(100%);
+  pointer-events: none;
+}
+
+.product-sticky-bar.is-active {
+  transform: translateY(0);
+  pointer-events: all;
+}
+
+.dress-up__character {
+  transition: bottom 0.4s cubic-bezier(0.5, 0, 0, 1);
+}
+
+body.sticky-atc-active .dress-up__character {
+  bottom: 4.75rem;
+}
+
+.product-sticky-bar__image {
+  display: none;
+}
+
+.product-sticky-bar__info {
+  display: flex;
+  align-items: center;
+}
+
+.sticky-price {
+  padding-left: 4px;
+}
+
+@media screen and (max-width: 1023px) {
+  .product-sticky-bar__info {
+    display: none;
+  }
+
+  .product-sticky-bar__inner {
+    padding-top: 9px;
+    padding-bottom: 9px;
+    padding-left: clamp(16px, 4.103vw, 42px);
+    padding-right: clamp(16px, 4.103vw, 42px);
+    flex-flow: row;
+  }
+
+  .product-sticky-bar__form {
+    width: 100%;
+    margin-top: 0;
+  }
+
+  .product-sticky-bar__form form {
+    justify-content: center;
+  }
+
+  .product-sticky-bar__form button.add-to-cart {
+    width: 85% !important;
+    height: 72px !important;
+    font-family: "ES Peak Rounded", sans-serif;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  }
+}
+
+@media screen and (min-width: 990px) {
+  .product-sticky-bar__inner {
+    padding-top: clamp(6px, 0.625vw, 9px);
+    padding-bottom: clamp(6px, 0.625vw, 9px);
+    padding-left: clamp(47px, 4.889vw, 56px);
+    padding-right: clamp(47px, 4.889vw, 56px);
+  }
+
+  .product-sticky-bar__info {
+    gap: clamp(11px, 1.11vw, 16px);
+  }
+
+  .product-sticky-bar__title {
+    font-size: clamp(30px, 2.99vw, 43px);
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+  }
+
+  .product-sticky-bar__image {
+    display: block;
+    width: clamp(52px, 5.278vw, 76px);
+    height: clamp(51px, 5.139vw, 74px);
+    flex-shrink: 0;
+    overflow: hidden;
+    border-radius: 8px;
+  }
+
+  .product-sticky-bar__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .product-sticky-bar__form button.add-to-cart {
+    width: clamp(300px, 34.028vw, 490px);
+    height: clamp(45px, 4.583vw, 66px);
+    font-family: "ES Peak Rounded", sans-serif;
+    font-size: clamp(14px, 1.39vw, 20px);
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  }
+}

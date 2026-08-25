@@ -1,0 +1,144 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "type": "footer",
+  "name": "Footer Sections",
+  "sections": {
+    "footer_WFB43J": {
+      "type": "footer",
+      "blocks": {
+        "embed_Rrx9EM": {
+          "type": "embed",
+          "settings": {
+            "icon": "shopify://shop_images/Rectangle.svg",
+            "heading": "Get the Inside Scoop",
+            "caption": "Sign up to get the latest on Lovebug News, Wellness tips, Sales, and more",
+            "embed_code": "<script type=\"text/javascript\" async=\"\" src=\"https://static.klaviyo.com/onsite/js/T3h6et/klaviyo.js\"></script>\n<div class=\"klaviyo-form-UMbXLY\"></div>"
+          }
+        },
+        "menu_rJFeMB": {
+          "type": "menu",
+          "settings": {
+            "heading": "Shop",
+            "menu": "mfr-footer-menu-shop",
+            "show_accessibe_trigger": false
+          }
+        },
+        "menu_mhjc4a": {
+          "type": "menu",
+          "settings": {
+            "heading": "Shop by Need",
+            "menu": "love-bug-for-you",
+            "show_accessibe_trigger": false
+          }
+        },
+        "menu_wneATg": {
+          "type": "menu",
+          "settings": {
+            "heading": "Our Journey",
+            "menu": "mfr-footer-menu-our-journey",
+            "show_accessibe_trigger": false
+          }
+        },
+        "menu_yBrFRc": {
+          "type": "menu",
+          "settings": {
+            "heading": "Blog",
+            "menu": "mfr-footer-menu-the-gut-bible",
+            "show_accessibe_trigger": false
+          }
+        },
+        "menu_NjQLhP": {
+          "type": "menu",
+          "settings": {
+            "heading": "Support",
+            "menu": "mfr-footer-menu-support",
+            "show_accessibe_trigger": true
+          }
+        }
+      },
+      "block_order": [
+        "embed_Rrx9EM",
+        "menu_rJFeMB",
+        "menu_mhjc4a",
+        "menu_wneATg",
+        "menu_yBrFRc",
+        "menu_NjQLhP"
+      ],
+      "settings": {
+        "color_scheme": "scheme-3d6d5546-cc24-4027-ae43-eb909eaaabba",
+        "appear_on": ""
+      }
+    },
+    "footer_socket_c6MXBr": {
+      "type": "footer__socket",
+      "blocks": {
+        "logo_GVCb7t": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/main.svg"
+          }
+        },
+        "social_links_9Fkt4D": {
+          "type": "social_links",
+          "settings": {}
+        },
+        "icon_XDHjie": {
+          "type": "icon",
+          "settings": {
+            "icon": "shopify://shop_images/Group_172.svg"
+          }
+        },
+        "icon_T83diM": {
+          "type": "icon",
+          "settings": {
+            "icon": "shopify://shop_images/Group_32.svg"
+          }
+        },
+        "icon_XqWPyC": {
+          "type": "icon",
+          "settings": {
+            "icon": "shopify://shop_images/Group_47.svg"
+          }
+        },
+        "icon_FtttfQ": {
+          "type": "icon",
+          "settings": {
+            "icon": "shopify://shop_images/Group_17.svg"
+          }
+        },
+        "note_Q7bQ8g": {
+          "type": "note",
+          "settings": {
+            "heading": "*FDA Disclaimer",
+            "caption": "The information, advice, statements, and testimonials made about Lovebug Probiotics products mentioned on this website have not been evaluated by the United States Food and Drug Administration (FDA). The information on this site and the products listed are not intended to diagnose, treat, cure or prevent disease, nor are they intended to replace proper medical help. It is always recommended to consult with a healthcare professional before starting any regimen of probiotics. User-submitted testimonials are based on individual results and do not constitute a guarantee that you will achieve the same results – what works for one may not work for another."
+          }
+        }
+      },
+      "block_order": [
+        "logo_GVCb7t",
+        "social_links_9Fkt4D",
+        "icon_XDHjie",
+        "icon_T83diM",
+        "icon_XqWPyC",
+        "icon_FtttfQ",
+        "note_Q7bQ8g"
+      ],
+      "settings": {
+        "color_scheme": "scheme-3d6d5546-cc24-4027-ae43-eb909eaaabba",
+        "appear_on": ""
+      }
+    }
+  },
+  "order": [
+    "footer_WFB43J",
+    "footer_socket_c6MXBr"
+  ]
+}

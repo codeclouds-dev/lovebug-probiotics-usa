@@ -1,0 +1,109 @@
+{%- assign badge = "" -%}
+{%- assign tag_handle = "" -%}
+{% assign current_variant = current_variant | default: product.selected_or_first_available_variant %}
+{% assign badges = shop.metaobjects["product_badge"].values %}
+
+{%- capture badge_svg -%}
+  <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="74" height="74">
+    <path fill="#2B3990" d="M33.629955 67.456078L30.672626 68.829697C27.175043 70.454247 23.022377 68.942802 21.387314 65.450119L20.004812 62.496933C19.005775 60.362869 17.116732 58.777771 14.841607 58.164486L11.693217 57.315804C7.9696689 56.31208 5.7600813 52.484962 6.7526054 48.758415L7.5918193 45.607487C8.1982613 43.330528 7.77005 40.902023 6.4214158 38.969799L4.5551319 36.295921C2.3479095 33.133575 3.1152914 28.781538 6.2709885 26.564817L8.9392405 24.690504C10.867402 23.336067 12.100388 21.200474 12.309284 18.853416L12.598361 15.605487C12.940248 11.764213 16.325533 8.9236212 20.167818 9.2539587L23.416603 9.5332699C25.764275 9.7351093 28.081532 8.8916979 29.750214 7.228025L32.059387 4.9257808C34.790413 2.202955 39.209587 2.202955 41.940613 4.9257808L44.249786 7.228025C45.918468 8.8916979 48.235725 9.7351093 50.583397 9.5332699L53.832184 9.2539587C57.674465 8.9236212 61.059753 11.764213 61.401638 15.605487L61.690716 18.853416C61.899612 21.200474 63.132599 23.336067 65.06076 24.690504L67.729012 26.564817C70.884712 28.781538 71.652092 33.133575 69.44487 36.295921L67.578583 38.969799C66.22995 40.902023 65.801735 43.330528 66.40818 45.607487L67.247391 48.758415C68.239922 52.484962 66.030334 56.31208 62.306782 57.315804L59.158394 58.164486C56.88327 58.777771 54.994225 60.362869 53.995186 62.496933L52.612686 65.450119C50.977623 68.942802 46.824955 70.454247 43.327374 68.829697L40.370045 67.456078C38.232986 66.463463 35.767014 66.463463 33.629955 67.456078Z" fill-rule="evenodd"/>
+  </svg>
+{%- endcapture -%}
+
+{%- for tag in product.tags -%}
+  {%- assign tag_handle = tag | handleize -%}
+
+  {%- liquid
+    assign text = tag_handle
+    assign words = text | split: ' '
+    assign word_count = words | size 
+    if word_count > 2
+    assign font_size = "small-text"
+    else
+    assign font_size = ""
+    endif
+  -%}
+
+  {% assign custom_badges = badges | where: "product_tag", tag_handle %}
+  {% assign custom_badge = custom_badges | first %}
+
+  {% if custom_badges != blank %}
+    {%- capture badge -%}
+      <div class="product-badge {{ tag_handle | handleize }} {{ classes }} {{ font_size }}"
+        style="
+          --product-badge-bg-color: {{ custom_badge.background_color }};
+        ">
+        {% render 'component__svg-encoder',
+          svg_code: badge_svg,
+          width: 74,
+          alt: "badge icon" %}
+        <span>{{ custom_badge.product_badge_label }}</span>
+      </div>
+    {%- endcapture -%}
+  {% endif %}
+
+  {%- if tag_handle contains 'best-seller' -%}
+    {%- capture badge -%}
+      <div class="product-badge best-seller {{ classes }} {{ font_size }}">
+        {% render 'component__svg-encoder',
+          svg_code: badge_svg,
+          width: 74,
+          alt: "badge icon" %}
+        <span>Best Seller</span>
+      </div>
+    {%- endcapture -%}
+
+  {%- elsif tag_handle contains 'new' -%}
+    {%- capture badge -%}
+      <div class="product-badge new {{ classes }} {{ font_size }}">
+        {% render 'component__svg-encoder',
+          svg_code: badge_svg,
+          width: 74,
+          alt: "badge icon" %}
+        <span>New</span>
+      </div>
+    {%- endcapture -%}
+
+  {%- elsif tag_handle contains 'coming-soon' -%}
+    {%- capture badge -%}
+      <div class="product-badge coming-soon {{ classes }} {{ font_size }}">
+        {% render 'component__svg-encoder',
+          svg_code: badge_svg,
+          width: 74,
+          alt: "badge icon" %}
+        <span>Coming Soon</span>
+      </div>
+     {%- endcapture -%}
+ 
+  {%- elsif tag_handle contains 'Limited Edition Color' or tag_handle contains "limited-edition" -%}
+    {%- capture badge -%}
+      <div class="product-badge coming-soon {{ classes }} {{ font_size }}">
+        <span>Limited Edition</span>
+      </div>
+     {%- endcapture -%}
+ 
+  {%- elsif tag_handle contains 'trending' -%}
+    {%- capture badge -%}
+      <div class="product-badge coming-soon {{ classes }} {{ font_size }}">
+        {% render 'component__svg-encoder',
+          svg_code: badge_svg,
+          width: 74,
+          alt: "badge icon" %}
+        <span>trending</span>
+      </div>
+    {%- endcapture -%}
+ 
+  {%- elsif tag_handle contains 'final-sale' -%}
+    {%- capture badge -%}
+      <div class="product-badge coming-soon {{ classes }} {{ font_size }}">
+        {% render 'component__svg-encoder',
+          svg_code: badge_svg,
+          width: 74,
+          alt: "badge icon" %}
+        <span>Final Sale</span>
+      </div>
+    {%- endcapture -%}
+
+  {%- endif -%}
+{%- endfor -%}
+
+{{ badge }}

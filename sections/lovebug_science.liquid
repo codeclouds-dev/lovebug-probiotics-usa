@@ -1,0 +1,111 @@
+<section class="science-sec">
+    <div class="grid-container">
+        {%- for block in section.blocks -%}
+            {% case block.type %}
+
+            
+
+              {%- when 'heading' -%}
+                {% render 'renderer__block-title', block: block %}    
+                {%- endcase -%}
+            
+          {%- endfor -%}
+        {{ section.settings.text }}
+
+        <div class="science-row">
+             {%- for block in section.blocks -%}
+            {% case block.type %}
+
+            {%- when 'image' -%} 
+            <div class="science-card">
+                 {% if block.settings.img  %}
+                <i>{{ block.settings.img  | image_url: width: 100 | image_tag }}</i>
+               {% endif %}
+               {{ block.settings.below_text }}   
+            </div>
+            {%- endcase -%}
+            
+          {%- endfor -%}
+        </div>
+
+    </div>
+</section>
+
+{% schema %}
+{
+  "name": "lovebug SCIENCE",
+
+  "settings": [
+  
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text"
+    }
+  ],
+  "blocks": [
+   
+    {
+      "type": "heading",
+      "name": "Main Heading",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "inline_richtext",
+          "id": "heading",
+          "label": "Heading",
+          "default": "A LITTLE BIT OF lovebug SCIENCE"
+        },
+        {
+          "type": "checkbox",
+          "id": "disable_animation",
+          "label": "Disable Animation",
+          "default": false
+        },
+        {
+          "type": "select",
+          "id": "header_style",
+          "label": "Header Style",
+          "default": "h1",
+          "options": [
+            { "value": "h1", "label": "H1" },
+            { "value": "h2", "label": "H2" },
+            { "value": "h3", "label": "H3" }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "image",
+      "name": "Small Image",
+      
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "img",
+          "label": "Plus Icon",
+          
+        },
+        {
+          "type": "richtext",
+          "id": "below_text",
+          "label": "Below text",
+          
+        },
+      ]
+    },
+   
+  ],
+  "presets": [
+    {
+      "name": "A little bit of lovebug SCIENCE",
+      "blocks": [
+      
+        { "type": "heading" },
+        { "type": "image" },
+       
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,77 @@
+{{ 'component-article-card.css' | asset_url | stylesheet_tag }}
+{{ 'component-card.css' | asset_url | stylesheet_tag }}
+{{ 'section-main-blog.css' | asset_url | stylesheet_tag }}
+
+<div id="grid-scroll-anchor"></div>
+<div class="main-blog page-width">
+  <h1 class="title--primary">{{ blog.title | escape }}</h1>
+  <div class="blog-articles grid-x">
+    {% paginate blogs.recipes.articles by 500 %}
+    {%- for article in blog.articles -%}
+      <div class="small-6 medium-6 large-4 blog-articles__item {% for tag in article.tags %}{{ tag | downcase | replace: ' ', '-' }} {% endfor %}">
+        <div class="blog-articles__article article">
+          {%- render 'article-card', 
+            article: article, 
+            show_image: section.settings.show_image, 
+            show_date: section.settings.show_date, 
+            show_author: section.settings.show_author,
+            hide_tags: section.settings.hide_tags -%}
+        </div>
+      </div>
+    {%- endfor -%}
+    {% endpaginate %}
+  </div>
+
+  <div class="loadmore text-center">
+    <button class="button secondary" id="loadmore">Load more</button>
+  </div>
+</div>
+
+{%- paginate blog.articles by 6 -%}
+  {%- if paginate.pages > 1 -%}
+    {%- render 'pagination', paginate: paginate -%}
+  {%- endif -%}
+{%- endpaginate -%}
+
+{% schema %}
+{
+  "name": "t:sections.main-blog.name",
+  "tag": "section",
+  "class": "spaced-section",
+  "settings": [
+    {
+      "type": "textarea",
+      "id": "hide_tags",
+      "label": "Hide Specific Tags",
+      "info": "Separated by newline."
+    },
+    {
+      "type": "header",
+      "content": "t:sections.main-blog.settings.header.content"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_image",
+      "default": true,
+      "label": "t:sections.main-blog.settings.show_image.label",
+      "info": "t:sections.main-blog.settings.show_image.info"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_date",
+      "default": true,
+      "label": "t:sections.main-blog.settings.show_date.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_author",
+      "default": false,
+      "label": "t:sections.main-blog.settings.show_author.label"
+    },
+    {
+      "type": "paragraph",
+      "content": "t:sections.main-blog.settings.paragraph.content"
+    }
+  ]
+}
+{% endschema %}

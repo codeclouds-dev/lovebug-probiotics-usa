@@ -1,0 +1,26 @@
+<div class="subscription-card__wrapper">
+    <div class="subscription-card__accent-graphic">
+        {% render 'icon__animated-bubbles' %}
+    </div>
+    <div class="subscription-card" data-inview>
+        <div class="subscription-card__image">
+            {% render 'component__lazyload-image',
+                image: block.settings.image,
+                width: 360
+                %}
+        </div>
+        <div class="subscription-card__texts">
+            <div class="subscription-card__texts-inner">
+                <div class="subscription-card__title h4">
+                    {{ block.settings.title }}
+                </div>
+                <div class="subscription-card__desc">
+                    {{ block.settings.desc }}
+                </div>
+            </div>
+            <div class="subscription-card__cta">
+                {% render 'renderer__block-button', block: block %}
+            </div>
+        </div>
+    </div>
+</div>

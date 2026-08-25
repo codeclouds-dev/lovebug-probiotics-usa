@@ -1,0 +1,25 @@
+<div class="currency-selector">
+    {% form 'currency' %}
+        <select name="currency">
+            {% for currency in shop.enabled_currencies %}
+                {% if currency == cart.currency %}
+                    <option selected="true">{{currency.iso_code}}</option>
+                {% else %}
+                    <option value="{{currency.iso_code}}">{{currency.name}}</option>
+                {% endif %}
+            {% endfor %}
+        </select>
+    {% endform %}
+    
+    {% render 'icon-caret.liquid' %}
+
+    <script>
+      function currencyFormSubmit(event) {
+        event.target.form.submit();
+      }
+
+      document.querySelectorAll('.shopify-currency-form select').forEach(function (element) {
+        element.addEventListener('change', currencyFormSubmit);
+      });
+    </script>
+</div>

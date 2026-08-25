@@ -1,0 +1,248 @@
+{%- comment -%}
+--------------------------------------
+assign section settings to variables
+--------------------------------------
+{%- endcomment -%}
+
+{% render 'style-tags__section', asset_file_name: "mfr-core__collection-products.css" %}
+{%- assign top_spacing = section.settings.section_spacing_top -%}
+{%- assign bottom_spacing = section.settings.section_spacing_bottom -%}
+
+{% if section.settings.is_full_width %}
+  {% assign is_full_width = "full" %}
+{% else %}
+  {% assign is_full_width = "" %}
+{% endif %}
+
+{%- if section.settings.grid_columns == 1 -%}
+  {%- assign columns = 10 -%}
+{%- elsif section.settings.grid_columns == 2 -%}
+  {%- assign columns = 6 -%}
+{%- elsif section.settings.grid_columns == 3 -%}
+  {%- assign columns = 4 -%}
+{%- elsif section.settings.grid_columns == 4 -%}
+  {%- assign columns = 3 -%}
+{%- else -%}
+  {%- assign columns = 4 -%}
+{%- endif -%}
+{% assign section_id = section.settings.custom_id | default: section.id %}
+
+{% assign product_layout_class = "grid" %}
+
+{% capture spacer %}
+  --top-spacing-mobile: {{ section.settings.top_spacing_mobile }}px;
+  --bottom-spacing-mobile: {{ section.settings.bottom_spacing_mobile }}px;
+  --top-spacing-desktop: {{ section.settings.top_spacing_desktop }}px;
+  --bottom-spacing-desktop: {{ section.settings.bottom_spacing_desktop }}px;
+{% endcapture %}
+
+<section class="content__product-grid {{ section.settings.custom_class }}" id="{{ section_id }}">
+  <div class="section-spacer" style="{{ spacer }}">
+    <div class="grid-container">
+      {% if section.settings.show_collection_header %}
+        <div class="grid-x grid-padding-x align-center product-grid-wrapper">
+          <h1>{{ collection.title }}</h1>
+        </div>
+      {% endif %}
+      <div class="grid-x grid-margin-x align-center product-grid-wrapper">
+
+        {%- paginate collection.products by 12 -%}
+          {%- for product in collection.products -%}
+            <div class="product-card product-grid__item {{ product_layout_class }} item-selector {% comment %}small-6 medium-6 large-{{ columns }}{% endcomment %} {%for tag in product.tags%} {{ tag  | handle | replace: 'abc', ' '}} {%endfor%}" tabindex="-1">
+              {% render 'partial__product-card',
+                product: product,
+                media_size: section.settings.image_ratio,
+                show_secondary_image: section.settings.show_secondary_image,
+                primary_product_image_style: section.settings.primary_product_image_style,
+                secondary_product_image_style: section.settings.secondary_product_image_style
+              %}
+            </div>
+          {%- endfor-%}
+        {%- endpaginate -%}
+      </div>
+    </div>
+  </div>
+  {%- render 'component__section-dividers', is_video_background: true -%}
+</section>
+
+
+{% schema %}
+{
+  "name": "Collection Products",
+  "disabled_on": {
+    "groups": ["header","footer","custom.offcanvas","custom.modals"]
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": "Options"
+    },
+    {
+      "type":"checkbox",
+      "id":"is_full_width",
+      "default":true,
+      "label":"Full Width"
+    },
+    {
+      "type": "range",
+      "id": "grid_columns",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "unit": "col",
+      "label": "How many columns",
+      "default": 3
+    },
+    {
+      "type": "select",
+      "id": "product_layout_style",
+      "options": [
+        {
+          "value": "grid",
+          "label": "Grid"
+        },
+        {
+          "value": "carousel",
+          "label": "Carousel"
+        }
+      ],
+      "default": "grid",
+      "label": "Product Display",
+      "info": "Changes product layout"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_collection_header",
+      "default": false,
+      "label": "Show Collection Header",
+      "info": "uncheck this if you are using a custom section to display the header"
+      },
+    {
+      "type": "header",
+      "content": "Product Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_secondary_image",
+      "default": true,
+      "label": "Show 2nd image on Hover"
+      },
+      {
+      "type": "select",
+      "id": "primary_product_image_style",
+      "options": [
+        {
+          "value": "cover",
+          "label": "Cover"
+        },
+        {
+          "value": "contain",
+          "label": "Contain"
+        }
+      ],
+      "default": "contain",
+      "label": "Primary Product Image Style"
+    },
+    {
+      "type": "select",
+      "id": "secondary_product_image_style",
+      "options": [
+        {
+          "value": "cover",
+          "label": "Cover"
+        },
+        {
+          "value": "contain",
+          "label": "Contain"
+        }
+      ],
+      "default": "contain",
+      "label": "Secondary Product Image Style"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_tags",
+      "label": "Show Tags?",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Mobile Section Spacing"
+    },
+    {
+      "type": "range",
+      "id": "top_spacing_mobile",
+      "min": 0,
+      "max": 300,
+      "step": 5,
+      "unit": "px",
+      "label": "Top Spacing",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "bottom_spacing_mobile",
+      "min": 0,
+      "max": 300,
+      "step": 5,
+      "unit": "px",
+      "label": "Bottom Spacing",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Desktop Section Spacing"
+    },
+    {
+      "type": "range",
+      "id": "top_spacing_desktop",
+      "min": 0,
+      "max": 300,
+      "step": 5,
+      "unit": "px",
+      "label": "Top Spacing",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "bottom_spacing_desktop",
+      "min": 0,
+      "max": 300,
+      "step": 5,
+      "unit": "px",
+      "label": "Bottom Spacing",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Divider Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "top_wave_divider",
+      "label": "Top Wave Divider",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "bottom_wave_divider",
+      "label": "Bottom Wave Divider",
+      "default": false
+    },
+    {
+      "type":"header",
+      "content":"Attribute Settings"
+    },
+    {
+      "type": "text",
+      "id": "custom_class",
+      "label": "Custom class"
+    },
+    {
+      "type": "text",
+      "id": "custom_id",
+      "label": "Custom ID"
+    }
+  ]
+}
+{% endschema %}

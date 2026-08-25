@@ -1,0 +1,98 @@
+<section class="clinicl-prvn">
+    <div class="grid-container">
+
+        {{ section.settings.heading_new }}
+
+        <div class="clinical-row">
+            {% if section.settings.img1  %}
+            <figure>
+                {{ section.settings.img1  | image_url: width: 900 | image_tag }}
+            </figure>
+          {% endif %}
+            <div class="content">
+               {{ section.settings.text }}
+            </div>
+
+        </div>
+    </div>
+</section>
+
+{% schema %}
+{
+  "name": "Clinically proven",
+
+  "settings": [
+    {
+          "type": "textarea",
+          "id": "heading_new",
+          "label": "Heading",
+          "default": "Lovebug Is 100% Clinically Proven"
+        },
+  
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text"
+    },
+      {
+      "type": "image_picker",
+      "id": "img1",
+      "label": "Icon Image"
+    }
+  ],
+  "blocks": [
+   
+    {
+      "type": "heading",
+      "name": "Main Heading",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "inline_richtext",
+          "id": "heading",
+          "label": "Heading",
+          "default": "LOVEBUG IS 100% CLINICALLY PROVEN"
+        },
+        {
+          "type": "checkbox",
+          "id": "disable_animation",
+          "label": "Disable Animation",
+          "default": false
+        },
+        {
+          "type": "select",
+          "id": "header_style",
+          "label": "Header Style",
+          "default": "h1",
+          "options": [
+            { "value": "h1", "label": "H1" },
+            { "value": "h2", "label": "H2" },
+            { "value": "h3", "label": "H3" }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "image",
+      "name": "Small Image",
+      
+      "settings": [
+       
+      
+      ]
+    },
+   
+  ],
+  "presets": [
+    {
+      "name": "clinically proven",
+      "blocks": [
+      
+        { "type": "heading" },
+        { "type": "image" },
+       
+      ]
+    }
+  ]
+}
+{% endschema %}

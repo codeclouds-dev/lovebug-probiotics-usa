@@ -1,0 +1,246 @@
+.mega-menu__menus{
+    padding-inline:0;
+    gap:22px;
+    flex-wrap:nowrap !important;
+}
+
+
+
+.mega-menu__menu{
+     width:18%;
+    position:relative;
+    height:100%;
+}
+
+.mega-menu__label{
+    font-size: 16px;
+    line-height:18px;
+    background: #dce8ff;
+    padding: 10px;
+    border-radius: 12px;
+    margin-bottom:0;
+    min-height: 62px;
+    border: 1px solid #244a8b;
+    color:#244a8b;
+    font-family:"ES Peak Rounded", Helvetica, Arial, sans-serif;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content:center;
+    position:relative;
+}
+
+.mega-menu__label em{
+    display: block;
+    font-size: 10px;
+    font-style: normal;
+    margin-top: 0;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    -webkit-transform: translateX(-50%);
+    -moz-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    -o-transform: translateX(-50%);
+    width: 100%;
+    text-align: center;
+    /* margin-top: -9px; */
+}
+
+.mega-menu__menu:after{
+    content:'';
+    position:absolute;
+    top:0;
+    right:-10px;
+    width:1px;
+    height:100%;
+    background:#ebedff;
+}
+
+.mega-menu__menu-list{
+    gap:0;
+}
+
+.mega-menu__menu-list li a {
+    font-size: 16px;
+    line-height: 18px;
+    letter-spacing: 0;
+}
+
+.mega-menu__inner{
+    min-height:17rem;
+}
+
+/* Firefox */
+.mega-menu__menus {
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #1f2b7b transparent;
+}
+
+/* Chrome, Edge, Safari */
+.mega-menu__menus::-webkit-scrollbar {
+  width: 3px;
+}
+
+.mega-menu__menus::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.mega-menu__menus::-webkit-scrollbar-thumb {
+  background-color: #1f2b7b;
+  border-radius: 20px;
+}
+
+.mega-menu__menus::-webkit-scrollbar-thumb:hover {
+  background-color: #141e5a;
+}
+
+.c-quiz-viewingArea .c-header-imagePreloader:before{
+    display:none;
+}
+
+/* new hero */
+
+.solidbg_hero{
+    /* background:#eff0ff !important; */
+}
+
+
+.solidbg_hero + div + div > section > div{
+    padding-top:0;
+}
+
+.solidbg_hero .section-text{
+    max-width:100% !important;
+    
+}
+
+.solidbg_hero .section-content .section-text p{
+    margin-bottom:0 !important;
+}
+
+.solidbg_hero .section-content{
+    margin-bottom: 5px !important;
+}
+
+.solidbg_hero .section-text br{
+    display:none;
+}
+
+
+
+.solidbg_hero .section-title__inner{
+    font-size:35px;
+}
+
+.solidbg_hero .section-spacer{
+    padding:30px 0 0;
+}
+
+.solidbg_hero .anchor-links__anchors li a.button{
+    background-color: #9cb4ff !important;
+    min-height: 18px;
+    line-height: 18px;
+    border-radius: 10px;
+    font-size: 16px;
+}
+
+.solidbg_hero .anchor-links__anchors li a.button:hover{
+ background-color:#fff !important;
+}
+
+.solidbg_hero .section-title{
+    margin-bottom:5px;
+}
+
+.solidbg_hero1{
+    padding: 50px 0 120px;
+    background:#eff0ff !important;
+}
+
+
+
+.solidbg_hero1 .section-title__inner{
+    color:#2b3990;
+    font-size:45px;
+}
+
+
+#toddler-and-kids .section-spacer{
+    padding-top:0;
+    position:relative;
+    top:-50px;
+}
+
+
+@media(max-width:1330px){
+
+    .mega-menu__inner{
+        padding-inline:1.75rem;
+    }
+
+    .mega-menu__menus{
+        width:84%;
+    }
+    .mega-menu__ctas{
+        width: 16%;
+        padding-left:10px;
+    }
+
+    .mega-menu__ctas a{
+        min-width:100% !important;
+    }
+
+    .mega-menu__label em{
+        margin-top:0;
+    }
+}
+
+@media(max-width:1200px){
+    .mega-menu__label {
+        font-size: 12px;
+        line-height: 14px;
+        gap:2px;
+    }
+
+    .mega-menu__label em{
+        font-size:8px;
+    }
+}
+
+@media(max-width:991px){
+    .solidbg_hero1 {
+        padding: 40px 0 70px;
+    }
+}
+
+@media(max-width:767px){
+    .solidbg_hero .section-title__inner {
+            font-size: 35px;
+    }
+
+    .solidbg_hero .section-spacer {
+        padding: 40px 0 0;
+    }
+
+    .solidbg_hero1 {
+        padding: 15px 0 45px;
+    }
+
+    .solidbg_hero1 .section-title__inner {
+        font-size: 35px;
+    }
+
+    .solidbg_hero .anchor-links__anchors li a.button{
+            padding: 6px 16px;
+            line-height: 24px;
+            min-height: 32px;
+    }
+
+    .section-content .section-title{
+        font-size:30px;
+    }
+}
+

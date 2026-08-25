@@ -1,0 +1,73 @@
+{% render 'renderer__color-scheme', name: "section", color_scheme: block.settings.color_scheme_upsell, selector: ".product-upsell" %}
+
+{% if block.settings.products %}
+    {% assign upsell_products = "" %}
+    {% for product in block.settings.products %}
+        {% if product.available %}
+            {% assign upsell_products = upsell_products | append: product.id %}
+        {% endif %}
+        {% unless forloop.last %}
+            {% assign upsell_products = upsell_products | append: "," %}
+        {% endunless %}
+    {% endfor %}
+
+    <div class="product-upsell" rv-hide="'{{ upsell_products }}' | upsell_is_products_on_cart cart.items">
+        {% if block.settings.title != blank %}
+            <div class="product-upsell__title">
+                {{ block.settings.title }}
+            </div>
+        {% endif %}
+        <div class="product-upsell__inner">
+            {% for product in block.settings.products %}
+                {% if product.available %}
+                    {% assign variant = product.selected_or_first_available_variant %}
+                    <div class="product-upsell__product" rv-unless="{{ product.id }} | is_on_cart cart.items">
+                        <div class="product-upsell__product-left">
+                            <div class="product-upsell__product-image">
+                                {% assign image = product.metafields.mfr_fields.temporary_product_hero_image | default: product.media[0] %}
+                                {% if image != blank %}
+                                    {% assign height = 100 | divided_by: image.aspect_ratio %}
+                                    {{ image | image_url: width: 100 | image_tag: width: 100, alt: product.title, height: height }}
+                                {% endif %}
+                            </div>
+                            <div class="product-upsell__product-title">
+                                {{ product.title }}
+                                {% comment %} {% if product.selected_or_first_available_variant.title != 'Default Title' %} - {{ product.selected_or_first_available_variant.title }}{% endif %} {% endcomment %}
+                            </div>
+                        </div>
+                        <div class="product-upsell__product-right">
+                            <form action="/cart/add" data-productid="{{ product.id }}" method="post" data-cart-submit id="upsell-form-{{ forloop.index }}">
+                                {% render 'product-form__hidden-input', product: product %}
+                                <input type="hidden" name="id" data-productid="{{ product.id }}" value="{{ variant.id }}">
+                                <input type="hidden" name="quantity" value="1">
+                            </form>
+                            {% comment %} <div class="product-upsell__product-price">
+                                <span class="price old">{{ variant.compare_at_price | money }}</span>
+                                <span class="price">{{ variant.price | money }}</span>
+                            </div> {% endcomment %}
+                            <button type="submit" class="button primary" form="upsell-form-{{ forloop.index }}">
+                                 <span>Add - {{ variant.price | money }}</span>
+                            </button>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+
+        <script>
+            onReady( () => {
+              {% comment %} waitForObjectAndRun( "rivets", () => { {% endcomment %}
+                rivets.formatters.upsell_is_products_on_cart = function( ids, items ) {
+                if( !items ) return;
+
+                const idsARR = ids.split( "," );
+                const upsellIds = idsARR.filter((str) => str !== '');
+                const cartProductIds = items.map( a => a.product_id );
+                const isOnCart = upsellIds.every(val => cartProductIds.includes(parseInt(val)));
+                return isOnCart;
+                }
+              {% comment %} } ); {% endcomment %}
+            } );
+        </script>
+    </div>
+{% endif %}

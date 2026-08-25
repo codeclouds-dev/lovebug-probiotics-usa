@@ -1,0 +1,92 @@
+{%- assign color = section.settings.bg_color | default: section.settings.color_scheme.settings.background -%}
+{% if color != blank %}
+  {%- capture hero_overlay_svg -%}
+    <svg width="1440px" height="553px" viewBox="0 0 1440 553" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+      <g id="Full-Comps" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+          <g id="Homepage---Desktop" transform="translate(0, -121)" fill="{{- color -}}">
+              <g id="Group" transform="translate(0, 121)">
+                  <path d="M0,0 L0,553 L1440,552.626861 L1440,0 L0,0 Z M1308,474.733152 L1308,62.8712825 L1392,52 L1392,504 L1308,474.733152 Z M48,53 L132,63.8292338 L132,474.815014 L48,504 L48,53 Z M1186,431.726438 L1186,78.2725451 L1251,70 L1251,454 L1186,431.726438 Z M190,70 L255,78.2596096 L255,431.73584 L190,454 L190,70 Z M1077,395.194124 L1077,93.3530283 L1135,86 L1135,415 L1077,395.194124 Z M305,86 L363,93.3411374 L363,395.205608 L305,415 L305,86 Z M983,361.752414 L983,105.034818 L1030,99 L1030,378 L983,361.752414 Z M410,99 L457,105.026698 L457,361.766334 L410,378 L410,99 Z M919,339.505752 L919,112.895483 L949,109 L949,350 L919,339.505752 Z M491,109 L521,112.885521 L521,339.521739 L491,350 L491,109 Z M871,323.473703 L871,119.792939 L892,117 L892,331 L871,323.473703 Z M548,117 L569,119.790668 L569,323.480701 L548,331 L548,117 Z M828,308.418668 L828,124.813217 L850,122 L850,316 L828,308.418668 Z M591,122 L613,124.807683 L613,308.432461 L591,316 L591,122 Z M791,295.506291 L791,129.411457 L810,127 L810,302 L791,295.506291 Z M630,127 L649,129.408349 L649,295.512671 L630,302 L630,127 Z M765,286.554917 L765,132.650374 L778,131 L778,291 L765,286.554917 Z M662,131 L675,132.644239 L675,286.564578 L662,291 L662,131 Z" id="Fill-1"></path>
+              </g>
+          </g>
+      </g>
+    </svg>
+  {%- endcapture -%}
+  {% if section.settings.main_image_mobile != blank
+    or section.settings.main_image_desktop != blank
+    or section.settings.main_video != blank %}
+    <div class="hero__overlay">
+      <div class="hero__overlay-inner" data-parallax>
+        <div class="hero__overlay-media">
+          {% if section.settings.main_video != blank %}
+            {{ section.settings.main_video 
+              | video_tag: 
+                image_size: "2550x",
+                autoplay: true,
+                muted: true,
+                loop: true,
+                controls: false }}
+          {% else %}
+            {% if section.settings.main_image_mobile != blank %}
+              {{ section.settings.main_image_mobile
+                | image_url: width: 900
+                | image_tag: width: 900,
+                  widths: "420,480,600,720,900",
+                  alt: section.settings.main_image_mobile,
+                  class: "hide-for-large" }}
+            {% endif %}
+            {% if section.settings.main_image_desktop != blank %}
+              {{ section.settings.main_image_desktop
+                | image_url: width: 2560
+                | image_tag: width: 2560,
+                  widths: "1080,1260,1440,1800,2160,2560",
+                  alt: section.settings.main_image_desktop,
+                  class: "show-for-large" }}
+            {% endif %}
+          {% endif %}
+        </div>
+        <div class="hero__overlay-img">
+          {% render 'component__svg-encoder',
+            svg_code: hero_overlay_svg,
+            alt: "Hero desktop overlay" %}
+        </div>
+      </div>
+    </div>
+  {% endif %}
+  <script>
+    onReady(  () => {
+      if(Shopify.designMode ) return;
+      const watchGsap = new Promise( (res, rej) => {
+        const interval = setInterval( () => {
+          if( typeof gsap == "object" ) {
+            res()
+            clearInterval(interval);
+          }
+        }, 100 )
+      } );
+      const section = $( "#{{ section_id }}" );
+      const heroOverlay = section.find( ".hero__overlay" );
+      const heroOverlayInner = section.find( ".parallax-item" );
+      const backgroundMediaWrapper = heroOverlay.find( ".hero__overlay-media" );
+      const backgroundMedia = backgroundMediaWrapper.find( "video:visible,img:visible" );
+  
+      watchGsap.then( () => {
+        heroOverlay.addClass( "is-loaded" );
+        {% comment %} const heightDiff = backgroundMedia.outerHeight() - backgroundMediaWrapper.outerHeight();
+        const headerHeight = $(window).width() <= 1023 ? "{{ settings.top_offset_mobile }}px" : "{{ settings.top_offset }}px";
+        
+        gsap.fromTo(backgroundMedia,{ 
+          y: 0
+        }, {
+        scrollTrigger: {
+          trigger: backgroundMediaWrapper,
+          start: `top ${headerHeight}`,
+          end: `bottom ${headerHeight}`,
+          scrub: .5
+        },
+          y: `-${heightDiff}`,
+          ease: "none"
+        }); {% endcomment %}
+      } );
+    } );
+  </script>
+{% endif %}

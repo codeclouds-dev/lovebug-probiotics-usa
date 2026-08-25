@@ -1,0 +1,43 @@
+{% if position == "header" %}
+  <script src="{{ 'jquery-3.5.1.min.js' | asset_url }}" defer></script>
+  <script src="{{ 'gsap.min.js' | asset_url }}" defer></script>
+  <script src="{{ 'flickity.pkgd.min.js' | asset_url }}" defer></script>
+  <script src="{{ 'lozad.min.js' | asset_url }}" defer></script>
+  <script src="{{ 'mfr-utils.min.js' | asset_url }}" defer></script>
+  <script src="{{ 'foundation.min.js' | asset_url }}" defer></script>
+   <script src="{{ 'new_custom.js' | asset_url }}" defer></script>
+{% else %}
+  <script src="{{ 'mfr-gsap.js' | asset_url }}" defer></script>
+  <script src="{{ 'mfr-initialize-functions.min.js' | asset_url }}" defer></script>
+
+  {%- comment -%}Might be positioned to header {%- endcomment -%}
+  <script src="{{ 'flickity-imagesloaded.js' | asset_url }}" defer></script>
+  <script src="{{ 'flickity-sync.js' | asset_url }}" defer></script>
+  <script src="{{ 'tinycolor.min.js' | asset_url }}" defer></script>
+
+  {%- comment -%}Third Parties{%- endcomment -%}
+  <script src="{{ 'product-form.js' | asset_url }}" defer></script> 
+  <script src="{{ 'lottie.js' | asset_url }}" async></script>
+  <script src="{{ 'option_selection.js' | asset_url }}" defer></script>
+  <script src="{{ 'quick-link.min.js' | asset_url }}" async></script>
+  <script src="{{ 'html2canvas.min.js' | asset_url }}" async></script>
+  
+  <script src="{{ 'mfr-alpine-global-states.min.js' | asset_url }}" defer></script>
+  <script src="{{ 'alpinejs-collapse.min.js' | asset_url }}" defer></script>
+  <script src="{{ 'alpinejs-focus.min.js' | asset_url }}" defer></script>
+  <script src="{{ 'alpinejs-resize.min.js' | asset_url }}" defer></script>
+  <script src="{{ 'alpinejs-intersect.min.js' | asset_url }}" defer></script>
+  <script src="{{ 'alpinejs.min.js' | asset_url }}" defer></script>
+  
+  {%- comment -%}MFR Scripts{%- endcomment -%}
+  <script src="{{ 'mfr-gsap-scripts.min.js' | asset_url }}" defer></script>
+  <script src="{{ 'global.js' | asset_url }}" defer></script>
+  <script src="{{ 'mfr-global.min.js' | asset_url }}" defer></script>
+  <script src="{{ 'mfr-custom-js.min.js' | asset_url }}" defer></script>
+
+  {% comment %} <script src="{{ 'mfr-component__mfr-bundle.min.js' | asset_url }}" defer></script> {% endcomment %}
+  {% comment %} <script src="{{ 'mfr-component__mfr-carousel.min.js' | asset_url }}" defer></script> {% endcomment %}
+  {% comment %} <script src="{{ 'mfr-component__mfr-hosted-video.min.js' | asset_url }}" defer></script> {% endcomment %}
+  {% comment %} <script src="{{ 'mfr-component__mfr-marquee.min.js' | asset_url }}" defer></script> {% endcomment %}
+  {% comment %} <script src="{{ 'mfr-component__mfr-product-card.min.js' | asset_url }}" defer></script> {% endcomment %}
+{% endif %}

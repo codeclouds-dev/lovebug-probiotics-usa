@@ -1,0 +1,601 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "landing_product_top_HWKMpD": {
+      "type": "landing-product-top",
+      "blocks": {
+        "okendo_star_rating_mJGXAf": {
+          "type": "shopify://apps/okendo/blocks/star-rating/bb689e69-ea70-4661-8fb7-ad24a2e23c29",
+          "settings": {
+            "product": "baby-probiotic-drops"
+          }
+        },
+        "heading_j4CXHq": {
+          "type": "heading",
+          "settings": {
+            "heading": "{{ section.settings.selected_product.metafields.mfr_fields.product_card_nice_title.value }}",
+            "heading_below": "",
+            "disable_animation": true,
+            "header_style": "h3",
+            "make_xl": "",
+            "highlight_color": "",
+            "underline_color": "",
+            "max_width": 0
+          }
+        },
+        "text_W6Ubyt": {
+          "type": "text",
+          "settings": {
+            "text": "<p><strong>DESIGNED FOR BABIES 0 + MONTHS</strong></p>",
+            "text_style": "regular",
+            "font_family": "",
+            "color": "#96238d",
+            "bold_color": "rgba(0,0,0,0)",
+            "underline_color": "",
+            "max_width": 0,
+            "bottom_spacing": true,
+            "custom_font_size": 0
+          }
+        },
+        "text_YbtXV8": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Babies have unique needs. Colic, diarrhea, eczema, constipation, digestive upset and weakened immune systems are just a few of the issues driven by probiotic-related deficiencies. Target these with 6 clinically studied baby-specific strains.</p>",
+            "text_style": "regular",
+            "font_family": "",
+            "color": "",
+            "bold_color": "",
+            "underline_color": "",
+            "max_width": 0,
+            "bottom_spacing": true,
+            "custom_font_size": 0
+          }
+        },
+        "icon_grid_hwBmie": {
+          "type": "icon_grid",
+          "settings": {
+            "use_metafield": false,
+            "text_1": "5 Billion CFU",
+            "text_4": "Multi-Strain Formula",
+            "text_2": "400 IU Vitamin D",
+            "text_5": "No Seed Oil",
+            "text_3": "USDA Organic",
+            "text_6": "Sugar Free"
+          }
+        },
+        "frontrow_TbXdwY": {
+          "type": "frontrow",
+          "settings": {
+            "product_handle": "baby-probiotic-drops"
+          }
+        },
+        "subscription_option_UmRMKt": {
+          "type": "subscription_option",
+          "settings": {
+            "index": 0,
+            "one_time_label": "One-Time Purchase",
+            "perk_1": "30 day money-back guarantee!",
+            "perk_2": "No commitment, cancel anytime",
+            "perk_3": "Save <|discount|>% on every order",
+            "perk_4": "Ships <|unit|> every <|days|> days",
+            "enable_toggle_layout": false,
+            "supply_heading": "Select Quantity:",
+            "supply_pill_label": "<|days|> Days",
+            "frequency_heading": "Select Frequency:",
+            "subscription_title": "Subscribe & Save <|discount|>%",
+            "subscription_subtext": "Free Shipping + No Hidden Fees",
+            "one_time_subtext": "Want to save <|discount|>%? Switch to Subscription!",
+            "one_time_perk_1": "FREE shipping on all subscription orders!",
+            "one_time_perk_2": "Save up to <|discount|>% on every order"
+          }
+        },
+        "submit_button_tzCgkL": {
+          "type": "submit_button",
+          "settings": {
+            "show_price": false,
+            "label": "Add To Cart",
+            "bottom_caption": ""
+          }
+        },
+        "form_DDqy4A": {
+          "type": "form",
+          "settings": {}
+        },
+        "accordion_dDTQtH": {
+          "type": "accordion",
+          "settings": {
+            "title": "Description",
+            "content": "{{ section.settings.selected_product.description }}",
+            "accordion_style": "version_2"
+          }
+        },
+        "accordion_EQgqT7": {
+          "type": "accordion",
+          "settings": {
+            "title": "Supplement Facts",
+            "content": "<p>Baby Probiotic Drops<br/><br/>Vitamin D (as cholecalciferol) Proprietary Probiotic Blend Bifidobacterium lactis Lactobacillus reuteri Lactobacillus plantarum Lactobacillus acidophilus Lactobacillus rhamnosus GG Bifidobacterium infantis + Daily Value (DV) not established Amount % Daily Value Infants through Per Serving 12 months 10 mcg (400 IU) 100% 5 Billion CFU Other ingredients: Organic Medium Chain Triglycerid (MCT) Oil, Silicon Dioxide, Natural Source of Vitamin E. At time of manufacture.</p>",
+            "accordion_style": "version_2"
+          }
+        },
+        "accordion_DGLUb9": {
+          "type": "accordion",
+          "settings": {
+            "title": "How To Use",
+            "content": "<p>{{ section.settings.selected_product.metafields.mfr_fields.product_card_how_to_use | metafield_tag }}</p>",
+            "accordion_style": "version_2"
+          }
+        },
+        "dynamic_faqs_pUHEe4": {
+          "type": "dynamic_faqs",
+          "settings": {
+            "title": "FAQs",
+            "accordion_style": "version_2"
+          }
+        }
+      },
+      "block_order": [
+        "okendo_star_rating_mJGXAf",
+        "heading_j4CXHq",
+        "text_W6Ubyt",
+        "text_YbtXV8",
+        "icon_grid_hwBmie",
+        "frontrow_TbXdwY",
+        "subscription_option_UmRMKt",
+        "submit_button_tzCgkL",
+        "form_DDqy4A",
+        "accordion_dDTQtH",
+        "accordion_EQgqT7",
+        "accordion_DGLUb9",
+        "dynamic_faqs_pUHEe4"
+      ],
+      "name": "LP Product",
+      "settings": {
+        "selected_product": "baby-probiotic-drops-lp",
+        "show_carousel_arrows": true,
+        "clinicians_choice_first_slide_only": false,
+        "quantity_label": "Select Quantity",
+        "color_scheme": "",
+        "grid_gutter": "grid-gutter",
+        "top_spacing_mobile": 40,
+        "bottom_spacing_mobile": 100,
+        "top_spacing_desktop": 40,
+        "bottom_spacing_desktop": 160,
+        "hide_dress_up_character": true
+      }
+    },
+    "block_list_with_image_iWVTMT": {
+      "type": "block-list-with-image",
+      "blocks": {
+        "feature_item_x3yK9J": {
+          "type": "feature_item",
+          "settings": {
+            "title": "Relieves Gas & Colic At The Root Cause",
+            "description": "Probiotics can help restore balance to the gut microbiome, easing the bloating and discomfort that cause fussiness and crying."
+          }
+        },
+        "feature_item_tBWGTp": {
+          "type": "feature_item",
+          "settings": {
+            "title": "Promotes Healthy, Regular Poops",
+            "description": "Balanced gut flora supports smooth digestion, reducing constipation and helping your baby poop with ease."
+          }
+        },
+        "feature_item_AmtkYg": {
+          "type": "feature_item",
+          "settings": {
+            "title": "Restores What Modern Birth Can Disrupt",
+            "description": "If your baby was born via C-section, formula-fed, or had antibiotics, probiotics can help replenish essential beneficial bacteria."
+          }
+        },
+        "feature_item_pDwV93": {
+          "type": "feature_item",
+          "settings": {
+            "title": "Calmer Baby, Calmer Nights",
+            "description": "When the gut is balanced, discomfort fades, leading to better sleep and more peaceful days for the whole family."
+          }
+        },
+        "feature_item_9pqnWz": {
+          "type": "feature_item",
+          "settings": {
+            "title": "Sets Up Lifelong Gut Health",
+            "description": "The first 1,000 days build the foundation of your child's microbiome for life. Start now to support better digestion, immunity, and resilience long-term."
+          }
+        }
+      },
+      "block_order": [
+        "feature_item_x3yK9J",
+        "feature_item_tBWGTp",
+        "feature_item_AmtkYg",
+        "feature_item_pDwV93",
+        "feature_item_9pqnWz"
+      ],
+      "name": "Image with Feature List",
+      "settings": {
+        "bg_color": "#2b3990",
+        "top_wave_divider": true,
+        "bottom_wave_divider": false,
+        "heading": "5 Reasons to Rebalance <br>Your Baby's Gut",
+        "featured_image": "shopify://shop_images/lovebug-rebalance.png"
+      }
+    },
+    "features_board_fD3kxM": {
+      "type": "features-board",
+      "blocks": {
+        "addition_stat_h46KUH": {
+          "type": "addition_stat",
+          "settings": {
+            "number": "5",
+            "text": "Billion\nCFU"
+          }
+        },
+        "addition_stat_CwyHqm": {
+          "type": "addition_stat",
+          "settings": {
+            "number": "6",
+            "text": "Top Probiotic\nStrains"
+          }
+        },
+        "checkmark_fact_XVzc7Y": {
+          "type": "checkmark_fact",
+          "settings": {
+            "text": "<p>Helps support regular bowel movements</p>"
+          }
+        },
+        "checkmark_fact_nFCfqa": {
+          "type": "checkmark_fact",
+          "settings": {
+            "text": "<p>Support for colic & gas</p>"
+          }
+        },
+        "checkmark_fact_iUfBtc": {
+          "type": "checkmark_fact",
+          "settings": {
+            "text": "<p>Helps to boost immunity</p>"
+          }
+        },
+        "checkmark_fact_yE3jtX": {
+          "type": "checkmark_fact",
+          "settings": {
+            "text": "<p>Can help with occasional digestive upset</p>"
+          }
+        }
+      },
+      "block_order": [
+        "addition_stat_h46KUH",
+        "addition_stat_CwyHqm",
+        "checkmark_fact_XVzc7Y",
+        "checkmark_fact_nFCfqa",
+        "checkmark_fact_iUfBtc",
+        "checkmark_fact_yE3jtX"
+      ],
+      "name": "Features Board",
+      "settings": {
+        "bg_color": "#96238d",
+        "top_wave_divider": true,
+        "bottom_wave_divider": false,
+        "heading": "Designed For\nBabies' Unique Needs",
+        "subheading": "Our Proprietary Formula Made Specifically\nFor Developing Baby Tummies"
+      }
+    },
+    "practioner_reviews_fcBbGn": {
+      "type": "practioner-reviews",
+      "blocks": {
+        "practitioner_card_6EYMih": {
+          "type": "practitioner_card",
+          "settings": {
+            "image": "shopify://shop_images/Screenshot_2026-04-23_at_7.56.24_AM.png",
+            "name": "- Ella Ignatovich",
+            "credentials": "RN",
+            "quote": "\"As a nurse with over 10 years of experience in healthcare, I know how much gut health can impact a child’s immunity, mood, and digestion. Lovebug makes it easy to support my family's gut health and digestion in a way I feel truly good about.\""
+          }
+        },
+        "practitioner_card_BpCgaa": {
+          "type": "practitioner_card",
+          "settings": {
+            "image": "shopify://shop_images/Screenshot_2026-04-22_at_4.18.43_PM.png",
+            "name": "- Ashleigh Rodriguez",
+            "credentials": "RN",
+            "quote": "“As an L&D nurse and mom, I look for the highest standard in early gut health. Lovebug delivers with clean, thoughtfully formulated ingredients.\""
+          }
+        }
+      },
+      "block_order": [
+        "practitioner_card_6EYMih",
+        "practitioner_card_BpCgaa"
+      ],
+      "name": "Practitioner Testimonials",
+      "settings": {
+        "bg_color": "#e7dafa",
+        "top_wave_divider": true,
+        "bottom_wave_divider": false,
+        "heading": "Trusted By Practitioners",
+        "subheading": "Read More From Practitioners Who Recommend Lovebug!",
+        "floating_icon": "shopify://shop_images/clipboard.png"
+      }
+    },
+    "image_with_heading_YxVMgQ": {
+      "type": "image-with-heading",
+      "name": "Image with Heading",
+      "settings": {
+        "bg_color": "#e9f4fc",
+        "top_wave_divider": true,
+        "bottom_wave_divider": false,
+        "heading": "Not All Baby Probiotics\nAre Created Equal",
+        "heading_mobile": "Not All Baby\n Probiotics Are\nCreated Equal",
+        "subheading": "See Why Parents Choose LoveBug",
+        "icon": "shopify://shop_images/star-with-tail.png",
+        "floating_icon": "shopify://shop_images/clipboard.png",
+        "image_desktop": "shopify://shop_images/Lovebug_Evergreen_Chart_d.png",
+        "image_mobile": "shopify://shop_images/Lovebug_Evergreen_Chart_m.png"
+      }
+    },
+    "mfr_lb_video_reviews_carousel_Ua9A6L": {
+      "type": "mfr-lb__video-reviews-carousel",
+      "blocks": {
+        "small_text_dCQYpD": {
+          "type": "small_text",
+          "settings": {
+            "text": "Testimonials",
+            "small_text_color": ""
+          }
+        },
+        "heading_zp6PCM": {
+          "type": "heading",
+          "settings": {
+            "heading": "Mom & Dad Approved",
+            "disable_animation": false,
+            "header_style": "h3",
+            "make_xl": "",
+            "highlight_color": "",
+            "underline_color": "",
+            "max_width": 0
+          }
+        },
+        "star_rating_z3tC6W": {
+          "type": "star_rating",
+          "settings": {
+            "stars": 5,
+            "label": "Over 2,000+ 5 star review"
+          }
+        },
+        "button_WDhcaX": {
+          "type": "button",
+          "settings": {
+            "button_label": "Read Our Reviews",
+            "button_link": "#",
+            "color_theme": "primary"
+          }
+        }
+      },
+      "block_order": [
+        "small_text_dCQYpD",
+        "heading_zp6PCM",
+        "star_rating_z3tC6W",
+        "button_WDhcaX"
+      ],
+      "name": "LB: Video Reviews",
+      "settings": {
+        "video_reviews": [
+          "hayastan-s",
+          "anna-c",
+          "samantha-c"
+        ],
+        "order_mobile": "text-top",
+        "order_desktop": "text-left",
+        "vertical_alignment": "center",
+        "image_column_size": "two-thirds",
+        "text_alignment": "",
+        "container_width": "",
+        "max_width": 0,
+        "grid_gutter": "",
+        "color_scheme": "",
+        "top_spacing_mobile": 70,
+        "bottom_spacing_mobile": 70,
+        "top_spacing_desktop": 50,
+        "bottom_spacing_desktop": 80,
+        "bg_color": "#FFF",
+        "top_wave_divider": true,
+        "bottom_wave_divider": false,
+        "custom_class": "",
+        "custom_id": ""
+      }
+    },
+    "mfr_product_reviews_t44brz": {
+      "type": "mfr-product__reviews",
+      "blocks": {
+        "heading_BtbmK8": {
+          "type": "heading",
+          "settings": {
+            "heading": "Trust Your Gut...[br]And Our Reviews!",
+            "disable_animation": false,
+            "header_style": "h2",
+            "make_xl": "",
+            "highlight_color": "",
+            "underline_color": "",
+            "max_width": 0
+          }
+        },
+        "okendo_reviews_widget_9pJehp": {
+          "type": "shopify://apps/okendo/blocks/reviews-widget/bb689e69-ea70-4661-8fb7-ad24a2e23c29",
+          "settings": {
+            "product": "baby-probiotic-drops",
+            "widget_type": "reviews_widget"
+          }
+        }
+      },
+      "block_order": [
+        "heading_BtbmK8",
+        "okendo_reviews_widget_9pJehp"
+      ],
+      "name": "Product: Reviews",
+      "settings": {
+        "is_centered": true,
+        "color_scheme": "",
+        "is_full_width": true,
+        "top_spacing_mobile": 0,
+        "bottom_spacing_mobile": 0,
+        "top_spacing_desktop": 0,
+        "bottom_spacing_desktop": 0,
+        "bg_color": "",
+        "top_wave_divider": false,
+        "bottom_wave_divider": false,
+        "custom_class": "",
+        "custom_id": ""
+      }
+    },
+    "mfr_core_accordion_section_mKcj6f": {
+      "type": "mfr-core__accordion-section",
+      "blocks": {
+        "heading_gNip7L": {
+          "type": "heading",
+          "settings": {
+            "heading": "Frequently Asked Questions",
+            "disable_animation": false,
+            "header_style": "h3",
+            "make_xl": "",
+            "highlight_color": "",
+            "underline_color": "",
+            "max_width": 0
+          }
+        },
+        "entry_bhNUAF": {
+          "type": "entry",
+          "settings": {
+            "title": "Do babies really start life without bacteria?",
+            "caption": "<p>Yes, newborns enter the world with a nearly sterile gut. Their microbiome starts developing through birth, breastfeeding and close contact. Probiotics help support that process from day one.</p>"
+          }
+        },
+        "entry_XTmgVR": {
+          "type": "entry",
+          "settings": {
+            "title": "How do these probiotics help with colic, gas, or digestive discomfort?",
+            "caption": "<p>By introducing beneficial bacteria, Lovebug helps gently rebalance your baby's gut—reducing gas, easing colic, and supporting smoother digestion for a calmer, more comfortable baby.</p>"
+          }
+        },
+        "entry_A4ptwU": {
+          "type": "entry",
+          "settings": {
+            "title": "Why are probiotics especially important in the first year?",
+            "caption": "<p>The first 1,000 days are when your baby's gut and immune system is growing the fastest. Daily probiotics help guide that development, supporting smoother digestion and stronger immune balance.</p>"
+          }
+        },
+        "entry_LUmytY": {
+          "type": "entry",
+          "settings": {
+            "title": "Is it safe to give every day?",
+            "caption": "<p>Yes, probiotic drops are safe for full-term babies from day one. Lovebug baby probiotic drops are gentle enough for newborns and made with organic ingredients.</p><p>They're designed for daily use to keep good bacteria steady as your baby grows. Probiotics are not recommended for pre-term infants who have special health needs and should be cared for under medical supervision.</p>"
+          }
+        },
+        "entry_LUyb3e": {
+          "type": "entry",
+          "settings": {
+            "title": "When is the best time of day to give them?",
+            "caption": "<p>Any time works—just stay consistent. Many parents prefer giving drops during or after a feeding for ease and routine.</p>"
+          }
+        },
+        "entry_Tk7kc7": {
+          "type": "entry",
+          "settings": {
+            "title": "How long does it take for probiotic drops to start working?",
+            "caption": "<p>Many parents notice subtle improvements in just a few days, with more consistent digestive support developing over 1–2 weeks of daily use.</p>"
+          }
+        },
+        "entry_iF7D7i": {
+          "type": "entry",
+          "settings": {
+            "title": "What are the signs that they're working?",
+            "caption": "<p>Look for small but meaningful changes: less gas and fussiness, more regularity, greater comfort after feeding and improved overall calmness.</p>"
+          }
+        },
+        "entry_yALnDh": {
+          "type": "entry",
+          "settings": {
+            "title": "What makes Lovebug Baby Probiotic Drops different from other baby probiotics?",
+            "caption": "<p>Lovebug is designed with intention. We have targeted, baby specific strains, an exceptionally clean formulation that is certified organic which provides gentle, effective support for your baby.</p>"
+          }
+        },
+        "entry_D39bNC": {
+          "type": "entry",
+          "settings": {
+            "title": "What if my baby was born by C-section or needed antibiotics?",
+            "caption": "<p>Those early experiences can sometimes reduce the amount of beneficial bacteria baby receives, adding probiotics can help restore balance and support a healthier gut environment.</p>"
+          }
+        },
+        "entry_KtrrDa": {
+          "type": "entry",
+          "settings": {
+            "title": "Why do practitioners recommend Lovebug Baby Probiotic drops?",
+            "caption": "<p>Practitioners trust Lovebug for its science-backed strains, purity standards, and gentle effectiveness—making it a reliable choice for supporting infant gut health from the very beginning.</p>"
+          }
+        },
+        "entry_MzM3b9": {
+          "type": "entry",
+          "settings": {
+            "title": "Do they need to be kept in the fridge?",
+            "caption": "<p>Only if you like them cold! They should be stored in a cool, dry place. All of our probiotics have a 2 year shelf life from time of manufacture.</p>"
+          }
+        },
+        "entry_dgbmCy": {
+          "type": "entry",
+          "settings": {
+            "title": "What if it doesn't work?",
+            "caption": "<p>You're covered by our 30-day money back guarantee. Try it risk free!</p>"
+          }
+        }
+      },
+      "block_order": [
+        "heading_gNip7L",
+        "entry_bhNUAF",
+        "entry_XTmgVR",
+        "entry_A4ptwU",
+        "entry_LUmytY",
+        "entry_LUyb3e",
+        "entry_Tk7kc7",
+        "entry_iF7D7i",
+        "entry_yALnDh",
+        "entry_D39bNC",
+        "entry_KtrrDa",
+        "entry_MzM3b9",
+        "entry_dgbmCy"
+      ],
+      "name": "Accordion FAQ",
+      "settings": {
+        "use_as_faq": true,
+        "accordion_style": "version_2",
+        "layout": "",
+        "text_alignment": "text-center",
+        "container_width": "full",
+        "max_width": 0,
+        "grid_gutter": "",
+        "color_scheme": "",
+        "top_spacing_mobile": 100,
+        "bottom_spacing_mobile": 100,
+        "top_spacing_desktop": 20,
+        "bottom_spacing_desktop": 100,
+        "bg_color": "#E7DAFA",
+        "top_wave_divider": true,
+        "bottom_wave_divider": false,
+        "custom_class": "",
+        "custom_id": ""
+      }
+    }
+  },
+  "order": [
+    "landing_product_top_HWKMpD",
+    "block_list_with_image_iWVTMT",
+    "features_board_fD3kxM",
+    "practioner_reviews_fcBbGn",
+    "image_with_heading_YxVMgQ",
+    "mfr_lb_video_reviews_carousel_Ua9A6L",
+    "mfr_product_reviews_t44brz",
+    "mfr_core_accordion_section_mKcj6f"
+  ]
+}

@@ -1,0 +1,479 @@
+{%- assign top_spacing = section.settings.section_spacing_top -%}
+{%- assign bottom_spacing = section.settings.section_spacing_bottom -%}
+
+<article class="article-template background {{ top_spacing }} {{ bottom_spacing }} {{ section.settings.custom_class }}" itemscope itemtype="http://schema.org/BlogPosting">
+  <section class="article-template__hero-container"  {{ block.shopify_attributes }}>
+    <div class="grid-container">
+      <div class="grid-x align-center">
+
+        <div class="cell small-12 medium-8 large-8 text-center">
+
+
+          {%- for block in section.blocks -%}
+            {%- case block.type -%}
+
+              {%- when 'article_author_date'-%}
+                <div class="small-text article-template__author-date">  
+                  <span itemprop="author" data-aos="fade-up" itemscope itemtype="http://schema.org/Person">
+                    <span itemprop="name">by: <span class="text-underline">{{ article.author }}</span></span>
+                  </span>
+                  <span data-aos="fade-up"  itemprop="dateCreated pubdate datePublished">{{ article.published_at | time_tag: '%B %d %Y' }}</span>
+                  {% if article.metafields.manufactur.article_keywords != blank %}
+                  <span data-aos="fade-up" class="keywords">
+                    {% for item in article.metafields.manufactur.article_keywords %}
+                      {% if forloop.last == true %}
+                        {{ item }}
+                      {% else %}
+                        {{ item | append: ' /' }}
+                      {% endif %}
+                    {% endfor %}
+                  </span>
+                  {% endif %}
+                </div>
+
+              {%- when 'article_title'-%}
+              <div class="article-template__title">
+                {% render 'component__title-block', text: article.title, classes: block.settings.header_style, text_size: '' %}
+              </div>
+
+              {%- when 'article_overview' -%}
+                {% if article.metafields.manufactur.recipe_overview_time != blank %}
+                <div class="article-template__overview">
+                  <ul>
+                    <li>
+                      {% render 'icon-timer' %}
+                      Time: {{ article.metafields.manufactur.recipe_overview_time }}
+                    </li>
+                    {% endif %}
+                    {% if article.metafields.manufactur.recipe_overview_serves != blank %}
+                    <li>
+                      {% render 'icon-people' %}
+                      Serves: {{ article.metafields.manufactur.recipe_overview_serves }}
+                    </li>
+                    {% endif %}
+                    {% if article.metafields.manufactur.recipe_overview_difficulty != blank %}
+                    <li>
+                      {% render 'icon-graph' %}
+                      Difficulty: {{ article.metafields.manufactur.recipe_overview_difficulty }}
+                    </li>
+                  </ul>
+                </div>
+                {% endif %}
+
+              {%- when 'featured_image'-%}
+                {%- if article.image -%}
+                  <div class="article-template__image"
+                    itemprop="image"
+                    {% if block.settings.image_height == 'adapt' and article.image %} style="padding-bottom: {{ 1 | divided_by: article.image.aspect_ratio | times: 100 }}%;"{% endif %}
+                  >
+                    <img srcset="{% if article.image.width >= 350 %}{{ article.image | img_url: '350x' }} 350w,{% endif %}
+                        {% if article.image.width >= 700 %}{{ article.image | img_url: '700x' }} 700w,{% endif %}
+                        {% if article.image.width >= 749 %}{{ article.image | img_url: '749x' }} 749w,{% endif %}
+                        {% if article.image.width >= 1498 %}{{ article.image | img_url: '1498x' }} 1498w,{% endif %}
+                        {% if article.image.width >= 1100 %}{{ article.image | img_url: '1100x' }} 1100w,{% endif %}
+                        {% if article.image.width >= 2200 %}{{ article.image | img_url: '2200x' }} 2200w,{% endif %}"
+                      sizes="(min-width: 1200px) 1100px, (min-width: 750px) calc(100vw - 10rem), 100vw"
+                      src="{{ article.image | img_url: '1100x' }}"
+                      loading="lazy"
+                      width="{{ article.image.width }}"
+                      height="{{ article.image.height }}"
+                      alt="{{ article.image.alt | escape }}">
+                  </div>
+                  {%- endif -%} 
+
+              {%- when 'article_category'-%}
+                <div class="article-template__category">
+                  {% for tag in article.tags limit: 2 %}
+                  {% unless tag contains "zip" %}
+                    <span class="small-text">{{ tag | replace: "category: ", '' | replace: "tag: ", '' | prepend: '#' }}</span>
+                  {% endunless %}
+                  {% endfor %}
+                </div>
+
+            {%- endcase -%}
+          {%- endfor -%}
+        
+          
+        </div>
+
+      </div>
+    </div>
+  </section>
+    
+  <section class="article-template__body">
+    <div class="grid-container">
+      <div class="grid-x align-center">
+        <div class="cell small-12 medium-8 large-6">
+          {%- for block in section.blocks -%}
+          {%- case block.type -%}
+
+            {%- when '@app' -%}
+              <div class="page-width page-width--narrow">
+                {% render block %}
+              </div>         
+    
+            {%- when 'content'-%}
+              <div class="article-template__content page-width page-width--narrow rte" itemprop="articleBody" {{ block.shopify_attributes }}>
+                  {{ article.content }}
+              </div>
+
+            {%- when 'share' -%}
+              {% comment %}
+              this is using the Sharethis app
+              {% endcomment %}
+              <div class="article-template__share">
+                <div class="share-wrapper">
+                  <button class="button-share">{% render 'icon-share' %}</button>
+                  <div class="share-app">
+                    <span>Share</span>
+                    <div class="sharethis-inline-share-buttons"></div>
+                  </div>
+                </div>
+              </div>
+
+
+            {%- when 'article_icons' -%}
+              {% if article.metafields.manufactur.recipe_article_icon != blank %}
+              <div class="article-template__icons">
+                <div class="article-template__title">
+                  <h2 class="h2 text-center section-title">
+                    {{ block.settings.title }}
+                  </h2>
+                </div>
+                <ul>
+                  {% for icons in article.metafields.manufactur.recipe_article_icon %}
+                  <li>
+                    <div class="icon">
+                      {% for image in icons %}
+                        {% if image.mime_type contains "svg" %}
+                          {{ image.media_inline }}
+                        {% else %}
+                          <img src="{{ image.cloudinary_src | append: 'w_230' }}" alt="{{ image.alt }}" />
+                        {% endif %}
+                      {% endfor %}
+                    </div>
+                    <div class="details">
+                      {{ article.metafields.manufactur.recipe_article_icon_title[forloop.index0] }}
+                    </div>
+                  </li>
+                  {% endfor %}
+                </ul>
+              </div>
+              {% endif %}
+
+            {%- when 'ingredients' -%}
+              {% if article.metafields.manufactur.recipe_ingredients != blank %}
+              <div class="article-template__ingredients">
+                  <h2 class="h2 section-title">Ingredients</h2>
+                  <div class="details">
+                    {{ article.metafields.manufactur.recipe_ingredients }}
+                  </div>
+              </div>
+              {% endif %}
+
+            {%- when 'tabs' -%}
+              <div class="article-temlate__tabs">
+                
+                {% assign directions = article.metafields.manufactur.recipe_directions %}
+                {% assign benefits = article.metafields.manufactur.recipe_benefits_title %}
+                {% assign nutrients = article.metafields.manufactur.recipe_advance_nutrients %}
+                {% assign nutrients_mobile_img = article.metafields.manufactur.recipe_an_mobile_img %}
+                {% assign nutrients_desktop_img = article.metafields.manufactur.recipe_an_desktop_img %}
+                {% assign embed_video = article.metafields.manufactur.recipe_embed_video %}
+                {% assign hosted_video_cover = article.metafields.manufactur.recipe_hosted_video_cover_img | first %}
+                {% assign hosted_video = article.metafields.manufactur.recipe_hosted_video | first %}
+
+                <ul class="accordion" id="article-accordion" data-accordion data-multi-expand="true" data-allow-all-closed="true">
+                  {% if directions != blank %}
+                  <li class="accordion-item" data-accordion-item>
+                    <a href="#" class="accordion-title">Directions</a>
+                    <div class="accordion-content directions-content" data-tab-content>
+                      <ol>
+                        {% for item in directions %}
+                        <li>
+                          {{ item }}
+                        </li>
+                        {% endfor %}
+                      </ol>
+                    </div>
+                  </li>
+                  {% endif %}
+                  {% if benefits != blank %}
+                  <li class="accordion-item" data-accordion-item>
+                    <a href="#" class="accordion-title">Nutritional Benefits</a>
+                    <div class="accordion-content benefits-content" data-tab-content>
+                      <ul>
+                        {% for item in benefits %}
+                        <li>
+                          <div class="icon">
+                            {% for image in article.metafields.manufactur.recipe_benefits_icon[forloop.index0] %}
+                              <img src="{{ image.cloudinary_src | append: 'w_430' }}" alt="{{ image.alt }}" />
+                            {% endfor %}
+                          </div>
+                          <div class="details">
+                            <h4>{{ item }}</h4>
+                            <p>{{ article.metafields.manufactur.recipe_benefits_description[forloop.index0] }}</p>
+                          </div>
+                        </li>
+                        {% endfor %}
+                      </ul>
+                    </div>
+                  </li>
+                  {% endif %}
+                  {% if nutrients != blank %}
+                  <li class="accordion-item" data-accordion-item>
+                    <a href="#" class="accordion-title">Advanced Nutrients</a>
+                    <div class="accordion-content" data-tab-content>
+                      {{ nutrients }}
+                      {% if nutrients_mobile_img or nutrients_desktop_img %}
+                        {% if nutrients_desktop_img and nutrients_mobile_img == blank %}
+                          {% assign mobile_nutrients_img = nutrients_desktop_img[0] %}
+                        {% else %}
+                          {% assign mobile_nutrients_img = nutrients_mobile_img[0] %}
+                        {% endif %}
+                        {% if nutrients_desktop_img == blank and nutrients_mobile_img %}
+                          {% assign desktop_nutrients_img = nutrients_mobile_img[0] %}
+                        {% else %}
+                          {% assign desktop_nutrients_img = nutrients_desktop_img[0] %}
+                        {% endif %}
+                        <div class="accordion-item__image">
+                          <img src="{{ mobile_nutrients_img.cloudinary_src | append: 'w_430' }}" alt="{{ mobile_nutrients_img.alt }}" class="show-for-small-only">
+                          <img src="{{ desktop_nutrients_img.cloudinary_src | append: 'w_1080' }}" alt="{{ desktop_nutrients_img.alt }}" class="hide-for-small-only">
+                        </div>
+                      {% endif %}
+                    </div>
+                  </li>
+                  {% endif %}
+                  {% if embed_video != blank or hosted_video != blank%}
+                  <li class="accordion-item" data-accordion-item>
+                    <a href="#" class="accordion-title">{{ block.settings.video_accordion_title }}</a>
+                    <div class="accordion-content" data-tab-content>
+                      {% if embed_video != blank %}
+                        {{ embed_video }}
+                      {% elsif hosted_video != blank %}
+                        <video  class="video" poster="{{ hosted_video_cover['cloudinary_src'] }}" playsinline controls preload="auto">
+                          <source src="{{ hosted_video['src'] }}"  type="video/mp4">
+                        </video>
+                      {% endif %}
+                    </div>
+                  </li>
+                  {% endif %}
+                </ul>
+              </div>
+
+          {%- endcase -%}
+        {%- endfor -%}
+      
+        </div>
+      </div>
+    </div>
+  {% render "component__gradient-bg-styles" %}
+  </section>
+
+  {%- render 'component__section-dividers', is_video_background: true -%}
+
+  {% if section.settings.show_back_button %}
+    <div class="article-template__back-button">
+      <a href="{{ blog.url }}" class="button back-button">
+        <span class="icon">{% render 'icon-arrow' %}</span>
+        Back
+      </a>
+    </div>
+  {% endif %}
+</article>
+
+<script>
+  $(function() {
+    $('#article-accordion .accordion-item:first-child').addClass('is-active');
+    $('.button-share').click(function() {
+      $(this).toggleClass('open')
+    })
+  })
+</script>
+
+{% schema %}
+{
+  "name": "t:sections.main-article.name",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content Settings"
+    },
+
+    {
+      "type": "header",
+      "content": "Article Image Section Spacing"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_back_button",
+      "label": "Show Back Button",
+      "default": false
+    },
+
+    {
+      "type": "select",
+      "id": "section_spacing_top",
+      "options": [
+          { "value": "section_spacing_none_top", "label": "None" },
+          { "value": "section_spacing_small_top", "label": "Small" },
+          { "value": "section_spacing_medium_top", "label": "Medium" },
+          { "value": "section_spacing_large_top", "label": "Large" },
+          { "value": "section_spacing_xlarge_top", "label": "X-Large" }
+      ],
+      "label": "Top spacing"
+    },
+    {
+      "type": "select",
+      "id": "section_spacing_bottom",
+      "options": [
+          { "value": "section_spacing_none_bottom", "label": "None" },
+          { "value": "section_spacing_small_bottom", "label": "Small" },
+          { "value": "section_spacing_medium_bottom", "label": "Medium" },
+          { "value": "section_spacing_large_bottom", "label": "Large" },
+          { "value": "section_spacing_xlarge_bottom", "label": "X-Large" }
+      ],
+      "label": "Bottom spacing"
+    },
+    {
+      "type":"header",
+      "content":"Background"
+    },
+    {
+      "type": "color_background",
+      "id": "bg_color",
+      "label": "Background Color"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background Image"
+    },
+
+    {
+      "type":"header",
+      "content":"Divider" 
+    },
+    {
+      "type": "select",
+      "id": "svg_pattern_divider",
+      "options": [
+        { "value": "divider-top", "label": "Top Divider"},
+        { "value": "divider-bottom", "label": "Bottom Divider"},
+        { "value": "no-divider", "label": "No Divider"}
+      ],
+      "default": "no-divider",
+      "label": "Enable Divider"
+    },
+    {
+      "type": "color",
+      "id": "svg_pattern_divider_color",
+      "label": "Divider Color"
+    },
+    {
+      "type":"header",
+      "content":"Custom Class Names"
+    },
+    {
+      "type": "text",
+      "id": "custom_class",
+      "label": "Custom class"
+    }
+  ],
+  
+
+
+  "blocks": [
+    {
+      "type": "@app"
+    },
+    {
+      "type": "featured_image",
+      "name": "t:sections.main-article.blocks.featured_image.name",
+      "limit": 1
+    },
+    {
+      "type": "article_author_date",
+      "name": "Article Author/Date",
+      "limit": 1
+    },
+    {
+      "type": "excerpt",
+      "name": "Excerpt/Address",
+      "limit": 1
+    },
+    {
+      "type": "article_category",
+      "name": "Article Category",
+      "limit": 1
+    },
+    {
+      "type": "article_title",
+      "name": "Article Title",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "select",
+          "id": "header_style",
+          "options": [
+              { "value": "h1", "label": "H1" },
+              { "value": "h2", "label": "H2" },
+              { "value": "h3", "label": "H3" },
+              { "value": "custom-header", "label": "Custom Header" }
+              ],
+          "label": "Header Style",
+          "default": "h1",
+          "info": "Choose custom header if you want the manually styled header size."
+        }
+      ]
+    },
+    {
+      "type": "content",
+      "name": "t:sections.main-article.blocks.content.name",
+      "limit": 1
+    },
+    {
+      "type": "share",
+      "name": "Share",
+      "limit": 1
+    },
+    {
+      "type": "article_overview",
+      "name": "Article Overview",
+      "limit": 1
+    },
+    {
+      "type": "article_icons",
+      "name": "Article Icons",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Video Accordion"
+        }
+      ]
+    },
+    {
+      "type": "ingredients",
+      "name": "Ingredients",
+      "limit": 1
+    },
+    {
+      "type": "tabs",
+      "name": "Recipe Video Accordion",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "video_accordion_title",
+          "label": "Video Accordion Title",
+          "default": "Video Accordion"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

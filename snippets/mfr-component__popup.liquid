@@ -1,0 +1,54 @@
+<div class="mfr-popup__wrapper {{ class }}"
+  id="{{ popup_id }}"
+  x-ref='{{ popup_id }}'
+  x-data='{
+    open: false
+  }'
+  x-init='
+    document.body.appendChild($el);
+    Alpine.store("{{ popup_id }}", {
+      open: false,
+      openPopup() {
+        this.open = true
+      },
+      closePopup() {
+        this.open = false
+      }
+    });
+
+    if( window.location.hash.replace("#", "") == "{{ popup_id }}" )
+      Alpine.store("{{ popup_id }}").openPopup();
+  '
+  x-show='$store["{{ popup_id }}"].open'
+  x-trap='$store["{{ popup_id }}"].open'
+  :aria-hidden='$store["{{ popup_id }}"]?.open ? "false" : "true"'
+  x-cloak>
+  <div class="mfr-popup__overlay"
+    x-show='$store["{{ popup_id }}"].open'
+    @click='$store["{{ popup_id }}"].closePopup()'
+    x-transition:enter-start='opacity-0'
+    x-transition:leave-end='opacity-0'
+    x-cloak></div>
+
+    <div class="mfr-popup"
+      x-show='$store["{{ popup_id }}"].open'
+      x-transition:enter-start='mfr-popup--hiding'
+      x-transition:leave-end='mfr-popup--hiding'
+      x-cloak>
+      <div class="mfr-popup__head">
+        <button
+          @click='$store["{{ popup_id }}"].closePopup()'>
+          {%- capture close_svg -%}
+            {% render 'icon__close' %}
+          {%- endcapture -%}
+          {% render 'component__svg-encoder',
+            svg_code: close_svg,
+            width: 32,
+            alt: "close icon" %}
+        </button>
+      </div>
+      <div class="mfr-popup__content">
+        {{ content }}
+      </div>
+    </div>
+</div>

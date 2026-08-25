@@ -1,0 +1,219 @@
+<script id="product-schema" type="application/ld+json">
+{
+  "@context": "https://schema.org/",
+  "@type":["Product","DietarySupplement"],
+  "@id": "{{ shop.url }}{{ product.url }}#product",
+  "name": {{ product.title | json }},
+  {%- if product.metafields.global.title_tag != blank -%}
+  "alternateName": {{ product.metafields.global.title_tag | json }},
+  {%- endif -%}
+ "description": {{ product.description | strip_html | json }},
+  {% if product.metafields.global.description_tag %}
+  "abstract": {{ product.metafields.global.description_tag | json }},
+{% endif %}
+  "url": "{{ shop.url }}{{ product.url }}",
+  "image":[
+    {%- for image in product.images limit: 5 -%}
+      {{ image | image_url: width: 1200 | prepend: 'https:' | json }}{%- unless forloop.last -%},{%- endunless -%}
+    {%- endfor -%}
+  ],
+  {%- if product.selected_or_first_available_variant.sku != blank -%}
+  "sku": {{ product.selected_or_first_available_variant.sku | json }},
+  {%- endif -%}
+  {%- comment -%} Amazon PDP link {%- endcomment -%}
+  {%- if product.metafields.custom.amazon_url.value != blank -%}
+  "sameAs": {{ product.metafields.custom.amazon_url.value | json }},
+  {%- elsif product.metafields.custom.amazon_url != blank -%}
+  "sameAs": {{ product.metafields.custom.amazon_url | json }},
+  {%- endif -%}
+  {%- if product.metafields.custom.gtin != blank -%}
+  "gtin12": {{ product.metafields.custom.gtin | json }},
+  {%- endif -%}
+  {%- if product.metafields.custom.asin != blank -%}
+  "asin": {{ product.metafields.custom.asin | json }},
+  {%- endif -%}
+{% if product.metafields.mfr_fields.probiotics %}
+  "activeIngredient":[
+    {% for probiotic in product.metafields.mfr_fields.probiotics.value %}
+      "{{ probiotic.title | default: probiotic.name }}"{% unless forloop.last %},{% endunless %}
+    {% endfor %}
+  ],
+{% endif %}
+  {%- if product.metafields.mfr_fields.product_card_sup_title != blank -%}
+  "category": {{ product.metafields.mfr_fields.product_card_sup_title | json }},
+  {%- else -%}
+  "category": "Dietary Supplement",
+  {%- endif -%}
+  "isProprietary": true,
+  "itemCondition": "https://schema.org/NewCondition",
+  {%- comment -%} TEXT-ONLY FIELDS (avoid JSON objects) {%- endcomment -%}
+  {%- if product.metafields.mfr_fields.product_tags != blank -%}
+  {%- assign tags = product.metafields.mfr_fields.product_tags.value -%}
+  {%- if tags.size > 0 -%}
+    {%- assign first_tag = tags.first | strip_html | strip -%}
+    {%- assign digits = first_tag | remove: 'Ages' | remove: 'years' | remove: '+' | strip -%}
+    {%- assign age_number = digits | plus: 0 -%}
+    "audience": {
+      "@type": "PeopleAudience",
+      "audienceType": {{ first_tag | json }}
+    },
+  {%- endif -%}
+  {%- endif -%}
+  {%- if product.metafields.mfr_fields.benefits_description != blank -%}
+  "mechanismOfAction": {{ product.metafields.mfr_fields.benefits_description | strip_html | strip | json }},
+  {%- endif -%}
+  {%- if product.metafields.mfr_fields.product_card_how_to_use != blank -%}
+  "recommendedIntake": {{ product.metafields.mfr_fields.product_card_how_to_use | strip_html | strip | json }},
+  {%- endif -%}
+  {%- assign ap_items = '' -%}
+  {%- comment -%} 1) Probiotic strains chunk (if you built strains_text earlier) {%- endcomment -%}
+  {%- if strains_text != blank -%}
+    {%- capture ap_items -%}
+      { "@type":"PropertyValue","name":"Probiotic Strains","value": {{ strains_text | json }} }
+    {%- endcapture -%}
+  {%- endif -%}
+  {%- comment -%} 2) Supply Days from the second tag {%- endcomment -%}
+  {%- if product.metafields.mfr_fields.product_tags and product.metafields.mfr_fields.product_tags.value.size > 1 -%}
+    {%- assign pack_tag = product.metafields.mfr_fields.product_tags.value[1] | strip -%}
+    {%- assign days_num = pack_tag | downcase
+        | remove: 'day' | remove: 'days' | remove: 'supply'
+        | remove: '-' | strip | plus: 0 -%}
+    {%- if days_num > 0 -%}
+      {%- capture ap_supply -%}
+        { "@type":"PropertyValue","name":"Supply Days","value": {{ days_num | json }} }
+      {%- endcapture -%}
+      {%- if ap_items != '' -%}
+        {%- assign ap_items = ap_items | append: ',' | append: ap_supply -%}
+      {%- else -%}
+        {%- assign ap_items = ap_supply -%}
+      {%- endif -%}
+    {%- endif -%}
+  {%- endif -%}
+  {%- if ap_items != '' -%}
+  "additionalProperty": [ {{ ap_items }} ],
+  {%- endif -%}
+  "brand": {
+    "@type": "Brand",
+    "name": "Lovebug",
+    "logo": "https://cdn.shopify.com/s/files/1/0509/9677/3062/files/main-logo.svg?v=1735528561"
+  },
+  "manufacturer": {
+    "@type": ["Organization", "OnlineStore"],
+    "name": "Lovebug",
+    "url": "https://lovebug.com",
+    "logo": "{% if shop.logo %}{{ shop.logo | image_url: width: 720 }}{% else %}https://cdn.shopify.com/s/files/1/0509/9677/3062/files/signature_brightblue_1_x320.png?v=1748510958{% endif %}",
+    "image": "https://cdn.shopify.com/s/files/1/0509/9677/3062/files/banner_infant_B.png?v=1749463618",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "{{ shop.address.street }}",
+      "addressLocality": "{{ shop.address.city }}",
+      "addressRegion": "NY",
+      "postalCode": "{{ shop.address.zip }}",
+      "addressCountry": "US"
+    },
+    "contactPoint":[
+      { "@type": "ContactPoint", "contactType": "Customer Service", "email": "hello@lovebugprobiotics.com" },
+      { "@type": "ContactPoint", "contactType": "Sales", "email": "sales@lovebugprobiotics.com" }
+    ],
+    "sameAs":[
+      "https://www.facebook.com/LoveBugProbiotics",
+      "https://www.instagram.com/lovebugpro/",
+      "https://x.com/LoveBugPro",
+      "https://www.pinterest.com/lovebugpro/",
+      "https://tiktok.com/@lovebugpro",
+      "https://www.linkedin.com/company/lovebugpro",
+      "https://www.amazon.com/stores/LOVEBUG/page/FB6917B6-EC43-4A60-86AA-C13B829BF3B2"
+    ]
+  },
+  
+  "countryOfOrigin": { "@type": "Country", "name": "United States" },
+  
+  {%- comment -%} OKENDO aggregateRating (fix rating object) {%- endcomment -%}
+  {%- assign okendo = product.metafields["app--1576377--reviews"] -%}
+  {%- assign rating_obj     = okendo.average_rating.value -%}
+  {%- assign review_rating  = rating_obj.value | default: rating_obj.rating | times: 1.0 -%}
+  {%- assign review_count   = okendo.review_count | plus: 0 -%}
+  {%- if review_count > 0 and review_rating > 0 -%}
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": {{ review_rating | json }},
+    "reviewCount": {{ review_count | json }},
+    "bestRating": "5",
+    "worstRating": "1"
+  },
+  {%- endif -%}
+  
+  "offers": { 
+    "@type": "Offer", 
+    "url": "{{ shop.url }}{{ product.url }}", 
+    "priceCurrency": {{ cart.currency.iso_code | json }}, 
+    "price": {{ product.price_min | divided_by: 100.0 | json }}, 
+    "availability": "{% if product.available %}https://schema.org/InStock{% else %}https://schema.org/OutOfStock{% endif %}", 
+    "priceValidUntil": "{{ 'now' | date: '%s' | plus: 31536000 | date: '%Y-%m-%d' }}",
+    "eligibleTransactionVolume": {
+      "@type": "PriceSpecification",
+      "minPrice": "50.00",
+      "priceCurrency": {{ cart.currency.iso_code | json }}
+    },
+    "shippingDetails":[ 
+      { 
+        "@type": "OfferShippingDetails", 
+        "shippingLabel": "USPS Standard (Free over $50)", 
+        "shippingDestination": { 
+          "@type": "DefinedRegion", 
+          "addressCountry": "US" 
+        }, 
+        "deliveryTime": { 
+          "@type": "ShippingDeliveryTime", 
+          "handlingTime": { 
+            "@type": "QuantitativeValue", 
+            "minValue": 1, 
+            "maxValue": 2, 
+            "unitCode": "DAY" 
+          }, 
+          "transitTime": { 
+            "@type": "QuantitativeValue", 
+            "minValue": 3, 
+            "maxValue": 4, 
+            "unitCode": "DAY" 
+          } 
+        }, 
+        "shippingRate": { 
+          "@type": "MonetaryAmount", 
+          "value": "0",
+          "currency": {{ cart.currency.iso_code | json }} 
+        }
+      }, 
+      { 
+        "@type": "OfferShippingDetails", 
+        "shippingLabel": "USPS Priority (Expedited)", 
+        "shippingDestination": { 
+          "@type": "DefinedRegion", 
+          "addressCountry": "US" 
+        }, 
+        "deliveryTime": { 
+          "@type": "ShippingDeliveryTime", 
+          "handlingTime": { 
+            "@type": "QuantitativeValue", 
+            "minValue": 1, 
+            "maxValue": 2, 
+            "unitCode": "DAY" 
+          }, 
+          "transitTime": { 
+            "@type": "QuantitativeValue", 
+            "minValue": 2, 
+            "maxValue": 2, 
+            "unitCode": "DAY" 
+          } 
+        }
+      } 
+    ], 
+    "seller": { 
+      "@type": "OnlineStore", 
+      "name": "Lovebug", 
+      "url": "https://lovebug.com", 
+      "logo": "https://cdn.shopify.com/s/files/1/0509/9677/3062/files/main-logo.svg?v=1735528561" 
+    } 
+  }
+}
+</script>

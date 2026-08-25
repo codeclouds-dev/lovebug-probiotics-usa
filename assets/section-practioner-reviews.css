@@ -1,0 +1,159 @@
+/* =======================================
+   Mobile / Base Structural Styles
+======================================= */
+.practitioner-section {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.practitioner-container {
+  display: flex;
+  flex-direction: column;
+  padding: 0 16px 60px;
+  position: relative;
+  z-index: 2;
+}
+.practitioner-layout {
+  display: flex;
+  flex-direction: column;
+}
+
+/* --- Text & Icon Area --- */
+.practitioner-text-area {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 35px;
+}
+.practitioner-heading {
+  margin: 0 auto !important;
+  color: #2B3990;
+  text-align: center;
+  font-family: Recoleta;
+  font-size: 35px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  text-transform: capitalize;
+  max-width: 358px;
+}
+.practitioner-subheading {
+  color: #2B3990;
+  text-align: center;
+  font-family: "ES Peak Rounded";
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  text-transform: capitalize;
+}
+.pract-floating-icon-wrapper {
+  position: absolute;
+  top: -125px;
+  right: 0;
+  width: fit-content;
+  height: fit-content;
+  z-index: 3;
+}
+.floating-icon-img {
+  width: 153px;
+}
+
+.practitioner-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  align-items: center;
+}
+.practitioner-card {
+  display: flex;
+  flex-direction: column;
+  border-radius: 8px;
+  border: 6px solid #96238D;
+  background: #96238D;
+  max-width: 324px;
+  width: 100%;
+}
+.card-image-wrapper {
+  display: flex;
+  aspect-ratio: 1/1;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.card-image {
+  width: 100%;
+  object-fit: cover;
+}
+.card-content {
+  display: flex;
+  flex-direction: column;
+  padding: 8px;
+  flex-grow: 1;
+}
+.card-name {
+  color: #FFF;
+  font-family: "ES Peak Rounded";
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 140%;
+  margin: auto 0 0 0 !important;
+}
+.card-credentials {
+  color: #FFF;
+  font-family: "ES Peak Rounded";
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 140%;
+}
+.card-quote {
+  color: #FFF;
+  font-family: "ES Peak Rounded";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 140%;
+  margin-bottom: 26px !important;
+}
+
+/* =======================================
+   Desktop Structural Styles
+======================================= */
+@media screen and (min-width: 768px) {
+  .practitioner-container {
+    padding: 20px 80px 120px;
+  }
+  .practitioner-layout {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+  }
+  .practitioner-text-area {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-bottom: unset;
+  }
+  .practitioner-cards {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 20px;
+    align-items: stretch;
+  }
+  .practitioner-heading {
+    font-size: 44px;
+    max-width: unset;
+  }
+  .practitioner-subheading {
+    font-size: 20px;
+  }
+  .pract-floating-icon-wrapper {
+    display: none;
+  }
+}

@@ -1,0 +1,31 @@
+{%- comment -%}
+    Renders an accordion item.
+
+    Accepts:
+    - title: {string} The title of the accordion.
+    - title_format: {string} The format that the accordion title will use. (Optional)
+    - content: {any} The content of the accordion.
+
+    Usage:
+    {%- render "component__accordion", title: "Test", content: "Content" -%}
+{%- endcomment -%}
+
+{%- assign accordion_title_format = title_format | default: "h3" -%}
+
+<div class="accordion type-{{ content_type }} {% if loopindex == 1 %}  {% else %} {{forloop.index}} {% endif %}" data-accordion-item>
+    <a href="#" class="accordion__header">
+        <h2 class="accordion__title {{ accordion_title_format }}">{{ title }}</h2>
+        <div class="accordion__icon">
+            <svg width="31" height="31" xmlns="http://www.w3.org/2000/svg"><path d="M15.5 2v27M2 15.5h27" stroke="currentColor" stroke-width="3" fill="none" fill-rule="evenodd" stroke-linecap="square"/></svg>
+            <span class="hidden">Toggle</span>
+        </div>
+    </a>
+
+    <div class="accordion__body" data-tab-content>
+        <div class="accordion__inner">
+            {% assign content = content | replace: '[', '<span>' | replace: ']', '</span>' %}
+            {{ content }}
+        </div>
+    </div>
+
+</div>

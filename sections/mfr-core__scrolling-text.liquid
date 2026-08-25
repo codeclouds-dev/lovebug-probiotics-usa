@@ -1,0 +1,492 @@
+{%- comment -%}
+--------------------------------------
+assign section settings to variables
+--------------------------------------
+{%- endcomment -%}
+
+{% render 'style-tags__section', asset_file_name: "mfr-core__scrolling-text.css" %}
+{%- assign container_width = section.settings.container_width -%}
+{%- assign max_width = section.settings.max_width -%}
+{%- assign grid_gutter = section.settings.grid_gutter -%}
+{%- assign custom_class = section.settings.custom_class -%}
+{%- assign section_id = section.settings.custom_id | default: section.id -%}
+{% render 'renderer__color-scheme', name: "section", color_scheme: section.settings.color_scheme, selector: ".shopify-section", section_id: section_id %}
+
+{%- if max_width != 0 and container_width == "" -%}
+  {%- capture max_width_style -%}
+    style="max-width: {{ max_width }}rem;" 
+  {%- endcapture -%}
+{%- endif -%}
+
+
+{%- assign repetition = section.settings.repetitions | default: 20 -%}
+{%- assign words =  section.settings.marquee_text | newline_to_br | strip_newlines | split: "<br />" -%}
+{%- assign icons = section.blocks | where: "type", "icon" -%}
+
+{% capture spacer %}
+  --top-spacing-mobile: {{ section.settings.top_spacing_mobile }}px;
+  --bottom-spacing-mobile: {{ section.settings.bottom_spacing_mobile }}px;
+  --top-spacing-desktop: {{ section.settings.top_spacing_desktop }}px;
+  --bottom-spacing-desktop: {{ section.settings.bottom_spacing_desktop }}px;
+{% endcapture %}
+
+<section id="{{ section_id }}" class="mfr-core__scrolling-text marquee-scroller marquee-scroller--size-{{ section.settings.size }} {%- if section.settings.add_top_border %} marquee-scroller--border-top {% endif -%} {{ custom_class }}">
+  {% render "component__gradient-bg-styles" %}
+  {% render "component__accent-graphics" %}
+
+  <div class="section-spacer {{ grid_gutter }}" style="{{ spacer }}">
+    <div class="grid-container {{ container_width }}" {{ max_width_style }}>
+      <div class="grid-x align-center">
+        <div class="cell small-12">
+          <div class="marquee-scroller__wrapper background">
+            <div class="marquee-scroller__group" 
+              style="--marquee-animation-name: {{ section.settings.direction }}; --marquee-animation-duration: {{ section.settings.duration }}s; --marquee-text-color: {{ section.settings.marquee_text_color }};">
+              {%- assign icons_size = icons | size | minus: 1 -%}
+              {%- assign icon_counter = 0 -%}
+
+              {%- for count in ( 1..section.settings.duplicates ) -%}
+                {%- for word in words -%}
+                  <div class="marquee-scroller__item">
+                    {%- if icons != blank -%}
+                      {%- if icon_counter < icons_size -%}
+                        {%- assign icon_counter = icon_counter | plus: 1-%}
+                      {%- else -%}
+                        {%- assign icon_counter = 0 -%}
+                      {%- endif -%}
+
+                      {%- assign icon = icons[ icon_counter ] -%}
+                      
+                      {% if icon.settings.icon %}    
+                        {{ icon.settings.icon 
+                          | image_url: width: icon.settings.icon_width 
+                          | image_tag: 
+                          width: icon.settings.icon_width, 
+                          alt: icon.settings.icon.alt }}
+                      {% endif %}
+
+                    {%- endif -%}
+                    <span>{{ word }}</span>
+                  </div>    
+                {%- endfor -%}
+              {%- endfor -%}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% render 'script__section', file: "mfr-marquee.js" %}
+  {%- render 'component__section-dividers', is_video_background: true -%}
+</section>
+
+
+{% schema %}
+{
+  "name": "Scrolling Text",
+  "disabled_on": {
+    "groups": ["header","footer","custom.offcanvas","custom.modals"]
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type":"textarea",
+      "id":"marquee_text",
+      "label":"Scrolling Text",
+      "info": "Separate words/phrases with a new line.",
+      "default": "Lorem ipsum\nDolor Sit amet\nConsectetur adipiscing elit\nSed do eiusmod tempor incididunt"
+    },
+    {
+      "type": "color",
+      "id": "marquee_text_color",
+      "label": "Marquee Text Color"
+    },
+    {
+      "type": "header",
+      "content": "Marquee Settings"
+    },
+    {
+      "type": "number",
+      "id": "duplicates",
+      "label": "# of Duplicate",
+      "info": "If you see white space after the marquee slides, increase this option.",
+      "default": 1
+    },
+    {
+      "type": "select",
+      "id": "direction",
+      "label": "Direction",
+      "options": [
+        {
+          "value": "left-to-right-marquee",
+          "label": "Left To Right"
+        },
+        {
+          "value": "right-to-left-marquee",
+          "label": "Right To Left"
+        }
+      ],
+      "default": "left-to-right-marquee"
+    },
+    {
+      "type": "number",
+      "id": "duration",
+      "label": "Animation Duration",
+      "info": "Duration of marquee animation to complete (in seconds)",
+      "default": 5
+    },
+
+    {
+      "type": "header",
+      "content": "Section Settings"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "options": [
+          { "value": "", "label": "Left" },
+          { "value": "text-center", "label": "Center" }
+          ],
+      "label": "Text Alignment",
+      "default": "text-center"
+    },
+    {
+      "type": "select",
+      "id": "container_width",
+      "options": [
+          { "value": "full", "label": "Full" },
+          { "value": "", "label": "Contain" }
+          ],
+      "label": "Width",
+      "default": "full"
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "rem",
+      "label": "Max Content Width",
+      "default": 0
+    },
+    {
+      "type": "select",
+      "id": "grid_gutter",
+      "options": [
+          { "value": "grid-gutter", "label": "Padding" },
+          { "value": "", "label": "No Padding" }
+          ],
+      "label": "Section Padding",
+      "default": ""
+    },
+    {
+      "type": "header",
+      "content": "Color Schemes Settings"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "default": "scheme_1",
+      "label": "Color Scheme",
+      "info": "This will be the color scheme of the header initially."
+    },
+
+    {
+      "type": "header",
+      "content": "Mobile Section Spacing"
+    },
+    {
+      "type": "range",
+      "id": "top_spacing_mobile",
+      "min": 0,
+      "max": 500,
+      "step": 10,
+      "unit": "px",
+      "label": "Top Spacing",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "bottom_spacing_mobile",
+      "min": 0,
+      "max": 500,
+      "step": 10,
+      "unit": "px",
+      "label": "Bottom Spacing",
+      "default": 100
+    },
+
+    {
+      "type": "header",
+      "content": "Desktop Section Spacing"
+    },
+    {
+      "type": "range",
+      "id": "top_spacing_desktop",
+      "min": 0,
+      "max": 500,
+      "step": 10,
+      "unit": "px",
+      "label": "Top Spacing",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "bottom_spacing_desktop",
+      "min": 0,
+      "max": 500,
+      "step": 10,
+      "unit": "px",
+      "label": "Bottom Spacing",
+      "default": 100
+    },
+
+    {
+      "type":"header",
+      "content":"Background"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color"
+    },
+    {
+      "type": "image_picker",
+      "id": "bg_image_mobile",
+      "label": "Background Image - Mobile"
+    },
+    {
+      "type": "image_picker",
+      "id": "bg_image",
+      "label": "Background Image - Desktop"
+    },
+    {
+      "type": "header",
+      "content": "Divider Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "top_wave_divider",
+      "label": "Top Wave Divider",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "bottom_wave_divider",
+      "label": "Bottom Wave Divider",
+      "default": false
+    },
+    {
+      "type":"header",
+      "content":"Attribute Settings"
+    },
+    {
+      "type": "text",
+      "id": "custom_class",
+      "label": "Custom class"
+    },
+    {
+      "type": "text",
+      "id": "custom_id",
+      "label": "Custom ID"
+    }
+  ],
+
+  "blocks": [
+  {
+    "type": "icon", 
+    "name": "Icon",
+    "limit": 4,
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "icon",
+        "label": "Icon"
+      },
+      {
+        "type": "text",
+        "id": "file_lottie_url",
+        "label": "File Lottie URL"
+      },
+      {
+        "type": "number",
+        "id": "icon_width",
+        "label": "Image width",
+        "default": 150,
+        "info": "in pixels."
+      }
+    ]
+  },
+    {
+      "type": "accent_graphic", 
+      "name": "Accent Graphic",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon"
+        },
+        {
+          "type":"html",
+          "id":"svg_code",
+          "label":"Graphic SVG Code",
+          "info":"Paste SVG code for vector graphic"
+        },
+        {
+          "type":"header",
+          "content":"Visibility"
+        },
+        {
+          "type": "select",
+          "id": "visibility",
+          "options": [
+              { "value": "always", "label": "Always" },
+              { "value": "desktop_only", "label": "Desktop Only" },
+              { "value": "mobile_only", "label": "Mobile Only" }
+              ],
+          "label": "Show on..",
+          "default": "always"
+        },
+        {
+          "type":"header",
+          "content":"Position"
+        },
+        {
+          "type": "select",
+          "id": "x_setting",
+          "options": [
+              { "value": "left", "label": "Left" },
+              { "value": "right", "label": "Right" }
+              ],
+          "label": "X Position",
+          "default": "left"
+        },
+        {
+          "type": "select",
+          "id": "y_setting",
+          "options": [
+              { "value": "top", "label": "Top" },
+              { "value": "bottom", "label": "Bottom" }
+              ],
+          "label": "Y Position",
+          "default": "top"
+        },
+        {
+          "type":"header",
+          "content":"Large Screen Settings"
+        },
+        {
+          "type": "range",
+          "id": "width_large",
+          "min": 10,
+          "max": 400,
+          "step": 10,
+          "unit": "px",
+          "label": "Graphic Width",
+          "default": 150
+        },
+        {
+          "type": "range",
+          "id": "position_x_large",
+          "min": -100,
+          "max": 100,
+          "step": 2,
+          "unit": "%",
+          "label": "X Position",
+          "default": 10
+        },
+        {
+          "type": "range",
+          "id": "position_y_large",
+          "min": -100,
+          "max": 100,
+          "step": 2,
+          "unit": "%",
+          "label": "Y Position",
+          "default": 10
+        },
+        {
+          "type":"header",
+          "content":"Small Screen Settings"
+        },
+        {
+          "type": "range",
+          "id": "width_small",
+          "min": 10,
+          "max": 400,
+          "step": 10,
+          "unit": "px",
+          "label": "Graphic Width",
+          "default": 150
+        },
+        {
+          "type": "range",
+          "id": "position_x_small",
+          "min": -100,
+          "max": 100,
+          "step": 2,
+          "unit": "%",
+          "label": "X Position",
+          "default": 10
+        },
+        {
+          "type": "range",
+          "id": "position_y_small",
+          "min": -100,
+          "max": 100,
+          "step": 2,
+          "unit": "%",
+          "label": "Y Position",
+          "default": 10
+        },
+        {
+          "type":"header",
+          "content":"Animation Settings"
+        },
+        {
+          "type": "select",
+          "id": "animation",
+          "options": [
+              { "value": "none", "label": "None" },
+              { "value": "rotating", "label": "Rotate" },
+              { "value": "floating", "label": "Float" },
+              { "value": "spark", "label": "Spark" }
+            ],
+          "label": "Animation",
+          "default": "none"
+        },
+
+        {
+          "type":"header",
+          "content":"Appearance Settings"
+        },
+        {
+          "type": "range",
+          "id": "rotate",
+          "min": 0,
+          "max": 360,
+          "step": 36,
+          "unit": "%",
+          "label": "Rotate",
+          "default": 0
+        },
+        {
+          "type": "checkbox",
+          "id": "flip",
+          "label": "Flip Graphics?",
+          "default": false
+        }
+      ]
+    }
+  ],
+
+  "presets": [
+    {
+      "name": "Scrolling Text"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,12 @@
+{% render 'renderer__color-scheme', name: "section", color_scheme: block.settings.color_scheme_progress_bar, selector: ".free-shipping" %}
+
+<div class="free-shipping" rv-hide="cart.total_price | is_free_shipping '{{ section.settings.free_shipping_minimum }}'">
+    <p class="free-shipping__status">
+        {{ section.settings.free_shipping_info | replace: "%s", "<span class='free-shipping__status-remaining' rv-text='cart.total_price | free_shipping_remaining | money'></span>" }}
+    </p>
+
+    <div class="free-shipping__progress progress-bar">
+        <div class="progress-bar__track"></div>
+        <div class="progress-bar__value" rv-class-completed="cart.total_price | is_free_shipping '{{ section.settings.free_shipping_minimum }}'" rv-width="cart.total_price | free_shipping_remaining true"></div>
+    </div>
+</div>

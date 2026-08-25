@@ -1,0 +1,59 @@
+{% assign one_product_upsell_id = one_product_upsell.settings.product.variants[0].id %}
+
+{% comment %}
+  Closed form is intended so that we can avoid nested forms.
+  Submit button should have form="cart-form" attribute on order for this to be submitted
+{% endcomment %}
+<form action="/cart" method="post" id="cart-form"></form>
+<div class="cart-form__main">
+  {% render 'cart__bundle-template' %}
+
+  <div class="cart-form__body">
+    <div class="cart-form__list">
+      <div class="cart-form__empty" rv-if="cart.items | is_empty">Cart is empty</div>
+      <bundles cart="cart"></bundles>
+      <div class="cart-form__items" rv-unless="cart.items | is_empty">
+        {% render 'cart__product', section: section %}
+      </div>
+    </div>
+  </div>
+
+  <div class="cart-form__footer">
+    <div class="cart-form__summary">
+      {% if product_upsell != blank %}
+        {% render 'cart__product-upsell', block: product_upsell %}
+      {% endif %}
+
+      {% if settings.cart_notes_enabled %}
+        {% render 'cart__note' %}
+      {% endif %}
+
+      {% if section.settings.free_shipping_minimum != blank %}
+        {% render 'cart__free-shipping-minimum', section: section %}
+      {% endif %}
+
+      {% assign gen_msg = section.settings.general_message %}
+      {% assign sub_msg = section.settings.subscription_message %}
+      {% if sub_msg != blank or gen_msg != blank %}
+        {% render 'cart__footer-message',
+          gen_msg: gen_msg,
+          sub_msg: sub_msg %}
+      {% endif %}
+
+      <div class="cart-form__checkout">
+        {% comment %} <div class="cart-form__checkout-details">
+          <span class="cart-form__checkout-details-info">
+            Subtotal ({cart.item_count} items)
+          </span>
+          <span class="cart-form__checkout-price"
+            rv-text="cart.total_price | money"></span>
+        </div> {% endcomment %}
+
+        {% render 'cart__submit', section: section %}
+        {% render 'cart__tax-note' %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% render 'cart__scripts', section: section %}

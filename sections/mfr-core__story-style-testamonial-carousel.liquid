@@ -1,0 +1,687 @@
+{%- comment -%}
+--------------------------------------
+assign section settings to variables
+--------------------------------------
+{%- endcomment -%}
+
+{% render 'style-tags__section', asset_file_name: "mfr-core__story-style-testimonial-carousel.css" %}
+{%- assign text_alignment = section.settings.text_alignment -%}
+{%- assign container_width = section.settings.container_width -%}
+{%- assign grid_gutter = section.settings.grid_gutter -%}
+{%- assign color_theme = section.settings.color_theme -%}
+{%- assign custom_class = section.settings.custom_class -%}
+{%- assign section_id = section.settings.custom_id | default: section.id -%}
+{% render 'renderer__color-scheme', name: "section", color_scheme: section.settings.color_scheme, selector: ".shopify-section", section_id: section_id %}
+
+{% if section.settings.text_alignment != blank %}
+  {% assign content_alignment = "align-center" %}
+{% else %}
+  {% assign content_alignment = "" %}
+{% endif %}
+
+{% assign icons = section.blocks | where: "type", "icon" %}
+{% assign small_texts = section.blocks | where: "type", "small_text" %}
+{% assign headings = section.blocks | where: "type", "heading" %}
+{% assign testamonials = section.blocks | where: "type", "testamonial" %}
+
+{% capture spacer %}
+  --top-spacing-mobile: {{ section.settings.top_spacing_mobile }}px;
+  --bottom-spacing-mobile: {{ section.settings.bottom_spacing_mobile }}px;
+  --top-spacing-desktop: {{ section.settings.top_spacing_desktop }}px;
+  --bottom-spacing-desktop: {{ section.settings.bottom_spacing_desktop }}px;
+{% endcapture %}
+
+{% comment %}
+  Insert your custom section content here 
+{% endcomment %}
+{% capture custom_section_content %}
+  <div class="story-carousel">
+    <div class="story-carousel__carousel">
+      {% for block in testamonials %}
+        <div class="story-carousel__image" data-image-parallax>
+          {% if block.settings.image %}
+            {% render 'component__lazyload-image',
+              image: block.settings.image,
+              width: 720,
+              alt: block.settings.image.alt %}
+          {% else %}
+            <div class="shopify-placeholder-image">
+              {%- capture svg_code -%}{{- 'image' | placeholder_svg_tag -}}{%- endcapture -%}
+              {% render 'component__svg-encoder', svg_code: svg_code, alt: "placeholder image" %}_tag }}
+            </div>
+          {% endif %}
+          {% if block.settings.title %}
+            <div class="small-title">
+              {{ block.settings.title }}
+            </div>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+{% endcapture %}
+
+<section class="mfr-core__story-style-testamonial-carousel {{ custom_class }}" id="{{ section_id }}">
+  <div class="section-spacer background {{ grid_gutter }}" style="{{ spacer }}">
+    <div class="grid-container {{ full_mobile }} {{ container_width }}">
+      <div class="inner">
+        <div class="grid-x {{ content_alignment }}">
+          {% if icons != blank or small_texts != blank or headings != blank or texts != blank or buttons != blank %}
+            <div class="section-content {{ color_theme }} {{ text_alignment }}">
+              <div class="inner">
+                {%- for block in section.blocks -%}
+                  {% case block.type %}
+                   
+                    {%- when 'icon' -%}
+                      {% render 'renderer__block-icon', block: block %} 
+                      
+                    {%- when 'small_text' -%}
+                      {% render "renderer__block-small-text", block: block %}
+                      
+                    {%- when 'heading' -%}
+                      {% render "renderer__block-title", block: block %}
+                      
+                  {%- endcase -%}
+                {%- endfor -%}
+           
+                {% if testamonials != blank %}
+                  <div class="testamonial-carousel carousel">
+                    <div class="testamonial-carousel__carousel carousel__slides">
+                      {% for block in testamonials %}
+                        <div class="testamonial-carousel__item carousel__item">
+                          {% if block.settings.quote != blank %}
+                            <p class="large">{{ block.settings.quote }}</p>
+                          {% endif %}
+                          {% if block.settings.name != blank %}
+                            <div class="small-title" data-inview>{{ block.settings.name }}</div>
+                          {% endif %}
+                        </div>
+                      {%- endfor -%}
+                    </div>
+                  </div>
+                {% endif %}
+              </div>
+            </div>
+          {% endif %}
+
+          {% if testamonials != blank %}
+            <div class="story-carousel__wrapper">
+              {{ custom_section_content }}
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  {%- render 'component__gradient-bg-styles' -%}
+  {%- render 'component__accent-graphics' -%}
+
+  {% render 'script__section', file: "mfr-timed-carousel.js" %}
+  <script>
+    initializeComponent( "#{{ section_id }} .story-carousel__carousel", "MFRTimedCarousel",{
+      autoplayTiming: {{ section.settings.autoplay_timing | default: "4" }},
+      flickityOptions: {
+        selectedAttraction: 0.1,
+        friction: 0.55,
+        prevNextButtons: true,
+        contain: true,
+        cellAlign: "center",
+        asNavFor: '.testamonial-carousel__carousel',
+        pageDots: true,
+        wrapAround: true,
+        groupCells: false,
+        arrowShape: 'M101.414 27.746H5.806M29 1.414 1.414 29.004m27.588 25.078L1.414 26.497'
+      }
+    } );
+
+    document.addEventListener('DOMContentLoaded', function () {
+
+      const elem = $('#{{ section_id }} .testamonial-carousel__carousel');
+      const flkty = elem.flickity( {
+          // options
+          cellAlign: 'left',
+          contain: true,
+          wrapAround: true,
+          autoPlay: false,
+          pageDots: false,
+          prevNextButtons: true,
+          arrowShape: 'M101.414 27.746H5.806M29 1.414 1.414 29.004m27.588 25.078L1.414 26.497',
+          on: {
+            ready: (e) => {
+              const sourceSlider = $( "#{{ section_id }} .story-carousel__carousel" );
+              sourceSlider.on( "change.flickity", (event, index) => {
+                flkty.flickity( "selectCell", index );
+              } );
+
+              // move nav buttons
+              const nav = $( `<div class="testamonial-carousel__nav show-for-large"></div>` );
+              elem.after( nav );
+              elem.find( ".flickity-button" ).appendTo( nav );
+            }
+          }
+      });
+      setTimeout( () => {
+        flkty.flickity( "resize" );
+      }, 100 );      
+      setTimeout( () => {
+        flkty.flickity( "resize" );
+      }, 1000 );
+
+      const stories = $( "#{{ section_id }} .story-carousel__carousel" );
+      const storiesWrapper = stories.closest( ".story-carousel" );
+      stories.on( "ready.flickity", () => {
+        storiesWrapper.siblings( ".story-carousel__nav" ).remove();
+        // move nav buttons
+        const nav = $( `<div class="story-carousel__nav hide-for-large"></div>` );
+        storiesWrapper.after( nav );
+        stories.find( ".flickity-button" ).appendTo( nav );
+      } );
+    });
+  </script>
+  {%- render 'component__section-dividers', is_video_background: true -%}
+</section>
+
+
+{% schema %}
+{
+  "name":"Story Style Testimonial",
+  "disabled_on": {
+    "groups": ["header","footer","custom.offcanvas","custom.modals"]
+  },
+  "settings":[
+    {
+      "type": "header",
+      "content": "Section Settings"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "options": [
+          { "value": "", "label": "Left" },
+          { "value": "text-center", "label": "Center" }
+          ],
+      "label": "Text Alignment",
+      "default": "text-center"
+    },
+    {
+      "type": "select",
+      "id": "container_width",
+      "options": [
+          { "value": "full", "label": "Full" },
+          { "value": "", "label": "Contain" }
+          ],
+      "label": "Width",
+      "default": "full"
+    },
+    {
+      "type": "select",
+      "id": "grid_gutter",
+      "options": [
+          { "value": "grid-gutter", "label": "Padding" },
+          { "value": "", "label": "No Padding" }
+          ],
+      "label": "Section Padding",
+      "default": ""
+    },
+      {
+        "type": "header",
+        "content": "Color Schemes Settings"
+      },
+      {
+        "type": "color_scheme",
+        "id": "color_scheme",
+        "default": "scheme_1",
+        "label": "Color Scheme",
+        "info": "This will be the color scheme of the header initially."
+      },
+
+    {
+      "type":"header",
+      "content":"Spacing Settings"
+    },
+    {
+      "type": "header",
+      "content": "Mobile Section Spacing"
+    },
+    {
+      "type": "range",
+      "id": "top_spacing_mobile",
+      "min": 0,
+      "max": 500,
+      "step": 10,
+      "unit": "px",
+      "label": "Top Spacing",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "bottom_spacing_mobile",
+      "min": 0,
+      "max": 500,
+      "step": 10,
+      "unit": "px",
+      "label": "Bottom Spacing",
+      "default": 100
+    },
+
+    {
+      "type": "header",
+      "content": "Desktop Section Spacing"
+    },
+    {
+      "type": "range",
+      "id": "top_spacing_desktop",
+      "min": 0,
+      "max": 500,
+      "step": 10,
+      "unit": "px",
+      "label": "Top Spacing",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "bottom_spacing_desktop",
+      "min": 0,
+      "max": 500,
+      "step": 10,
+      "unit": "px",
+      "label": "Bottom Spacing",
+      "default": 100
+    },
+
+    {
+      "type":"header",
+      "content":"Background"
+    },
+    {
+      "type": "color_background",
+      "id": "bg_color",
+      "label": "Background Color/Gradient"
+    },
+
+    {
+      "type": "image_picker",
+      "id": "bg_image_mobile",
+      "label": "Background Image - Mobile"
+    },
+    {
+      "type": "image_picker",
+      "id": "bg_image",
+      "label": "Background Image - Desktop"
+    },
+    {
+      "type": "header",
+      "content": "Divider Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "top_wave_divider",
+      "label": "Top Wave Divider",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "bottom_wave_divider",
+      "label": "Bottom Wave Divider",
+      "default": false
+    },
+    {
+      "type":"header",
+      "content":"Attribute Settings"
+    },
+    {
+      "type": "text",
+      "id": "custom_class",
+      "label": "Custom class"
+    },
+    {
+      "type": "text",
+      "id": "custom_id",
+      "label": "Custom ID"
+    }
+  ],
+  "blocks":[
+    {
+      "type": "icon", 
+      "name": "Icon",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon"
+        },
+        {
+          "type": "text",
+          "id": "file_lottie_url",
+          "label": "File Lottie URL"
+        },
+        {
+          "type": "number",
+          "id": "icon_width",
+          "label": "Image width",
+          "default": 150,
+          "info": "in pixels."
+        }
+      ]
+    },
+    {
+      "type":"small_text",
+      "name":"Accent Text",
+      "limit":1,
+      "settings":[
+        {
+          "type":"text",
+          "id":"text",
+          "default":"Accent Text",
+          "label":"Text"
+        },
+        {
+          "type": "color",
+          "id": "small_text_color",
+          "label": "Color"
+        }
+      ]
+    },
+    
+    {
+      "type": "heading",
+      "name": "Heading",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "inline_richtext",
+          "id": "heading",
+          "default": "Heading H1",
+          "label": "Heading H1"
+        },
+        {
+          "type": "checkbox",
+          "id": "disable_animation",
+          "label": "Disable Animation",
+          "default": false
+        },
+        {
+          "type": "select",
+          "id": "header_style",
+          "options": [
+              { "value": "h1", "label": "H1"},
+              { "value": "h2", "label": "H2"},
+              { "value": "h3", "label": "H3"},
+              { "value": "h4", "label": "H4"},
+              { "value": "h5", "label": "H5"},
+              { "value": "h6", "label": "H6"}
+              ],
+          "label": "Header Style",
+          "default": "h1"
+        },
+
+        {
+          "type": "header",
+          "content": "Accent Settings"
+        },
+        {
+          "type": "select",
+          "id": "make_xl",
+          "options": [
+              { "value": "", "label": "Normal"},
+              { "value": "xl-title", "label": "Oversize"}
+              ],
+          "label": "H1 Size",
+          "default": "",
+          "info": "H1s can be set to oversize if they need to be extra big"
+        },
+
+        {
+            "type": "color",
+            "id": "highlight_color",
+            "label": "Highlight Color",
+            "info": "Use [highlight][/highlight] to highlight text"
+        },
+        {
+            "type": "color",
+            "id": "underline_color",
+            "label": "Underline Color",
+            "info": "Use [underline][/underline] to underline text"
+        },
+
+        {
+          "type": "header",
+          "content": "Width Settings"
+        },
+        {
+            "type": "range",
+            "id": "max_width",
+            "min": 0,
+            "max": 60,
+            "step": 1,
+            "unit": "rem",
+            "label": "Max Width",
+            "default": 0
+        }
+      ]
+    },
+    
+    {
+      "type": "testamonial",
+      "name": "Testamonial",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "textarea",
+          "id": "quote",
+          "label": "Quote",
+          "default": "Lorem ipsum dolor, sit amet consectetur adipisicing elit."
+        },
+        {
+         "type": "text",
+         "id": "name",
+         "label": "Name"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        }
+      ]
+    },
+    {
+        "type": "accent_graphic", 
+        "name": "Accent Graphic",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "icon",
+            "label": "Icon"
+          },
+          {
+            "type":"html",
+            "id":"svg_code",
+            "label":"Graphic SVG Code",
+            "info":"Paste SVG code for vector graphic"
+          },
+          {
+            "type":"header",
+            "content":"Visibility"
+          },
+          {
+            "type": "select",
+            "id": "visibility",
+            "options": [
+                { "value": "always", "label": "Always" },
+                { "value": "desktop_only", "label": "Desktop Only" },
+                { "value": "mobile_only", "label": "Mobile Only" }
+                ],
+            "label": "Show on..",
+            "default": "always"
+          },
+          {
+            "type":"header",
+            "content":"Value Type"
+          },
+          {
+            "type": "select",
+            "id": "value_type",
+            "options": [
+                { "value": "px", "label": "Pixels" },
+                { "value": "%", "label": "Percentage" }
+                ],
+            "label": "Position Value Type",
+            "default": "%",
+            "info": "Pixel values are multiplied by 5"
+          },
+          {
+            "type":"header",
+            "content":"Position"
+          },
+          {
+            "type": "select",
+            "id": "x_setting",
+            "options": [
+                { "value": "left", "label": "Left" },
+                { "value": "center", "label": "Center" },
+                { "value": "right", "label": "Right" }
+                ],
+            "label": "X Position",
+            "default": "left"
+          },
+          {
+            "type": "select",
+            "id": "y_setting",
+            "options": [
+                { "value": "top", "label": "Top" },
+                { "value": "bottom", "label": "Bottom" }
+                ],
+            "label": "Y Position",
+            "default": "top"
+          },
+          { 
+            "type":"header",
+            "content":"Large Screen Settings"
+          },
+          {
+            "type": "range",
+            "id": "width_large",
+            "min": 10,
+            "max": 400,
+            "step": 10,
+            "unit": "px",
+            "label": "Graphic Width",
+            "default": 150
+          },
+          {
+            "type": "range",
+            "id": "position_x_large",
+            "min": -100,
+            "max": 100,
+            "step": 2,
+            "label": "X Position",
+            "default": 10
+          },
+          {
+            "type": "range",
+            "id": "position_y_large",
+            "min": -100,
+            "max": 100,
+            "step": 2,
+            "label": "Y Position",
+            "default": 10
+          },
+          {
+            "type":"header",
+            "content":"Small Screen Settings"
+          },
+          {
+            "type": "range",
+            "id": "width_small",
+            "min": 10,
+            "max": 400,
+            "step": 10,
+            "unit": "px",
+            "label": "Graphic Width",
+            "default": 150
+          },
+          {
+            "type": "range",
+            "id": "position_x_small",
+            "min": -100,
+            "max": 100,
+            "step": 2,
+            "label": "X Position",
+            "default": 10
+          },
+          {
+            "type": "range",
+            "id": "position_y_small",
+            "min": -100,
+            "max": 100,
+            "step": 2,
+            "label": "Y Position",
+            "default": 10
+          },
+          {
+            "type":"header",
+            "content":"Animation Settings"
+          },
+          {
+            "type": "select",
+            "id": "animation",
+            "options": [
+                { "value": "none", "label": "None" },
+                { "value": "rotating", "label": "Rotate" },
+                { "value": "floating", "label": "Float" },
+                { "value": "spark", "label": "Spark" }
+              ],
+            "label": "Animation",
+            "default": "none"
+          },
+
+          {
+            "type":"header",
+            "content":"Appearance Settings"
+          },
+          {
+            "type": "range",
+            "id": "rotate",
+            "min": 0,
+            "max": 360,
+            "step": 36,
+            "unit": "%",
+            "label": "Rotate",
+            "default": 0
+          },
+          {
+            "type": "checkbox",
+            "id": "flip",
+            "label": "Flip Graphics?",
+            "default": false
+          }
+        ]
+      }
+  ],
+  "presets":[
+    {
+      "name":"Story Style Testimonial",
+      "blocks":[
+        {
+          "type":"heading"
+        },
+        {
+          "type":"testamonial"
+        },
+        {
+          "type":"testamonial"
+        },
+        {
+          "type":"testamonial"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

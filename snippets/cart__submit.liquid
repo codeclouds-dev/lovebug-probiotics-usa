@@ -1,0 +1,19 @@
+<button class="cart-form__submit cart-submit button block {{ section.settings.color_theme }}" form="cart-form" type="submit" name="checkout" rv-disabled="cart.items | is_empty">
+    <span class="cart-submit__text">{{ section.settings.button_label | default: "checkout" }}</span>
+    <span class="cart-submit__divider">&mdash;</span>
+    <span class="cart-submit__price subtotal-number" rv-html="cart.total_price | money">
+        {{ cart.total_price | money }}
+    </span>
+
+    {%- if cart.total_price < cart.original_total_price -%}
+        <span class="originaltotal-number" rv-if="cart.total_discount" rv-html="cart.original_total_price | money">
+            {{ cart.original_total_price | money }}
+        </span>
+    {%- endif -%}
+
+    {%- if section.settings.button_has_arrow -%}
+        <span class="arrow">
+            {%- render 'icon__right-arrow' -%}
+        </span>
+    {%- endif -%}
+</button>

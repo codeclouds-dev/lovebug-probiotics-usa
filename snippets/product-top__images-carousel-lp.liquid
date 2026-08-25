@@ -1,0 +1,233 @@
+{% assign metafields = product.metafields.mfr_fields %}
+<div class="product-top__media-carousel-inner">
+  {%- if product.metafields.custom.clinicians_choice  -%}
+    <div class="product-top__media-carousel-badge_new" id="clinicians-choice-badge-{{- section_id -}}">
+        <img
+          src="{{ product.metafields.custom.clinicians_choice | image_url }}"
+          alt="Clinician's Choice"
+        >
+    </div>
+  {%- endif -%}
+  
+  {%- if section.settings.moms_choice -%}
+    {% if product.tags contains "Mom's Choice" %}
+      <div class="product-top__media-carousel-badge">
+        {% render 'component__lazyload-image',
+          image: section.settings.moms_choice,
+          width: 108,
+          alt: "mom's choice icon" %}
+      </div>
+    {% endif %}
+  {%- endif -%}
+
+  {%- unless section.settings.hide_dress_up_character -%}
+    <div class="product-top__dress-up loaded"
+      x-init='
+        window.addEventListener("load", () => {
+          $el.classList.remove( "loaded" );
+
+          document.querySelectorAll( ".dress-up__character").forEach( (e,i ) => Alpine.$data(e).show = false )
+
+          setTimeout( () => {
+            const vp = $refs["pdpImageCarousel"] && $refs["pdpImageCarousel"].querySelector( ".flickity-viewport" );
+            if( vp ) vp.style.zIndex = "2";
+          }, 400 );
+        } );
+      '>
+      {% render 'dress-up__character' %}
+    </div>
+  {%- endunless -%}
+
+  <div class="product-top__media-carousel carousel__slides"
+    id="main-carousel-{{- section_id -}}"
+    x-ref='pdpImageCarousel'
+    style="--bg-color: {{ metafields.product_card_accent_color | default: '#E50695' }};">
+    {%- assign pdp_first_image = product.metafields.custom.pdp_first_image -%}
+    {%- assign pdp_first_alt = pdp_first_image.alt | default: product.title -%}
+    {%- assign featured_image_src = "" -%}
+    {%- if pdp_first_image != blank and product.featured_image -%}
+      {%- assign featured_image_src = product.featured_image | image_url -%}
+    {%- endif -%}
+    {%- if pdp_first_image != blank -%}
+      <div class="product-top__media-item carousel__item">
+        {%- assign pdp_first_width = 900 -%}
+        {%- assign pdp_first_height = nil -%}
+        {%- if pdp_first_image.width and pdp_first_image.height and pdp_first_image.height > 0 -%}
+          {%- assign pdp_first_aspect = pdp_first_image.width | times: 1.00 | divided_by: pdp_first_image.height -%}
+          {%- assign pdp_first_height = pdp_first_width | divided_by: pdp_first_aspect | round: 2 -%}
+        {%- endif -%}
+        {{ pdp_first_image
+          | image_url: width: pdp_first_width
+          | image_tag: width: pdp_first_width,
+            height: pdp_first_height,
+            widths: "420,480,600,720,900",
+            alt: pdp_first_alt }}
+      </div>
+    {%- endif -%}
+    {% for image in carousel_images %}
+      {% if image.settings.image != blank %}
+        <div class="product-top__media-item carousel__item">
+          {% render 'component__lazyload-image',
+            image: image.settings.image,
+            width: 900,
+            widths: "420,480,600,720,900",
+            alt: image.settings.image.alt %}
+        </div>
+      {% endif %}
+    {% endfor %}
+    {% for media in product.media %}
+      {%- assign is_pdp_first_replacement = false -%}
+      {%- if pdp_first_image != blank and media.media_type == "image" and product.featured_image -%}
+        {%- if media.preview_image.id and product.featured_image.id and media.preview_image.id == product.featured_image.id -%}
+          {%- assign is_pdp_first_replacement = true -%}
+        {%- else -%}
+          {%- assign media_src = media | image_url -%}
+          {%- if media_src == featured_image_src -%}
+            {%- assign is_pdp_first_replacement = true -%}
+          {%- endif -%}
+        {%- endif -%}
+      {%- endif -%}
+      {%- unless is_pdp_first_replacement -%}
+      <div class="product-top__media-item carousel__item">
+
+        {% if media.media_type == "image" %}
+          {%- assign default_alt = "maybe an image about the product: " | append: product.title -%}
+          {%- assign alt = media.alt | default: default_alt -%}
+          {% if forloop.first and carousel_images == blank and pdp_first_image == blank %}
+            {% assign image_width = media.width | times: 1.00 %}
+            {% assign image_height = media.height | times: 1.00 %}
+            {% assign aspect_ratio = image_width | divided_by: image_height %}
+            {% assign height = 900 | divided_by: aspect_ratio | round: 2 %}
+            {{ media
+              | image_url: width: 900
+              | image_tag: width: 900,
+                width: 900,
+                height: height,
+                widths: "420,480,600,720,900",
+                alt: alt }}
+          {% else %}
+            {% render 'component__lazyload-image',
+              image: media,
+              width: 900,
+              widths: "420,480,600,720,900",
+              alt: alt %}
+          {% endif %}
+        {% elsif media.media_type == "video" %}
+          {% assign video_ref = "video" | append: "-" | append: entry.id | replace: "_", "-" | replace: "-", "" %}
+          {% render 'component__video',
+            video: media,
+            poster_size: 420,
+            autoplay: false,
+            loop: true,
+            controls: true,
+            playsinline: true,
+            muted: false,
+            video_ref: video_ref %}
+        {% endif %}
+      </div>
+      {%- endunless -%}
+    {% endfor %}
+  </div>
+
+  <div class="product-top__thumbnails" id="thumbnails-{{- section_id -}}">
+    <div class="product-top__thumbnails-track">
+      {%- if pdp_first_image != blank -%}
+        <div class="product-top__thumbnail">
+          {% render 'component__lazyload-image',
+            image: pdp_first_image,
+            width: 120,
+            widths: '80,120,160',
+            alt: pdp_first_alt %}
+        </div>
+      {%- endif -%}
+      {% for image in carousel_images %}
+        {% if image.settings.image != blank %}
+          <div class="product-top__thumbnail">
+            {% render 'component__lazyload-image',
+              image: image.settings.image,
+              width: 120,
+              widths: '80,120,160',
+              alt: image.settings.image.alt %}
+          </div>
+        {% endif %}
+      {% endfor %}
+      {% for media in product.media %}
+        {%- assign is_pdp_first_replacement = false -%}
+        {%- if pdp_first_image != blank and media.media_type == "image" and product.featured_image -%}
+          {%- if media.preview_image.id and product.featured_image.id and media.preview_image.id == product.featured_image.id -%}
+            {%- assign is_pdp_first_replacement = true -%}
+          {%- else -%}
+            {%- assign media_src = media | image_url -%}
+            {%- if media_src == featured_image_src -%}
+              {%- assign is_pdp_first_replacement = true -%}
+            {%- endif -%}
+          {%- endif -%}
+        {%- endif -%}
+        {%- unless is_pdp_first_replacement -%}
+        {% if media.media_type == "image" or media.media_type == "video" %}
+          <div class="product-top__thumbnail{% if media.media_type == "video" %} product-top__thumbnail--video{% endif %}">
+            {% render 'component__lazyload-image',
+              image: media.preview_image,
+              width: 120,
+              widths: '80,120,160',
+              alt: media.alt %}
+          </div>
+        {% endif %}
+        {%- endunless -%}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+<script>
+  (function() {
+    var MAIN_SEL  = '#main-carousel-{{ section_id }}';
+    var TRACK_SEL = '#thumbnails-{{ section_id }} .product-top__thumbnails-track';
+    var BADGE_SEL = '#clinicians-choice-badge-{{ section_id }}';
+    var BADGE_FIRST_SLIDE_ONLY = {% if section.settings.clinicians_choice_first_slide_only %}true{% else %}false{% endif %};
+
+    function initThumbnails() {
+      if (typeof $ === 'undefined') { return; }
+
+      var $main  = $(MAIN_SEL);
+      var $track = $(TRACK_SEL);
+      var $badge = $(BADGE_SEL);
+
+      if (!$main.length || !$track.length) { return; }
+
+      if (!$main.hasClass('flickity-enabled')) { return; }
+
+      var mainFlkty = $main.data('flickity');
+      if (!mainFlkty) { return; }
+
+      var $thumbs = $track.find('.product-top__thumbnail');
+
+      $thumbs.each(function(i) {
+        $(this).off('click').on('click', function() {
+          mainFlkty.select(i);
+        });
+      });
+
+      $main.off('select.flickity').on('select.flickity', function() {
+        var index = mainFlkty.selectedIndex;
+
+        $thumbs.removeClass('is-nav-selected is-selected');
+        $thumbs.eq(index).addClass('is-nav-selected is-selected');
+
+        if (BADGE_FIRST_SLIDE_ONLY && $badge.length) { $badge.toggle(index === 0); }
+
+        var activeThumb = $thumbs.get(index);
+        if (activeThumb && $track[0].scrollTo) {
+           var scrollLeft = activeThumb.offsetLeft - ($track.width() / 2) + (activeThumb.clientWidth / 2);
+           $track[0].scrollTo({ left: scrollLeft, behavior: 'smooth' });
+        }
+      });
+
+      $thumbs.eq(mainFlkty.selectedIndex).addClass('is-nav-selected is-selected');
+      if (BADGE_FIRST_SLIDE_ONLY && $badge.length) { $badge.toggle(mainFlkty.selectedIndex === 0); }
+    }
+
+    onReady(function() { initThumbnails(); });
+    window.addEventListener('load', function() { initThumbnails(); });
+  })();
+</script>

@@ -1,0 +1,31 @@
+{% if section.settings.top_wave_divider %}
+  <div class="section-divider section-divider__top"
+    {%- if section.settings.bg_color != blank -%}
+      style="
+        --section-background: {{ section.settings.bg_color }};
+      "
+    {%- endif -%}>
+    <lottie-player src="{{ 'wave-divider__top--desktop.json' | asset_url }}"  
+      background="transparent"  
+      speed="1"
+      loop
+      autoplay>
+    </lottie-player>
+  </div>
+{% endif %}
+
+{% if section.settings.bottom_wave_divider %}
+  <div class="section-divider section-divider__bottom"
+    {%- if section.settings.bg_color != blank -%}
+      style="
+        --section-background: {{ section.settings.bg_color }};
+      "
+    {%- endif -%}>
+    <lottie-player src="{{ 'wave-divider__bottom--desktop.json' | asset_url }}"  
+      background="transparent"  
+      speed="1"
+      loop
+      autoplay>
+    </lottie-player>
+  </div>
+{% endif %}

@@ -1,0 +1,756 @@
+{%- comment -%}
+--------------------------------------
+assign section settings to variables
+--------------------------------------
+{%- endcomment -%}
+
+{% render 'style-tags__section', asset_file_name: "mfr-lb__animated-numbers.css" %}
+{%- assign text_alignment = section.settings.text_alignment -%}
+{%- assign container_width = section.settings.container_width -%}
+{%- assign max_width = section.settings.max_width -%}
+{%- assign grid_gutter = section.settings.grid_gutter -%}
+{%- assign color_theme = section.settings.color_theme -%}
+{%- assign custom_class = section.settings.custom_class -%}
+
+{%- assign section_id = section.settings.custom_id | default: section.id -%}
+{% render 'renderer__color-scheme', name: "section", color_scheme: section.settings.color_scheme, selector: ".shopify-section", section_id: section_id %}
+
+{%- if max_width != 0 and container_width == "" -%}
+  {%- capture max_width_style -%}
+    style="max-width: {{ max_width }}rem;"
+  {%- endcapture -%}
+{%- endif -%}
+
+
+
+{% if section.settings.text_alignment != blank %}
+  {% assign content_alignment = "align-center" %}
+{% else %}
+  {% assign content_alignment = "" %}
+{% endif %}
+
+{% assign icons = section.blocks | where: "type", "icon" %}
+{% assign small_texts = section.blocks | where: "type", "small_text" %}
+{% assign headings = section.blocks | where: "type", "heading" %}
+{% assign texts = section.blocks | where: "type", "text" %}
+{% assign buttons = section.blocks | where: "type", "button" %}
+{%- assign entries = section.blocks | where: "type", "entry" -%}
+
+{% capture spacer %}
+  --top-spacing-mobile: {{ section.settings.top_spacing_mobile }}px;
+  --bottom-spacing-mobile: {{ section.settings.bottom_spacing_mobile }}px;
+  --top-spacing-desktop: {{ section.settings.top_spacing_desktop }}px;
+  --bottom-spacing-desktop: {{ section.settings.bottom_spacing_desktop }}px;
+{% endcapture %}
+
+{% comment %}
+  Insert your custom section content here
+{% endcomment %}
+{% capture custom_section_content %}
+  <div class="animated-numbers">
+    {% for entry in entries %}
+      <div class="animated-numbers__entry" data-inview>
+        <div class="animated-numbers__entry-head">
+          <div class="animated-numbers__entry-head-inner">
+            {% for i in (1..11) %}
+              <span></span>
+            {% endfor %}
+          </div>
+        </div>
+        <div class="animated-numbers__entry-body">
+          <div class="progress-bar html"
+            data-animated-progress="{{ entry.settings.percentage }}"
+            style='
+              --progress-value: {{ entry.settings.percentage }};
+              --main-color-alpha: {{ entry.settings.progress_bar_color | color_modify: "alpha", 0.2 }};
+              --main-color: {{ entry.settings.progress_bar_color }};
+            '>
+
+            <span class="progress-bar__counter"
+              data-animated-number="{{ entry.settings.percentage }}">
+                {{ entry.settings.percentage }}
+              </span>
+          </div>
+
+          {% if entry.settings.caption != blank %}
+            {%- capture svg_code -%}
+              url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='152' height='29' preserveAspectRatio='none'%3E%3Cpath fill='{{- entry.settings.mark_color | color_modify: "alpha", 0.57 | replace: "#", "%23" -}}' transform='translate(0.505371 2.23291)' d='M1.7397418 16.569C0.95674175 16.542999 1.2397418 14.435 1.7397418 14.075C1.6907418 13.708 0.95074177 14.033 1.0277418 13.541C0.90274173 12.845 1.6517417 13.532 1.9177418 13.541C1.9717418 13.071 1.6707418 12.956 1.2057418 13.006C2.1837418 10.238 1.0437417 4.8169999 5.3027415 4.098C42.79874 -2.233 104.21914 0.986 149.75314 0C149.75214 0.90100002 149.73714 1.748 150.28815 2.4949999C150.13214 2.7550001 150.14613 3.1849999 149.57513 3.029C149.71614 3.4230001 150.19814 3.4749999 150.46614 3.7420001C149.90514 4.3429999 149.37415 5.1919999 148.50613 4.9889998C148.16614 5.0599999 148.90414 5.52 149.21915 5.5229998C148.90215 6.0939999 148.42413 5.973 147.79314 5.8800001C148.07713 6.6999998 148.73114 6.0409999 149.21915 6.592C148.69414 6.8870001 148.29514 6.4959998 147.25914 6.592C147.64514 7.513 148.85214 7.6129999 149.39714 8.3739996C148.51514 8.4329996 148.36115 8.9449997 147.43713 8.552C147.59914 9.1619997 148.55515 8.9790001 149.21915 9.0869999C148.86613 9.625 148.29214 9.941 147.25914 9.7989998C147.32014 10.326 147.76215 10.745 149.04114 10.868C148.17314 11.294 147.76414 10.874 146.90314 11.046C147.07513 11.409 147.58714 11.431 148.15015 11.403C147.45415 11.657 147.08714 12.24 146.01215 12.115C146.72115 12.416 147.45714 12.689 148.32814 12.828C148.02814 13.631 147.11714 12.84 146.36914 13.006C146.65015 13.674 147.98714 13.288 148.50613 13.719C148.17714 13.984 147.66014 14.06 147.08115 14.075C147.33414 14.594 148.13614 14.564 148.68414 14.788C148.55814 15.433 147.38614 15.034 146.72414 15.144C146.90215 15.621 147.81013 15.365 147.79314 16.035C147.49715 16.035 147.20013 16.035 146.90314 16.035C147.80714 16.382999 147.22514 16.483999 148.15015 16.569C148.12814 16.962999 147.39413 16.645 147.08115 16.747999C147.32614 17.097 148.17213 16.844 148.50613 17.104C148.48415 17.497 147.75114 17.18 147.43713 17.282C148.06615 17.926001 147.61314 18.139999 148.68414 18.707001C148.65913 19.299999 147.49715 18.66 148.32814 19.242001C113.05614 19.598 69.825745 19.41 31.314741 21.202C21.601742 21.653 9.9817419 25 2.4527419 23.160999C1.8027418 23.216 1.2927418 23.132999 0.84874177 22.983C0.62674177 22.226 1.4417417 22.506001 1.5617417 22.091999C0.093741752 21.766001 -0.50525826 20.502001 0.49274176 18.707001C1.1777418 19.204 1.1837418 18.242001 1.7397418 18.707001C1.2047417 17.527 1.1727418 17.066999 0.49274176 16.391001C0.65474176 16.014 1.2087418 16.728001 1.7397418 16.569Z' fill-rule='evenodd'/%3E%3C/svg%3E&quot;);
+            {%- endcapture -%}
+            <p class="animated-numbers__entry-caption"
+              style="
+                --main-color: {{ entry.settings.progress_bar_color }};
+                --marker-bg: {{ svg_code }};
+              ">
+              {{ entry.settings.caption }}
+            </p>
+          {% endif %}
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+{% endcapture %}
+
+<section class="mfr-lb__animated-numbers {{ custom_class }} " id="{{ section_id }}">
+  <div class="section-spacer background {{ grid_gutter }}" style="{{ spacer }}">
+    <div class="grid-container {{ container_width }}" {{ max_width_style }}>
+      <div class="grid-x align-center">
+        {% if icons != blank or small_texts != blank or headings != blank or texts != blank or buttons != blank %}
+          <div class="cell small-12 large-12 section-content {{ color_theme }} {{ text_alignment }}">
+            <div class="inner">
+              {%- for block in section.blocks -%}
+                {% case block.type %}
+
+                  {%- when 'icon' -%}
+                    {% render 'renderer__block-icon', block: block %}
+
+                  {%- when 'small_text' -%}
+                    {% render "renderer__block-small-text", block: block %}
+
+                  {%- when 'heading' -%}
+                    {% render "renderer__block-title", block: block %}
+
+                  {%- when 'text' -%}
+                    {% render "renderer__block-text", block: block %}
+
+                {%- endcase -%}
+              {%- endfor -%}
+
+              {% if buttons != blank %}
+                <div class="button-set {{ content_alignment }}">
+                  {%- for block in section.blocks -%}
+                    {% case block.type %}
+                      {%- when 'button' -%}
+                        {% render 'renderer__block-button', block: block %}
+                    {%- endcase -%}
+                  {%- endfor -%}
+                </div>
+              {% endif %}
+            </div>
+          </div>
+        {% endif %}
+
+        <div class="cell small-12 large-12">
+          {{ custom_section_content }}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {%- render 'component__gradient-bg-styles' -%}
+  {%- render 'component__accent-graphics' -%}
+  {%- render 'component__section-dividers', is_video_background: true -%}
+</section>
+
+
+{% schema %}
+{
+  "name":"LB: Animated Numbers",
+  "disabled_on": {
+    "groups": [
+      "header", "footer", "custom.offcanvas","custom.modals"
+    ]
+  },
+  "settings":[
+    {
+      "type": "header",
+      "content": "Section Settings"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "options": [
+          { "value": "", "label": "Left" },
+          { "value": "text-center", "label": "Center" }
+          ],
+      "label": "Text Alignment",
+      "default": "text-center"
+    },
+    {
+      "type": "select",
+      "id": "container_width",
+      "options": [
+          { "value": "full", "label": "Full" },
+          { "value": "", "label": "Contain" }
+          ],
+      "label": "Width",
+      "default": "full"
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "rem",
+      "label": "Max Content Width",
+      "default": 0
+    },
+    {
+      "type": "select",
+      "id": "grid_gutter",
+      "options": [
+          { "value": "grid-gutter", "label": "Padding" },
+          { "value": "", "label": "No Padding" }
+          ],
+      "label": "Section Padding",
+      "default": ""
+    },
+      {
+        "type": "header",
+        "content": "Color Schemes Settings"
+      },
+      {
+        "type": "color_scheme",
+        "id": "color_scheme",
+        "default": "scheme_1",
+        "label": "Color Scheme",
+        "info": "This will be the color scheme of the header initially."
+      },
+
+    {
+      "type": "header",
+      "content": "Mobile Section Spacing"
+    },
+    {
+      "type": "range",
+      "id": "top_spacing_mobile",
+      "min": 0,
+      "max": 500,
+      "step": 10,
+      "unit": "px",
+      "label": "Top Spacing",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "bottom_spacing_mobile",
+      "min": 0,
+      "max": 500,
+      "step": 10,
+      "unit": "px",
+      "label": "Bottom Spacing",
+      "default": 100
+    },
+
+    {
+      "type": "header",
+      "content": "Desktop Section Spacing"
+    },
+    {
+      "type": "range",
+      "id": "top_spacing_desktop",
+      "min": 0,
+      "max": 500,
+      "step": 10,
+      "unit": "px",
+      "label": "Top Spacing",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "bottom_spacing_desktop",
+      "min": 0,
+      "max": 500,
+      "step": 10,
+      "unit": "px",
+      "label": "Bottom Spacing",
+      "default": 100
+    },
+
+    {
+      "type":"header",
+      "content":"Background"
+    },
+    {
+      "type": "color_background",
+      "id": "bg_color",
+      "label": "Background Color/Gradient"
+    },
+
+    {
+      "type": "image_picker",
+      "id": "bg_image_mobile",
+      "label": "Background Image - Mobile"
+    },
+    {
+      "type": "image_picker",
+      "id": "bg_image",
+      "label": "Background Image - Desktop"
+    },
+
+
+    {
+      "type": "header",
+      "content": "Divider Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "top_wave_divider",
+      "label": "Top Wave Divider",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "bottom_wave_divider",
+      "label": "Bottom Wave Divider",
+      "default": false
+    },
+    {
+      "type":"header",
+      "content":"Attribute Settings"
+    },
+    {
+      "type": "text",
+      "id": "custom_class",
+      "label": "Custom class"
+    },
+    {
+      "type": "text",
+      "id": "custom_id",
+      "label": "Custom ID"
+    }
+  ],
+  "blocks":[
+    {
+      "type": "icon",
+      "name": "Icon",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon"
+        },
+        {
+          "type": "text",
+          "id": "file_lottie_url",
+          "label": "File Lottie URL"
+        },
+        {
+          "type": "number",
+          "id": "icon_width",
+          "label": "Image width",
+          "default": 150,
+          "info": "in pixels."
+        }
+      ]
+    },
+    {
+      "type":"small_text",
+      "name":"Accent Text",
+      "limit":1,
+      "settings":[
+        {
+          "type":"text",
+          "id":"text",
+          "default":"Accent Text",
+          "label":"Text"
+        },
+        {
+          "type": "color",
+          "id": "small_text_color",
+          "label": "Color"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "name": "Heading",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "inline_richtext",
+          "id": "heading",
+          "default": "Heading H1",
+          "label": "Heading H1"
+        },
+        {
+          "type": "checkbox",
+          "id": "disable_animation",
+          "label": "Disable Animation",
+          "default": false
+        },
+        {
+          "type": "select",
+          "id": "header_style",
+          "options": [
+              { "value": "h1", "label": "H1"},
+              { "value": "h2", "label": "H2"},
+              { "value": "h3", "label": "H3"},
+              { "value": "h4", "label": "H4"},
+              { "value": "h5", "label": "H5"},
+              { "value": "h6", "label": "H6"}
+              ],
+          "label": "Header Style",
+          "default": "h1"
+        },
+
+        {
+          "type": "header",
+          "content": "Accent Settings"
+        },
+        {
+          "type": "select",
+          "id": "make_xl",
+          "options": [
+              { "value": "", "label": "Normal"},
+              { "value": "xl-title", "label": "Oversize"}
+              ],
+          "label": "H1 Size",
+          "default": "",
+          "info": "H1s can be set to oversize if they need to be extra big"
+        },
+
+        {
+            "type": "color",
+            "id": "highlight_color",
+            "label": "Highlight Color",
+            "info": "Use [highlight][/highlight] to highlight text"
+        },
+        {
+            "type": "color",
+            "id": "underline_color",
+            "label": "Underline Color",
+            "info": "Use [underline][/underline] to underline text"
+        },
+
+        {
+          "type": "header",
+          "content": "Width Settings"
+        },
+        {
+            "type": "range",
+            "id": "max_width",
+            "min": 0,
+            "max": 60,
+            "step": 1,
+            "unit": "rem",
+            "label": "Max Width",
+            "default": 0
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "name": "Text",
+      "limit": 2,
+      "settings": [
+
+        {
+          "type": "richtext",
+          "id": "text",
+          "default": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum vel metus auctor.</p>",
+          "label": "Text"
+        },
+        {
+          "type": "checkbox",
+          "id": "disable_animation",
+          "label": "Disable Animation",
+          "default": false
+        },
+        {
+          "type":"select",
+          "id":"text_style",
+          "options":[
+            { "value":"", "label":"Default" },
+            { "value":"xsmall", "label":"xSmall" },
+            { "value":"small", "label":"Small" },
+            { "value":"regular", "label":"Regular" },
+            { "value":"large", "label":"Large" },
+            { "value":"xlarge", "label":"xLarge" }
+          ],
+          "label":"Style",
+          "default":"regular"
+        },
+        {
+          "type": "color",
+          "id": "color",
+          "label": "Color",
+          "info": "Leave it blank to use system settings."
+        },
+        {
+            "type": "range",
+            "id": "max_width",
+            "min": 0,
+            "max": 50,
+            "step": 1,
+            "unit": "rem",
+            "label": "Width",
+            "default": 0
+        }
+      ]
+    },
+    {
+      "type":"button",
+      "name":"Button",
+      "limit":2,
+      "settings":[
+        {
+          "type":"text",
+          "id":"button_label",
+          "default":"Button label",
+          "label":"Button",
+          "info":"Leave the label blank to hide the button."
+        },
+        {
+          "type":"url",
+          "id":"button_link",
+          "label":"Button Link"
+        },
+        {
+          "type": "select",
+          "id": "color_theme",
+          "label": "Color Theme",
+          "options": [
+            {
+              "value": "primary",
+              "label": "Primary"
+            },
+            {
+              "value": "secondary",
+              "label": "Secondary"
+            },
+            {
+              "value": "tertiary",
+              "label": "Tertiary"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "entry",
+      "name": "Entry",
+      "settings": [
+        {
+          "type": "range",
+          "id": "percentage",
+          "min": 1,
+          "max": 100,
+          "step": 1,
+          "unit": "%",
+          "label": "Percentage",
+          "default": 100
+        },
+        {
+          "type": "textarea",
+          "id": "caption",
+          "label": "Caption",
+          "default": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Adipisci, consequatur"
+        },
+        {
+          "type": "color",
+          "id": "progress_bar_color",
+          "label": "Progress Bar Color",
+          "default": "#FF8300"
+        },
+        {
+          "type": "color",
+          "id": "mark_color",
+          "label": "Mark Color",
+          "default": "#FF8300",
+          "info": "Background color for <mark></mark>"
+        }
+      ]
+    },
+    {
+      "type": "accent_graphic",
+      "name": "Accent Graphic",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon"
+        },
+        {
+          "type":"html",
+          "id":"svg_code",
+          "label":"Graphic SVG Code",
+          "info":"Paste SVG code for vector graphic"
+        },
+        {
+          "type":"header",
+          "content":"Visibility"
+        },
+        {
+          "type": "select",
+          "id": "visibility",
+          "options": [
+              { "value": "always", "label": "Always" },
+              { "value": "desktop_only", "label": "Desktop Only" },
+              { "value": "mobile_only", "label": "Mobile Only" }
+              ],
+          "label": "Show on..",
+          "default": "always"
+        },
+        {
+          "type":"header",
+          "content":"Value Type"
+        },
+        {
+          "type": "select",
+          "id": "value_type",
+          "options": [
+              { "value": "px", "label": "Pixels" },
+              { "value": "%", "label": "Percentage" }
+              ],
+          "label": "Position Value Type",
+          "default": "%",
+          "info": "Pixel values are multiplied by 5"
+        },
+        {
+          "type":"header",
+          "content":"Position"
+        },
+        {
+          "type": "select",
+          "id": "x_setting",
+          "options": [
+              { "value": "left", "label": "Left" },
+              { "value": "center", "label": "Center" },
+              { "value": "right", "label": "Right" }
+              ],
+          "label": "X Position",
+          "default": "left"
+        },
+        {
+          "type": "select",
+          "id": "y_setting",
+          "options": [
+              { "value": "top", "label": "Top" },
+              { "value": "bottom", "label": "Bottom" }
+              ],
+          "label": "Y Position",
+          "default": "top"
+        },
+        {
+          "type":"header",
+          "content":"Large Screen Settings"
+        },
+        {
+          "type": "range",
+          "id": "width_large",
+          "min": 10,
+          "max": 400,
+          "step": 10,
+          "unit": "px",
+          "label": "Graphic Width",
+          "default": 150
+        },
+        {
+          "type": "range",
+          "id": "position_x_large",
+          "min": -100,
+          "max": 100,
+          "step": 2,
+          "label": "X Position",
+          "default": 10
+        },
+        {
+          "type": "range",
+          "id": "position_y_large",
+          "min": -100,
+          "max": 100,
+          "step": 2,
+          "label": "Y Position",
+          "default": 10
+        },
+        {
+          "type":"header",
+          "content":"Small Screen Settings"
+        },
+        {
+          "type": "range",
+          "id": "width_small",
+          "min": 10,
+          "max": 400,
+          "step": 10,
+          "unit": "px",
+          "label": "Graphic Width",
+          "default": 150
+        },
+        {
+          "type": "range",
+          "id": "position_x_small",
+          "min": -100,
+          "max": 100,
+          "step": 2,
+          "label": "X Position",
+          "default": 10
+        },
+        {
+          "type": "range",
+          "id": "position_y_small",
+          "min": -100,
+          "max": 100,
+          "step": 2,
+          "label": "Y Position",
+          "default": 10
+        },
+        {
+          "type":"header",
+          "content":"Animation Settings"
+        },
+        {
+          "type": "select",
+          "id": "animation",
+          "options": [
+              { "value": "none", "label": "None" },
+              { "value": "rotating", "label": "Rotate" },
+              { "value": "floating", "label": "Float" },
+              { "value": "spark", "label": "Spark" }
+            ],
+          "label": "Animation",
+          "default": "none"
+        },
+
+        {
+          "type":"header",
+          "content":"Appearance Settings"
+        },
+        {
+          "type": "range",
+          "id": "rotate",
+          "min": 0,
+          "max": 360,
+          "step": 36,
+          "unit": "%",
+          "label": "Rotate",
+          "default": 0
+        },
+        {
+          "type": "checkbox",
+          "id": "flip",
+          "label": "Flip Graphics?",
+          "default": false
+        }
+      ]
+    }
+  ],
+  "presets":[
+    {
+      "name":"LB: Animated Numbers",
+      "blocks":[
+        {
+          "type":"heading"
+        },
+        {
+          "type":"text"
+        },
+        {
+          "type":"entry"
+        },
+        {
+          "type":"entry"
+        },
+        {
+          "type":"entry"
+        },
+        {
+          "type":"entry"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

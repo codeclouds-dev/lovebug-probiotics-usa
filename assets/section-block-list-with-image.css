@@ -1,0 +1,199 @@
+/* =======================================
+   Mobile / Base Structural Styles
+======================================= */
+.feature-list-section {
+  position: relative;
+  width: 100%;
+}
+
+.feature-list-container {
+  max-width: 1440px;
+  padding: 0 16px 70px 16px;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  z-index: 2;
+}
+
+.feature-list-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+}
+
+.feature-list-heading {
+  color: #FFF;
+  text-align: center;
+  font-family: Recoleta;
+  font-size: 35px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 100%;
+}
+
+.feature-list-items {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.feature-list-item {
+  display: flex;
+  padding: 8px 16px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  align-self: stretch;
+  position: relative;
+  border-radius: 16px;
+  border: 1px solid #2B3990;
+  background: #E9F4FC;
+}
+
+.feature-item-number-dsk {
+  display: none;
+}
+
+.feature-item-text-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.feature-title-wrapper {
+  display: flex;
+  gap: 11px;
+}
+
+.feature-item-number-mob {
+  display: flex;
+  width: 30px;
+  height: 30px;
+  min-width: 30px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 200px;
+  background: #96238D;
+}
+
+.number-text {
+  color: #E9F4FC;
+  font-family: "ES Peak Rounded";
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 100%;
+}
+
+.feature-item-title {
+  color: #2B3990;
+  font-family: "ES Peak Rounded";
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 120%;
+  text-transform: capitalize;
+  margin: 0 !important;
+}
+
+.feature-item-description {
+  color: #2B3990;
+  font-family: "ES Peak Rounded";
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 140%;
+}
+
+.feature-list-media {
+  position: relative;
+}
+
+.feature-media-inner-wrapper {
+  position: relative;
+}
+
+.feature-image {
+  max-width: 807.192px;
+  max-height: 537.997px;
+  aspect-ratio: 807.19/538.00;
+  width: 79.7%;
+  position: absolute;
+  top: 0;
+  left: 10.8%;
+  border-radius: 9px;
+  height: 88.9%;
+  z-index: 1;
+}
+
+.underneath-image {
+  max-width: 725.079px;
+  max-height: 588.723px;
+  aspect-ratio: 101/82;
+  width: 100%;
+  z-index: -1;
+}
+
+/* =======================================
+   Desktop Structural Styles
+======================================= */
+@media screen and (min-width: 768px) {
+  .feature-list-container {
+    padding: 20px 80px 122px 80px;
+  }
+
+  .feature-list-layout {
+    display: grid;
+    grid-template-columns: 43% 1fr 52.5%;
+    gap: unset;
+  }
+
+  .feature-list-heading {
+    font-size: 44px;
+    line-height: normal;
+    text-align: left;
+  }
+
+  .feature-list-item {
+    padding: 8px 70px;
+  }
+
+  .feature-item-number-dsk {
+    display: flex;
+    width: 30px;
+    height: 30px;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    left: 19px;
+    top: 11px;
+    border-radius: 200px;
+    background: #96238D;
+  }
+
+  .feature-item-number-mob {
+    display: none;
+  }
+
+  .feature-item-title {
+    font-size: 24px;
+  }
+
+  .feature-item-description {
+    font-size: 16px;
+  }
+
+  .feature-list-media {
+    grid-column: 3;
+  }
+
+  .feature-media-wrapper {
+    position: sticky;
+    top: 100px;
+    padding-top: 100px;
+  }
+
+  .feature-image {
+    border-radius: 19px;
+  }
+}

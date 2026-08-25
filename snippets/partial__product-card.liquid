@@ -1,0 +1,110 @@
+{%- assign metafields = product.metafields.mfr_fields -%}
+<div id="product-card--{{ product.id }}" class="product-card"
+  style="
+    --product-card-color: {{ metafields.product_card_accent_color | default: '#E50695' }};
+  ">
+  {% render 'component__product-badges',
+    product: product %}
+  <div class="product-card__media">
+    <a href="{{ product.url }}" class="product-card__images no-hover"
+      title="Images for {{ product.title }}"
+      aria-label="Images for {{ product.title }}">
+      <div class="product-card__main-image">
+        {% assign default_alt = "main product image for " | append: product.title %}
+        {% assign alt = metafields.product_card_main_image.alt | default: default_alt %}
+        {%- assign main_image = metafields.product_card_main_image | default: product.featured_image -%}
+        {% render 'component__lazyload-image',
+          image: main_image,
+          width: 420,
+          alt: alt %}
+      </div>
+      {% if metafields.product_card_secondary_image != blank %}
+        <div class="product-card__secondary-image">
+          {% assign default_alt = "secondary product image for " | append: product.title %}
+          {% assign alt = metafields.product_card_secondary_image.alt | default: default_alt %}
+          {%- assign secondary_image = metafields.product_card_secondary_image -%}
+          {% render 'component__lazyload-image',
+            image: secondary_image,
+            width: 800,
+            alt: alt %}
+        </div>
+      {% endif %}
+      {% if product.selling_plan_groups != blank %}
+        {% assign selling_plan_groups = product.selling_plan_groups[0] %}
+        {% assign discount_percentage = selling_plan_groups.selling_plans[0].price_adjustments[0].value %}
+        {%- assign discount_decimal = discount_percentage -%}
+        <span class="product-card__subscription-message"
+          x-data='{
+            isDark(element) {
+              const bgColor = "{{ metafields.product_card_accent_color | default: '#E50695' }}";
+              const colorInstance = tinycolor(bgColor);
+              const darkThreshold = 0.5;
+              const luminance = colorInstance.getLuminance();
+
+              return luminance < darkThreshold;
+            }
+          }'
+          x-init='
+            $el.style.color = isDark($el) ? "#fff" : "#2B3990";
+          '>
+          {% capture arrow_svg %}
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20">
+              <path fill="white" d="M20 10Q20 10.245486 19.987957 10.490677Q19.97591 10.735868 19.951849 10.980172Q19.927786 11.224476 19.891764 11.467304Q19.855743 11.710133 19.807852 11.950903Q19.75996 12.191671 19.70031 12.429801Q19.640663 12.667931 19.569403 12.902846Q19.498142 13.137762 19.41544 13.368898Q19.332737 13.600033 19.238794 13.826833Q19.144852 14.053633 19.039892 14.275549Q18.934933 14.497466 18.819212 14.713966Q18.703491 14.930466 18.577284 15.141026Q18.451078 15.351585 18.314693 15.5557Q18.178308 15.759815 18.032074 15.956991Q17.885838 16.154167 17.730104 16.343931Q17.574369 16.533695 17.40951 16.715588Q17.244652 16.897482 17.071068 17.071068Q16.897482 17.244652 16.71559 17.409512Q16.533695 17.574371 16.343933 17.730106Q16.154169 17.885841 15.956992 18.032076Q15.759815 18.17831 15.5557 18.314695Q15.351585 18.45108 15.141026 18.577286Q14.930466 18.703491 14.713966 18.819212Q14.497466 18.934933 14.27555 19.039892Q14.053633 19.144852 13.826834 19.238794Q13.600034 19.332737 13.368897 19.41544Q13.137762 19.498142 12.902846 19.569403Q12.667931 19.640663 12.429801 19.700314Q12.191671 19.75996 11.950903 19.807854Q11.710133 19.855745 11.467304 19.891766Q11.224476 19.927788 10.980172 19.951849Q10.735868 19.97591 10.490677 19.987955Q10.245486 20 10 20Q9.7545137 20 9.5093231 19.987955Q9.2641325 19.97591 9.0198288 19.951849Q8.7755241 19.927786 8.5326948 19.891764Q8.2898655 19.855743 8.0490961 19.807852Q7.8083267 19.75996 7.5701971 19.70031Q7.3320684 19.640663 7.0971532 19.569403Q6.862237 19.498142 6.6311011 19.41544Q6.3999648 19.332737 6.1731653 19.238794Q5.9463654 19.144852 5.7244492 19.039892Q5.502532 18.934933 5.2860327 18.819212Q5.0695333 18.703491 4.8589725 18.577284Q4.6484118 18.451078 4.4442973 18.314693Q4.2401829 18.178308 4.0430064 18.032074Q3.8458304 17.885838 3.6560669 17.730104Q3.4663033 17.574369 3.28441 17.40951Q3.1025169 17.244652 2.928932 17.071068Q2.755347 16.897482 2.5904884 16.71559Q2.4256301 16.533695 2.2698953 16.343933Q2.1141605 16.154169 1.9679244 15.956992Q1.8216884 15.759815 1.6853036 15.5557Q1.5489187 15.351585 1.4227135 15.141026Q1.2965086 14.930466 1.1807872 14.713966Q1.0650659 14.497466 0.96010691 14.27555Q0.85514808 14.053633 0.76120454 13.826834Q0.667261 13.600034 0.5845592 13.368897Q0.50185746 13.137762 0.43059659 12.902846Q0.35933572 12.667931 0.29968745 12.429801Q0.24003914 12.191671 0.19214717 11.950903Q0.14425519 11.710133 0.10823488 11.467304Q0.072214581 11.224476 0.04815273 10.980172Q0.024090873 10.735868 0.012045437 10.490677Q0 10.245486 0 10Q0 9.7545137 0.012045437 9.5093231Q0.024090873 9.2641325 0.04815273 9.0198288Q0.072214581 8.7755241 0.10823488 8.5326948Q0.14425519 8.2898655 0.19214717 8.0490961Q0.24003914 7.8083267 0.29968742 7.5701971Q0.35933572 7.3320684 0.43059659 7.0971532Q0.50185746 6.862237 0.58455926 6.6311011Q0.667261 6.3999648 0.76120454 6.1731653Q0.85514808 5.9463654 0.96010691 5.7244492Q1.0650659 5.502532 1.1807872 5.2860327Q1.2965086 5.0695333 1.4227138 4.8589725Q1.5489187 4.6484118 1.6853036 4.4442973Q1.8216884 4.2401829 1.9679244 4.0430064Q2.1141605 3.8458304 2.2698953 3.6560669Q2.4256301 3.4663033 2.5904884 3.28441Q2.755347 3.1025169 2.928932 2.928932Q3.1025169 2.755347 3.28441 2.5904884Q3.4663036 2.4256301 3.6560671 2.2698953Q3.8458304 2.1141605 4.0430069 1.9679244Q4.2401829 1.8216884 4.4442973 1.6853036Q4.6484118 1.5489187 4.8589725 1.4227135Q5.0695333 1.2965086 5.2860327 1.1807872Q5.502532 1.0650659 5.7244482 0.96010691Q5.9463654 0.85514808 6.1731648 0.76120454Q6.3999643 0.667261 6.6311007 0.5845592Q6.862237 0.50185746 7.0971532 0.43059659Q7.3320689 0.35933572 7.5701981 0.29968745Q7.8083277 0.24003914 8.0490971 0.19214717Q8.2898655 0.14425519 8.5326948 0.10823488Q8.7755241 0.072214581 9.0198288 0.04815273Q9.2641325 0.024090873 9.5093231 0.012045437Q9.7545137 0 10 0Q10.245486 0 10.490677 0.012045437Q10.735868 0.024090873 10.980172 0.04815273Q11.224476 0.072214581 11.467304 0.10823488Q11.710133 0.14425519 11.950903 0.19214717Q12.191671 0.24003914 12.429801 0.29968742Q12.667931 0.35933572 12.902846 0.43059659Q13.137762 0.50185746 13.368898 0.58455926Q13.600033 0.667261 13.826833 0.76120454Q14.053633 0.85514808 14.275549 0.96010691Q14.497466 1.0650659 14.713966 1.1807872Q14.930466 1.2965086 15.141026 1.4227138Q15.351585 1.5489187 15.5557 1.6853036Q15.759815 1.8216884 15.956991 1.9679244Q16.154167 2.1141605 16.343931 2.2698953Q16.533695 2.4256301 16.715588 2.5904884Q16.897482 2.755347 17.071068 2.928932Q17.244652 3.1025169 17.409512 3.28441Q17.574371 3.4663036 17.730106 3.6560671Q17.885841 3.8458304 18.032076 4.0430069Q18.17831 4.2401829 18.314695 4.4442973Q18.45108 4.6484118 18.577286 4.8589725Q18.703491 5.0695333 18.819212 5.2860327Q18.934933 5.502532 19.039892 5.7244482Q19.144852 5.9463654 19.238794 6.1731648Q19.332737 6.3999643 19.41544 6.6311007Q19.498142 6.862237 19.569403 7.0971532Q19.640663 7.3320689 19.700314 7.5701981Q19.75996 7.8083277 19.807854 8.0490971Q19.855745 8.2898655 19.891766 8.5326948Q19.927788 8.7755241 19.951849 9.0198288Q19.97591 9.2641325 19.987957 9.5093231Q20 9.7545137 20 10Z"/>
+              <path fill="none" stroke="#2B3990" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" transform="translate(8.33333 5.83333)" d="M0 0L4.1666665 4.1666665L0 8.333333" fill-rule="evenodd"/>
+            </svg>
+          {% endcapture %}
+          Subscribe & Save {{ discount_decimal }}%
+          {% render 'component__svg-encoder',
+            svg_code: arrow_svg,
+            width: 20,
+            alt: "right chevron icon" %}
+        </span>
+      {% endif %}
+    </a>
+    <div class="product-card__media-actions">
+      {% if metafields.product_card_sup_title != blank %}
+        <span class="product-card__sup-title"
+          x-data='{
+            isDark(element) {
+              const bgColor = "{{ metafields.product_card_accent_color | default: '#E50695' }}";
+              const colorInstance = tinycolor(bgColor);
+              const darkThreshold = 0.5;
+              const luminance = colorInstance.getLuminance();
+
+              return luminance < darkThreshold;
+            }
+          }'
+          x-init='
+            $el.style.color = isDark($el) ? "#fff" : "#2B3990";
+          '>
+          {{ metafields.product_card_sup_title }}
+        </span>
+      {% endif %}
+      {% render 'component__add-to-cart-button',
+        product: product,
+        button_label: "Add" %}
+    </div>
+  </div>
+
+  <div class="product-card__info">
+    <div class="product-card__info-inner">
+      <div data-oke-star-rating data-oke-reviews-product-id="shopify-{{ product.id }}">
+          <!--
+          Retrieve the product.metafields.okendo.StarRatingSnippet via Shopify's GraphQL/REST API
+          and put the contents here
+          -->
+      </div>
+      <div class="product-card__info-title">
+        {{ metafields.product_card_nice_title | default: product.title }}
+      </div>
+      {% if metafields.product_card_sub_title != blank %}
+        <span class="product-card__info-sub-title">
+          {{ metafields.product_card_sub_title }}
+        </span>
+      {% endif %}
+    </div>
+    <span class="product-card__info-price">
+      {{ product.price | money }}
+    </span>
+  </div>
+</div>

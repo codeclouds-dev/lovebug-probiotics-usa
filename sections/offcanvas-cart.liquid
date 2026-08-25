@@ -1,0 +1,439 @@
+{% assign quantity_progress_bar = section.blocks | where: "type", "quantity_progress_bar" | first %}
+{% assign price_progress_bar = section.blocks | where: "type", "price_progress_bar" | first %}
+{% assign product_upsell = section.blocks | where: "type", "product_upsell" | first %}
+{% assign partner_callout = section.blocks | where: "type", "partner_callout" | first %}
+
+{%- comment -%}
+{% render 'renderer__color-scheme', name: "section", color_scheme: section.settings.color_scheme, selector: ".shopify-section", section_id: "cart-wrapper" %}
+{%- endcomment -%}
+{% render 'renderer__color-scheme', name: "section", color_scheme: section.settings.color_scheme, selector: ".price-progress-bar" %}
+{% render 'renderer__color-scheme', name: "section", color_scheme: section.settings.color_scheme, selector: ".cart-form__main, .cart-form__head-inner" %}
+{% render 'renderer__color-scheme', name: "section", color_scheme: section.settings.color_scheme_checkout, selector: ".cart-form__checkout, .cart-form__partner-callout" %}
+
+{%- capture cart_content -%}
+  <script src="{{ 'rivets-cart.min.js' | asset_url }}" defer></script>
+  <script src="{{ 'cart.js' | asset_url }}" type="text/javascript" defer></script>
+
+  <div class="offcanvas-cart__content"
+    id="cart-wrapper"
+    x-data
+    data-cart-view
+    style="
+      --bundle-bg-color: {{ section.settings.bg_color }};
+    ">
+    {%- for block in section.blocks -%}
+      {%- case block.type -%}
+        {%- when "@app" -%}
+        {% render block %}
+      {%- endcase -%}
+    {%- endfor -%}
+
+    <div class="offcanvas-cart__form cart-form">
+      <div class="cart-form__head">
+        <div class="cart-form__head-inner">
+          <button class="close-button close"
+            aria-label="Close cart"
+            type="button"
+            x-data
+            x-on:click='$store["offCanvasCart"].closeOffcanvas()'>
+            {%- render "icon__offcanvas-close" -%}
+          </button>
+          <h5 class="h5 section-text">{{ section.settings.cart_title }}</h5>
+        </div>
+        {% if quantity_progress_bar != blank %}
+          {% render 'cart__quantity-progress-bar', block: quantity_progress_bar %}
+        {% endif %}
+        {% if price_progress_bar != blank %}
+          {% render 'cart__price-progress-bar', block: price_progress_bar %}
+        {% endif %}
+        {% if page.title == "Shop" or template contains "collection" %}
+          {% if quantity_progress_bar != blank or price_progress_bar != blank %}
+            {% render 'component__promotion-bar', quantity_block: quantity_progress_bar, price_block: price_progress_bar %}
+          {% endif %}
+        {% endif %}
+
+        {%- if section.settings.checkout_message != blank -%}
+          <div class="cart-form__head-message">{{ section.settings.checkout_message }}</div>
+        {%- endif -%}
+
+      </div>
+      {% render "cart__form",
+        product_upsell: product_upsell,
+        partner_callout: partner_callout,
+        bundle_title: section.settings.bundle_title %}
+    </div>
+  </div>
+{%- endcapture -%}
+
+
+{% render 'mfr-component__offcanvas',
+  id: "offCanvasCart",
+  class: "offcanvas-cart",
+  position: "right",
+  content: cart_content %}
+
+{% schema %}
+  {
+    "name": "Slideout Cart",
+    "enabled_on": {
+      "groups": ["custom.offcanvas"]
+    },
+    "limit": 1,
+    "settings": [
+      {
+        "type": "header",
+        "content": "Color Schemes Settings"
+      },
+      {
+        "type": "color_scheme",
+        "id": "color_scheme",
+        "default": "scheme_1",
+        "label": "Color Scheme - Main"
+      },
+      {
+        "type": "color_scheme",
+        "id": "color_scheme_checkout",
+        "default": "scheme_1",
+        "label": "Checkout Section"
+      },
+      {
+        "type": "header",
+        "content": "Cart Title"
+      },
+      {
+        "type": "text",
+        "id": "cart_title",
+        "label": "Title",
+        "default": "My Cart"
+      },
+      {
+        "type": "header",
+        "content": "Cart Header Message"
+      },
+      {
+        "type": "richtext",
+        "id": "checkout_message",
+        "label": "Text",
+        "info": "ex. Free shipping for US orders"
+      },
+      {
+        "type": "header",
+        "content": "Checkout Conditions"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_minimum_total_price",
+        "label": "Enable minimum total price?",
+        "info": "Enabling this will disable the checkout button until the minimum required amount below is met"
+      },
+      {
+        "type": "richtext",
+        "id": "condition_label",
+        "label": "Label",
+        "info": "Informative text that details the conditions for checkout."
+      },
+      {
+        "type": "collection",
+        "id": "condition_collection",
+        "label": "Collection",
+        "info": "Condition will apply on those product on cart that is included in this collection."
+      },
+      {
+        "type": "range",
+        "id": "condition_total",
+        "label": "Required Total",
+        "unit": "$",
+        "min": 20,
+        "max": 200,
+        "step": 5,
+        "default": 70,
+        "info": "The required total that the matching product types should match."
+      },
+      {
+        "type": "text",
+        "id": "condition_info",
+        "label": "Condition Text",
+        "default": "Add %s to check out",
+        "info": "The text that will be displayed to inform user that the condition has not been met. The '%s' is a placeholder for the price that needs to be met."
+      },
+      {
+        "type": "text",
+        "id": "condition_success",
+        "label": "Success Text",
+        "info": "This will be shown once the condition is met."
+      },
+
+      /*
+      {
+        "type": "header",
+        "content": "Cart Product Message"
+      },
+      {
+        "type": "richtext",
+        "id": "product_subscription_details",
+        "label": "Subscription Message",
+        "info": "This text will be shown if a product has a subscription."
+      },
+      */
+
+      {
+        "type": "header",
+        "content": "Cart Footer Message"
+      },
+      /*
+      {
+        "type": "richtext",
+        "id": "subscription_message",
+        "label": "Subscription Message",
+        "info": "This text will be shown if a subscription product is in the cart."
+      },
+      */
+      {
+        "type": "richtext",
+        "id": "general_message",
+        "label": "General Message",
+        "info": "Text entered here will be shown on the cart."
+      },
+
+      {
+        "type": "header",
+        "content": "Checkout Button"
+      },
+      {
+        "type": "text",
+        "id": "button_label",
+        "label": "Button Label",
+        "default": "Checkout"
+      },
+      {
+        "type": "select",
+        "id": "color_theme",
+        "label": "Color Theme",
+        "options": [
+          {
+            "value": "primary",
+            "label": "Primary"
+          },
+          {
+            "value": "secondary",
+            "label": "Secondary"
+          },
+          {
+            "value": "tertiary",
+            "label": "Tertiary"
+          }
+        ]
+      }
+       /*
+      {
+        "type": "header",
+        "content": "Bundle Settings"
+      },
+      {
+        "type": "text",
+        "id": "bundle_title",
+        "label": "Bundle Title",
+        "default": "Mix & Match Bundle"
+      },
+      {
+        "type": "color",
+        "id": "bg_color",
+        "label": "Background Color",
+        "default": "#EDFCFF"
+      }
+
+      {
+        "type": "header",
+        "content": "Subscription Settings"
+      },
+      {
+        "type": "text",
+        "id": "subscription_cta_label",
+        "label": "Subscription CTA Label"
+      }
+      */
+    ],
+    "blocks": [
+      {
+        "type": "quantity_progress_bar",
+        "name": "Quantity Progress Bar",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "collection",
+            "id": "collection",
+            "label": "Collection",
+            "info": "Only products under this collection will be counted"
+          },
+          {
+            "type": "number",
+            "id": "quantity",
+            "label": "Quantity",
+            "default": 0,
+            "info": "This will be the quantity to reach to show the success message"
+          },
+
+          {
+            "type": "header",
+            "content": "Color Settings"
+          },
+          {
+            "type": "color_scheme",
+            "id": "color_scheme_progress_bar",
+            "default": "scheme_1",
+            "label": "Progress Bar Color Scheme"
+          },
+          {
+            "type": "color",
+            "id": "track_color",
+            "label": "Track Color",
+            "default": "#2A7519"
+          },
+          {
+            "type": "color",
+            "id": "track_bg_color",
+            "label": "Track BG Color",
+            "default": "#A4D65D"
+          },
+
+          {
+            "type": "header",
+            "content": "Text Settings"
+          },
+          {
+            "type": "richtext",
+            "id": "condition_label",
+            "label": "Condition Label",
+            "default": "<p>Add <strong>[quantity] more</strong> pack for 20% off</p>",
+            "info": "The text that will be displayed to inform user that the condition has not been met. Use [quantity] to show current quantity count."
+          },
+          {
+            "type": "richtext",
+            "id": "success_message",
+            "label": "Success Message",
+            "default": "<p>You have 20% off!</p>"
+          },
+          {
+            "type": "checkbox",
+            "id": "enable_promotion_bar",
+            "label": "Enable Promotion Bar",
+            "default": false,
+            "info": "Check this to enable a promotion bar on the Shop All and Collection pages."
+          }
+        ]
+      },
+      {
+        "type": "price_progress_bar",
+        "name": "Free Shipping Bar",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "collection",
+            "id": "collection",
+            "label": "Collection",
+            "info": "Only products under this collection will be counted"
+          },
+          {
+            "type": "text",
+            "id": "price",
+            "label": "Price",
+            "default": "0",
+            "info": "This will be the price to reach to show the success message. Enter a number value only, ie: 50 or 49.99 etc."
+          },
+
+          {
+            "type": "header",
+            "content": "Color Settings"
+          },
+          {
+            "type": "color_scheme",
+            "id": "color_scheme_progress_bar",
+            "default": "scheme_1",
+            "label": "Progress Bar Color Scheme"
+          },
+          {
+            "type": "color",
+            "id": "track_color",
+            "label": "Track Color",
+            "default": "#2A7519"
+          },
+          {
+            "type": "color",
+            "id": "track_bg_color",
+            "label": "Track BG Color",
+            "default": "#A4D65D"
+          },
+
+          {
+            "type": "header",
+            "content": "Text Settings"
+          },
+          {
+            "type": "richtext",
+            "id": "condition_label",
+            "label": "Condition Label",
+            "default": "<p>Spend <strong>$[price]</strong> to get free shipping!</p>",
+            "info": "The text that will be displayed to inform user that the condition has not been met. Use [price] to show remaining amount needed to reach the goal."
+          },
+          {
+            "type": "richtext",
+            "id": "success_message",
+            "label": "Success Message",
+            "default": "<p>You have free shipping!</p>"
+          },
+          {
+            "type": "checkbox",
+            "id": "enable_promotion_bar",
+            "label": "Enable Promotion Bar",
+            "default": false,
+            "info": "Check this to enable a promotion bar on the Shop All and Collection pages."
+          }
+        ]
+      },
+      {
+        "type": "product_upsell",
+        "name": "Product Upsell",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "header",
+            "content": "Color Settings"
+          },
+          {
+            "type": "color_scheme",
+            "id": "color_scheme_upsell",
+            "default": "scheme_1",
+            "label": "Progress Bar Color Scheme"
+          },
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Title"
+          },
+          {
+            "type": "number",
+            "id": "quantity",
+            "label": "Quantity",
+            "default": 0,
+            "info": "Upsells will only appear if the cart item count is less than the set quantity."
+          },
+
+          {
+            "type": "header",
+            "content": "Product Settings"
+          },
+          {
+            "type": "product_list",
+            "id": "products",
+            "label": "Products"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Offcanvas Cart"
+      }
+    ]
+  }
+{% endschema %}

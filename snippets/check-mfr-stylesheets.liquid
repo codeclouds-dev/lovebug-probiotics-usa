@@ -1,0 +1,41 @@
+<script>
+    function checkIfMFRStylesheetsAreLoaded() {
+        let mfrStylesheets = Array.from( document.querySelectorAll( ".mfr-stylesheet" ) ).map( ( element ) => {
+            return new Promise( (resolve, reject) => {
+                function waitForCssFile() {
+                    // Get the list of stylesheets applied to the current document
+                    var stylesheets = document.styleSheets;
+
+                    // Loop through the list of stylesheets
+                    for (var i = 0; i < stylesheets.length; i++) {
+                        var stylesheet = stylesheets[i];
+
+                        if( stylesheet.href ) {
+                            // Check the stylesheet's href property to see if it matches the URL of the CSS file we are looking for
+                            if (stylesheet.href.includes( element.getAttribute( "href" ) )) {
+                                // The CSS file is applied, so we can stop waiting
+                                resolve();
+                                return;
+                            }
+                        }
+                    }
+
+                    // The CSS file is not yet applied, so we will wait for a little bit and then check again
+                    setTimeout(waitForCssFile, 100);
+                }
+
+                // Start waiting for the CSS file to be applied
+                waitForCssFile();
+            } );
+        } );
+
+        return mfrStylesheets;
+    }
+    const mfrStylesheets = checkIfMFRStylesheetsAreLoaded();
+    Promise.all( mfrStylesheets ).then( () => {
+        const stylesRenderedEvent = new CustomEvent( "mfr:styles-rendered" );
+        setTimeout( () => {
+            document.dispatchEvent( stylesRenderedEvent );
+        }, 250 );
+    } );
+</script>

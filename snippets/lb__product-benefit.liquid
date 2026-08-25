@@ -1,0 +1,31 @@
+{% if benefit != blank %}
+  {% assign icon = benefit.icon %}
+  {% assign title = benefit.title %}
+  {% assign caption = benefit.caption %}
+{% else %}
+  {% assign icon = false %}
+  {% assign title = "Lorem ipsum dolor sit amet consectetur" %}
+  {% assign caption = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta odit maxime placeat ad." %}
+{% endif %}
+
+{%- assign default_alt = "maybe an image about " | append: benefit.title -%}
+{% assign alt = icon.alt | default: default_alt %}
+{% render 'component__lazyload-image',
+  image: benefit.icon,
+  width: 144,
+  alt: alt %}
+
+<div class="product-benefits__list-texts">
+  {% if title != blank %}
+    <p class="product-benefits__list-title">
+      {{ title }}
+    </p>
+  {% endif %}
+  {% if caption != blank %}
+    <div class="product-benefits__list-caption">
+      {{ caption
+        | replace: "[geek-text]", geek_text
+        | replace: "[/geek-text]", "</span>" }}
+    </div>
+  {% endif %}
+</div>

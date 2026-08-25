@@ -1,0 +1,116 @@
+{% capture spacer %}
+  --top-spacing-mobile: 120px;
+  --bottom-spacing-mobile: 100px;
+  --top-spacing-desktop: 180px;
+  --bottom-spacing-desktop: 100px;
+{% endcapture %}
+
+<div class="mfr-core__collections-list page-width">
+  <div class="section-spacer gutter" style="{{ spacer }}">
+    <div class="grid-container full">
+      <div class="grid-x align-center">
+        <div class="cell small-12 text-center">
+          <h1>{{ section.settings.title | escape }}</h1>
+        </div>
+      </div>
+    </div>
+
+    {%- liquid
+      case section.settings.sort
+        when 'products_high' or 'products_low'
+          assign collections = collections | sort: 'all_products_count'
+        when 'date' or 'date_reversed'
+          assign collections = collections | sort: 'published_at'
+      endcase
+
+      if section.settings.sort == 'products_high' or section.settings.sort == 'date_reversed' or section.settings.sort == 'alphabetical_reversed'
+        assign collections = collections | reverse
+      endif
+    -%}
+
+    <ul class="collection-list" role="list">
+      {%- for collection in collections -%}
+        <li class="collection-list__item grid__item">
+          <a {% if collection.all_products_count > 0 %}href="{{ collection.url }}"{% endif %} class="card">
+            <div class="card-inner">
+              {%- if collection.featured_image != blank -%}
+                <div class="card__image">
+                  <img srcset="{%- if collection.featured_image.width >= 165 -%}{{ collection.featured_image | img_url: '165x' }} 165w,{%- endif -%}
+                    {%- if collection.featured_image.width >= 360 -%}{{ collection.featured_image | img_url: '360x' }} 360w,{%- endif -%}
+                    {%- if collection.featured_image.width >= 535 -%}{{ collection.featured_image | img_url: '535x' }} 535w,{%- endif -%}
+                    {%- if collection.featured_image.width >= 720 -%}{{ collection.featured_image | img_url: '720x' }} 720w,{%- endif -%}
+                    {%- if collection.featured_image.width >= 940 -%}{{ collection.featured_image | img_url: '940x' }} 940w,{%- endif -%}
+                    {%- if collection.featured_image.width >= 1070 -%}{{ collection.featured_image | img_url: '1070x' }} 1070w{%- endif -%}"
+                    src="{{ collection.featured_image | img_url: '533x' }}"
+                    sizes="(min-width: 1100px) 358px, (min-width: 750px) calc((100vw - 130px) / 3), calc(100vw - 30px)"
+                    alt="{{ collection.title | escape }}"
+                    height="{{ collection.featured_image.height }}"
+                    width="{{ collection.featured_image.width }}"
+                    loading="lazy"
+                  >
+                </div>
+                <div class="card__text" data-mh="title">
+                  <h2 class="h4">{{- collection.title | downcase -}}</h2>
+                </div>
+              {%- else -%}
+                <div class="card__text" data-mh="title">
+                  <h2 class="h1">{{- collection.title | downcase -}}</h2>
+                  {%- if collection.description != blank -%}
+                    <p>{{- collection.description | strip_html | truncatewords: 12 -}}</p>
+                  {%- endif -%}
+                </div>
+              {%- endif -%}
+            </div>
+          </a>
+        </li>
+      {%- endfor -%}
+    </ul>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.main-list-collections.name",
+  "class": "spaced-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "t:sections.main-list-collections.settings.title.label",
+      "default": "Collections"
+    },
+    {
+      "type": "select",
+      "id": "sort",
+      "options": [
+        {
+          "value": "alphabetical",
+          "label": "t:sections.main-list-collections.settings.sort.options__1.label"
+        },
+        {
+          "value": "alphabetical_reversed",
+          "label": "t:sections.main-list-collections.settings.sort.options__2.label"
+        },
+        {
+          "value": "date_reversed",
+          "label": "t:sections.main-list-collections.settings.sort.options__3.label"
+        },
+        {
+          "value": "date",
+          "label": "t:sections.main-list-collections.settings.sort.options__4.label"
+        },
+        {
+          "value": "products_high",
+          "label": "t:sections.main-list-collections.settings.sort.options__5.label"
+        },
+        {
+          "value": "products_low",
+          "label": "t:sections.main-list-collections.settings.sort.options__6.label"
+        }
+      ],
+      "default": "alphabetical",
+      "label": "t:sections.main-list-collections.settings.sort.label"
+    }
+  ]
+}
+{% endschema %}

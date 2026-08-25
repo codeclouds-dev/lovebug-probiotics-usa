@@ -1,0 +1,555 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "hide_page_title": true,
+        "text_alignment": "",
+        "container_width": "full",
+        "max_width": 0,
+        "grid_gutter": "grid-gutter",
+        "color_scheme": "",
+        "top_spacing_mobile": 30,
+        "bottom_spacing_mobile": 80,
+        "top_spacing_desktop": 50,
+        "bottom_spacing_desktop": 100,
+        "bg_color": "",
+        "top_wave_divider": false,
+        "bottom_wave_divider": false,
+        "custom_class": "",
+        "custom_id": ""
+      }
+    },
+    "mfr_core_hero_banner_y7aQUw": {
+      "type": "mfr-core__hero-banner",
+      "blocks": {
+        "heading_9EJrXB": {
+          "type": "heading",
+          "settings": {
+            "heading": "Frequently Asked Questions",
+            "disable_animation": false,
+            "header_style": "h1",
+            "make_xl": "",
+            "highlight_color": "",
+            "underline_color": "",
+            "max_width": 0
+          }
+        },
+        "image_BgWtzn": {
+          "type": "image",
+          "settings": {
+            "image_mobile": "shopify://shop_images/FAQ_hero_mobile_enhanced.png",
+            "image_desktop": "shopify://shop_images/FAQ_hero_desktop_enhanced_1.png",
+            "lazyload_image": false
+          }
+        }
+      },
+      "block_order": [
+        "heading_9EJrXB",
+        "image_BgWtzn"
+      ],
+      "settings": {
+        "disable_entrance_animation": true,
+        "content_alignment": "align-left",
+        "text_alignment": "",
+        "container_width": "",
+        "max_width": 0,
+        "grid_gutter": "",
+        "color_scheme": "",
+        "top_spacing_mobile": 40,
+        "bottom_spacing_mobile": 500,
+        "top_spacing_desktop": 140,
+        "bottom_spacing_desktop": 190,
+        "bg_color": "",
+        "top_wave_divider": false,
+        "bottom_wave_divider": false,
+        "custom_class": "",
+        "custom_id": ""
+      }
+    },
+    "mfr_core_anchor_links_m4cteE": {
+      "type": "mfr-core__anchor-links",
+      "blocks": {
+        "anchor_qJcXQA": {
+          "type": "anchor",
+          "disabled": true,
+          "settings": {
+            "url": "#product-questions",
+            "label": "Product",
+            "color_theme": "primary"
+          }
+        },
+        "anchor_H9fJCM": {
+          "type": "anchor",
+          "disabled": true,
+          "settings": {
+            "url": "#ingredient-questions",
+            "label": "Ingredients",
+            "color_theme": "primary"
+          }
+        },
+        "anchor_QjCC4a": {
+          "type": "anchor",
+          "disabled": true,
+          "settings": {
+            "url": "#shipping-questions",
+            "label": "Shipping",
+            "color_theme": "primary"
+          }
+        },
+        "anchor_wtbgkb": {
+          "type": "anchor",
+          "disabled": true,
+          "settings": {
+            "url": "#account-and-subscription-questions",
+            "label": "Account & Subscription",
+            "color_theme": "primary"
+          }
+        }
+      },
+      "block_order": [
+        "anchor_qJcXQA",
+        "anchor_H9fJCM",
+        "anchor_QjCC4a",
+        "anchor_wtbgkb"
+      ],
+      "settings": {
+        "anchors_title": "",
+        "sticky": true,
+        "text_alignment": "text-center",
+        "container_width": "full",
+        "max_width": 0,
+        "grid_gutter": "",
+        "color_scheme": "",
+        "top_spacing_mobile": 100,
+        "bottom_spacing_mobile": 50,
+        "top_spacing_desktop": 10,
+        "bottom_spacing_desktop": 30,
+        "bg_color": "#fff",
+        "top_wave_divider": true,
+        "bottom_wave_divider": false,
+        "custom_class": "",
+        "custom_id": ""
+      }
+    },
+    "mfr_core_accordion_section_XDtf9M": {
+      "type": "mfr-core__accordion-section",
+      "blocks": {
+        "heading_KqBp7d": {
+          "type": "heading",
+          "settings": {
+            "heading": "Product Questions",
+            "disable_animation": false,
+            "header_style": "h3",
+            "make_xl": "",
+            "highlight_color": "",
+            "underline_color": "",
+            "max_width": 17
+          }
+        },
+        "entry_kfFgL9": {
+          "type": "entry",
+          "settings": {
+            "title": "Which probiotic is right for me? Take our survey!",
+            "caption": "<p>(Okendo)</p>"
+          }
+        },
+        "entry_Rztbyp": {
+          "type": "entry",
+          "settings": {
+            "title": "When should I take my probiotic?",
+            "caption": "<p>The best time to take your probiotics is in the morning, before breakfast, with a cool glass of water. But if you’re not a morning person, (neither are we) it’s better to take your probiotic before a meal rather than after.</p>"
+          }
+        },
+        "entry_XXTrCx": {
+          "type": "entry",
+          "settings": {
+            "title": "Can I take more than one at once?",
+            "caption": "<p>Yes! You can take a combination of supplements you think would work best for your body, as our products complement each other to make your body feel and work its best. As always, check with your doctor before taking any supplements or medications.</p>"
+          }
+        },
+        "entry_w49NH3": {
+          "type": "entry",
+          "settings": {
+            "title": "Are Probiotics safe for children?",
+            "caption": "<p>Absolutely! The first years of life are crucial to the physical and mental development of children.  A child’s microbiome is meant to be seeded during birth as the baby passes through the birth canal.  Between the ages of 6 months and 3 years, the number of different microbial strains in a baby’s tummy increases 10x from 100 to 1,000.  By a child’s third birthday, the gut microbiome stabilizes and closely resembles the microbiome of an adult.  Ensuring your child has the best possible bacterial exposures throughout their childhood help build the foundation of lifelong health. We have developed a full range of probiotics for babies and children so that your child’s gut has protection from day one. As always, check with your doctor before taking any supplements or medications.</p>"
+          }
+        },
+        "entry_DppY8j": {
+          "type": "entry",
+          "settings": {
+            "title": "Are probiotics safe whilst breast feeding?",
+            "caption": "<p>Yes, we recommend our Strong as a Mother ™ as a Post-Natal probiotic.  As always, check with your doctor before taking any supplements or medications.</p>"
+          }
+        },
+        "entry_FcBiQi": {
+          "type": "entry",
+          "settings": {
+            "title": "Are probiotics safe whilst pregnant?",
+            "caption": "<p>Yes, we recommend our Labor of Love ™ as a Pre-Natal probiotic. As always, check with your doctor before taking any supplements or medications.</p>"
+          }
+        },
+        "entry_qe9dnr": {
+          "type": "entry",
+          "settings": {
+            "title": "Do I need to take them everyday?",
+            "caption": "<p>Absolutely. The more regularly you take them the happier your gut will be. As always, check with your doctor before taking any supplements or medications.</p>"
+          }
+        },
+        "entry_UFLARe": {
+          "type": "entry",
+          "settings": {
+            "title": "Do they need to be kept in the fridge?",
+            "caption": "<p>Only if you like them cold! They should be stored in a cool, dry place. All of our probiotics have a 2 year shelf life from time of manufacture.</p>"
+          }
+        },
+        "entry_F8tNYQ": {
+          "type": "entry",
+          "settings": {
+            "title": "Can I get enough probiotics from food alone?",
+            "caption": "<p>No. Your gut is constantly under attack from external factors, and taking probiotics is one way to address this.</p>"
+          }
+        },
+        "entry_i3hWaq": {
+          "type": "entry",
+          "settings": {
+            "title": "Can I take probiotics when I’m on antibiotics?",
+            "caption": "<p>If you want a happy healthy gut, you can take probiotics while on antibiotics! They help balance your gut. As always, check with your doctor before taking any supplements or medications.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "heading_KqBp7d",
+        "entry_kfFgL9",
+        "entry_Rztbyp",
+        "entry_XXTrCx",
+        "entry_w49NH3",
+        "entry_DppY8j",
+        "entry_FcBiQi",
+        "entry_qe9dnr",
+        "entry_UFLARe",
+        "entry_F8tNYQ",
+        "entry_i3hWaq"
+      ],
+      "settings": {
+        "use_as_faq": true,
+        "layout": "rowed",
+        "text_alignment": "",
+        "container_width": "",
+        "max_width": 66,
+        "grid_gutter": "",
+        "color_scheme": "",
+        "top_spacing_mobile": 50,
+        "bottom_spacing_mobile": 40,
+        "top_spacing_desktop": 30,
+        "bottom_spacing_desktop": 70,
+        "bg_color": "",
+        "top_wave_divider": false,
+        "bottom_wave_divider": false,
+        "custom_class": "",
+        "custom_id": "product-questions"
+      }
+    },
+    "mfr_core_accordion_section_6fcPVC": {
+      "type": "mfr-core__accordion-section",
+      "blocks": {
+        "heading_DgAKGH": {
+          "type": "heading",
+          "settings": {
+            "heading": "Ingredient Questions",
+            "disable_animation": false,
+            "header_style": "h3",
+            "make_xl": "",
+            "highlight_color": "",
+            "underline_color": "",
+            "max_width": 17
+          }
+        },
+        "entry_rBNQCH": {
+          "type": "entry",
+          "settings": {
+            "title": "Lorem ipsum dolor sit amet, consectetur adipiscing elit?",
+            "caption": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit?</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In id tortor ex. Fusce scelerisque, nisi a fringilla aliquet. Sed vitae felis in nisi malesuada ultrices. Morbi viverra tellus ut nunc mattis interdum.</p>"
+          }
+        },
+        "entry_9JMUFf": {
+          "type": "entry",
+          "settings": {
+            "title": "Lorem ipsum dolor sit amet, consectetur adipiscing elit?",
+            "caption": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit?</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In id tortor ex. Fusce scelerisque, nisi a fringilla aliquet. Sed vitae felis in nisi malesuada ultrices. Morbi viverra tellus ut nunc mattis interdum.</p>"
+          }
+        },
+        "entry_tk46MG": {
+          "type": "entry",
+          "settings": {
+            "title": "Lorem ipsum dolor sit amet, consectetur adipiscing elit?",
+            "caption": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit?</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In id tortor ex. Fusce scelerisque, nisi a fringilla aliquet. Sed vitae felis in nisi malesuada ultrices. Morbi viverra tellus ut nunc mattis interdum.</p>"
+          }
+        },
+        "entry_bcj6pN": {
+          "type": "entry",
+          "settings": {
+            "title": "Lorem ipsum dolor sit amet, consectetur adipiscing elit?",
+            "caption": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit?</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In id tortor ex. Fusce scelerisque, nisi a fringilla aliquet. Sed vitae felis in nisi malesuada ultrices. Morbi viverra tellus ut nunc mattis interdum.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "heading_DgAKGH",
+        "entry_rBNQCH",
+        "entry_9JMUFf",
+        "entry_tk46MG",
+        "entry_bcj6pN"
+      ],
+      "disabled": true,
+      "settings": {
+        "use_as_faq": true,
+        "layout": "rowed",
+        "text_alignment": "",
+        "container_width": "",
+        "max_width": 66,
+        "grid_gutter": "",
+        "color_scheme": "",
+        "top_spacing_mobile": 50,
+        "bottom_spacing_mobile": 40,
+        "top_spacing_desktop": 30,
+        "bottom_spacing_desktop": 70,
+        "bg_color": "",
+        "top_wave_divider": false,
+        "bottom_wave_divider": false,
+        "custom_class": "",
+        "custom_id": "ingredient-questions"
+      }
+    },
+    "mfr_core_accordion_section_YDtkYQ": {
+      "type": "mfr-core__accordion-section",
+      "blocks": {
+        "heading_8NbGG7": {
+          "type": "heading",
+          "settings": {
+            "heading": "Shipping Questions",
+            "disable_animation": false,
+            "header_style": "h3",
+            "make_xl": "",
+            "highlight_color": "",
+            "underline_color": "",
+            "max_width": 17
+          }
+        },
+        "entry_4qkkct": {
+          "type": "entry",
+          "settings": {
+            "title": "Lorem ipsum dolor sit amet, consectetur adipiscing elit?",
+            "caption": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit?</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In id tortor ex. Fusce scelerisque, nisi a fringilla aliquet. Sed vitae felis in nisi malesuada ultrices. Morbi viverra tellus ut nunc mattis interdum.</p>"
+          }
+        },
+        "entry_TBC6W3": {
+          "type": "entry",
+          "settings": {
+            "title": "Lorem ipsum dolor sit amet, consectetur adipiscing elit?",
+            "caption": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit?</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In id tortor ex. Fusce scelerisque, nisi a fringilla aliquet. Sed vitae felis in nisi malesuada ultrices. Morbi viverra tellus ut nunc mattis interdum.</p>"
+          }
+        },
+        "entry_dPPxCK": {
+          "type": "entry",
+          "settings": {
+            "title": "Lorem ipsum dolor sit amet, consectetur adipiscing elit?",
+            "caption": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit?</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In id tortor ex. Fusce scelerisque, nisi a fringilla aliquet. Sed vitae felis in nisi malesuada ultrices. Morbi viverra tellus ut nunc mattis interdum.</p>"
+          }
+        },
+        "entry_88PJWE": {
+          "type": "entry",
+          "settings": {
+            "title": "Lorem ipsum dolor sit amet, consectetur adipiscing elit?",
+            "caption": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit?</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In id tortor ex. Fusce scelerisque, nisi a fringilla aliquet. Sed vitae felis in nisi malesuada ultrices. Morbi viverra tellus ut nunc mattis interdum.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "heading_8NbGG7",
+        "entry_4qkkct",
+        "entry_TBC6W3",
+        "entry_dPPxCK",
+        "entry_88PJWE"
+      ],
+      "disabled": true,
+      "settings": {
+        "use_as_faq": true,
+        "layout": "rowed",
+        "text_alignment": "",
+        "container_width": "",
+        "max_width": 66,
+        "grid_gutter": "",
+        "color_scheme": "",
+        "top_spacing_mobile": 50,
+        "bottom_spacing_mobile": 40,
+        "top_spacing_desktop": 30,
+        "bottom_spacing_desktop": 70,
+        "bg_color": "",
+        "top_wave_divider": false,
+        "bottom_wave_divider": false,
+        "custom_class": "",
+        "custom_id": "shipping-questions"
+      }
+    },
+    "mfr_core_accordion_section_PHinpi": {
+      "type": "mfr-core__accordion-section",
+      "blocks": {
+        "heading_zTHtxz": {
+          "type": "heading",
+          "settings": {
+            "heading": "Account & Subscription Questions",
+            "disable_animation": false,
+            "header_style": "h3",
+            "make_xl": "",
+            "highlight_color": "",
+            "underline_color": "",
+            "max_width": 17
+          }
+        },
+        "entry_LLHHki": {
+          "type": "entry",
+          "settings": {
+            "title": "Lorem ipsum dolor sit amet, consectetur adipiscing elit?",
+            "caption": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit?</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In id tortor ex. Fusce scelerisque, nisi a fringilla aliquet. Sed vitae felis in nisi malesuada ultrices. Morbi viverra tellus ut nunc mattis interdum.</p>"
+          }
+        },
+        "entry_i3R88d": {
+          "type": "entry",
+          "settings": {
+            "title": "Lorem ipsum dolor sit amet, consectetur adipiscing elit?",
+            "caption": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit?</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In id tortor ex. Fusce scelerisque, nisi a fringilla aliquet. Sed vitae felis in nisi malesuada ultrices. Morbi viverra tellus ut nunc mattis interdum.</p>"
+          }
+        },
+        "entry_M6Mfe3": {
+          "type": "entry",
+          "settings": {
+            "title": "Lorem ipsum dolor sit amet, consectetur adipiscing elit?",
+            "caption": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit?</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In id tortor ex. Fusce scelerisque, nisi a fringilla aliquet. Sed vitae felis in nisi malesuada ultrices. Morbi viverra tellus ut nunc mattis interdum.</p>"
+          }
+        },
+        "entry_78mmPr": {
+          "type": "entry",
+          "settings": {
+            "title": "Lorem ipsum dolor sit amet, consectetur adipiscing elit?",
+            "caption": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit?</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In id tortor ex. Fusce scelerisque, nisi a fringilla aliquet. Sed vitae felis in nisi malesuada ultrices. Morbi viverra tellus ut nunc mattis interdum.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "heading_zTHtxz",
+        "entry_LLHHki",
+        "entry_i3R88d",
+        "entry_M6Mfe3",
+        "entry_78mmPr"
+      ],
+      "disabled": true,
+      "settings": {
+        "use_as_faq": true,
+        "layout": "rowed",
+        "text_alignment": "",
+        "container_width": "",
+        "max_width": 66,
+        "grid_gutter": "",
+        "color_scheme": "",
+        "top_spacing_mobile": 50,
+        "bottom_spacing_mobile": 40,
+        "top_spacing_desktop": 30,
+        "bottom_spacing_desktop": 70,
+        "bg_color": "",
+        "top_wave_divider": false,
+        "bottom_wave_divider": false,
+        "custom_class": "",
+        "custom_id": "account-and-subscription-questions"
+      }
+    },
+    "mfr_core_icon_text_grid_f3eXVT": {
+      "type": "mfr-core__icon-text-grid",
+      "blocks": {
+        "icon_text_ff4fwV": {
+          "type": "icon_text",
+          "settings": {
+            "icon": "shopify://shop_images/bestsellers-icon-min.png",
+            "text": "Bestsellers",
+            "url": "shopify://collections/bestsellers"
+          }
+        },
+        "icon_text_AUcWej": {
+          "type": "icon_text",
+          "settings": {
+            "icon": "shopify://shop_images/what-the-quick-link-new.png",
+            "text": "What The 🤬",
+            "url": "shopify://pages/what-the"
+          }
+        },
+        "icon_text_qeKmaN": {
+          "type": "icon_text",
+          "settings": {
+            "icon": "shopify://shop_images/general-banner-desktop.jpg",
+            "text": "The Gut Bible",
+            "url": "shopify://blogs/news"
+          }
+        },
+        "icon_text_FtBGeh": {
+          "type": "icon_text",
+          "settings": {
+            "icon": "shopify://shop_images/women-icon-min.png",
+            "text": "Women",
+            "url": "shopify://collections/women"
+          }
+        },
+        "icon_text_F8WmtE": {
+          "type": "icon_text",
+          "settings": {
+            "icon": "shopify://shop_images/general-icon-min.png",
+            "text": "General",
+            "url": "shopify://collections/general-health"
+          }
+        }
+      },
+      "block_order": [
+        "icon_text_ff4fwV",
+        "icon_text_AUcWej",
+        "icon_text_qeKmaN",
+        "icon_text_FtBGeh",
+        "icon_text_F8WmtE"
+      ],
+      "settings": {
+        "text_alignment": "text-center",
+        "container_width": "",
+        "max_width": 0,
+        "grid_gutter": "",
+        "color_scheme": "",
+        "top_spacing_mobile": 50,
+        "bottom_spacing_mobile": 80,
+        "top_spacing_desktop": 50,
+        "bottom_spacing_desktop": 120,
+        "bg_color": "#ffffff",
+        "top_wave_divider": false,
+        "bottom_wave_divider": false,
+        "custom_class": "",
+        "custom_id": ""
+      }
+    }
+  },
+  "order": [
+    "main",
+    "mfr_core_hero_banner_y7aQUw",
+    "mfr_core_anchor_links_m4cteE",
+    "mfr_core_accordion_section_XDtf9M",
+    "mfr_core_accordion_section_6fcPVC",
+    "mfr_core_accordion_section_YDtkYQ",
+    "mfr_core_accordion_section_PHinpi",
+    "mfr_core_icon_text_grid_f3eXVT"
+  ]
+}

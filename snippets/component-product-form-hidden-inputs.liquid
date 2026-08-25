@@ -1,0 +1,9 @@
+{% assign product = product %}
+{%- assign current_selling_plan = product.selected_or_first_available_selling_plan_allocation -%}
+
+<input type="hidden" name="id" data-productid="{{ product.id }}" value="{{ product.selected_or_first_available_variant.id }}">
+
+{% comment %} {%- if current_selling_plan -%}
+  {%- assign plan = current_selling_plan.selling_plan -%}
+  <input name="properties[_available_selling_plan]" type="hidden" value="{{ plan.id }}" />
+{%- endif -%} {% endcomment %}

@@ -1,0 +1,1142 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "landing_product_top_AktefQ": {
+      "type": "landing-product-top",
+      "blocks": {
+        "okendo_star_rating_Jg4Dwc": {
+          "type": "shopify://apps/okendo/blocks/star-rating/bb689e69-ea70-4661-8fb7-ad24a2e23c29",
+          "settings": {
+            "product": "{{ product.metafields.custom.original_product_for_reviews.value }}"
+          }
+        },
+        "heading_rbXKbp": {
+          "type": "heading",
+          "settings": {
+            "heading": "{{ product.metafields.mfr_fields.product_card_nice_title.value }}",
+            "heading_below": "",
+            "disable_animation": true,
+            "header_style": "h3",
+            "make_xl": "",
+            "highlight_color": "",
+            "underline_color": "",
+            "max_width": 0
+          }
+        },
+        "metafield_subtitle_WJP6rY": {
+          "type": "metafield_subtitle",
+          "settings": {}
+        },
+        "metafield_description_RAimc8": {
+          "type": "metafield_description",
+          "settings": {}
+        },
+        "text_qqeCym": {
+          "type": "text",
+          "disabled": true,
+          "settings": {
+            "text": "<p><strong>DESIGNED FOR BABIES 0 + MONTHS</strong></p>",
+            "text_style": "regular",
+            "font_family": "",
+            "color": "#96238d",
+            "bold_color": "rgba(0,0,0,0)",
+            "underline_color": "",
+            "max_width": 0,
+            "bottom_spacing": true,
+            "custom_font_size": 0
+          }
+        },
+        "text_qM7zp8": {
+          "type": "text",
+          "disabled": true,
+          "settings": {
+            "text": "<p>Babies have unique needs. Colic, diarrhea, eczema, constipation, digestive upset and weakened immune systems are just a few of the issues driven by probiotic-related deficiencies. Target these with 6 clinically studied baby-specific strains.</p>",
+            "text_style": "regular",
+            "font_family": "",
+            "color": "",
+            "bold_color": "",
+            "underline_color": "",
+            "max_width": 0,
+            "bottom_spacing": true,
+            "custom_font_size": 0
+          }
+        },
+        "icon_grid_4YDtYW": {
+          "type": "icon_grid",
+          "settings": {
+            "use_metafield": true,
+            "text_1": "5 Billion CFU",
+            "text_4": "Multi-Strain Formula",
+            "text_2": "400 IU Vitamin D",
+            "text_5": "No Seed Oil",
+            "text_3": "USDA Organic",
+            "text_6": "Sugar Free"
+          }
+        },
+        "frontrow_6CHbcK": {
+          "type": "frontrow",
+          "settings": {
+            "product_handle": ""
+          }
+        },
+        "subscription_option_KwPPfW": {
+          "type": "subscription_option",
+          "settings": {
+            "index": 0,
+            "one_time_label": "One-Time Purchase",
+            "perk_1": "30 day money-back guarantee!",
+            "perk_2": "No commitment, cancel anytime",
+            "perk_3": "Save <|discount|>% on every order",
+            "perk_4": "Ships <|unit|> every <|days|> days",
+            "enable_toggle_layout": true,
+            "supply_heading": "Select Quantity:",
+            "supply_pill_label": "<|days|> Days",
+            "frequency_heading": "Select Frequency:",
+            "subscription_title": "Subscribe & Save <|discount|>%",
+            "subscription_subtext": "Free Shipping + No Hidden Fees",
+            "one_time_subtext": "Want to save <|discount|>%? Switch to Subscription!",
+            "one_time_perk_1": "FREE shipping on all subscription orders!",
+            "one_time_perk_2": "Save up to <|discount|>% on every order"
+          }
+        },
+        "submit_button_TJHgYx": {
+          "type": "submit_button",
+          "settings": {
+            "show_price": false,
+            "label": "Add To Cart",
+            "bottom_caption": ""
+          }
+        },
+        "form_xNBD9M": {
+          "type": "form",
+          "settings": {}
+        },
+        "accordion_8LAGdy": {
+          "type": "accordion",
+          "settings": {
+            "title": "Description",
+            "content": "{{ product.description }}",
+            "accordion_style": "version_2"
+          }
+        },
+        "accordion_6mYTEW": {
+          "type": "accordion",
+          "settings": {
+            "title": "Supplement Facts",
+            "content": "<p>{{ product.metafields.mfr_fields.product_card_nice_title.value }}<br/><br/>{{ product.metafields.mfr_fields.nutrition_facts_text | metafield_tag }}</p>",
+            "accordion_style": "version_2"
+          }
+        },
+        "accordion_wynCcb": {
+          "type": "accordion",
+          "settings": {
+            "title": "How To Use",
+            "content": "<p>{{ product.metafields.mfr_fields.product_card_how_to_use | metafield_tag }}</p>",
+            "accordion_style": "version_2"
+          }
+        },
+        "dynamic_faqs_nBiefy": {
+          "type": "dynamic_faqs",
+          "settings": {
+            "title": "FAQs",
+            "accordion_style": "version_2"
+          }
+        }
+      },
+      "block_order": [
+        "okendo_star_rating_Jg4Dwc",
+        "heading_rbXKbp",
+        "metafield_subtitle_WJP6rY",
+        "metafield_description_RAimc8",
+        "text_qqeCym",
+        "text_qM7zp8",
+        "icon_grid_4YDtYW",
+        "frontrow_6CHbcK",
+        "subscription_option_KwPPfW",
+        "submit_button_TJHgYx",
+        "form_xNBD9M",
+        "accordion_8LAGdy",
+        "accordion_6mYTEW",
+        "accordion_wynCcb",
+        "dynamic_faqs_nBiefy"
+      ],
+      "name": "LP Product",
+      "settings": {
+        "selected_product": "",
+        "show_carousel_arrows": true,
+        "clinicians_choice_first_slide_only": true,
+        "quantity_label": "Select Quantity",
+        "color_scheme": "",
+        "grid_gutter": "grid-gutter",
+        "top_spacing_mobile": 40,
+        "bottom_spacing_mobile": 100,
+        "top_spacing_desktop": 40,
+        "bottom_spacing_desktop": 160,
+        "hide_dress_up_character": true
+      }
+    },
+    "mfr_product_benefits_4AmHE4": {
+      "type": "mfr-product__benefits",
+      "blocks": {
+        "heading_3QRd4Q": {
+          "type": "heading",
+          "settings": {
+            "heading": "{{ product.metafields.mfr_fields.benefits_title.value }}",
+            "disable_animation": false,
+            "header_style": "h4",
+            "make_xl": "",
+            "highlight_color": "",
+            "underline_color": "",
+            "max_width": 0
+          }
+        },
+        "text_FxnYmx": {
+          "type": "text",
+          "settings": {
+            "text": "<p>{{ product.metafields.mfr_fields.benefits_description | metafield_tag }}</p>",
+            "disable_animation": false,
+            "text_style": "large",
+            "color": "",
+            "max_width": 0
+          }
+        },
+        "geek_switch_6Cpw9N": {
+          "type": "geek_switch",
+          "settings": {}
+        },
+        "benefits_z79dLx": {
+          "type": "benefits",
+          "settings": {
+            "product_benefits": "{{ product.metafields.mfr_fields.benefits_list.value }}"
+          }
+        },
+        "accent_graphic_GiARjn": {
+          "type": "accent_graphic",
+          "settings": {
+            "icon": "shopify://shop_images/Group_39_4x_2_-min.png",
+            "svg_code": "",
+            "visibility": "always",
+            "geek_mode_visibility": "",
+            "value_type": "%",
+            "x_setting": "right",
+            "y_setting": "top",
+            "width_large": 250,
+            "position_x_large": -6,
+            "position_y_large": 10,
+            "width_small": 200,
+            "position_x_small": -10,
+            "position_y_small": -4,
+            "animation": "floating",
+            "rotate": 0,
+            "flip": false
+          }
+        },
+        "accent_graphic_mUaaDY": {
+          "type": "accent_graphic",
+          "settings": {
+            "icon": "shopify://shop_images/Group_70_4x-min.png",
+            "svg_code": "",
+            "visibility": "always",
+            "geek_mode_visibility": "",
+            "value_type": "%",
+            "x_setting": "left",
+            "y_setting": "top",
+            "width_large": 120,
+            "position_x_large": 2,
+            "position_y_large": 80,
+            "width_small": 90,
+            "position_x_small": 0,
+            "position_y_small": 32,
+            "animation": "floating",
+            "rotate": 0,
+            "flip": false
+          }
+        }
+      },
+      "block_order": [
+        "heading_3QRd4Q",
+        "text_FxnYmx",
+        "geek_switch_6Cpw9N",
+        "benefits_z79dLx",
+        "accent_graphic_GiARjn",
+        "accent_graphic_mUaaDY"
+      ],
+      "settings": {
+        "image": "{{ product.metafields.mfr_fields.benefits_image.value }}",
+        "order_mobile": "text-bottom",
+        "order_desktop": "text-right",
+        "vertical_alignment": "center",
+        "image_column_size": "half",
+        "text_alignment": "",
+        "container_width": "",
+        "max_width": 0,
+        "grid_gutter": "",
+        "color_scheme": "scheme-3d6d5546-cc24-4027-ae43-eb909eaaabba",
+        "top_spacing_mobile": 30,
+        "bottom_spacing_mobile": 110,
+        "top_spacing_desktop": 10,
+        "bottom_spacing_desktop": 130,
+        "bg_color": "",
+        "top_wave_divider": true,
+        "bottom_wave_divider": false,
+        "custom_class": "",
+        "custom_id": ""
+      }
+    },
+    "mfr_product_featured_review_iTxBWA": {
+      "type": "mfr-product__featured-review",
+      "blocks": {
+        "accent_graphic_d8k686": {
+          "type": "accent_graphic",
+          "settings": {
+            "icon": "shopify://shop_images/Group_51_4x-min.png",
+            "svg_code": "",
+            "visibility": "always",
+            "value_type": "%",
+            "x_setting": "right",
+            "y_setting": "top",
+            "width_large": 110,
+            "position_x_large": 26,
+            "position_y_large": 18,
+            "width_small": 80,
+            "position_x_small": 10,
+            "position_y_small": 10,
+            "animation": "floating",
+            "rotate": 0,
+            "flip": false
+          }
+        },
+        "accent_graphic_V4LDA4": {
+          "type": "accent_graphic",
+          "settings": {
+            "icon": "shopify://shop_images/Group_9_4x-min.png",
+            "svg_code": "",
+            "visibility": "always",
+            "value_type": "%",
+            "x_setting": "left",
+            "y_setting": "top",
+            "width_large": 110,
+            "position_x_large": 14,
+            "position_y_large": 36,
+            "width_small": 70,
+            "position_x_small": -40,
+            "position_y_small": 60,
+            "animation": "floating",
+            "rotate": 0,
+            "flip": false
+          }
+        },
+        "accent_graphic_eEcPiQ": {
+          "type": "accent_graphic",
+          "settings": {
+            "icon": "shopify://shop_images/cloud-microscope-min.png",
+            "svg_code": "",
+            "visibility": "always",
+            "value_type": "%",
+            "x_setting": "right",
+            "y_setting": "top",
+            "width_large": 240,
+            "position_x_large": 6,
+            "position_y_large": 44,
+            "width_small": 150,
+            "position_x_small": -22,
+            "position_y_small": 80,
+            "animation": "floating",
+            "rotate": 0,
+            "flip": false
+          }
+        }
+      },
+      "block_order": [
+        "accent_graphic_d8k686",
+        "accent_graphic_V4LDA4",
+        "accent_graphic_eEcPiQ"
+      ],
+      "settings": {
+        "featured_review": "{{ product.metafields.mfr_fields.featured_review.value }}",
+        "text_alignment": "text-center",
+        "container_width": "",
+        "max_width": 0,
+        "grid_gutter": "",
+        "color_scheme": "scheme-1",
+        "top_spacing_mobile": 40,
+        "bottom_spacing_mobile": 0,
+        "top_spacing_desktop": 80,
+        "bottom_spacing_desktop": 0,
+        "bg_color": "#E9F4FC",
+        "top_wave_divider": true,
+        "bottom_wave_divider": false,
+        "custom_class": "",
+        "custom_id": ""
+      }
+    },
+    "mfr_lb_video_reviews_carousel_eVakr7": {
+      "type": "mfr-lb__video-reviews-carousel",
+      "blocks": {
+        "small_text_6x7i7J": {
+          "type": "small_text",
+          "settings": {
+            "text": "Testimonials",
+            "small_text_color": ""
+          }
+        },
+        "heading_XzdnyH": {
+          "type": "heading",
+          "settings": {
+            "heading": "Mom & Dad Approved",
+            "disable_animation": false,
+            "header_style": "h2",
+            "make_xl": "",
+            "highlight_color": "",
+            "underline_color": "",
+            "max_width": 0
+          }
+        },
+        "star_rating_KmKTNB": {
+          "type": "star_rating",
+          "settings": {
+            "stars": 5,
+            "label": "Over 2,000+ 5 star reviews"
+          }
+        },
+        "button_xe9Hpb": {
+          "type": "button",
+          "settings": {
+            "button_label": "Read Our Reviews",
+            "button_link": "#reviews",
+            "color_theme": "primary"
+          }
+        }
+      },
+      "block_order": [
+        "small_text_6x7i7J",
+        "heading_XzdnyH",
+        "star_rating_KmKTNB",
+        "button_xe9Hpb"
+      ],
+      "settings": {
+        "video_reviews": "{{ product.metafields.mfr_fields.video_reviews.value }}",
+        "order_mobile": "text-top",
+        "order_desktop": "text-left",
+        "vertical_alignment": "flex-start",
+        "image_column_size": "two-thirds",
+        "text_alignment": "",
+        "container_width": "",
+        "max_width": 0,
+        "grid_gutter": "",
+        "color_scheme": "",
+        "top_spacing_mobile": 70,
+        "bottom_spacing_mobile": 100,
+        "top_spacing_desktop": 70,
+        "bottom_spacing_desktop": 170,
+        "bg_color": "#E9F4FC",
+        "top_wave_divider": false,
+        "bottom_wave_divider": false,
+        "custom_class": "",
+        "custom_id": ""
+      }
+    },
+    "mfr_product_probiotics_q7Gig7": {
+      "type": "mfr-product__probiotics",
+      "blocks": {
+        "small_text_FVHrGM": {
+          "type": "small_text",
+          "settings": {
+            "text": "All Probiotics Are Not Created Equal",
+            "small_text_color": ""
+          }
+        },
+        "heading_YrJHmR": {
+          "type": "heading",
+          "settings": {
+            "heading": "The [highlight]Probiotic[/highlight] Dream Team",
+            "disable_animation": false,
+            "header_style": "h1",
+            "make_xl": "",
+            "highlight_color": "#f7c127",
+            "underline_color": "",
+            "max_width": 41
+          }
+        },
+        "heading_PWRYCK": {
+          "type": "heading",
+          "settings": {
+            "heading": "{{ product.metafields.mfr_fields.pdp_probiotic_description.value }}",
+            "disable_animation": false,
+            "header_style": "h5",
+            "make_xl": "",
+            "highlight_color": "",
+            "underline_color": "",
+            "max_width": 0
+          }
+        },
+        "text_9bn7qK": {
+          "type": "text",
+          "settings": {
+            "text": "<p>The human body harbors trillions of microorganisms, collectively known as the microbiota, which outnumber human cells and contribute approximately 99% of the genetic material in the body. This vast microbial ecosystem plays a crucial role in regulating physiological processes, including digestion, immune function, metabolism, and even neurobiology. Emerging research highlights the intricate interactions between the microbiome and host health, demonstrating its influence on disease susceptibility, immune modulation, and overall homeostasis. Your microbiome is unique to you!</p>",
+            "disable_animation": false,
+            "text_style": "xlarge",
+            "color": "",
+            "max_width": 46
+          }
+        },
+        "accent_graphic_NVyarD": {
+          "type": "accent_graphic",
+          "settings": {
+            "icon": "shopify://shop_images/Group_103_4x_2_-min.png",
+            "svg_code": "",
+            "visibility": "always",
+            "value_type": "%",
+            "x_setting": "left",
+            "y_setting": "top",
+            "width_large": 50,
+            "position_x_large": 10,
+            "position_y_large": 8,
+            "width_small": 40,
+            "position_x_small": 0,
+            "position_y_small": 40,
+            "animation": "rotating",
+            "rotate": 0,
+            "flip": false
+          }
+        },
+        "accent_graphic_wb3jcP": {
+          "type": "accent_graphic",
+          "settings": {
+            "icon": "shopify://shop_images/Group_3_1.svg",
+            "svg_code": "",
+            "visibility": "always",
+            "value_type": "%",
+            "x_setting": "right",
+            "y_setting": "top",
+            "width_large": 110,
+            "position_x_large": 18,
+            "position_y_large": 8,
+            "width_small": 70,
+            "position_x_small": -6,
+            "position_y_small": 14,
+            "animation": "floating",
+            "rotate": 0,
+            "flip": false
+          }
+        },
+        "accent_graphic_AUnXjq": {
+          "type": "accent_graphic",
+          "settings": {
+            "icon": "shopify://shop_images/Group_3_4x_426e8116-3d68-4a77-b680-e3735d66176d.svg",
+            "svg_code": "",
+            "visibility": "always",
+            "value_type": "%",
+            "x_setting": "left",
+            "y_setting": "top",
+            "width_large": 130,
+            "position_x_large": 16,
+            "position_y_large": 18,
+            "width_small": 100,
+            "position_x_small": -10,
+            "position_y_small": 22,
+            "animation": "floating",
+            "rotate": 0,
+            "flip": false
+          }
+        },
+        "accent_graphic_jgdrkf": {
+          "type": "accent_graphic",
+          "settings": {
+            "icon": "shopify://shop_images/Group_103_4x_2_-min.png",
+            "svg_code": "",
+            "visibility": "always",
+            "value_type": "%",
+            "x_setting": "right",
+            "y_setting": "top",
+            "width_large": 50,
+            "position_x_large": 8,
+            "position_y_large": 32,
+            "width_small": 40,
+            "position_x_small": 4,
+            "position_y_small": 32,
+            "animation": "rotating",
+            "rotate": 0,
+            "flip": false
+          }
+        }
+      },
+      "block_order": [
+        "small_text_FVHrGM",
+        "heading_YrJHmR",
+        "heading_PWRYCK",
+        "text_9bn7qK",
+        "accent_graphic_NVyarD",
+        "accent_graphic_wb3jcP",
+        "accent_graphic_AUnXjq",
+        "accent_graphic_jgdrkf"
+      ],
+      "settings": {
+        "probiotics": "{{ product.metafields.mfr_fields.probiotics.value }}",
+        "text_alignment": "text-center",
+        "container_width": "full",
+        "max_width": 0,
+        "grid_gutter": "",
+        "color_scheme": "scheme-3d6d5546-cc24-4027-ae43-eb909eaaabba",
+        "top_spacing_mobile": 50,
+        "bottom_spacing_mobile": 30,
+        "top_spacing_desktop": 100,
+        "bottom_spacing_desktop": 70,
+        "bg_color": "",
+        "top_wave_divider": true,
+        "bottom_wave_divider": false,
+        "custom_class": "",
+        "custom_id": ""
+      }
+    },
+    "mfr_product_shakey_shakey_q4QRtY": {
+      "type": "mfr-product__shakey-shakey",
+      "blocks": {
+        "heading_9mGCp8": {
+          "type": "heading",
+          "settings": {
+            "heading": "Shakey Shakey",
+            "disable_animation": false,
+            "header_style": "h2",
+            "make_xl": "",
+            "highlight_color": "",
+            "underline_color": "",
+            "max_width": 0
+          }
+        },
+        "text_hwRzWD": {
+          "type": "text",
+          "settings": {
+            "text": "<p>It's What's Inside That Counts</p>",
+            "disable_animation": false,
+            "text_style": "large",
+            "color": "",
+            "max_width": 0
+          }
+        },
+        "text_list_entry_8yqXpm": {
+          "type": "text_list_entry",
+          "settings": {}
+        },
+        "nutrition_facts_TfBkxE": {
+          "type": "nutrition_facts",
+          "settings": {
+            "button_label": "Supplement Facts & Strains",
+            "button_link": "#nutrition-facts-popup",
+            "color_theme": "secondary"
+          }
+        }
+      },
+      "block_order": [
+        "heading_9mGCp8",
+        "text_hwRzWD",
+        "text_list_entry_8yqXpm",
+        "nutrition_facts_TfBkxE"
+      ],
+      "settings": {
+        "text_alignment": "",
+        "container_width": "",
+        "max_width": 0,
+        "grid_gutter": "",
+        "color_scheme": "scheme-3d6d5546-cc24-4027-ae43-eb909eaaabba",
+        "top_spacing_mobile": 70,
+        "bottom_spacing_mobile": 110,
+        "top_spacing_desktop": 70,
+        "bottom_spacing_desktop": 200,
+        "bg_color": "",
+        "top_wave_divider": false,
+        "bottom_wave_divider": false,
+        "custom_class": "",
+        "custom_id": ""
+      }
+    },
+    "17563919155395e506": {
+      "type": "apps",
+      "blocks": {
+        "rebuy_personalization_engine_rebuy_widget_BRDBbp": {
+          "type": "shopify://apps/rebuy-personalization-engine/blocks/rebuy-widget/a26ae9b9-933b-40bf-bbc6-bf1220bbc4dc",
+          "settings": {
+            "enabled": true,
+            "id": "232477",
+            "product_id_enabled": true,
+            "collection_id_enabled": false
+          }
+        }
+      },
+      "block_order": [
+        "rebuy_personalization_engine_rebuy_widget_BRDBbp"
+      ],
+      "settings": {
+        "text_alignment": "text-center",
+        "container_width": "full",
+        "max_width": 0,
+        "grid_gutter": "",
+        "color_scheme": "",
+        "top_spacing_mobile": 100,
+        "bottom_spacing_mobile": 100,
+        "top_spacing_desktop": 100,
+        "bottom_spacing_desktop": 100,
+        "bg_color": "",
+        "top_wave_divider": false,
+        "bottom_wave_divider": false,
+        "custom_class": "",
+        "custom_id": ""
+      }
+    },
+    "mfr_core_text_section_4V7X4F": {
+      "type": "mfr-core__text-section",
+      "blocks": {
+        "small_text_8PCKkB": {
+          "type": "small_text",
+          "settings": {
+            "text": "All Probiotics Are Not Created Equal",
+            "small_text_color": ""
+          }
+        },
+        "heading_bUnyU6": {
+          "type": "heading",
+          "settings": {
+            "heading": "Good vs. Evil",
+            "disable_animation": false,
+            "header_style": "h1",
+            "make_xl": "",
+            "highlight_color": "",
+            "underline_color": "",
+            "max_width": 0
+          }
+        },
+        "image_cEX4yz": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Group_54_4x-min_a806ea12-e6f4-484f-b2ab-d6f72141e46c.png",
+            "image_width": 617
+          }
+        },
+        "image_eHA9zh": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/comparison-chart-desktop.png",
+            "image_mobile": "shopify://shop_images/comparison-chart-mobile.png",
+            "image_width": 790
+          }
+        },
+        "accent_graphic_36wPka": {
+          "type": "accent_graphic",
+          "settings": {
+            "icon": "shopify://shop_images/1_copy_4x-min.png",
+            "svg_code": "",
+            "visibility": "desktop_only",
+            "geek_mode_visibility": "",
+            "value_type": "%",
+            "x_setting": "left",
+            "y_setting": "top",
+            "width_large": 170,
+            "position_x_large": 14,
+            "position_y_large": 2,
+            "width_small": 150,
+            "position_x_small": 10,
+            "position_y_small": 10,
+            "animation": "floating",
+            "rotate": 0,
+            "flip": false
+          }
+        },
+        "accent_graphic_MpDTTQ": {
+          "type": "accent_graphic",
+          "settings": {
+            "icon": "shopify://shop_images/2_4x-min_2.png",
+            "svg_code": "",
+            "visibility": "desktop_only",
+            "geek_mode_visibility": "",
+            "value_type": "%",
+            "x_setting": "right",
+            "y_setting": "top",
+            "width_large": 160,
+            "position_x_large": 10,
+            "position_y_large": 16,
+            "width_small": 150,
+            "position_x_small": 10,
+            "position_y_small": 10,
+            "animation": "floating",
+            "rotate": 0,
+            "flip": false
+          }
+        },
+        "accent_graphic_aXAFgg": {
+          "type": "accent_graphic",
+          "settings": {
+            "icon": "shopify://shop_images/2_4x_7055513d-8d52-4fba-a848-9300d764206c.png",
+            "svg_code": "",
+            "visibility": "desktop_only",
+            "geek_mode_visibility": "",
+            "value_type": "%",
+            "x_setting": "left",
+            "y_setting": "top",
+            "width_large": 90,
+            "position_x_large": -40,
+            "position_y_large": 52,
+            "width_small": 150,
+            "position_x_small": 10,
+            "position_y_small": 10,
+            "animation": "floating",
+            "rotate": 0,
+            "flip": false
+          }
+        },
+        "accent_graphic_9E7WY3": {
+          "type": "accent_graphic",
+          "settings": {
+            "icon": "shopify://shop_images/2_4x-min_4.png",
+            "svg_code": "",
+            "visibility": "desktop_only",
+            "geek_mode_visibility": "",
+            "value_type": "%",
+            "x_setting": "right",
+            "y_setting": "top",
+            "width_large": 150,
+            "position_x_large": -50,
+            "position_y_large": 74,
+            "width_small": 150,
+            "position_x_small": 10,
+            "position_y_small": 10,
+            "animation": "floating",
+            "rotate": 0,
+            "flip": false
+          }
+        },
+        "accent_graphic_BBL3gq": {
+          "type": "accent_graphic",
+          "disabled": true,
+          "settings": {
+            "icon": "shopify://shop_images/3_4x-min.png",
+            "svg_code": "",
+            "visibility": "desktop_only",
+            "geek_mode_visibility": "",
+            "value_type": "%",
+            "x_setting": "left",
+            "y_setting": "top",
+            "width_large": 100,
+            "position_x_large": 14,
+            "position_y_large": 100,
+            "width_small": 150,
+            "position_x_small": 10,
+            "position_y_small": 10,
+            "animation": "rotating",
+            "rotate": 0,
+            "flip": false
+          }
+        }
+      },
+      "block_order": [
+        "small_text_8PCKkB",
+        "heading_bUnyU6",
+        "image_cEX4yz",
+        "image_eHA9zh",
+        "accent_graphic_36wPka",
+        "accent_graphic_MpDTTQ",
+        "accent_graphic_aXAFgg",
+        "accent_graphic_9E7WY3",
+        "accent_graphic_BBL3gq"
+      ],
+      "settings": {
+        "hide_text_buttons_blocks": false,
+        "text_block_size": "",
+        "icon_text_block_layout": "",
+        "text_alignment": "center-align-text",
+        "container_width": "",
+        "max_width": 0,
+        "grid_gutter": "grid-gutter",
+        "color_scheme": "",
+        "top_spacing_mobile": 40,
+        "bottom_spacing_mobile": 100,
+        "top_spacing_desktop": 60,
+        "bottom_spacing_desktop": 170,
+        "bg_color": "",
+        "top_wave_divider": true,
+        "bottom_wave_divider": false,
+        "custom_class": "",
+        "custom_id": ""
+      }
+    },
+    "mfr_rebuy_recommendation_carousel_xHKWMq": {
+      "type": "mfr-rebuy__recommendation-carousel",
+      "blocks": {
+        "small_text_xmYtay": {
+          "type": "small_text",
+          "settings": {
+            "text": "Liked This?",
+            "small_text_color": ""
+          }
+        },
+        "heading_kdNUM8": {
+          "type": "heading",
+          "settings": {
+            "heading": "You Might Like These As Well!",
+            "disable_animation": false,
+            "header_style": "h2",
+            "make_xl": "",
+            "highlight_color": "",
+            "underline_color": "",
+            "max_width": 0
+          }
+        }
+      },
+      "block_order": [
+        "small_text_xmYtay",
+        "heading_kdNUM8"
+      ],
+      "disabled": true,
+      "settings": {
+        "api_key": "4ea1258d24112df157c6efaf15abef7cc0410894",
+        "endpoint_id": "206821",
+        "products": [
+          "advanced-strength-daily",
+          "advanced-strength-daily-testing",
+          "yeast-is-a-beast-uk",
+          "baby-probiotics-ages-6-12-months",
+          "baby-probiotic-drops",
+          "womens-health-probiotic",
+          "heres-the-skinny",
+          "immune-support-probiotic",
+          "infant-probiotics-ages-0-6-months",
+          "little-ones-for-kids-4",
+          "kids-probiotic-little-ones-testing",
+          "kids-probiotic-organic-gummies",
+          "kids-probiotic-organic-gummies-testing",
+          "kids-probiotic-chewable",
+          "postnatal-probiotic",
+          "prenatal-probiotic",
+          "toddler-probiotic-ages-1-4",
+          "womens-health-probiotic-testing",
+          "yeast-is-a-beast"
+        ],
+        "text_alignment": "text-center",
+        "container_width": "full",
+        "max_width": 0,
+        "grid_gutter": "",
+        "color_scheme": "",
+        "top_spacing_mobile": 40,
+        "bottom_spacing_mobile": 120,
+        "top_spacing_desktop": 60,
+        "bottom_spacing_desktop": 170,
+        "bg_color": "",
+        "top_wave_divider": false,
+        "bottom_wave_divider": false,
+        "custom_class": "",
+        "custom_id": ""
+      }
+    },
+    "mfr_product_reviews_zUiGGJ": {
+      "type": "mfr-product__reviews",
+      "blocks": {
+        "heading_BURapB": {
+          "type": "heading",
+          "settings": {
+            "heading": "Trust Your Gut...[br]And Our Reviews!",
+            "disable_animation": false,
+            "header_style": "h2",
+            "make_xl": "",
+            "highlight_color": "",
+            "underline_color": "",
+            "max_width": 0
+          }
+        },
+        "okendo_reviews_widget_bWMFWc": {
+          "type": "shopify://apps/okendo/blocks/reviews-widget/bb689e69-ea70-4661-8fb7-ad24a2e23c29",
+          "settings": {
+            "product": "{{ product.metafields.custom.original_product_for_reviews.value }}",
+            "widget_type": "reviews_widget"
+          }
+        }
+      },
+      "block_order": [
+        "heading_BURapB",
+        "okendo_reviews_widget_bWMFWc"
+      ],
+      "custom_css": [
+        ".section-content .inner {display: initial;}"
+      ],
+      "settings": {
+        "is_centered": true,
+        "color_scheme": "",
+        "is_full_width": true,
+        "top_spacing_mobile": 20,
+        "bottom_spacing_mobile": 50,
+        "top_spacing_desktop": 100,
+        "bottom_spacing_desktop": 150,
+        "bg_color": "#e9f4fc",
+        "top_wave_divider": true,
+        "bottom_wave_divider": false,
+        "custom_class": "",
+        "custom_id": ""
+      }
+    },
+    "mfr_core_accordion_section_jqQkEj": {
+      "type": "mfr-core__accordion-section",
+      "blocks": {
+        "small_text_kUmpcU": {
+          "type": "small_text",
+          "settings": {
+            "text": "Got more questions?",
+            "small_text_color": ""
+          }
+        },
+        "heading_zCh7Hc": {
+          "type": "heading",
+          "settings": {
+            "heading": "Frequently Asked Questions",
+            "disable_animation": false,
+            "header_style": "h2",
+            "make_xl": "",
+            "highlight_color": "",
+            "underline_color": "",
+            "max_width": 0
+          }
+        },
+        "entry_yDVVzh": {
+          "type": "entry",
+          "repeater": "{{ product.metafields.mfr_fields.faqs.value }}",
+          "settings": {
+            "title": "{{ block.repeater.question.value }}",
+            "caption": "{{ block.repeater.answer | metafield_tag }}"
+          }
+        },
+        "accent_graphic_frmqXX": {
+          "type": "accent_graphic",
+          "settings": {
+            "icon": "shopify://shop_images/Group_70_4x-min.png",
+            "svg_code": "",
+            "visibility": "always",
+            "value_type": "%",
+            "x_setting": "right",
+            "y_setting": "top",
+            "width_large": 120,
+            "position_x_large": 10,
+            "position_y_large": 10,
+            "width_small": 60,
+            "position_x_small": 8,
+            "position_y_small": 6,
+            "animation": "none",
+            "rotate": 0,
+            "flip": false
+          }
+        }
+      },
+      "block_order": [
+        "small_text_kUmpcU",
+        "heading_zCh7Hc",
+        "entry_yDVVzh",
+        "accent_graphic_frmqXX"
+      ],
+      "settings": {
+        "use_as_faq": false,
+        "accordion_style": "version_2",
+        "layout": "",
+        "text_alignment": "text-center",
+        "container_width": "",
+        "max_width": 0,
+        "grid_gutter": "",
+        "color_scheme": "",
+        "top_spacing_mobile": 40,
+        "bottom_spacing_mobile": 20,
+        "top_spacing_desktop": 50,
+        "bottom_spacing_desktop": 40,
+        "bg_color": "",
+        "top_wave_divider": true,
+        "bottom_wave_divider": false,
+        "custom_class": "",
+        "custom_id": ""
+      }
+    },
+    "mfr_core_icon_text_grid_f3eXVT": {
+      "type": "mfr-core__icon-text-grid",
+      "blocks": {
+        "icon_text_ff4fwV": {
+          "type": "icon_text",
+          "settings": {
+            "icon": "shopify://shop_images/bestsellers-icon-min.png",
+            "text": "Bestsellers",
+            "url": "shopify://collections/bestsellers"
+          }
+        },
+        "icon_text_AUcWej": {
+          "type": "icon_text",
+          "settings": {
+            "icon": "shopify://shop_images/babies-icon-min.png",
+            "text": "Babies",
+            "url": "shopify://collections/newborn-4"
+          }
+        },
+        "icon_text_qeKmaN": {
+          "type": "icon_text",
+          "settings": {
+            "icon": "shopify://shop_images/kids-icon-min.png",
+            "text": "Kids",
+            "url": "shopify://collections/for-kids"
+          }
+        },
+        "icon_text_FtBGeh": {
+          "type": "icon_text",
+          "settings": {
+            "icon": "shopify://shop_images/women-icon-min.png",
+            "text": "Women",
+            "url": "shopify://collections/women"
+          }
+        },
+        "icon_text_F8WmtE": {
+          "type": "icon_text",
+          "settings": {
+            "icon": "shopify://shop_images/general-icon-min.png",
+            "text": "General",
+            "url": "shopify://collections/general-health"
+          }
+        }
+      },
+      "block_order": [
+        "icon_text_ff4fwV",
+        "icon_text_AUcWej",
+        "icon_text_qeKmaN",
+        "icon_text_FtBGeh",
+        "icon_text_F8WmtE"
+      ],
+      "settings": {
+        "text_alignment": "text-center",
+        "container_width": "",
+        "max_width": 0,
+        "grid_gutter": "",
+        "color_scheme": "",
+        "top_spacing_mobile": 20,
+        "bottom_spacing_mobile": 80,
+        "top_spacing_desktop": 40,
+        "bottom_spacing_desktop": 120,
+        "bg_color": "",
+        "top_wave_divider": false,
+        "bottom_wave_divider": false,
+        "custom_class": "",
+        "custom_id": ""
+      }
+    }
+  },
+  "order": [
+    "landing_product_top_AktefQ",
+    "mfr_product_benefits_4AmHE4",
+    "mfr_product_featured_review_iTxBWA",
+    "mfr_lb_video_reviews_carousel_eVakr7",
+    "mfr_product_probiotics_q7Gig7",
+    "mfr_product_shakey_shakey_q4QRtY",
+    "17563919155395e506",
+    "mfr_core_text_section_4V7X4F",
+    "mfr_rebuy_recommendation_carousel_xHKWMq",
+    "mfr_product_reviews_zUiGGJ",
+    "mfr_core_accordion_section_jqQkEj",
+    "mfr_core_icon_text_grid_f3eXVT"
+  ]
+}

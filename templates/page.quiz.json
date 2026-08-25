@@ -1,0 +1,111 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "mfr_core_text_section_TWx9iB": {
+      "type": "mfr-core__text-section",
+      "blocks": {
+        "heading_Hn3ggd": {
+          "type": "heading",
+          "settings": {
+            "heading": "{{ page.title }}",
+            "disable_animation": false,
+            "header_style": "h1",
+            "make_xl": "",
+            "highlight_color": "",
+            "underline_color": "",
+            "max_width": 0
+          }
+        }
+      },
+      "block_order": [
+        "heading_Hn3ggd"
+      ],
+      "disabled": true,
+      "settings": {
+        "hide_text_buttons_blocks": false,
+        "text_block_size": "",
+        "icon_text_block_layout": "",
+        "text_alignment": "center-align-text",
+        "container_width": "",
+        "max_width": 0,
+        "grid_gutter": "grid-gutter",
+        "color_scheme": "",
+        "top_spacing_mobile": 100,
+        "bottom_spacing_mobile": 30,
+        "top_spacing_desktop": 100,
+        "bottom_spacing_desktop": 50,
+        "bg_color": "",
+        "top_wave_divider": false,
+        "bottom_wave_divider": false,
+        "custom_class": "",
+        "custom_id": ""
+      }
+    },
+    "main": {
+      "type": "main-page-quiz",
+      "disabled": true,
+      "settings": {
+        "hide_page_title": true,
+        "text_alignment": "",
+        "container_width": "full",
+        "max_width": 0,
+        "grid_gutter": "grid-gutter",
+        "color_scheme": "",
+        "top_spacing_mobile": 30,
+        "bottom_spacing_mobile": 80,
+        "top_spacing_desktop": 50,
+        "bottom_spacing_desktop": 100,
+        "bg_color": "",
+        "top_wave_divider": false,
+        "bottom_wave_divider": false,
+        "custom_class": "",
+        "custom_id": ""
+      }
+    },
+    "177021074263047234": {
+      "type": "apps",
+      "blocks": {
+        "okendo_quizzes_widget_Gdw867": {
+          "type": "shopify://apps/okendo/blocks/quizzes-widget/bb689e69-ea70-4661-8fb7-ad24a2e23c29",
+          "settings": {
+            "channel_quiz_id": "63195744-6ff3-474c-a0d8-c02d28c6e9df",
+            "full_screen": true,
+            "header_offset": 0
+          }
+        }
+      },
+      "block_order": [
+        "okendo_quizzes_widget_Gdw867"
+      ],
+      "settings": {
+        "text_alignment": "text-center",
+        "container_width": "full",
+        "max_width": 0,
+        "grid_gutter": "",
+        "color_scheme": "",
+        "top_spacing_mobile": 100,
+        "bottom_spacing_mobile": 100,
+        "top_spacing_desktop": 100,
+        "bottom_spacing_desktop": 100,
+        "bg_color": "",
+        "top_wave_divider": false,
+        "bottom_wave_divider": false,
+        "custom_class": "",
+        "custom_id": ""
+      }
+    }
+  },
+  "order": [
+    "mfr_core_text_section_TWx9iB",
+    "main",
+    "177021074263047234"
+  ]
+}

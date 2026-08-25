@@ -1,0 +1,920 @@
+{%- comment -%}
+--------------------------------------
+assign section settings to variables
+--------------------------------------
+{%- endcomment -%}
+
+{% render 'style-tags__section', asset_file_name: "mfr-rebuy__recommendation-carousel.css" %}
+{%- assign text_alignment = section.settings.text_alignment -%}
+{%- assign container_width = section.settings.container_width -%}
+{%- assign max_width = section.settings.max_width -%}
+{%- assign grid_gutter = section.settings.grid_gutter -%}
+{%- assign color_theme = section.settings.color_theme -%}
+{%- assign custom_class = section.settings.custom_class -%}
+
+{%- assign section_id = section.settings.custom_id | default: section.id -%}
+{% render 'renderer__color-scheme', name: "section", color_scheme: section.settings.color_scheme, selector: ".shopify-section", section_id: section_id %}
+
+{%- if max_width != 0 and container_width == "" -%}
+  {%- capture max_width_style -%}
+    style="max-width: {{ max_width }}rem;" 
+  {%- endcapture -%}
+{%- endif -%}
+
+
+
+{% if section.settings.text_alignment != blank %}
+  {% assign content_alignment = "align-center" %}
+{% else %}
+  {% assign content_alignment = "" %}
+{% endif %}
+
+{% assign icons = section.blocks | where: "type", "icon" %}
+{% assign small_texts = section.blocks | where: "type", "small_text" %}
+{% assign headings = section.blocks | where: "type", "heading" %}
+{% assign texts = section.blocks | where: "type", "text" %}
+{% assign buttons = section.blocks | where: "type", "button" %}
+
+{% capture spacer %}
+  --top-spacing-mobile: {{ section.settings.top_spacing_mobile }}px;
+  --bottom-spacing-mobile: {{ section.settings.bottom_spacing_mobile }}px;
+  --top-spacing-desktop: {{ section.settings.top_spacing_desktop }}px;
+  --bottom-spacing-desktop: {{ section.settings.bottom_spacing_desktop }}px;
+{% endcapture %}
+
+{%- capture badge_svg -%}
+  <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="74" height="74">
+    <path fill="#2B3990" d="M33.629955 67.456078L30.672626 68.829697C27.175043 70.454247 23.022377 68.942802 21.387314 65.450119L20.004812 62.496933C19.005775 60.362869 17.116732 58.777771 14.841607 58.164486L11.693217 57.315804C7.9696689 56.31208 5.7600813 52.484962 6.7526054 48.758415L7.5918193 45.607487C8.1982613 43.330528 7.77005 40.902023 6.4214158 38.969799L4.5551319 36.295921C2.3479095 33.133575 3.1152914 28.781538 6.2709885 26.564817L8.9392405 24.690504C10.867402 23.336067 12.100388 21.200474 12.309284 18.853416L12.598361 15.605487C12.940248 11.764213 16.325533 8.9236212 20.167818 9.2539587L23.416603 9.5332699C25.764275 9.7351093 28.081532 8.8916979 29.750214 7.228025L32.059387 4.9257808C34.790413 2.202955 39.209587 2.202955 41.940613 4.9257808L44.249786 7.228025C45.918468 8.8916979 48.235725 9.7351093 50.583397 9.5332699L53.832184 9.2539587C57.674465 8.9236212 61.059753 11.764213 61.401638 15.605487L61.690716 18.853416C61.899612 21.200474 63.132599 23.336067 65.06076 24.690504L67.729012 26.564817C70.884712 28.781538 71.652092 33.133575 69.44487 36.295921L67.578583 38.969799C66.22995 40.902023 65.801735 43.330528 66.40818 45.607487L67.247391 48.758415C68.239922 52.484962 66.030334 56.31208 62.306782 57.315804L59.158394 58.164486C56.88327 58.777771 54.994225 60.362869 53.995186 62.496933L52.612686 65.450119C50.977623 68.942802 46.824955 70.454247 43.327374 68.829697L40.370045 67.456078C38.232986 66.463463 35.767014 66.463463 33.629955 67.456078Z" fill-rule="evenodd"/>
+  </svg>
+{%- endcapture -%}
+
+{% comment %}
+  You Might Like These As Well!
+ 
+{% endcomment %}
+{% capture custom_section_content %}
+  <div class="rebuy-recommendations carousel__slides"
+    x-data='{
+      getTag(tags) {
+        if( tags.includes("best-seller") ) {
+          return "Best Seller";
+        } else if( tags.includes("new") ) {
+          return "New";
+        } else if( tags.includes("coming-soon") ) {
+          return "Coming Soon";
+        } else if( tags.includes("limited-edition") ) {
+          return "Limited Edition";
+        } else if( tags.includes("trending") ) {
+          return "Trending";
+        } else if( tags.includes("final-sale") ) {
+          return "Final Sale";
+        } else {
+          return false;
+        }
+      }
+    }'>
+    <template x-for='(product, index) in products'>
+      <div class="rebuy-recommendations__entry carousel__item"
+        data-inview
+        x-data='{
+          tag: getTag(product.tags)
+        }'>
+        <div :id='"product-card--" + product.id'
+          x-data='{
+            metafields: product.metafields.reduce((acc, item) => {
+              acc[item.key] = item.value;
+              return acc;
+            }, {})
+          }'
+          class="product-card"
+          :style='`--product-card-color:${metafields.product_card_accent_color};`'>
+          <div class="product-badge"
+            x-cloak
+            x-show='tag'>
+            {% render 'component__svg-encoder',
+              svg_code: badge_svg,
+              width: 74,
+              alt: "badge icon" %}
+            <span x-text='tag'></span>
+          </div>
+  
+          <div class="product-card__media">
+            <a :href='product.link' class="product-card__images no-hover"
+              :title='`Images for ${product.title}`'
+              :aria-label='`Images for ${product.title}`'>
+              <div class="product-card__main-image">
+                <img 
+                  x-data='{
+                    image: getProductImage(product.id).mainProductImage
+                  }'
+                  :src='image.src' 
+                  width="420"
+                  height="420"
+                  :height='image.width ? `${420 * (image.height / image.width)}px` : ""'
+                  :alt='image.alt'
+                  loading="lazy">
+              </div>
+              <template x-if='metafields.product_card_secondary_image'>
+                <div class="product-card__secondary-image"
+                  x-show='metafields.product_card_secondary_image'>
+                  <img 
+                    x-data='{
+                      image: getProductImage(product.id).secondaryProductImage
+                    }'
+                    :src='image.src' 
+                    width="420"
+                    height="420"
+                    :height='image.width ? `${420 * (image.height / image.width)}px` : ""'
+                    :alt='image.alt'
+                    loading="lazy">
+                </div>
+              </template>
+              <span class="product-card__subscription-message"
+                x-data='{
+                  isDark(element) {
+                    const bgColor = metafields.product_card_accent_color ?? "#E50695";
+                    const colorInstance = tinycolor(bgColor);
+                    const darkThreshold = 0.5;
+                    const luminance = colorInstance.getLuminance();
+                    
+                    return luminance < darkThreshold;
+                  }
+                }'
+                x-init='
+                  $el.style.color = isDark($el) ? "#fff" : "#2B3990";
+                '>
+                Subscribe & Save 10%
+                {% capture arrow_svg %}
+                  <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20">
+                    <path fill="white" d="M20 10Q20 10.245486 19.987957 10.490677Q19.97591 10.735868 19.951849 10.980172Q19.927786 11.224476 19.891764 11.467304Q19.855743 11.710133 19.807852 11.950903Q19.75996 12.191671 19.70031 12.429801Q19.640663 12.667931 19.569403 12.902846Q19.498142 13.137762 19.41544 13.368898Q19.332737 13.600033 19.238794 13.826833Q19.144852 14.053633 19.039892 14.275549Q18.934933 14.497466 18.819212 14.713966Q18.703491 14.930466 18.577284 15.141026Q18.451078 15.351585 18.314693 15.5557Q18.178308 15.759815 18.032074 15.956991Q17.885838 16.154167 17.730104 16.343931Q17.574369 16.533695 17.40951 16.715588Q17.244652 16.897482 17.071068 17.071068Q16.897482 17.244652 16.71559 17.409512Q16.533695 17.574371 16.343933 17.730106Q16.154169 17.885841 15.956992 18.032076Q15.759815 18.17831 15.5557 18.314695Q15.351585 18.45108 15.141026 18.577286Q14.930466 18.703491 14.713966 18.819212Q14.497466 18.934933 14.27555 19.039892Q14.053633 19.144852 13.826834 19.238794Q13.600034 19.332737 13.368897 19.41544Q13.137762 19.498142 12.902846 19.569403Q12.667931 19.640663 12.429801 19.700314Q12.191671 19.75996 11.950903 19.807854Q11.710133 19.855745 11.467304 19.891766Q11.224476 19.927788 10.980172 19.951849Q10.735868 19.97591 10.490677 19.987955Q10.245486 20 10 20Q9.7545137 20 9.5093231 19.987955Q9.2641325 19.97591 9.0198288 19.951849Q8.7755241 19.927786 8.5326948 19.891764Q8.2898655 19.855743 8.0490961 19.807852Q7.8083267 19.75996 7.5701971 19.70031Q7.3320684 19.640663 7.0971532 19.569403Q6.862237 19.498142 6.6311011 19.41544Q6.3999648 19.332737 6.1731653 19.238794Q5.9463654 19.144852 5.7244492 19.039892Q5.502532 18.934933 5.2860327 18.819212Q5.0695333 18.703491 4.8589725 18.577284Q4.6484118 18.451078 4.4442973 18.314693Q4.2401829 18.178308 4.0430064 18.032074Q3.8458304 17.885838 3.6560669 17.730104Q3.4663033 17.574369 3.28441 17.40951Q3.1025169 17.244652 2.928932 17.071068Q2.755347 16.897482 2.5904884 16.71559Q2.4256301 16.533695 2.2698953 16.343933Q2.1141605 16.154169 1.9679244 15.956992Q1.8216884 15.759815 1.6853036 15.5557Q1.5489187 15.351585 1.4227135 15.141026Q1.2965086 14.930466 1.1807872 14.713966Q1.0650659 14.497466 0.96010691 14.27555Q0.85514808 14.053633 0.76120454 13.826834Q0.667261 13.600034 0.5845592 13.368897Q0.50185746 13.137762 0.43059659 12.902846Q0.35933572 12.667931 0.29968745 12.429801Q0.24003914 12.191671 0.19214717 11.950903Q0.14425519 11.710133 0.10823488 11.467304Q0.072214581 11.224476 0.04815273 10.980172Q0.024090873 10.735868 0.012045437 10.490677Q0 10.245486 0 10Q0 9.7545137 0.012045437 9.5093231Q0.024090873 9.2641325 0.04815273 9.0198288Q0.072214581 8.7755241 0.10823488 8.5326948Q0.14425519 8.2898655 0.19214717 8.0490961Q0.24003914 7.8083267 0.29968742 7.5701971Q0.35933572 7.3320684 0.43059659 7.0971532Q0.50185746 6.862237 0.58455926 6.6311011Q0.667261 6.3999648 0.76120454 6.1731653Q0.85514808 5.9463654 0.96010691 5.7244492Q1.0650659 5.502532 1.1807872 5.2860327Q1.2965086 5.0695333 1.4227138 4.8589725Q1.5489187 4.6484118 1.6853036 4.4442973Q1.8216884 4.2401829 1.9679244 4.0430064Q2.1141605 3.8458304 2.2698953 3.6560669Q2.4256301 3.4663033 2.5904884 3.28441Q2.755347 3.1025169 2.928932 2.928932Q3.1025169 2.755347 3.28441 2.5904884Q3.4663036 2.4256301 3.6560671 2.2698953Q3.8458304 2.1141605 4.0430069 1.9679244Q4.2401829 1.8216884 4.4442973 1.6853036Q4.6484118 1.5489187 4.8589725 1.4227135Q5.0695333 1.2965086 5.2860327 1.1807872Q5.502532 1.0650659 5.7244482 0.96010691Q5.9463654 0.85514808 6.1731648 0.76120454Q6.3999643 0.667261 6.6311007 0.5845592Q6.862237 0.50185746 7.0971532 0.43059659Q7.3320689 0.35933572 7.5701981 0.29968745Q7.8083277 0.24003914 8.0490971 0.19214717Q8.2898655 0.14425519 8.5326948 0.10823488Q8.7755241 0.072214581 9.0198288 0.04815273Q9.2641325 0.024090873 9.5093231 0.012045437Q9.7545137 0 10 0Q10.245486 0 10.490677 0.012045437Q10.735868 0.024090873 10.980172 0.04815273Q11.224476 0.072214581 11.467304 0.10823488Q11.710133 0.14425519 11.950903 0.19214717Q12.191671 0.24003914 12.429801 0.29968742Q12.667931 0.35933572 12.902846 0.43059659Q13.137762 0.50185746 13.368898 0.58455926Q13.600033 0.667261 13.826833 0.76120454Q14.053633 0.85514808 14.275549 0.96010691Q14.497466 1.0650659 14.713966 1.1807872Q14.930466 1.2965086 15.141026 1.4227138Q15.351585 1.5489187 15.5557 1.6853036Q15.759815 1.8216884 15.956991 1.9679244Q16.154167 2.1141605 16.343931 2.2698953Q16.533695 2.4256301 16.715588 2.5904884Q16.897482 2.755347 17.071068 2.928932Q17.244652 3.1025169 17.409512 3.28441Q17.574371 3.4663036 17.730106 3.6560671Q17.885841 3.8458304 18.032076 4.0430069Q18.17831 4.2401829 18.314695 4.4442973Q18.45108 4.6484118 18.577286 4.8589725Q18.703491 5.0695333 18.819212 5.2860327Q18.934933 5.502532 19.039892 5.7244482Q19.144852 5.9463654 19.238794 6.1731648Q19.332737 6.3999643 19.41544 6.6311007Q19.498142 6.862237 19.569403 7.0971532Q19.640663 7.3320689 19.700314 7.5701981Q19.75996 7.8083277 19.807854 8.0490971Q19.855745 8.2898655 19.891766 8.5326948Q19.927788 8.7755241 19.951849 9.0198288Q19.97591 9.2641325 19.987957 9.5093231Q20 9.7545137 20 10Z"/>
+                    <path fill="none" stroke="#2B3990" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" transform="translate(8.33333 5.83333)" d="M0 0L4.1666665 4.1666665L0 8.333333" fill-rule="evenodd"/>
+                  </svg>
+                {% endcapture %}
+                {% render 'component__svg-encoder',
+                  svg_code: arrow_svg,
+                  width: 20,
+                  alt: "right chevron icon" %}
+              </span>
+            </a>
+            <div class="product-card__media-actions">
+              <span class="product-card__sup-title"
+                x-data='{
+                  isDark(element) {
+                    const bgColor = metafields.product_card_accent_color ?? "#E50695";
+                    const colorInstance = tinycolor(bgColor);
+                    const darkThreshold = 0.5;
+                    const luminance = colorInstance.getLuminance();
+                    
+                    return luminance < darkThreshold;
+                  }
+                }'
+                x-init='
+                  $el.style.color = isDark($el) ? "#fff" : "#2B3990";
+                '
+                x-show='metafields.product_card_sup_title'
+                x-cloak
+                x-title='metafields.product_card_sup_title'>
+              </span>
+              <form data-cart-submit :data-product-id='product.id' :id='`product-form-${ product.id }`'>
+                <input type="hidden" name="id" :data-productid='product.id' 
+                  :value='product.variants[0].id'>
+                <input type="hidden" name="properties[_bg_color]" 
+                  :value='metafields.product_card_accent_color ?? "#E50695"'>
+                <input type="hidden" name="properties[_variant_nice_title]" 
+                  :value='metafields.variant_nice_title'>
+                <input type="hidden" name="properties[_accent_color]" 
+                  :value='metafields.product_card_accent_color ?? "#E50695"'>
+              
+                <button class="button add-to-cart "
+                  x-data
+                  x-on:click='$store["offCanvasCart"].openOffcanvas()'>
+                  <div class="button-text">
+                    Add
+                  </div>
+                </button>
+              </form>
+            </div>
+          </div>
+        
+          <div class="product-card__info">
+            <div class="product-card__info-inner">
+              <div data-oke-star-rating :data-oke-reviews-product-id='`shopify-${ product.id }`'>
+                  <!-- 
+                  Retrieve the product.metafields.okendo.StarRatingSnippet via Shopify's GraphQL/REST API
+                  and put the contents here
+                  -->
+              </div>
+              <div class="product-card__info-title"
+                x-text='metafields.product_card_nice_title ?? product.title'>
+              </div>
+              <span class="product-card__info-sub-title"
+                x-show='metafields.product_card_sub_title'
+                x-cloak
+                x-text='metafields.product_card_sub_title'>
+              </span>
+            </div>
+            <span class="product-card__info-price"
+              x-text='Shopify.formatMoney(product.variants[0].price)'>
+            </span>
+          </div>
+        </div>
+      </div>
+    </template>
+  </div>
+{% endcapture %}
+
+<section class="mfr-rebuy__recommendation-carousel {{ custom_class }} " id="{{ section_id }}">
+  <div class="section-spacer background {{ grid_gutter }}" style="{{ spacer }}">
+    <div class="grid-container {{ container_width }}" {{ max_width_style }}>
+      <div class="grid-x align-center">
+        {% if icons != blank or small_texts != blank or headings != blank or texts != blank or buttons != blank %}
+          <div class="cell small-12 large-12 section-content {{ color_theme }} {{ text_alignment }}">
+            <div class="inner">
+              {%- for block in section.blocks -%}
+                {% case block.type %}
+                
+                  {%- when 'icon' -%}
+                    {% render 'renderer__block-icon', block: block %} 
+                
+                  {%- when 'small_text' -%}
+                    {% render "renderer__block-small-text", block: block %}
+                    
+                  {%- when 'heading' -%}
+                    {% render "renderer__block-title", block: block %}
+                    
+                  {%- when 'text' -%}
+                    {% render "renderer__block-text", block: block %}
+
+                {%- endcase -%}
+              {%- endfor -%}
+
+              {% if buttons != blank %}
+                <div class="button-set {{ content_alignment }}">
+                  {%- for block in section.blocks -%}
+                    {% case block.type %}
+                      {%- when 'button' -%}
+                        {% render 'renderer__block-button', block: block %}
+                    {%- endcase -%}
+                  {%- endfor -%}
+                </div>
+              {% endif %}
+            </div>
+          </div>
+        {% endif %}
+        <div class="cell small-12 large-12 carousel"
+          x-data='{
+            products: [],
+            getProductImage(id) {
+              return {
+                {% for product in section.settings.products %}
+                  "{{ product.id }}": {
+                    {%- assign metafields = product.metafields.mfr_fields -%}
+                    {%- assign default_alt = "main product image for " | append: product.title -%}
+                    {%- assign alt = metafields.product_card_main_image.alt | default: default_alt -%}
+                    {%- assign main_image = metafields.product_card_main_image | default: product.featured_image -%}
+                    "mainProductImage": {
+                      "src": "{{ main_image | image_url: width: 420 }}",
+                      "height": "{{ main_image.height }}",
+                      "width": "{{ main_image.width }}",
+                      "alt": "{{ alt | escape }}"
+                    },
+                    {%- assign default_alt = "secondary product image for " | append: product.title -%}
+                    {%- assign alt = metafields.product_card_secondary_image.alt | default: default_alt -%}
+                    {%- assign secondary_image = metafields.product_card_secondary_image -%}
+                    {%- if metafields.product_card_secondary_image != blank -%}
+                      "secondaryProductImage": {
+                        "src": "{{ secondary_image | image_url: width: 420 }}",
+                        "height": "{{ secondary_image.height }}",
+                        "width": "{{ secondary_image.width }}",
+                        "alt": "{{ alt | escape }}"
+                      }
+                    {%- endif -%}
+                  }{% unless forloop.last %},{% endunless %}
+                {% endfor %}
+              }[id] ?? false;
+            }
+          }'
+          x-init='
+            const requestParameters = new URLSearchParams({
+                format: "pretty",
+                key: "{{ section.settings.api_key }}",
+                metafields: "yes",
+                country_code: "US",
+                presentment_prices: "yes"
+            });
+
+            fetch(`https://rebuyengine.com/api/v1/custom/id/{{ section.settings.endpoint_id }}/?${requestParameters}`)
+              .then(response => response.json())
+              .then(data => {
+                products = data.data;
+
+                $nextTick(() => { 
+                  const flkty = new Carousel(0, $el, {
+                    wrapAround: false,
+                    contain: true,
+                    prevNextButtons: true,
+                    adaptiveHeight: false,
+                    pageDots: true,
+                    cellAlign: "center",
+                    groupCells: true,
+                    draggable: true
+                  })
+                });
+              });
+          '>
+          {{ custom_section_content }}
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  {%- render 'component__gradient-bg-styles' -%}
+  {%- render 'component__accent-graphics' -%}
+  {%- render 'component__section-dividers', is_video_background: true -%}
+  {% render 'script__section', file: "mfr-carousel.js" %}
+</section>
+
+
+{% schema %}
+{
+  "name":"Rebuy: Recommendations",
+  "disabled_on": {
+    "groups": [
+      "header", "footer", "custom.offcanvas","custom.modals"
+    ]
+  },
+  "settings":[
+    {
+      "type": "text",
+      "id": "api_key",
+      "label": "API Key",
+      "default": "4ea1258d24112df157c6efaf15abef7cc0410894"
+    },
+    {
+      "type": "text",
+      "id": "endpoint_id",
+      "label": "Endpoint ID",
+      "default": "206821"
+    },
+    {
+      "type": "product_list",
+      "id": "products",
+      "label": "Products",
+      "info": "This is going to be the source of metafield images for the product cards. Insert all possible products that will appear from Rebuy custom endpoint."
+    },
+    {
+      "type": "header",
+      "content": "Section Settings"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "options": [
+          { "value": "", "label": "Left" },
+          { "value": "text-center", "label": "Center" }
+          ],
+      "label": "Text Alignment",
+      "default": "text-center"
+    },
+    {
+      "type": "select",
+      "id": "container_width",
+      "options": [
+          { "value": "full", "label": "Full" },
+          { "value": "", "label": "Contain" }
+          ],
+      "label": "Width",
+      "default": "full"
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "rem",
+      "label": "Max Content Width",
+      "default": 0
+    },
+    {
+      "type": "select",
+      "id": "grid_gutter",
+      "options": [
+          { "value": "grid-gutter", "label": "Padding" },
+          { "value": "", "label": "No Padding" }
+          ],
+      "label": "Section Padding",
+      "default": ""
+    },
+      {
+        "type": "header",
+        "content": "Color Schemes Settings"
+      },
+      {
+        "type": "color_scheme",
+        "id": "color_scheme",
+        "default": "scheme_1",
+        "label": "Color Scheme",
+        "info": "This will be the color scheme of the header initially."
+      },
+
+    {
+      "type": "header",
+      "content": "Mobile Section Spacing"
+    },
+    {
+      "type": "range",
+      "id": "top_spacing_mobile",
+      "min": 0,
+      "max": 500,
+      "step": 10,
+      "unit": "px",
+      "label": "Top Spacing",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "bottom_spacing_mobile",
+      "min": 0,
+      "max": 500,
+      "step": 10,
+      "unit": "px",
+      "label": "Bottom Spacing",
+      "default": 100
+    },
+
+    {
+      "type": "header",
+      "content": "Desktop Section Spacing"
+    },
+    {
+      "type": "range",
+      "id": "top_spacing_desktop",
+      "min": 0,
+      "max": 500,
+      "step": 10,
+      "unit": "px",
+      "label": "Top Spacing",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "bottom_spacing_desktop",
+      "min": 0,
+      "max": 500,
+      "step": 10,
+      "unit": "px",
+      "label": "Bottom Spacing",
+      "default": 100
+    },
+
+    {
+      "type":"header",
+      "content":"Background"
+    },
+    {
+      "type": "color_background",
+      "id": "bg_color",
+      "label": "Background Color/Gradient"
+    },
+
+    {
+      "type": "image_picker",
+      "id": "bg_image_mobile",
+      "label": "Background Image - Mobile"
+    },
+    {
+      "type": "image_picker",
+      "id": "bg_image",
+      "label": "Background Image - Desktop"
+    },
+
+
+    {
+      "type": "header",
+      "content": "Divider Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "top_wave_divider",
+      "label": "Top Wave Divider",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "bottom_wave_divider",
+      "label": "Bottom Wave Divider",
+      "default": false
+    },
+    {
+      "type":"header",
+      "content":"Attribute Settings"
+    },
+    {
+      "type": "text",
+      "id": "custom_class",
+      "label": "Custom class"
+    },
+    {
+      "type": "text",
+      "id": "custom_id",
+      "label": "Custom ID"
+    }
+  ],
+  "blocks":[
+    {
+      "type": "icon", 
+      "name": "Icon",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon"
+        },
+        {
+          "type": "text",
+          "id": "file_lottie_url",
+          "label": "File Lottie URL"
+        },
+        {
+          "type": "number",
+          "id": "icon_width",
+          "label": "Image width",
+          "default": 150,
+          "info": "in pixels."
+        }
+      ]
+    },
+    {
+      "type":"small_text",
+      "name":"Accent Text",
+      "limit":1,
+      "settings":[
+        {
+          "type":"text",
+          "id":"text",
+          "default":"Accent Text",
+          "label":"Text"
+        },
+        {
+          "type": "color",
+          "id": "small_text_color",
+          "label": "Color"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "name": "Heading",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "inline_richtext",
+          "id": "heading",
+          "default": "Heading H1",
+          "label": "Heading H1"
+        },
+        {
+          "type": "checkbox",
+          "id": "disable_animation",
+          "label": "Disable Animation",
+          "default": false
+        },
+        {
+          "type": "select",
+          "id": "header_style",
+          "options": [
+              { "value": "h1", "label": "H1"},
+              { "value": "h2", "label": "H2"},
+              { "value": "h3", "label": "H3"},
+              { "value": "h4", "label": "H4"},
+              { "value": "h5", "label": "H5"},
+              { "value": "h6", "label": "H6"}
+              ],
+          "label": "Header Style",
+          "default": "h1"
+        },
+
+        {
+          "type": "header",
+          "content": "Accent Settings"
+        },
+        {
+          "type": "select",
+          "id": "make_xl",
+          "options": [
+              { "value": "", "label": "Normal"},
+              { "value": "xl-title", "label": "Oversize"}
+              ],
+          "label": "H1 Size",
+          "default": "",
+          "info": "H1s can be set to oversize if they need to be extra big"
+        },
+
+        {
+            "type": "color",
+            "id": "highlight_color",
+            "label": "Highlight Color",
+            "info": "Use [highlight][/highlight] to highlight text"
+        },
+        {
+            "type": "color",
+            "id": "underline_color",
+            "label": "Underline Color",
+            "info": "Use [underline][/underline] to underline text"
+        },
+
+        {
+          "type": "header",
+          "content": "Width Settings"
+        },
+        {
+            "type": "range",
+            "id": "max_width",
+            "min": 0,
+            "max": 60,
+            "step": 1,
+            "unit": "rem",
+            "label": "Max Width",
+            "default": 0
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "name": "Text",
+      "limit": 2,
+      "settings": [
+        
+        {
+          "type": "richtext",
+          "id": "text",
+          "default": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum vel metus auctor.</p>",
+          "label": "Text"
+        },
+        {
+          "type": "checkbox",
+          "id": "disable_animation",
+          "label": "Disable Animation",
+          "default": false
+        },
+        {
+          "type":"select",
+          "id":"text_style",
+          "options":[
+            { "value":"", "label":"Default" },
+            { "value":"xsmall", "label":"xSmall" },
+            { "value":"small", "label":"Small" },
+            { "value":"regular", "label":"Regular" },
+            { "value":"large", "label":"Large" },
+            { "value":"xlarge", "label":"xLarge" }
+          ],
+          "label":"Style",
+          "default":"regular"
+        },
+        {
+          "type": "color",
+          "id": "color",
+          "label": "Color",
+          "info": "Leave it blank to use system settings."
+        },
+        {
+            "type": "range",
+            "id": "max_width",
+            "min": 0,
+            "max": 50,
+            "step": 1,
+            "unit": "rem",
+            "label": "Width",
+            "default": 0
+        }
+      ]
+    },
+    {
+      "type":"button",
+      "name":"Button",
+      "limit":2,
+      "settings":[
+        {
+          "type":"text",
+          "id":"button_label",
+          "default":"Button label",
+          "label":"Button",
+          "info":"Leave the label blank to hide the button."
+        },
+        {
+          "type":"url",
+          "id":"button_link",
+          "label":"Button Link"
+        },
+        {
+          "type": "select",
+          "id": "color_theme",
+          "label": "Color Theme",
+          "options": [
+            {
+              "value": "primary",
+              "label": "Primary"
+            },
+            {
+              "value": "secondary",
+              "label": "Secondary"
+            },
+            {
+              "value": "tertiary",
+              "label": "Tertiary"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "accent_graphic", 
+      "name": "Accent Graphic",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon"
+        },
+        {
+          "type":"html",
+          "id":"svg_code",
+          "label":"Graphic SVG Code",
+          "info":"Paste SVG code for vector graphic"
+        },
+        {
+          "type":"header",
+          "content":"Visibility"
+        },
+        {
+          "type": "select",
+          "id": "visibility",
+          "options": [
+              { "value": "always", "label": "Always" },
+              { "value": "desktop_only", "label": "Desktop Only" },
+              { "value": "mobile_only", "label": "Mobile Only" }
+              ],
+          "label": "Show on..",
+          "default": "always"
+        },
+        {
+          "type":"header",
+          "content":"Value Type"
+        },
+        {
+          "type": "select",
+          "id": "value_type",
+          "options": [
+              { "value": "px", "label": "Pixels" },
+              { "value": "%", "label": "Percentage" }
+              ],
+          "label": "Position Value Type",
+          "default": "%",
+          "info": "Pixel values are multiplied by 5"
+        },
+        {
+          "type":"header",
+          "content":"Position"
+        },
+        {
+          "type": "select",
+          "id": "x_setting",
+          "options": [
+              { "value": "left", "label": "Left" },
+              { "value": "center", "label": "Center" },
+              { "value": "right", "label": "Right" }
+              ],
+          "label": "X Position",
+          "default": "left"
+        },
+        {
+          "type": "select",
+          "id": "y_setting",
+          "options": [
+              { "value": "top", "label": "Top" },
+              { "value": "bottom", "label": "Bottom" }
+              ],
+          "label": "Y Position",
+          "default": "top"
+        },
+        { 
+          "type":"header",
+          "content":"Large Screen Settings"
+        },
+        {
+          "type": "range",
+          "id": "width_large",
+          "min": 10,
+          "max": 400,
+          "step": 10,
+          "unit": "px",
+          "label": "Graphic Width",
+          "default": 150
+        },
+        {
+          "type": "range",
+          "id": "position_x_large",
+          "min": -100,
+          "max": 100,
+          "step": 2,
+          "label": "X Position",
+          "default": 10
+        },
+        {
+          "type": "range",
+          "id": "position_y_large",
+          "min": -100,
+          "max": 100,
+          "step": 2,
+          "label": "Y Position",
+          "default": 10
+        },
+        {
+          "type":"header",
+          "content":"Small Screen Settings"
+        },
+        {
+          "type": "range",
+          "id": "width_small",
+          "min": 10,
+          "max": 400,
+          "step": 10,
+          "unit": "px",
+          "label": "Graphic Width",
+          "default": 150
+        },
+        {
+          "type": "range",
+          "id": "position_x_small",
+          "min": -100,
+          "max": 100,
+          "step": 2,
+          "label": "X Position",
+          "default": 10
+        },
+        {
+          "type": "range",
+          "id": "position_y_small",
+          "min": -100,
+          "max": 100,
+          "step": 2,
+          "label": "Y Position",
+          "default": 10
+        },
+        {
+          "type":"header",
+          "content":"Animation Settings"
+        },
+        {
+          "type": "select",
+          "id": "animation",
+          "options": [
+              { "value": "none", "label": "None" },
+              { "value": "rotating", "label": "Rotate" },
+              { "value": "floating", "label": "Float" },
+              { "value": "spark", "label": "Spark" }
+            ],
+          "label": "Animation",
+          "default": "none"
+        },
+
+        {
+          "type":"header",
+          "content":"Appearance Settings"
+        },
+        {
+          "type": "range",
+          "id": "rotate",
+          "min": 0,
+          "max": 360,
+          "step": 36,
+          "unit": "%",
+          "label": "Rotate",
+          "default": 0
+        },
+        {
+          "type": "checkbox",
+          "id": "flip",
+          "label": "Flip Graphics?",
+          "default": false
+        }
+      ]
+    }
+  ],
+  "presets":[
+    {
+      "name":"Rebuy: Recommendations",
+      "blocks":[
+        {
+          "type":"heading"
+        },
+        {
+          "type":"text"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

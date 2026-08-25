@@ -1,0 +1,167 @@
+{% render 'renderer__color-scheme', name: "footer", color_scheme: section.settings.color_scheme, selector: ".footer__socket" %}
+
+{% assign social_links = section.blocks | where: "type", "social_links" | first %}
+{% assign icons = section.blocks | where: "type", "icon" %}
+{% assign note = section.blocks | where: "type", "note" | first %}
+
+{% assign appear_on = section.settings.appear_on | newline_to_br | strip_newlines | split: '<br />' %}
+
+{% if appear_on == blank or appear_on contains template %}
+  <div class="grid-container grid-x">
+    <div class="cell small-12 large-4 footer__socket-left">
+      {% if social_links != blank %}
+        {% render 'footer__social-links' %}
+      {% endif %}
+      <p class="footer__copyright show-for-large" data-inview>
+        </a>
+      </p>
+    </div>
+    <div class="cell small-12 large-4 footer__socket-center">
+      {% for block in section.blocks %}
+        {%- case block.type -%}
+    
+          {%- when "logo" -%}
+            <div class="footer-socket__logo"
+              data-inview>
+              {% render 'component__lazyload-image',
+                image: block.settings.image,
+                width: 1440 %}
+            </div>
+    
+        {%- endcase -%}
+      {% endfor %}
+    </div>
+    <div class="cell small-12 large-4 footer__socket-right">
+      {% if icons != blank %}
+        <ul class="footer__socket-icons" data-stagger-inview="li">
+          {% for icon in icons %}
+            <li>
+              {% render 'component__lazyload-image',
+                image: icon.settings.icon,
+                width: 144,
+                alt: icon.settings.icon.alt %}
+            </li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+      {% if note != blank %}
+        <div class="footer__socket-note" data-inview>
+          {% if note.settings.heading != blank %}
+            <p class="footer__socket-note-heading">
+              {{ note.settings.heading }}
+            </p>
+          {% endif %}
+          {% if note.settings.caption != blank %}
+            <p class="footer__socket-note-caption">
+              {{ note.settings.caption }}
+            </p>
+          {% endif %}
+        </div>
+      {% endif %}
+      <p class="footer__copyright hide-for-large" data-inview>
+        ©Lovebug 2024  — Site by <a href="https://manufactur.co" target="_blank" aria-label="Manufactur" title="Manufactur">Manufactur</a>
+      </p>
+    </div>
+  </div>
+{% else %}
+  <style>
+    #shopify-section-{{- section.id -}} {
+      visibility: hidden;
+      display: none;
+    }
+  </style>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Footer Socket",
+  "class": "footer__socket",
+  "enabled_on": {
+    "groups": ["footer"]
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": "Color Schemes Settings"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "default": "scheme_1",
+      "label": "Color Scheme",
+      "info": "This will be the color scheme of the footer initially."
+    },
+    {
+      "type": "header",
+      "content": "Visibility Settings"
+    },
+    {
+      "type": "textarea",
+      "id": "appear_on",
+      "label": "Appear Only On:",
+      "info": "Separated by newline. Insert template.suffix. Example: product or product.bundles"
+    }
+  ],
+  
+  "blocks": [
+    {
+      "type": "logo",
+      "name": "Logo",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        }
+      ]
+    },
+    {
+      "type": "social_links",
+      "name": "Social Links",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "header",
+          "content": "Social Links"
+        }
+      ]
+    },
+    {
+      "type": "icon",
+      "name": "Icon",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon"
+        }
+      ]
+    },
+    {
+      "type": "note",
+      "name": "Note",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Lorem, ipsum."
+        },
+        {
+          "type": "textarea",
+          "id": "caption",
+          "label": "Caption",
+          "default": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eveniet quibusdam quaerat molestiae facere delectus possimus commodi veniam voluptates repudiandae repellendus."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Footer Socket"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,42 @@
+{%- comment -%}
+    Renders a quantifier with single increments and decrements.
+
+    Accepts:
+    - name: {string} The name of the field. (optional)
+    - min: {number} The minimum number the quantifier can go to. (optional)
+    - max: {number} The maximum number the quantifier can go to. (optional)
+    - value: {number} The initial value. (optional)
+
+    Usage:
+    {%- render "component__quantity-selector", min: 1, classes: "another-class" -%}
+{%- endcomment -%}
+
+<div class="quantity-selector {{ classes }}" data-min="{{ min | default: 1 }}" data-max="{{ max | default: 1 }}">
+    <input class="quantity-selector__input" type="hidden" name="{{ name | default: "quantity" }}" value="{{ value | default: 1 }}">
+
+    <div class="quantity-selector__wrapper">
+        <button class="quantity-selector__button quantity-selector__minus" type="button"></button>
+
+        <div class="quantity-selector__content">
+            <div class="quantity-selector__total">
+                <span class="quantity-selector__count">{{ value | default: 1 }}</span> 
+                
+                {% if unit != blank -%}
+                    {% comment -%}
+                        data-plural and data-single can be set for the single and plural quantifiers.
+                        By default, the unit will be pluralized with an 's'.
+                    {%- endcomment -%}
+                    <span 
+                        class="quantity-selector__unit" 
+                        data-single="{{ unit }}"
+                        {% if unit_plural != blank -%} data-plural="{{ unit_plural }}" {%- endif -%}
+                    >
+                        {{ unit }}
+                    </span>
+                {%- endif -%}
+            </div>
+        </div>
+
+        <button class="quantity-selector__button quantity-selector__plus" type="button"></button>
+    </div>
+</div>

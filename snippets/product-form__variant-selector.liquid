@@ -1,0 +1,135 @@
+{% assign variants = product.variants | size %}
+
+{% if variants >= 1 %}
+  <div class="variant-selectors"
+    x-data='{
+      productUrl: "{{ product.url }}",
+      sectionId: "{{ section.id }}"
+    }'
+    x-ref="variantSelectors">
+    <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+    <!-- Use options_with_values to render options -->
+    {%- for option in product.options_with_values -%}
+      <fieldset class="variant-selectors__selectors-wrapper">
+        <legend class="selectors-label">Select {{ option.name }}</legend>
+
+        <div class="variant-selectors__selectors">
+          {%- for option_value in option.values -%}
+            {%- capture input_id -%}
+              {{ section.id }}-{{ option.position }}-{{ forloop.index0 -}}
+            {%- endcapture -%}
+  
+            <label for="{{ input_id }}">
+              <span class="discount-label" 
+                x-show='showDiscountLabel'
+                x-text='discountLabel'
+                x-transition:enter-start="opacity-0"
+                x-transition:leave-end="opacity-0"
+                x-cloak
+                x-data='{
+                  isDark(element) {
+                    const bgColor = window.getComputedStyle(element).backgroundColor;
+                    const colorInstance = tinycolor(bgColor);
+                    const darkThreshold = 0.5;
+                    const luminance = colorInstance.getLuminance();
+                    
+                    return luminance < darkThreshold;
+                  }
+                }'
+                x-init='
+                  $el.style.color = isDark($el) ? "#fff" : "#2B3990";
+                  $el.style.boxShadow = isDark($el) ? "" : "0 2px 2px 0px #00000038";
+                '></span>
+              <!-- Use product_option_value` fields to simplify option value input rendering and support combined listings -->
+              <input
+                type="radio"
+                id="{{ input_id }}"
+                name="{{ option.name }}"
+                value="{{ option_value | escape }}"
+                {% if option_value.selected %}
+                  checked
+                {% endif %}
+                {% unless option_value.variant.available %}
+                  disabled
+                {% endunless %}
+                class="visually-hidden"
+                data-product-url="{{ option_value.product_url }}"
+                data-variant-id="{{ option_value.variant.id }}"
+                data-option-value-id="{{ option_value.id }}"
+                data-price="{{ product.selected_or_first_available_variant.price }}"
+                @change='
+                  const newVariantId = $el.dataset.variantId;
+
+                  $refs.productForm.querySelector(`input[name=id]`).value = newVariantId;
+
+                  const rechargeWidget = document.querySelector(`.rc-widget`);
+                  if (rechargeWidget) {
+                    rechargeWidget.setAttribute(`data-variant-id`, newVariantId);
+                    if (typeof ReChargeWidget !== `undefined` && ReChargeWidget.init) {
+                      ReChargeWidget.init();
+                    }
+                  }
+  
+                  let params = `section_id=${sectionId}&`;
+                  if (newVariantId) {
+                    // If the option value has a variant selection, call the section rendering api for that variant
+                    params += `variant=${newVariantId}`;
+                  } else {
+                    // If the option value selection has no variant, call the section rendering api with the selected option value IDs instead
+                    const selectedOptionValues = Array.from($refs.variantSelectors.querySelectorAll("fieldset input:checked")).map((element) => element.dataset.optionValueId).join(",");
+                    params += `option_values=${selectedOptionValues}`;
+                  }
+  
+                  $refs.productForm.classList.add("loading");
+  
+                  // Call the section rendering api
+                  fetch(`${productUrl}?${params}`)
+                    .then((response) => response.text())
+                    .then((responseText) => {
+                      const html = new DOMParser().parseFromString(responseText, "text/html");
+                      const productForm = html.querySelector( ".variant-selectors" );
+                      const productTopSubmit = html.querySelector( ".product-top__submit" );
+                      const subscriptionSelector = html.querySelector( ".subscription-selector" );
+                      
+                      // Replace the existing .variant-selectors content
+                      if( productForm )
+                        $refs.variantSelectors.innerHTML = productForm.innerHTML;
+
+                      if( productTopSubmit )
+                        $refs.productTopSubmit.innerHTML = productTopSubmit.innerHTML;
+
+                      if( subscriptionSelector )
+                        $refs.subscriptionSelector.innerHTML = subscriptionSelector.innerHTML;
+  
+                      // Re-initialize Alpine for the replaced content
+                      Alpine.initTree($refs.productForm);
+
+                      initInview($refs.productTopSubmit.querySelector("[data-inview]"));
+
+                      if ("URLSearchParams" in window) {
+                        let url = new URL(window.location);
+                        url.searchParams.set("variant", newVariantId); // Update or add query param
+                        window.history.pushState({}, "", url);
+                      }
+                    })
+                    .finally(() => {
+                      // Remove loading class after fetch completes
+                      $refs.productForm.classList.remove("loading");
+                    });
+                '
+                x-init='
+                  if( $el.checked) {
+                    const variantPrice = $el.dataset.price
+                    basePrice = variantPrice
+                  }
+                '
+              />
+  
+              <span class="variant-selectors__selector-label">{{ option_value -}}</span>
+            </label>
+          {%- endfor -%}
+        </div>
+      </fieldset>
+    {%- endfor -%}
+  </div>
+{% endif %}

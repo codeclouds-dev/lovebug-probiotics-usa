@@ -1,0 +1,77 @@
+{% capture article_tags %}
+  {%- if article.tags.size > 0 -%}
+  {%- for tag in article.tags -%}
+    <span>{{ tag | downcase }}</span>
+{%- endfor -%}
+  {%- endif -%}
+{% endcapture %}
+
+{% assign hide_tags = hide_tags | newline_to_br | split: '<br />' %}
+{% assign hidden_tags = "" %}
+{% for tag in hide_tags %}
+  {% assign handleized_tag = tag | handleize %}
+  {% assign hidden_tags = hidden_tags | append: handleized_tag %}
+  {% unless forloop.last %}
+    {% assign hidden_tags = hidden_tags | append: "," %}
+  {% endunless %}
+{% endfor %}
+{% assign handleized_hidden_tags = hidden_tags | split: "," %}
+
+<article class="article-card blog-grid__item item-selector {%for tag in article.tags %} {{ tag  | handle | replace: '', '' | downcase}} {%endfor%}"  data-aos-delay="{{ forloop.index }}00"  aria-labelledby="Article-{{ article.id }}">
+  <a href="{{ article.url }}" class="wrapper">
+    <div class="card-media">
+        <img loading="lazy" src="{{ article.image.src | img_url: 'master' }}"
+          srcset="{{ article.image.src | img_url: 'master' }} 1x, {{ article.image.src | img_url: 'master', scale: 2 }} 2x"
+          alt="{{ article.image.alt }}" class="image-cover">
+          <div class="card-text-bar">
+            {%- for tag in article.tags -%}
+              {% unless tag contains 'featured' %}
+                {% assign handleized_tag = tag | handleize %}
+                {% unless handleized_hidden_tags contains handleized_tag %}
+                  <span>{{ tag  | handle | replace: '', '' | downcase }}</span>
+                {% endunless %}
+              {% endunless %}
+            {%- endfor -%}
+            {% comment %}<span class=""> — {{- article.published_at | time_tag: format: 'month_year' -}}</span>{% endcomment %}
+          </div>
+    </div>
+
+    <div class="card-content">
+      <div class="name">
+        {% for tag in article.tags %}
+          {% if tag contains 'featured' %}
+            <h6 class="featured-tag">{{ tag }}</h6>
+          {% endif %}
+        {% endfor %}
+        <div class="h4">{{ article.title | escape }}</div>
+      </div>
+      <div class="caption">
+        {% if article.metafields.details.preparation_time or article.metafields.details.serving_size %}
+          <ul>
+            {% if article.metafields.details.preparation_time %}
+              <li>{{ article.metafields.details.preparation_time }}</li>
+            {% endif %}
+
+            {% if article.metafields.details.serving_size %}
+              <li>{{ article.metafields.details.serving_size }}</li>
+            {% endif %}
+          </ul>
+        {% endif %}
+
+        {% comment %}
+        {%- if article.excerpt.size > 0 or article.content.size > 0 -%}
+          <p class="article-card__excerpt small rte-width">
+            {%- if article.excerpt.size > 0 -%}
+              {{ article.excerpt | strip_html | truncatewords: 30 }}
+            {%- else -%}
+              {{ article.content | strip_html | truncatewords: 30 }}
+            {%- endif -%}
+          </p>
+        {%- endif -%}
+        {% endcomment %}
+      </div>
+      
+    </div>
+  </a>
+
+</article>

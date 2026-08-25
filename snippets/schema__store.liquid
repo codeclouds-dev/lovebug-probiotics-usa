@@ -1,0 +1,31 @@
+{% unless template.name contains 'product' %}
+<script id="store-schema" type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "OnlineStore",
+  "@id": "{{ shop.url }}#store",
+  "name": "{{ shop.name }}",
+  "url": "{{ shop.url }}",
+  "image": "{% if shop.logo %}{{ shop.logo | image_url: width: 720 }}{% else %}https://cdn.shopify.com/s/files/1/0509/9677/3062/files/signature_brightblue_1_x320.png?v=1748510958{% endif %}",
+  "sameAs":[
+    "https://www.facebook.com/LoveBugProbiotics",
+    "https://www.instagram.com/lovebugpro/",
+    "https://x.com/LoveBugPro",
+    "https://www.pinterest.com/lovebugpro/"
+  ],
+  "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "{{ shop.address.street }}",
+      "addressLocality": "{{ shop.address.city }}",
+      "addressRegion": "{{ shop.address.province }}",
+      "postalCode": "{{ shop.address.zip }}",
+      "addressCountry": "{{ shop.address.country }}"
+    },
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "contactType": "Customer Service",
+    "email": "hello@lovebugprobiotics.com"
+  }
+}
+</script>
+{% endunless %}

@@ -1,0 +1,437 @@
+{%- comment -%}
+--------------------------------------
+assign section settings to variables
+--------------------------------------
+{%- endcomment -%}
+
+{% if section.settings.color_theme %}
+  {% assign text_color = section.settings.color_theme %}
+{% else %}
+  {% assign text_color = "" %}
+{% endif %}
+
+{% assign section_id = section.settings.custom_id | default: section.id %}
+{% render 'renderer__color-scheme', name: "section", color_scheme: section.settings.color_scheme, selector: ".shopify-section", section_id: section_id %}
+
+{% capture spacer %}
+  --top-spacing-mobile: {{ section.settings.top_spacing_mobile }}px;
+  --bottom-spacing-mobile: {{ section.settings.bottom_spacing_mobile }}px;
+  --top-spacing-desktop: {{ section.settings.top_spacing_desktop }}px;
+  --bottom-spacing-desktop: {{ section.settings.bottom_spacing_desktop }}px;
+{% endcapture %}
+
+<section class="customer__login-page" data-scroll-section {{ section.settings.custom_class }}" id="{{ section_id }}">
+  <div class="section-spacer background" style="{{ spacer }}">
+    <div class="grid-container full">
+      <div class="grid-x align-center grid-gutter-small">
+        <div class="cell small-12 login-wrapper">
+
+                
+          <div class="customer register text-center {{ text_color }} section-content">
+            
+            <div class="customer__title">
+              <h3 class="h3">
+                {{ 'customer.register.title' | t }}
+              </h3>
+            </div>
+
+            <div class="customer__content">
+              {%- form 'create_customer', novalidate: "novalidate" -%}
+                <input name="return_to" type="hidden" value="/account">  
+                <div class="field"></div>
+                <div class="registration-errors">
+                  {%- if form.errors -%}
+                    {{ form.errors | default_errors }}
+                  {%- endif -%}
+                </div>
+                <div class="field">  
+                  <label for="RegisterForm-FirstName">
+                    {{ 'customer.register.first_name' | t }}
+                  </label>    
+                  <input
+                    type="text"
+                    name="customer[first_name]"
+                    id="RegisterForm-FirstName"
+                    {% if form.first_name %}value="{{ form.first_name }}"{% endif %}
+                    autocomplete="given-name"
+                    placeholder="{{ 'customer.register.first_name' | t }}"
+                  >
+                  
+                </div>
+                <div class="field">
+                  <label for="RegisterForm-FirstName">
+                    {{ 'customer.register.first_name' | t }}
+                  </label>
+                  <input
+                    type="text"
+                    name="customer[last_name]"
+                    id="RegisterForm-LastName"
+                    {% if form.last_name %}value="{{ form.last_name }}"{% endif %}
+                    autocomplete="family-name"
+                    placeholder="{{ 'customer.register.last_name' | t }}"
+                  >
+                
+                </div>
+                <div class="field"> 
+                  <label for="RegisterForm-email">
+                    {{ 'customer.register.email' | t }}
+                  </label>     
+                  <input
+                    type="email"
+                    name="customer[email]"
+                    id="RegisterForm-email"
+                    {% if form.email %} value="{{ form.email }}"{% endif %}
+                    spellcheck="false"
+                    autocapitalize="off"
+                    autocomplete="off"
+                    aria-required="true"
+                    {% if form.errors contains 'email' %}
+                      aria-invalid="true"
+                      aria-describedby="RegisterForm-email-error"
+                    {% endif %}
+                    placeholder="{{ 'customer.register.email' | t }}"
+                    required
+                    pattern="email"
+                  >
+                  <span class="form-error" data-form-error-on="required">
+                    Email is required
+                  </span>
+                  <span class="form-error" data-form-error-on="pattern">
+                    Invalid Email
+                  </span>
+                  
+                </div>
+                {%- if form.errors contains 'email' -%}
+                  <span id="RegisterForm-email-error" class="form__message">
+                    <svg aria-hidden="true" focusable="false" role="presentation">
+                      <use href="#icon-error" />
+                    </svg>
+                    {{ form.errors.translated_fields['email'] | capitalize }} {{ form.errors.messages['email'] }}.
+                  </span>
+                {%- endif -%}
+                <div class="field">
+                  <label for="RegisterForm-password">
+                    {{ 'customer.register.password' | t }}
+                  </label>     
+                  <input
+                    type="password"
+                    autocomplete="off"
+                    name="customer[password]"
+                    id="RegisterForm-password"
+                    aria-required="true"
+                    {% if form.errors contains 'password' %}
+                      aria-invalid="true"
+                      aria-describedby="RegisterForm-password-error"
+                    {% endif %}
+                    placeholder="{{ 'customer.register.password' | t }}"
+                    required
+                  >
+                  <span class="form-error">
+                    Password is required
+                  </span>
+                  
+                </div>
+                {%- if form.errors contains 'password' -%}
+                  <span id="RegisterForm-password-error" class="form__message">
+                    <svg aria-hidden="true" focusable="false" role="presentation">
+                      <use href="#icon-error" />
+                    </svg>
+                    {{ form.errors.translated_fields['password'] | capitalize }} {{ form.errors.messages['password'] }}.
+                  </span>
+                {%- endif -%}
+                <div class="content-margin form-note">
+                  <button type="submit" id="submit_btn" class="button primary color-accent-1 submit-button">
+                    <span class="text">{{ 'customer.register.submit' | t }}</span>
+                  </button>
+                  <div class="form-note__login">
+                    or <a href="/account/login" class="small underline">login here</a>
+                  </div>
+                </div>
+              {%- endform -%}
+              
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{%- render 'component__gradient-bg-styles' -%}
+
+{% schema %}
+  {
+    "name":"Register",
+    "settings":[
+    {
+      "type":"header",
+      "content":"Content Settings"
+    },
+      {
+        "type": "header",
+        "content": "Color Schemes Settings"
+      },
+      {
+        "type": "color_scheme",
+        "id": "color_scheme",
+        "default": "scheme_1",
+        "label": "Color Scheme",
+        "info": "This will be the color scheme of the header initially."
+      },
+    {
+      "type": "header",
+      "content": "Mobile Section Spacing"
+    },
+    {
+      "type": "range",
+      "id": "top_spacing_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Top Spacing",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "bottom_spacing_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Bottom Spacing",
+      "default": 40
+    },
+
+    {
+      "type": "header",
+      "content": "Desktop Section Spacing"
+    },
+    {
+      "type": "range",
+      "id": "top_spacing_desktop",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Top Spacing",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "bottom_spacing_desktop",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Bottom Spacing",
+      "default": 40
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color"
+    },
+    {
+      "type": "image_picker",
+      "id": "bg_image",
+      "label": "Background Image"
+    },
+
+    {
+      "type": "header",
+      "content": "Divider Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "top_wave_divider",
+      "label": "Top Wave Divider",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "bottom_wave_divider",
+      "label": "Bottom Wave Divider",
+      "default": false
+    },
+    {
+      "type":"header",
+      "content":"Attribute Settings"
+    },
+    {
+      "type": "text",
+      "id": "custom_class",
+      "label": "Custom class"
+    },
+    {
+      "type": "text",
+      "id": "custom_id",
+      "label": "Custom ID"
+    }
+  ],
+  "blocks":[
+    {
+      "type": "accent_graphic", 
+      "name": "Accent Graphic",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon"
+        },
+        {
+          "type":"html",
+          "id":"svg_code",
+          "label":"Graphic SVG Code",
+          "info":"Paste SVG code for vector graphic"
+        },
+        {
+          "type":"header",
+          "content":"Visibility"
+        },
+        {
+          "type": "select",
+          "id": "visibility",
+          "options": [
+              { "value": "always", "label": "Always" },
+              { "value": "desktop_only", "label": "Desktop Only" },
+              { "value": "mobile_only", "label": "Mobile Only" }
+              ],
+          "label": "Show on..",
+          "default": "always"
+        },
+        {
+          "type":"header",
+          "content":"Position"
+        },
+        {
+          "type": "select",
+          "id": "x_setting",
+          "options": [
+              { "value": "left", "label": "Left" },
+              { "value": "right", "label": "Right" }
+              ],
+          "label": "X Position",
+          "default": "left"
+        },
+        {
+          "type": "select",
+          "id": "y_setting",
+          "options": [
+              { "value": "top", "label": "Top" },
+              { "value": "bottom", "label": "Bottom" }
+              ],
+          "label": "Y Position",
+          "default": "top"
+        },
+        {
+          "type":"header",
+          "content":"Large Screen Settings"
+        },
+        {
+          "type": "range",
+          "id": "width_large",
+          "min": 10,
+          "max": 400,
+          "step": 10,
+          "unit": "px",
+          "label": "Graphic Width",
+          "default": 150
+        },
+        {
+          "type": "range",
+          "id": "position_x_large",
+          "min": -100,
+          "max": 100,
+          "step": 2,
+          "unit": "%",
+          "label": "X Position",
+          "default": 10
+        },
+        {
+          "type": "range",
+          "id": "position_y_large",
+          "min": -100,
+          "max": 100,
+          "step": 2,
+          "unit": "%",
+          "label": "Y Position",
+          "default": 10
+        },
+        {
+          "type":"header",
+          "content":"Small Screen Settings"
+        },
+        {
+          "type": "range",
+          "id": "width_small",
+          "min": 10,
+          "max": 400,
+          "step": 10,
+          "unit": "px",
+          "label": "Graphic Width",
+          "default": 150
+        },
+        {
+          "type": "range",
+          "id": "position_x_small",
+          "min": -100,
+          "max": 100,
+          "step": 2,
+          "unit": "%",
+          "label": "X Position",
+          "default": 10
+        },
+        {
+          "type": "range",
+          "id": "position_y_small",
+          "min": -100,
+          "max": 100,
+          "step": 2,
+          "unit": "%",
+          "label": "Y Position",
+          "default": 10
+        },
+        {
+          "type":"header",
+          "content":"Animation Settings"
+        },
+        {
+          "type": "select",
+          "id": "animation",
+          "options": [
+              { "value": "none", "label": "None" },
+              { "value": "rotating", "label": "Rotate" },
+              { "value": "floating", "label": "Float" },
+              { "value": "spark", "label": "Spark" }
+            ],
+          "label": "Animation",
+          "default": "none"
+        },
+
+        {
+          "type":"header",
+          "content":"Appearance Settings"
+        },
+        {
+          "type": "range",
+          "id": "rotate",
+          "min": 0,
+          "max": 360,
+          "step": 36,
+          "unit": "%",
+          "label": "Rotate",
+          "default": 0
+        },
+        {
+          "type": "checkbox",
+          "id": "flip",
+          "label": "Flip Graphics?",
+          "default": false
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

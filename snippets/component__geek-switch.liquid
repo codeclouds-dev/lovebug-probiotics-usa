@@ -1,0 +1,12 @@
+<span 
+  class="geek-switch {{ mode }}"
+  :aria-expanded="geekMode"
+  @click='
+    geekMode = !geekMode
+    if(geekMode) $dispatch("show-einstein");
+  '
+  @keydown.enter='geekMode = !geekMode'
+  tabindex="0"
+  data-inview>
+    Geek Mode
+</span>

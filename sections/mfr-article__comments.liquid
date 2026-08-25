@@ -1,0 +1,818 @@
+{%- comment -%}
+--------------------------------------
+assign section settings to variables
+--------------------------------------
+{%- endcomment -%}
+
+{% if section.settings.border_bottom %}
+  <style>
+    #shopify-section-{{ section.id }} {
+      position: relative;
+      &:before {
+        content: '';
+        pointer-events: none;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 1.5px;
+        background: linear-gradient(130deg,#795A2E,#4F391F);
+        z-index: 2;
+      }
+    }
+  </style>
+{% endif %}
+
+{% render 'style-tags__section', asset_file_name: "mfr-article__comments.css" %}
+{%- assign text_alignment = section.settings.text_alignment -%}
+{%- assign container_width = section.settings.container_width -%}
+{%- assign max_width = section.settings.max_width -%}
+{%- assign grid_gutter = section.settings.grid_gutter -%}
+{%- assign color_theme = section.settings.color_theme -%}
+{%- assign custom_class = section.settings.custom_class -%}
+
+{%- assign section_id = section.settings.custom_id | default: section.id -%}
+{% render 'renderer__color-scheme', name: "section", color_scheme: section.settings.color_scheme, selector: ".shopify-section", section_id: section_id %}
+
+{%- if max_width != 0 and container_width == "" -%}
+  {%- capture max_width_style -%}
+    style="max-width: {{ max_width }}rem;" 
+  {%- endcapture -%}
+{%- endif -%}
+
+
+
+{% if section.settings.text_alignment != blank %}
+  {% assign content_alignment = "align-center" %}
+{% else %}
+  {% assign content_alignment = "" %}
+{% endif %}
+
+{% assign icons = section.blocks | where: "type", "icon" %}
+{% assign small_texts = section.blocks | where: "type", "small_text" %}
+{% assign headings = section.blocks | where: "type", "heading" %}
+{% assign texts = section.blocks | where: "type", "text" %}
+{% assign buttons = section.blocks | where: "type", "button" %}
+
+{% capture spacer %}
+  --top-spacing-mobile: {{ section.settings.top_spacing_mobile }}px;
+  --bottom-spacing-mobile: {{ section.settings.bottom_spacing_mobile }}px;
+  --top-spacing-desktop: {{ section.settings.top_spacing_desktop }}px;
+  --bottom-spacing-desktop: {{ section.settings.bottom_spacing_desktop }}px;
+{% endcapture %}
+
+{% capture comment_form %}
+    <div class="article-comments__form"
+      data-mfr-comment-form>
+        {% form 'new_comment', article %}
+            <input type="hidden" name="comment[body]">
+
+            <div class="article-comments__form-stars">
+                <div class="article-comments__form-stars-inner">
+                    {% for i in (1..5) %}
+                        <label>
+                            <input type="radio" name="stars" value="{{ i }}" {% if forloop.last %}checked{% endif %} />
+                            {% for star in (1..i) %}
+                                <span class="icon">★</span>
+                            {% endfor %}
+                        </label>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="article-comments__form-input">
+                <input type="text" name="comment[author]" placeholder="Your name">
+            </div>
+            <div class="article-comments__form-input">
+                <input type="email" name="comment[email]" placeholder="Your email">
+            </div>
+            <div class="article-comments__form-input">
+                <input type="text" name="title" placeholder="Your Comment Title">
+            </div>
+            <div class="article-comments__form-input">
+                <textarea name="content" placeholder="Your Comment Description"></textarea>
+            </div>
+            
+            <button class="button primary">Submit</button>
+        {% endform %}
+    </div>
+{% endcapture %}
+
+{% capture comment_list %}
+    {% if article.comments_count >= 1 %}
+        <div class="article-comments__list" data-load-more="3">
+            {% for comment in article.comments %}
+                {% assign name = comment.author %}
+                {% assign body =  comment.content | strip_html | split: "|" %}
+                {% assign star_count = body[0] %}
+                {% assign title = body[1] %}
+                {% assign content = body[2] %}
+                {% assign date = comment.created_at | date: "%m/%d/%Y" %}
+                <div class="article-comments__entry" data-load-more-entry>
+                    <div class="article-comments__entry-header">
+                        <div class="article-comments__entry-avatar">
+                            {%- capture star_svg -%}
+                                <?xml version="1.0" encoding="UTF-8"?>
+                                <svg width="60px" height="60px" viewBox="0 0 60 60" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                    <title>7C56CD7C-577E-4C38-B2C8-BB3F4C63F1AB</title>
+                                    <g id="Assets" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                        <g id="Icons" transform="translate(-324.000000, -279.000000)" fill="#015659">
+                                            <path d="M350.878555,338.131181 C349.275601,339.288649 347.037836,338.927512 345.880367,337.324558 C345.829579,337.254223 345.781365,337.182065 345.735819,337.108227 C344.529143,335.151972 342.20467,334.189144 339.968141,334.719176 C338.04426,335.175114 336.115036,333.985111 335.659098,332.061231 C335.639092,331.976814 335.622162,331.891697 335.60834,331.80605 C335.242143,329.536932 333.463068,327.757857 331.19395,327.39166 C329.242036,327.076655 327.91506,325.238954 328.230065,323.28704 C328.243887,323.201393 328.260818,323.116277 328.280824,323.031859 C328.810856,320.79533 327.848028,318.470857 325.891773,317.264181 C324.208988,316.226189 323.686279,314.020562 324.724271,312.337777 C324.769817,312.263939 324.818031,312.19178 324.868819,312.121445 C326.214388,310.257996 326.214388,307.742004 324.868819,305.878555 C323.711351,304.275601 324.072488,302.037836 325.675442,300.880367 C325.745777,300.829579 325.817935,300.781365 325.891773,300.735819 C327.848028,299.529143 328.810856,297.20467 328.280824,294.968141 C327.824886,293.04426 329.014889,291.115036 330.938769,290.659098 C331.023186,290.639092 331.108303,290.622162 331.19395,290.60834 C333.463068,290.242143 335.242143,288.463068 335.60834,286.19395 C335.923345,284.242036 337.761046,282.91506 339.71296,283.230065 C339.798607,283.243887 339.883723,283.260818 339.968141,283.280824 C342.20467,283.810856 344.529143,282.848028 345.735819,280.891773 C346.773811,279.208988 348.979438,278.686279 350.662223,279.724271 C350.736061,279.769817 350.80822,279.818031 350.878555,279.868819 C352.742004,281.214388 355.257996,281.214388 357.121445,279.868819 C358.724399,278.711351 360.962164,279.072488 362.119633,280.675442 C362.170421,280.745777 362.218635,280.817935 362.264181,280.891773 C363.470857,282.848028 365.79533,283.810856 368.031859,283.280824 C369.95574,282.824886 371.884964,284.014889 372.340902,285.938769 C372.360908,286.023186 372.377838,286.108303 372.39166,286.19395 C372.757857,288.463068 374.536932,290.242143 376.80605,290.60834 C378.757964,290.923345 380.08494,292.761046 379.769935,294.71296 C379.756113,294.798607 379.739182,294.883723 379.719176,294.968141 C379.189144,297.20467 380.151972,299.529143 382.108227,300.735819 C383.791012,301.773811 384.313721,303.979438 383.275729,305.662223 C383.230183,305.736061 383.181969,305.80822 383.131181,305.878555 C381.785612,307.742004 381.785612,310.257996 383.131181,312.121445 C384.288649,313.724399 383.927512,315.962164 382.324558,317.119633 C382.254223,317.170421 382.182065,317.218635 382.108227,317.264181 C380.151972,318.470857 379.189144,320.79533 379.719176,323.031859 C380.175114,324.95574 378.985111,326.884964 377.061231,327.340902 C376.976814,327.360908 376.891697,327.377838 376.80605,327.39166 C374.536932,327.757857 372.757857,329.536932 372.39166,331.80605 C372.076655,333.757964 370.238954,335.08494 368.28704,334.769935 C368.201393,334.756113 368.116277,334.739182 368.031859,334.719176 C365.79533,334.189144 363.470857,335.151972 362.264181,337.108227 C361.226189,338.791012 359.020562,339.313721 357.337777,338.275729 C357.263939,338.230183 357.19178,338.181969 357.121445,338.131181 C355.257996,336.785612 352.742004,336.785612 350.878555,338.131181 Z" id="Star"></path>
+                                        </g>
+                                    </g>
+                                </svg>
+                            {%- endcapture -%}
+                            {% assign first = name | split: " " | first | first %}
+                            {% assign last = name | split: " " | last | first %}
+
+                            {% render "component__svg-encoder", svg_code: star_svg, alt: "Star icon" %}
+                            {{ first }}{{ last }}
+                        </div>
+                        <div class="article-comments__entry-name">
+                            <span>{{ name }}</span>
+                            <span>
+                                {% for star in (1..star_count) %}
+                                    <span class="icon">★</span>
+                                {% endfor %}
+                            </span>
+                        </div>
+                        <div class="article-comments__entry-date">
+                            {{ date }}
+                        </div>
+                    </div>
+
+                    <div class="article-comments__entry-body">
+                        {% if title != blank %}
+                            <div class="article-comments__entry-title">
+                                {{ title }}
+                            </div>
+                        {% endif %}
+                        {% if content != blank %}
+                            <div class="article-comments__entry-content">
+                                {{ content }}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endcapture %}
+
+{% comment %}
+  Insert your custom section content here 
+{% endcomment %}
+{% capture custom_section_content %}
+  <div class="article-comments">
+    {{ comment_list }}
+    {{ comment_form }}
+  </div>
+{% endcapture %}
+
+<section class="mfr-article__comments {{ custom_class }} " id="{{ section_id }}" >
+  {%- render 'component__gradient-bg-styles' -%}
+  {%- render 'component__accent-graphics' -%}
+
+  <div class="section-spacer background {{ grid_gutter }}" style="{{ spacer }}">
+    <div class="grid-container {{ container_width }}" {{ max_width_style }}>
+      <div class="grid-x align-center">
+        {% if icons != blank or small_texts != blank or headings != blank or texts != blank %}
+          <div class="cell small-12 large-12 section-content {{ color_theme }} {{ text_alignment }}">
+            <div class="inner">
+              {%- for block in section.blocks -%}
+                {% case block.type %}
+                
+                  {%- when 'icon' -%}
+                    {% render 'renderer__block-icon', block: block %} 
+                
+                    
+                  {%- when 'small_text' -%}
+                    {% render "renderer__block-small-text", block: block %}
+                    
+                  {%- when 'heading' -%}
+                    {% render "renderer__block-title", block: block %}
+                    
+                  {%- when 'text' -%}
+                    {% render "renderer__block-text", block: block %}
+
+                {%- endcase -%}
+              {%- endfor -%}
+            </div>
+          </div>
+        {% endif %}
+
+        {% if article.comments_enabled? %}
+          <div class="cell small-12 article-comments__wrapper">
+              {{ custom_section_content }}
+          </div>
+        {% endif %}
+
+        {% if buttons != blank %}
+          <div class="cell small-12 large-12">
+            <div class="button-set {{ content_alignment }}">
+              {%- for block in section.blocks -%}
+                {% case block.type %}
+                  {%- when 'button' -%}
+                    {% render 'renderer__block-button', block: block %}
+                {%- endcase -%}
+              {%- endfor -%}
+            </div>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+
+  </div>
+  {%- render 'component__section-dividers', is_video_background: true -%}
+</section>
+{% render 'script__section', file: "mfr-comment-form.js" %}
+
+
+{% schema %}
+{
+  "name":"Article: Comments",
+  "enabled_on": {
+    "templates": ["article"]
+  },
+  "settings":[
+    {
+      "type": "header",
+      "content": "Section Settings"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "options": [
+          { "value": "", "label": "Left" },
+          { "value": "text-center", "label": "Center" }
+          ],
+      "label": "Text Alignment",
+      "default": "text-center"
+    },
+    {
+      "type": "select",
+      "id": "container_width",
+      "options": [
+          { "value": "full", "label": "Full" },
+          { "value": "", "label": "Contain" }
+          ],
+      "label": "Width",
+      "default": "full"
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "rem",
+      "label": "Max Content Width",
+      "default": 0
+    },
+    {
+      "type": "select",
+      "id": "grid_gutter",
+      "options": [
+          { "value": "grid-gutter", "label": "Padding" },
+          { "value": "", "label": "No Padding" }
+          ],
+      "label": "Section Padding",
+      "default": ""
+    },
+      {
+        "type": "header",
+        "content": "Color Schemes Settings"
+      },
+      {
+        "type": "color_scheme",
+        "id": "color_scheme",
+        "default": "scheme_1",
+        "label": "Color Scheme",
+        "info": "This will be the color scheme of the header initially."
+      },
+
+    {
+      "type": "header",
+      "content": "Mobile Section Spacing"
+    },
+    {
+      "type": "range",
+      "id": "top_spacing_mobile",
+      "min": 0,
+      "max": 500,
+      "step": 10,
+      "unit": "px",
+      "label": "Top Spacing",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "bottom_spacing_mobile",
+      "min": 0,
+      "max": 500,
+      "step": 10,
+      "unit": "px",
+      "label": "Bottom Spacing",
+      "default": 100
+    },
+
+    {
+      "type": "header",
+      "content": "Desktop Section Spacing"
+    },
+    {
+      "type": "range",
+      "id": "top_spacing_desktop",
+      "min": 0,
+      "max": 500,
+      "step": 10,
+      "unit": "px",
+      "label": "Top Spacing",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "bottom_spacing_desktop",
+      "min": 0,
+      "max": 500,
+      "step": 10,
+      "unit": "px",
+      "label": "Bottom Spacing",
+      "default": 100
+    },
+
+    {
+      "type":"header",
+      "content":"Background"
+    },
+    {
+      "type": "color_background",
+      "id": "bg_color",
+      "label": "Background Color/Gradient"
+    },
+
+    {
+      "type": "image_picker",
+      "id": "bg_image_mobile",
+      "label": "Background Image - Mobile"
+    },
+    {
+      "type": "image_picker",
+      "id": "bg_image",
+      "label": "Background Image - Desktop"
+    },
+
+
+    {
+      "type": "header",
+      "content": "Divider Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "top_wave_divider",
+      "label": "Top Wave Divider",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "bottom_wave_divider",
+      "label": "Bottom Wave Divider",
+      "default": false
+    },
+    {
+      "type":"header",
+      "content":"Attribute Settings"
+    },
+    {
+      "type": "text",
+      "id": "custom_class",
+      "label": "Custom class"
+    },
+    {
+      "type": "text",
+      "id": "custom_id",
+      "label": "Custom ID"
+    }
+  ],
+  "blocks":[
+    {
+      "type": "icon", 
+      "name": "Icon",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon"
+        },
+        {
+          "type": "text",
+          "id": "file_lottie_url",
+          "label": "File Lottie URL"
+        },
+        {
+          "type": "number",
+          "id": "icon_width",
+          "label": "Image width",
+          "default": 150,
+          "info": "in pixels."
+        }
+      ]
+    },
+    {
+      "type":"small_text",
+      "name":"Accent Text",
+      "limit":1,
+      "settings":[
+        {
+          "type":"text",
+          "id":"text",
+          "default":"Accent Text",
+          "label":"Text"
+        },
+        {
+          "type": "color",
+          "id": "small_text_color",
+          "label": "Color"
+        }
+      ]
+    },
+    
+    {
+      "type": "heading",
+      "name": "Heading",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "inline_richtext",
+          "id": "heading",
+          "default": "Heading H1",
+          "label": "Heading H1"
+        },
+        {
+          "type": "checkbox",
+          "id": "disable_animation",
+          "label": "Disable Animation",
+          "default": false
+        },
+        {
+          "type": "select",
+          "id": "header_style",
+          "options": [
+              { "value": "h1", "label": "H1"},
+              { "value": "h2", "label": "H2"},
+              { "value": "h3", "label": "H3"},
+              { "value": "h4", "label": "H4"},
+              { "value": "h5", "label": "H5"},
+              { "value": "h6", "label": "H6"}
+              ],
+          "label": "Header Style",
+          "default": "h1"
+        },
+
+        {
+          "type": "header",
+          "content": "Accent Settings"
+        },
+        {
+          "type": "select",
+          "id": "make_xl",
+          "options": [
+              { "value": "", "label": "Normal"},
+              { "value": "xl-title", "label": "Oversize"}
+              ],
+          "label": "H1 Size",
+          "default": "",
+          "info": "H1s can be set to oversize if they need to be extra big"
+        },
+
+        {
+            "type": "color",
+            "id": "highlight_color",
+            "label": "Highlight Color",
+            "info": "Use [highlight][/highlight] to highlight text"
+        },
+        {
+            "type": "color",
+            "id": "underline_color",
+            "label": "Underline Color",
+            "info": "Use [underline][/underline] to underline text"
+        },
+
+        {
+          "type": "header",
+          "content": "Width Settings"
+        },
+        {
+            "type": "range",
+            "id": "max_width",
+            "min": 0,
+            "max": 60,
+            "step": 1,
+            "unit": "rem",
+            "label": "Max Width",
+            "default": 0
+        }
+      ]
+    },
+    
+    {
+      "type": "text",
+      "name": "Text",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "text",
+          "default": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum vel metus auctor.</p>",
+          "label": "Text"
+        },
+        {
+          "type":"select",
+          "id":"text_style",
+          "options":[
+            { "value": "", "label":"Default"},
+            { "value":"xsmall", "label":"xSmall" },
+            { "value":"small", "label":"Small" },
+            { "value":"medium", "label":"Medium" },
+            { "value":"large", "label":"Large" },
+            { "value":"xlarge", "label":"xLarge" }
+          ],
+          "label":"Text Style",
+          "default":""
+        },
+        {
+          "type": "select",
+          "id": "font_family",
+          "options": [
+            { "value": "", "label": "Use system settings" },
+            { "value": "custom-font-name-1", "label": "Custom Font Name 1" },
+            { "value": "custom-font-name-2", "label": "Custom Font Name 2" },
+            { "value": "custom-font-name-3", "label": "Custom Font Name 3" },
+            { "value": "custom-font-name-4", "label": "Custom Font Name 4" }
+          ],
+          "label": "Font Family",
+          "default": "",
+          "info": "Custom font names can be via Theme Settings > Custom Fonts"
+        },
+        {
+          "type": "color",
+          "id": "color",
+          "label": "Text Color",
+          "info": "Leave it blank to use system settings."
+        },
+        {
+          "type": "color",
+          "id": "bold_color",
+          "label": "Bold Color",
+          "info": "Adding bold color will make the bolded text colored instead of being bold."
+        },
+        {
+            "type": "color",
+            "id": "underline_color",
+            "label": "Underline Color",
+            "info": "Use [underline][/underline] to underline text(s)"
+        },
+
+        {
+          "type": "header",
+          "content": "Width Settings"
+        },
+        {
+            "type": "range",
+            "id": "max_width",
+            "min": 0,
+            "max": 50,
+            "step": 1,
+            "unit": "rem",
+            "label": "Max Width",
+            "default": 0
+        }
+      ]
+    },
+    {
+      "type":"button",
+      "name":"Button",
+      "limit":2,
+      "settings":[
+        {
+          "type":"text",
+          "id":"button_label",
+          "default":"Button label",
+          "label":"Button",
+          "info":"Leave the label blank to hide the button."
+        },
+        {
+          "type":"url",
+          "id":"button_link",
+          "label":"Button Link"
+        },
+        {
+          "type": "select",
+          "id": "color_theme",
+          "label": "Color Theme",
+          "options": [
+            {
+              "value": "primary",
+              "label": "Primary"
+            },
+            {
+              "value": "secondary",
+              "label": "Secondary"
+            },
+            {
+              "value": "tertiary",
+              "label": "Tertiary"
+            }
+          ]
+        }
+      ]
+    },
+    {
+        "type": "accent_graphic", 
+        "name": "Accent Graphic",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "icon",
+            "label": "Icon"
+          },
+          {
+            "type":"html",
+            "id":"svg_code",
+            "label":"Graphic SVG Code",
+            "info":"Paste SVG code for vector graphic"
+          },
+          {
+            "type":"header",
+            "content":"Visibility"
+          },
+          {
+            "type": "select",
+            "id": "visibility",
+            "options": [
+                { "value": "always", "label": "Always" },
+                { "value": "desktop_only", "label": "Desktop Only" },
+                { "value": "mobile_only", "label": "Mobile Only" }
+                ],
+            "label": "Show on..",
+            "default": "always"
+          },
+          {
+            "type":"header",
+            "content":"Value Type"
+          },
+          {
+            "type": "select",
+            "id": "value_type",
+            "options": [
+                { "value": "px", "label": "Pixels" },
+                { "value": "%", "label": "Percentage" }
+                ],
+            "label": "Position Value Type",
+            "default": "%",
+            "info": "Pixel values are multiplied by 5"
+          },
+          {
+            "type":"header",
+            "content":"Position"
+          },
+          {
+            "type": "select",
+            "id": "x_setting",
+            "options": [
+                { "value": "left", "label": "Left" },
+                { "value": "center", "label": "Center" },
+                { "value": "right", "label": "Right" }
+                ],
+            "label": "X Position",
+            "default": "left"
+          },
+          {
+            "type": "select",
+            "id": "y_setting",
+            "options": [
+                { "value": "top", "label": "Top" },
+                { "value": "bottom", "label": "Bottom" }
+                ],
+            "label": "Y Position",
+            "default": "top"
+          },
+          { 
+            "type":"header",
+            "content":"Large Screen Settings"
+          },
+          {
+            "type": "range",
+            "id": "width_large",
+            "min": 10,
+            "max": 400,
+            "step": 10,
+            "unit": "px",
+            "label": "Graphic Width",
+            "default": 150
+          },
+          {
+            "type": "range",
+            "id": "position_x_large",
+            "min": -100,
+            "max": 100,
+            "step": 2,
+            "label": "X Position",
+            "default": 10
+          },
+          {
+            "type": "range",
+            "id": "position_y_large",
+            "min": -100,
+            "max": 100,
+            "step": 2,
+            "label": "Y Position",
+            "default": 10
+          },
+          {
+            "type":"header",
+            "content":"Small Screen Settings"
+          },
+          {
+            "type": "range",
+            "id": "width_small",
+            "min": 10,
+            "max": 400,
+            "step": 10,
+            "unit": "px",
+            "label": "Graphic Width",
+            "default": 150
+          },
+          {
+            "type": "range",
+            "id": "position_x_small",
+            "min": -100,
+            "max": 100,
+            "step": 2,
+            "label": "X Position",
+            "default": 10
+          },
+          {
+            "type": "range",
+            "id": "position_y_small",
+            "min": -100,
+            "max": 100,
+            "step": 2,
+            "label": "Y Position",
+            "default": 10
+          },
+          {
+            "type":"header",
+            "content":"Animation Settings"
+          },
+          {
+            "type": "select",
+            "id": "animation",
+            "options": [
+                { "value": "none", "label": "None" },
+                { "value": "rotating", "label": "Rotate" },
+                { "value": "floating", "label": "Float" },
+                { "value": "spark", "label": "Spark" }
+              ],
+            "label": "Animation",
+            "default": "none"
+          },
+
+          {
+            "type":"header",
+            "content":"Appearance Settings"
+          },
+          {
+            "type": "range",
+            "id": "rotate",
+            "min": 0,
+            "max": 360,
+            "step": 36,
+            "unit": "%",
+            "label": "Rotate",
+            "default": 0
+          },
+          {
+            "type": "checkbox",
+            "id": "flip",
+            "label": "Flip Graphics?",
+            "default": false
+          }
+        ]
+      }
+  ],
+  "presets":[
+    {
+      "name":"Article: Comments",
+      "blocks":[
+        {
+          "type":"heading"
+        },
+        {
+          "type":"text"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

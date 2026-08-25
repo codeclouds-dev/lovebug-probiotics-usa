@@ -1,0 +1,36 @@
+{% if product.available %}
+  {%- assign open_off_canvas = '
+      x-data
+      x-on:click="$store[`offCanvasCart`].openOffcanvas()"
+    ' -%}
+{% else %}
+  {%- assign open_off_canvas = '' -%}
+{% endif %}
+<div class="product-top__submit"
+  x-ref="productTopSubmit">
+  <button class="button add-to-cart primary" data-inview data-open="offCanvasCart"
+    {% unless product.selected_or_first_available_variant.available %}
+      disabled
+    {% endunless %}
+    {{ open_off_canvas }}>
+    {% if product.selected_or_first_available_variant.available %}
+      <span>{{ block.settings.label | replace: "--", "&mdash;" }}</span>
+      {% if block.settings.show_price %}
+        <span class="price"
+          x-text='
+            sellingPlanType == "one-time" ? Shopify.formatMoney(basePrice * quantity) : Shopify.formatMoney((basePrice - (basePrice * discountPercentage)) * quantity)
+          '>
+          {{- product.selected_or_first_available_variant.price | money_without_trailing_zeros -}}
+        </span>
+      {% endif %}
+    {% else %}
+      <span>{{ 'products.product.sold_out' | t }}</span>
+    {% endif %}
+  </button>
+
+  {% if block.settings.bottom_caption != blank %}
+    <div class="product-top__submit-caption">
+      {{ block.settings.bottom_caption }}
+    </div>
+  {% endif %}
+</div>

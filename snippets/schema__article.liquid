@@ -1,0 +1,50 @@
+{%- if template.suffix == "mixies" -%}
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org/",
+            "@type": "Recipe",
+            "name": "{{ article.title }}",
+            "image": {
+                "@type": "ImageObject",
+                "url": "http:{{ article.image | image_url }}"
+            },
+            "prepTime": "{{ article.metafields.mfr_fields.article_content_prep.value }}",
+            "recipeIngredient": "{{ shop.name }}: {{ article.metafields.mfr_fields.article_content_mimio-health_flavor.value }}",
+            "recipeInstructions": "{{ article.content | strip_html | strip_newlines }}",
+            "author": {
+                "@type": "Person",
+                "name": "{{ article.author }}"
+            },
+            "datePublished": "{{ article.published_at | date: "%m-%d-%Y" }}",
+            "keywords": "{{ article.title | split: " " | join: "," }}"
+        }
+    </script>
+{%- else -%}
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org/",
+            "@type": "Article",
+            "author": [
+                {
+                "@type": "Person",
+                "name": "{{ article.author }}"
+                }
+            ],
+            "headline": "{{ article.title }}",
+            "image": {
+                "@type": "ImageObject",
+                "url": "http:{{ article.image | image_url }}"
+            },
+            "datePublished": "{{ article.published_at | date: "%m-%d-%Y" }}",
+            "publisher": {
+                "@type": "Organization",
+                "name": "{{ shop.name }}",
+                "logo": {
+                "@type": "ImageObject",
+                "url": "https:{{ settings.desktop_logo | image_url }}"
+                }
+            },
+            "keywords": "{{ article.title | split: " " | join: "," }}"
+        }
+    </script>
+{%- endif -%}

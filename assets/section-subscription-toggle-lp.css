@@ -1,0 +1,335 @@
+/* =======================================
+  Subscription Toggle Layout (A/B)
+  Loaded only when the subscription_option
+  block has enable_toggle_layout checked.
+  Scoped under .subscription-selector--toggle;
+  inherits the corner-badge base from
+  .subscription-selector--flat .subscription-selector__badge
+  in section-landing-product-top.css.
+======================================= */
+
+.subscription-selector--toggle,
+.subscription-selector--toggle *,
+.subscription-selector--toggle *::before,
+.subscription-selector--toggle *::after {
+  box-sizing: border-box;
+}
+
+.subscription-selector--toggle {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Neutralize .subscription-selector--flat label { display:block; width:100% } */
+.subscription-selector--toggle .subscription-toggle__pill-label {
+  display: inline-flex;
+  width: auto;
+}
+
+.subscription-selector--toggle .subscription-toggle__switch {
+  display: inline-flex;
+  width: auto;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+.subscription-toggle__heading {
+  color: #2B3990;
+  font-family: "ES Peak Rounded";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 110%;
+  margin: 0;
+}
+
+/* ---------- Supply pills ---------- */
+
+.subscription-toggle__supply {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.subscription-toggle__pills {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 20px 10px;
+}
+
+.subscription-toggle__pill {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 14px 20px;
+  border-radius: 16px;
+  background: #EFEFF7;
+  color: #2B3990;
+  font-family: "ES Peak Rounded";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 110%;
+  letter-spacing: 0.16px;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+/* Selected state driven by the checked radio, so the pre-Alpine paint
+   already shows the default plan selected */
+.subscription-toggle__pill-label input:checked + .subscription-toggle__pill {
+  background: #2B3990;
+  color: #FFF;
+}
+
+.subscription-toggle__pill-label input:focus-visible + .subscription-toggle__pill {
+  outline: 2px solid #2B3990;
+  outline-offset: 2px;
+}
+
+/* Corner badges: base style comes from .subscription-selector__badge */
+.subscription-selector--toggle .subscription-selector__badge {
+  padding: 6px 12px;
+  white-space: nowrap;
+  font-weight: 600;
+  letter-spacing: 0.12px;
+}
+
+.subscription-selector--toggle .subscription-toggle__badge--best-value {
+  right: auto;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.subscription-selector--toggle .subscription-toggle__badge--save {
+  right: 16px;
+}
+
+/* ---------- Frequency card ---------- */
+
+.subscription-toggle__frequency {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.subscription-toggle__card-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-top: 8px;
+}
+
+.subscription-toggle__card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  padding: 16px;
+  border: 1px solid #2B3990;
+  border-radius: 16px;
+  background: #FFF;
+  transition: background 0.2s ease;
+}
+
+.subscription-toggle__card.is-subscription {
+  background: #E9F4FC;
+}
+
+.subscription-toggle__card-main {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1 0 0;
+  min-width: 1px;
+}
+
+.subscription-toggle__card-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  flex: 1 0 0;
+  min-width: 1px;
+}
+
+.subscription-toggle__card-title {
+  color: #2B3990;
+  font-family: "ES Peak Rounded";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 110%;
+  margin: 0;
+}
+
+.subscription-toggle__card-title--one-time {
+  color: #000;
+}
+
+.subscription-toggle__card-subtext {
+  color: #2B3990;
+  font-family: "ES Peak Rounded";
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 110%;
+  letter-spacing: -0.36px;
+  margin: 0;
+}
+
+/* ---------- Toggle switch ---------- */
+
+.subscription-toggle__track {
+  position: relative;
+  display: inline-block;
+  width: 42px;
+  height: 22px;
+  border-radius: 200px;
+  background: #ABABAB;
+  transition: background 0.2s ease;
+}
+
+.subscription-toggle__knob {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #FFF;
+  transition: transform 0.2s ease;
+}
+
+.subscription-toggle__switch input:checked + .subscription-toggle__track {
+  background: #2B3990;
+}
+
+.subscription-toggle__switch input:checked + .subscription-toggle__track .subscription-toggle__knob {
+  transform: translateX(20px);
+}
+
+.subscription-toggle__switch input:focus-visible + .subscription-toggle__track {
+  outline: 2px solid #2B3990;
+  outline-offset: 2px;
+}
+
+/* ---------- Prices ---------- */
+
+.subscription-selector--toggle .subscription-toggle__card-prices {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.subscription-selector--toggle .subscription-toggle__card-prices .price-value {
+  color: #2B3990;
+  font-family: "ES Peak Rounded";
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 110%;
+  letter-spacing: -0.6px;
+}
+
+.subscription-selector--toggle .subscription-toggle__card-prices .price-strikethrough {
+  color: #2B3990;
+  font-family: "ES Peak Rounded";
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 110%;
+  letter-spacing: -0.48px;
+  text-decoration-line: line-through;
+}
+
+/* ---------- Perks grid ---------- */
+
+.subscription-selector--toggle .subscription-toggle__perks {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px 16px;
+  padding: 0 4px;
+  margin: 0;
+}
+
+.subscription-selector--toggle .subscription-toggle__perks .subscription-perks-list-item {
+  gap: 8px !important;
+  font-family: "ES Peak Rounded";
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 110%;
+  letter-spacing: -0.36px;
+}
+
+/* Follows the per-product accent (pdp_secondary_color metafield, set as a
+   CSS variable on the wrapper by the snippet) so the perks match the badges */
+.subscription-toggle__perks--sub .subscription-perks-list-item {
+  color: var(--subscription-toggle-accent, #96238D);
+}
+
+.subscription-toggle__perks--one-time .subscription-perks-list-item {
+  color: #5B5B5B;
+}
+
+/* ---------- Desktop ---------- */
+
+@media print, screen and (min-width: 64em) {
+  .subscription-selector--toggle {
+    gap: 24px;
+  }
+
+  .subscription-toggle__supply {
+    gap: 24px;
+  }
+
+  .subscription-toggle__heading {
+    font-size: 18px;
+  }
+
+  .subscription-toggle__pill {
+    font-size: 18px;
+    letter-spacing: 0.18px;
+  }
+
+  .subscription-toggle__card {
+    padding: 16px 24px;
+  }
+
+  .subscription-toggle__card-main {
+    gap: 18px;
+  }
+
+  .subscription-toggle__card-title {
+    font-size: 20px;
+  }
+
+  .subscription-toggle__card-subtext {
+    font-size: 14px;
+    letter-spacing: -0.42px;
+  }
+
+  .subscription-selector--toggle .subscription-toggle__badge--save {
+    right: 20px;
+  }
+
+  .subscription-selector--toggle .subscription-toggle__card-prices .price-value {
+    font-size: 22px;
+    letter-spacing: -0.66px;
+  }
+
+  .subscription-selector--toggle .subscription-toggle__card-prices .price-strikethrough {
+    font-size: 18px;
+    letter-spacing: -0.54px;
+  }
+
+  .subscription-selector--toggle .subscription-toggle__perks .subscription-perks-list-item {
+    font-size: 14px;
+    letter-spacing: -0.42px;
+  }
+}

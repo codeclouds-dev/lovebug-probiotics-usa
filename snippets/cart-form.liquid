@@ -1,0 +1,180 @@
+<form action="/cart" method="post" class="cart__form" novalidate>
+
+  {% comment %}
+  Cart Item Template
+  =====================
+  The data-label attributes on <td> elements are mobile-friendly
+    helpers used for responsive-table labels
+    {% endcomment %}
+
+    {% assign shipping-floor-int = section.settings.free_shipping_floor | times: 100 %}
+    {% assign price-difference = shipping-floor-int | minus: cart.total_price %}
+
+    <div class="cart__form-top">
+
+      <div class="cart__title">
+        {% if section.settings.cart_title %}
+        <h1 class="h1">{{ section.settings.cart_title }}</h1>
+        {% endif %}
+      </div>
+
+
+      <div class="cart-items">
+
+        <div class="cart__product" rv-each-item="cart.items">
+
+          <div class="product__quantity">
+            <div class="quantity-picker__counter" data-label="{{ 'cart.label.quantity' | t }}">
+              <a class="quantity-picker__minus" href="#" rv-data-cart-update="index | plus 1"
+                rv-data-cart-quantity="item.quantity | minus 1"><span>-</span></a>
+              <span class="item-quanity" rv-text="item.quantity"></span>
+              <a class="quantity-picker__plus" href="#" rv-data-cart-update="index | plus 1"
+                rv-data-cart-quantity="item.quantity | plus 1"><span>+</span></a>
+            </div>
+          </div>
+
+          <!-- {% for line_item in cart.items %}
+        {% assign item_url = line_item.url %}
+        {% endfor %} -->
+
+          <div class="product__image" data-label="{{ 'customer.order.product' | t }}">
+            <div class="inner">
+              <img class="" rv-src="item.image | product_image_size '350x'" alt="">
+            </div>
+          </div>
+
+          <div class="product__type meta-label" rv-text="item.product_type">{{ item.product.type }}</div>
+
+          <div class="product__name" rv-text="item.product_title">{{ item.product.title }}</div>
+
+          <div class="variant-wrapper">
+            {% unless item.product.has_only_default_variant %}
+            <div class="product__variant" rv-each-option="item.options_with_values">
+              <span rv-text="option.name"></span>:
+              <span rv-text="option.value"></span>
+            </div>
+            {% endunless %}
+          </div>
+
+          <div class="product__selling-plan">
+            <span rv-text="item.selling_plan_allocation.selling_plan.name">{{ item.product.selling_plan.id }}</span>
+          </div>
+
+          <div class="product__price">
+            <div class="price" data-label="{{ 'cart.label.price' | t }}">
+              {% if item.original_line_price != item.line_price %}
+              <span class="visually-hidden">{{ 'cart.label.discounted_price' | t }}</span>
+              {{ item.price | money_with_currency }}
+              <span class="visually-hidden">{{ 'cart.label.original_price' | t }}</span>
+              <s>{{ item.original_price | money_with_currency }}</s>
+              {% else %}
+              <span rv-html="item.line_price | money Currency.currentCurrency"></span>
+              {{ item.price | money_with_currency }}
+              <span rv-if="item.properties.group_id">
+              </span>
+              {% endif %}
+            </div>
+          </div>
+
+          {% comment %}
+          <a class="remove" href="#" rv-data-cart-remove="index | plus 1">
+            <span aria-hidden="true">
+              <i class="far fa-times-circle"></i>
+            </span>
+          </a>
+          {% endcomment %}
+
+        </div>
+
+      </div>
+    </div>
+
+
+
+    <div class="cart__form-footer">
+
+      <div class="cart__total">
+        <div class="subtotal">{{ 'cart.general.subtotal' | t }}</div>
+        <div class="subtotal-number no-margin" rv-html="cart.total_price | money Currency.currentCurrency">
+          {{cart.total_price | money_with_currency}}
+        </div>
+      </div>
+
+      <div class="cart__checkout-button">
+        <!-- <input type="submit" name="checkout" class="button primary border" value="{{ 'cart.general.checkout' | t }}"> -->
+        <button type="submit" name="checkout" class="button tertiary color-accent-2">
+          <span class="text">{{ 'cart.general.checkout' | t }}</span>
+        </button>
+      </div>
+
+      {%- comment -%}
+      <div class="cart__details">
+        <div class="meta-label">
+          {{ 'cart.general.shipping_at_checkout' | t }}
+        </div>
+        {% if section.settings.cart_info_note %}
+        <div class="cart-note">
+          {{ section.settings.cart_info_note }}
+        </div>
+        {% endif %}
+        {% if cart.total_discounts > 0 %}
+        <p>{{ 'cart.general.savings' | t }} {{ cart.total_discounts | money_without_currency }}</p>
+        {% endif %}
+      </div>
+      {%- endcomment -%}
+
+      <div class="cart__total-wrapper">
+        {% if settings.cart_notes_enable %} 
+        <div class="small-12 cell">
+          <div class="cart-attribute__field">
+            <input type="hidden" name="attributes[Is this a gift?]" value="No">
+            <input type="checkbox" id="isGift" name="attributes[Is this a gift?]" onclick="showMessage()" value="Yes" {%
+              if cart.attributes["Is this a gift?"]=="Yes" %} checked{% endif %}>
+            <label for="isGift">Is this a gift?</label>
+          </div>
+          <div class="cart-attribute__field">
+            <label for="gift-note" class="visually-hidden">Gift Note</label>
+            <div id="gift-message" style="display:none;">
+              <textarea id="gift-note" placeholder="Gift Note" name="attributes[Gift Note]"
+                maxlength="200">{{ cart.attributes["Gift Note"] }}</textarea>
+              <span id='remainingC'></span>
+            </div>
+          </div>
+        </div>
+        {% endif %}
+      </div>
+
+
+
+    </div>
+
+
+</form>
+
+
+
+
+
+<script type="text/javascript">
+
+  $('textarea').keypress(function () {
+    if (this.value.length > 200) {
+      return false;
+    }
+    $("#remainingC").html("Remaining characters : " + (200 - this.value.length));
+  });
+
+  function showMessage() {
+    // Get the checkbox
+    var checkBox = document.getElementById("isGift");
+    // Get the output text
+    var text = document.getElementById("gift-message");
+    // If the checkbox is checked, display the output text
+    if (checkBox.checked == true) {
+      text.style.display = "block";
+    } else {
+      text.style.display = "none";
+    }
+  }
+
+</script>

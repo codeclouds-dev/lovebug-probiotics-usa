@@ -1,0 +1,19 @@
+{% assign filter_names = filter_list | split: ',' %}
+
+<div id="filters" class="button-group filter__navigation {{ color }} {% if position %}inline-heading{% endif %}">
+    <div class="filter__navigation-inner">
+        <h5>{{ heading }}</h5>
+        <ul>
+            {%- for filter_name in filter_names -%}
+                <li>
+                    <button type="button" class="{% if forloop.first == true %}is-active{% endif %}" data-filter="{% if forloop.first == true and hideAll != true %}*{% else %}.{{ filter_name | handleize }}{% endif %}">{{ filter_name }}</button>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+
+<style>
+    .filter__navigation ul { background-color: {{ background_color }}; }
+    .filter__navigation ul li button:hover, .filter__navigation ul li button.is-active { background-color: {{ hover_color }}; } 
+</style>

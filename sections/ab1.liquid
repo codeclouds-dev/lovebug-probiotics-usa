@@ -1,0 +1,38 @@
+{% schema %}
+{
+  "name": "Ab1",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "This is my banner"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Banner Image"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Ab2"
+    }
+  ]
+}
+{% endschema %}
+
+<div class="custom-banner-wrapper">
+  {% if section.settings.image %}
+    <img src="{{ section.settings.image | img_url: 'medium' }}" alt="">
+  {% endif %}
+
+  <h2>{{ section.settings.heading }}</h2>
+</div>
+
+<style>
+.custom-banner-wrapper {
+  text-align: center;
+  padding: 40px 0;
+}
+</style>

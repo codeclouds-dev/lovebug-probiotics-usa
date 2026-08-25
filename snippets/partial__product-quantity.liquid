@@ -1,0 +1,68 @@
+{% assign packs_quantity = packs | split: ',' %}
+{% assign packs_discounts = discounts | split: ',' %}
+
+<div class="product-top__content-quantity">
+    <h6>Quantity</h6>
+
+    <input class="quantity-selector__input" type="hidden" name="quantity" value="1">
+
+    <ul>
+        {% for pack in packs_quantity %}
+            {% assign discount_value = packs_discounts[forloop.index0] | remove: "%" | times: 1 %}
+            <li data-discount="{{ discount_value | divided_by: 100.0 }}">
+                {% if discount_value > 0 %}
+                    <span class="one-time-discount-label">
+                        Save {{ discount_value }}%
+                    </span>
+                {% endif %}
+                <input type="radio" name="product-pack-quantity" id="pack-{{ pack }}" class="hidden" value="{{ pack }}" {% if forloop.first %}checked{% endif %}>
+                <label for="pack-{{ pack }}">
+                    {{ pack }} pack
+                    <span><span class="pack-price">{{ product.price | money }}</span>/carton</span>
+                </label>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+
+<script>
+    function ProductChangePackQuantity(element) {
+        this.$element = $(element)
+        this.$packQty = 'input[name="product-pack-quantity"]'
+        this.$inputQty = 'input[name="quantity"]'
+        this.$ctaPrice = '.product-top__content-add-to-cart'
+        this.initialize()
+    }
+
+    ProductChangePackQuantity.prototype = Object.assign({}, ProductChangePackQuantity.prototype, {
+        initialize: function() {
+            this.$element.find( this.$packQty ).on('change', this.switchPack.bind(this))
+        },
+
+        switchPack: function() {
+            let currentPackQty = this.$element.find( `${this.$packQty}:checked` ).val()
+            let selectedPlanPrice = this.$element.parents( '.product__form' ).find('.subscription__group.is-selected').data('price')
+
+            this.$element.find( this.$inputQty ).val( Number( currentPackQty ) )
+            this.$element.parents('.product__form').find( this.$ctaPrice ).find('.pack-price').text( `$${Number( currentPackQty ) * Number( selectedPlanPrice )}` )
+            this.$element.parents('.product__form').find( this.$ctaPrice ).find('.featured-product-card__price').text( `$${(Number( currentPackQty ) * Number( selectedPlanPrice )).toFixed(2)}` )
+
+            const totalPrice = $( ".sub-group.one-time-purchase" ).data( "price" ) * $( '[name="product-pack-quantity"]:checked' ).val();
+            $( ".subscription-price" ).html( 
+                (totalPrice * $( ".subscription-price" ).data( "saved-price" )).toFixed(2)
+            );
+
+            if( $(".sub-group.one-time-purchase" ).hasClass( "is-selected" ) ) {
+                const $buttonPrice = $( ".featured-product-card__price" );
+                const oldButtonPrice = $buttonPrice.text().replace( "$", "" );
+                const selectedDiscount = $( '[name="product-pack-quantity"]:checked' ).closest( "li" ).data( "discount" );
+                const newButtonPrice = oldButtonPrice - ( oldButtonPrice * selectedDiscount );
+
+                $buttonPrice.text( `$${ newButtonPrice.toFixed(2) }` );
+            }
+        }
+    })
+    
+    // Initialize
+    new ProductChangePackQuantity($('.product-top__content-quantity'))
+</script>

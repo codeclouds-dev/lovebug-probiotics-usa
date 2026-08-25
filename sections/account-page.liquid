@@ -1,0 +1,470 @@
+{% capture spacer %}
+  --top-spacing-mobile: {{ section.settings.top_spacing_mobile }}px;
+  --bottom-spacing-mobile: {{ section.settings.bottom_spacing_mobile }}px;
+  --top-spacing-desktop: {{ section.settings.top_spacing_desktop }}px;
+  --bottom-spacing-desktop: {{ section.settings.bottom_spacing_desktop }}px;
+{% endcapture %}
+
+{%- assign section_id = section.settings.custom_id | default: section.id -%}
+{% render 'renderer__color-scheme', name: "section", color_scheme: section.settings.color_scheme, selector: ".shopify-section", section_id: section_id %}
+
+<section id="{{ section_id }}" class="myaccount customer__account-page section_spacing_small_top section_spacing_xsmall_bottom background" data-scroll-section>
+  <div class="section-spacer" style="{{ spacer }}">
+    <div class="grid-container">
+      <div class="grid-x align-center">
+        <div class="cell small-12 medium-8">
+          <div class="myaccount__header">
+            <div class="small-title small-script">
+              <span>Your Account</span>
+            </div>
+            <h2 class="h2">Hi, {{ customer.first_name }}</h2>
+          </div>
+
+          <div class="myaccount__wrapper">
+            <div class="myaccount__tabs">
+              <ul class="tabs" data-responsive-accordion-tabs="tabs small-accordion medium-tabs" id="account-tabs"
+                data-allow-all-closed="true">
+                <li class="tabs-title is-active">
+                  <a class="" href="#profile" aria-selected="true">
+                    Account
+                    <span class="icon" data-scroll></span>
+                  </a>
+                </li>
+
+                <li class="tabs-title">
+                  <a class="" href="#orders">
+                    Orders
+                    <span class="icon" data-scroll></span>
+                  </a>
+                </li>
+
+                {% if section.settings.show_subscription_tab %}
+                  <li class="tabs-title">
+                    <a class="" href="#subscription">
+                      Subscriptions
+                      <span class="icon" data-scroll></span>
+                    </a>
+                  </li>
+                {% endif %}
+              </ul>
+
+              <div class="tabs-content" data-tabs-content="account-tabs">
+                <div class="tabs-panel is-active" id="profile">
+                  <div class="profile-content">
+                    <div class="left-section">
+                      <div class="mh" data-mh="my-group">
+                        <h3 class="h3 subheading">general</h3>
+
+                        {% if customer.name != blank %}
+                          <div class="customer-details">
+                            <p class="label">name</p>
+                            <p>{{ customer.name }}</p>
+                          </div>
+                        {% endif %}
+
+                        {% if customer.email != blank %}
+                          <div>
+                            <p class="label">email</p>
+                            <p>{{ customer.email }}</p>
+                          </div>
+                        {% endif %}
+                      </div>
+                    </div>
+
+                    <div class="right-section">
+                      <div class="mh" data-mh="my-group">
+                        <h3 class="h3 subheading">address</h3>
+                        {{ customer.default_address | format_address | replace_first: "p", "p class='address'" }}
+                      </div>
+
+                      <a class="button primary small" href="{{ routes.account_addresses_url }}">
+                        <span>{{ 'customer.account.view_addresses' | t | downcase }} ({{ customer.addresses_count }})</span>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="tabs-panel" id="orders">
+                  <h2 class="hide">{{ 'customer.orders.title' | t }}</h2>
+                  {% paginate customer.orders by 20 %}
+                    {%- if customer.orders.size > 0 -%}
+                      {%- for order in customer.orders -%}
+                        <div class="order">
+                          <div class="order__container">
+                            <div class="order__header">
+                              <p class="order__label">Order Number</p>
+                              <p class="order__number">#{{ order.order_number }}</p>
+                            </div>
+                            <div class="order__products">
+                              {% for product in order.line_items %}
+                              <div class="order__item order-item">
+                                <div class="order-item__wrapper">
+                                  <div class="order-item__inner">
+                                    <div class="order-item__image">
+                                      <img
+                                        src="{{ product.product.metafields.my_fields.transparent_product_image | default: product.image | img_url: "
+                                        200x220" }}" alt="{{ product.title }}">
+                                    </div>
+
+                                    <div class="order-item__details">
+                                      <p class="order-item__title">{{ product.title }}</p>
+                                      <p class="order-item__size">Size: {{ product.grams | times: 0.035274 | round: 1 |
+                                        append: "OZ" }}
+                                      </p>
+                                      <p class="order-item__quantity">Quantity: {{ product.quantity }}</p>
+                                      <p class="order-item__price">{{ product.final_line_price | money }}</p>
+                                    </div>
+                                  </div>
+                                  <div class="order-item__actions">
+                                    <a href="{{ product.url }}" class="button primary">
+                                      Reorder
+                                    </a>
+                                  </div>
+                                </div>
+                              </div>
+                              {% endfor %}
+                            </div>
+                          </div>
+                        </div>
+                      {%- endfor -%}
+                    {%- else -%}
+                    <p>{{ 'customer.orders.none' | t }}</p>
+                    {%- endif -%}
+
+                    {%- if paginate.pages > 1 -%}
+                      {%- if paginate.parts.size > 0 -%}
+                        <nav class="pagination" role="navigation" aria-label="{{ 'general.pagination.label' | t }}">
+                          <ul role="list">
+                            {%- if paginate.previous -%}
+                            <li>
+                              <a href="{{ paginate.previous.url }}" aria-label="{{ 'general.pagination.previous' | t }}">
+                                <svg aria-hidden="true" focusable="false" viewBox="0 0 10 6">
+                                  <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M9.354.646a.5.5 0 00-.708 0L5 4.293 1.354.646a.5.5 0 00-.708.708l4 4a.5.5 0 00.708 0l4-4a.5.5 0 000-.708z"
+                                    fill="currentColor">
+                                </svg>
+                              </a>
+                            </li>
+                            {%- endif -%}
+                            {%- for part in paginate.parts -%}
+                            <li>
+                              {%- if part.is_link -%}
+                              <a href="{{ part.url }}" aria-label="{{ 'general.pagination.page' | t: number: part.title }}">{{
+                                part.title }}</a>
+                              {%- else -%}
+                              {%- if part.title == paginate.current_page -%}
+                              <span aria-current="page"
+                                aria-label="{{ 'general.pagination.page' | t: number: part.title }}">{{
+                                part.title }}</span>
+                              {%- else -%}
+                              <span>{{ part.title }}</span>
+                              {%- endif -%}
+                              {%- endif -%}
+                            </li>
+                            {%- endfor -%}
+                            {%- if paginate.next -%}
+                            <li>
+                              <a href="{{ paginate.next.url }}" aria-label="{{ 'general.pagination.next' | t }}">
+                                <svg aria-hidden="true" focusable="false" viewBox="0 0 10 6">
+                                  <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M9.354.646a.5.5 0 00-.708 0L5 4.293 1.354.646a.5.5 0 00-.708.708l4 4a.5.5 0 00.708 0l4-4a.5.5 0 000-.708z"
+                                    fill="currentColor">
+                                </svg>
+                              </a>
+                            </li>
+                            {%- endif -%}
+                          </ul>
+                        </nav>
+                      {%- endif -%}
+                    {%- endif -%}
+                  {% endpaginate %}
+                </div>
+
+                <div class="tabs-panel" id="subscription">
+                  {%- comment -%}FOR BOLD SUBSCRIPTIONS{%- endcomment -%}
+                   <div id="customer-portal-root"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="myaccount__action-buttons">
+              <a href="{{ routes.account_logout_url }}" class="button primary">{{ 'customer.log_out' | t | downcase }}</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {%- render 'component__gradient-bg-styles' -%}
+  {%- render 'component__accent-graphics' -%}
+</section>
+
+{% schema %}
+  {
+    "name": "Account Page",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "show_subscription_tab",
+        "default": true,
+        "label": "Show Subscription Tab"
+      },
+      {
+        "type": "url",
+        "id": "subscription_button_url",
+        "label": "Subscription Button URL",
+        "info": "This will be the url for the Manage Subscription button. For Recharge, use /tools/recurring/login/"
+      },
+      {
+        "type": "header",
+        "content": "Color Schemes Settings"
+      },
+      {
+        "type": "color_scheme",
+        "id": "color_scheme",
+        "default": "scheme_1",
+        "label": "Color Scheme",
+        "info": "This will be the color scheme of the header initially."
+      },
+      {
+        "type": "header",
+        "content": "Mobile Section Spacing"
+      },
+      {
+        "type": "range",
+        "id": "top_spacing_mobile",
+        "min": 0,
+        "max": 300,
+        "step": 5,
+        "unit": "px",
+        "label": "Top Spacing",
+        "default": 0
+      },
+      {
+        "type": "range",
+        "id": "bottom_spacing_mobile",
+        "min": 0,
+        "max": 300,
+        "step": 5,
+        "unit": "px",
+        "label": "Bottom Spacing",
+        "default": 0
+      },
+
+      {
+        "type": "header",
+        "content": "Desktop Section Spacing"
+      },
+      {
+        "type": "range",
+        "id": "top_spacing_desktop",
+        "min": 0,
+        "max": 300,
+        "step": 5,
+        "unit": "px",
+        "label": "Top Spacing",
+        "default": 0
+      },
+      {
+        "type": "range",
+        "id": "bottom_spacing_desktop",
+        "min": 0,
+        "max": 300,
+        "step": 5,
+        "unit": "px",
+        "label": "Bottom Spacing",
+        "default": 0
+      },
+      {
+        "type":"header",
+        "content":"Background"
+      },
+      {
+        "type": "color_background",
+        "id": "bg_color",
+        "label": "Background Color"
+      },
+      {
+        "type": "image_picker",
+        "id": "bg_image",
+        "label": "Background Image"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "accent_graphic", 
+        "name": "Accent Graphic",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "icon",
+            "label": "Icon"
+          },
+          {
+            "type":"html",
+            "id":"svg_code",
+            "label":"Graphic SVG Code",
+            "info":"Paste SVG code for vector graphic"
+          },
+          {
+            "type":"header",
+            "content":"Visibility"
+          },
+          {
+            "type": "select",
+            "id": "visibility",
+            "options": [
+                { "value": "always", "label": "Always" },
+                { "value": "desktop_only", "label": "Desktop Only" },
+                { "value": "mobile_only", "label": "Mobile Only" }
+                ],
+            "label": "Show on..",
+            "default": "always"
+          },
+          {
+            "type":"header",
+            "content":"Value Type"
+          },
+          {
+            "type": "select",
+            "id": "value_type",
+            "options": [
+                { "value": "px", "label": "Pixels" },
+                { "value": "%", "label": "Percentage" }
+                ],
+            "label": "Position Value Type",
+            "default": "%",
+            "info": "Pixel values are multiplied by 5"
+          },
+          {
+            "type":"header",
+            "content":"Position"
+          },
+          {
+            "type": "select",
+            "id": "x_setting",
+            "options": [
+                { "value": "left", "label": "Left" },
+                { "value": "center", "label": "Center" },
+                { "value": "right", "label": "Right" }
+                ],
+            "label": "X Position",
+            "default": "left"
+          },
+          {
+            "type": "select",
+            "id": "y_setting",
+            "options": [
+                { "value": "top", "label": "Top" },
+                { "value": "bottom", "label": "Bottom" }
+                ],
+            "label": "Y Position",
+            "default": "top"
+          },
+          { 
+            "type":"header",
+            "content":"Large Screen Settings"
+          },
+          {
+            "type": "range",
+            "id": "width_large",
+            "min": 10,
+            "max": 400,
+            "step": 10,
+            "unit": "px",
+            "label": "Graphic Width",
+            "default": 150
+          },
+          {
+            "type": "range",
+            "id": "position_x_large",
+            "min": -100,
+            "max": 100,
+            "step": 2,
+            "label": "X Position",
+            "default": 10
+          },
+          {
+            "type": "range",
+            "id": "position_y_large",
+            "min": -100,
+            "max": 100,
+            "step": 2,
+            "label": "Y Position",
+            "default": 10
+          },
+          {
+            "type":"header",
+            "content":"Small Screen Settings"
+          },
+          {
+            "type": "range",
+            "id": "width_small",
+            "min": 10,
+            "max": 400,
+            "step": 10,
+            "unit": "px",
+            "label": "Graphic Width",
+            "default": 150
+          },
+          {
+            "type": "range",
+            "id": "position_x_small",
+            "min": -100,
+            "max": 100,
+            "step": 2,
+            "label": "X Position",
+            "default": 10
+          },
+          {
+            "type": "range",
+            "id": "position_y_small",
+            "min": -100,
+            "max": 100,
+            "step": 2,
+            "label": "Y Position",
+            "default": 10
+          },
+          {
+            "type":"header",
+            "content":"Animation Settings"
+          },
+          {
+            "type": "select",
+            "id": "animation",
+            "options": [
+                { "value": "none", "label": "None" },
+                { "value": "rotating", "label": "Rotate" },
+                { "value": "floating", "label": "Float" },
+                { "value": "spark", "label": "Spark" }
+              ],
+            "label": "Animation",
+            "default": "none"
+          },
+  
+          {
+            "type":"header",
+            "content":"Appearance Settings"
+          },
+          {
+            "type": "range",
+            "id": "rotate",
+            "min": 0,
+            "max": 360,
+            "step": 36,
+            "unit": "%",
+            "label": "Rotate",
+            "default": 0
+          },
+          {
+            "type": "checkbox",
+            "id": "flip",
+            "label": "Flip Graphics?",
+            "default": false
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

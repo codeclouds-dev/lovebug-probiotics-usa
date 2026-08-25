@@ -1,0 +1,98 @@
+<div class="header__mega-menu mega-menu"
+  id="{{ mega_menu.handle }}"
+  aria-hidden="true"
+  style="display: none;">
+  <div class="mega-menu__inner">
+    {% if products != blank %}
+      <div class="mega-menu__products">
+        {% if mega_menu.products_label != blank %}
+         <a href="javascript:void(0)"> <span class="mega-menu__label">{{ mega_menu.products_label }}</span></a>
+        {% endif %}
+        <div class="mega-menu__products-inner">
+          {% for assigned_product in products %}
+            <a 
+              href="{{ assigned_product.product.url }}" 
+              class="mega-menu__product"
+              title="{{ assigned_product.product_badge }} {{ assigned_product.product.title }}"
+              aria-label="{{ assigned_product.product_badge }} {{ assigned_product.product.title }}">
+              <div class="mega-menu__product-image">
+                {% render 'component__lazyload-image',
+                  image: assigned_product.product.featured_image,
+                  width: 144 %}
+              </div>
+              <div class="mega-menu__product-info">
+                {% if assigned_product.product_badge != blank %}
+                  <span class="mega-menu__product-badge">
+                    <span>{{ assigned_product.product_badge }}</span>
+                  </span>
+                {% endif %}
+                <span class="mega-menu__product-title">
+                  {{ assigned_product.product.metafields.mfr_fields.nice_title | default: assigned_product.product.title }}
+                </span>
+              </div>
+            </a>
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+    {% if menus != blank %}
+      <div class="mega-menu__menus">
+        {% for menu in menus %}
+
+         
+          <div class="mega-menu__menu">
+            {% if menu.label != blank %}
+             {% if menu.label contains "Baby Probiotics" %}
+             {% assign surl= '/collections/baby-probiotics'%}
+             {% elsif menu.label contains "Toddler Probiotics" %}
+               {% assign surl= '/collections/toddler-probiotics'%}
+ 
+                 {% elsif menu.label contains "Kids Probiotics" %}
+               {% assign surl= '/collections/kids-probiotics'%}
+                 {% elsif menu.label contains "Women’s" %}
+               {% assign surl= '/collections/women-s-probiotics'%}
+                 {% elsif menu.label contains "Adults" %}
+               {% assign surl= '/collections/adults'%}
+               
+             {% else %}
+               {% assign surl= '#'%} 
+              {% endif %}
+              <a href="{{ surl }}"><span class="mega-menu__label">
+                {{ menu.label }}
+              </span></a>
+              
+            {% endif %}
+            <ul class="mega-menu__menu-list">
+              {% for item in menu.menu.links %}
+                <li>
+
+                  <a href="{{ item.url }}"
+                    title="{{ item.title }}"
+                    aria-label="{{ item.title }}">
+
+                    {{ item.title }}
+                  </a>
+                </li>
+              {% endfor %}
+            </ul>
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+    {% if ctas != blank %}
+      <div class="mega-menu__ctas">
+        {% for cta in ctas %}
+          <div class="mega-menu__cta">
+            {% render 'component__button',
+              label: cta.button_label,
+              link: cta.button_link,
+              icon: cta.icon,
+              color_theme: cta.color_theme
+            %}
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+  {% render 'script__section', file: "mfr-mega-menu.js" %}
+</div>

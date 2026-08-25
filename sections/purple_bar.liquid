@@ -1,0 +1,56 @@
+<div class="prpl-bar">
+
+    {% for block in section.blocks %}
+    <div class="prblbar-box">
+
+        {% if block.settings.icon %}
+        <i><img src="{{ block.settings.icon | img_url }}" alt="icon"></i>
+
+        {% endif %}
+
+        {% if block.settings.text %}
+        
+        <span>{{ block.settings.text }}</span>
+        
+        {% endif %}
+    </div> 
+    {% endfor %}
+     
+</div>
+
+
+
+{% schema %}
+{
+    "name": "purple_bar",
+    "settings": [
+
+    ],
+    "blocks": [
+        {
+            "type": "item",
+            "name":"purple_box",
+            "settings": [
+                {
+                    "type":"image_picker",
+                    "id": "icon",
+                    "label":"icon",
+                },
+
+                {
+                    "type": "textarea",
+                    "id": "text",
+                    "label": "text"
+                }
+            ]
+        }
+    ],
+
+    "presets": [
+        {
+            "name": "purple bar"
+        }
+    ]
+}
+
+{% endschema %}

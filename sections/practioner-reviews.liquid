@@ -1,0 +1,176 @@
+{%- assign s = section.settings -%}
+
+{{- 'section-practioner-reviews.css' | asset_url | stylesheet_tag -}}
+
+<div 
+  class="practitioner-section" 
+  style="background-color: {{ s.bg_color }};"
+>
+  {% render 'component__section-dividers' %}
+
+  <div class="practitioner-container">
+    <div class="practitioner-layout">
+      <div class="practitioner-text-area">
+        {%- if s.heading != blank -%}
+          <h2 class="practitioner-heading">
+            {{ s.heading }}
+          </h2>
+        {%- endif -%}
+        
+        {%- if s.subheading != blank -%}
+          <p class="practitioner-subheading">
+            {{ s.subheading | newline_to_br }}
+          </p>
+        {%- endif -%}
+      </div>
+
+      <div class="practitioner-cards">
+        {%- for block in section.blocks -%}
+          {%- assign b = block.settings -%}
+          
+          <div class="practitioner-card" {{ block.shopify_attributes }}>
+            <div class="card-image-wrapper">
+              {% if b.image != blank %}
+                {{ b.image | image_url: width: 800 | image_tag: class: 'card-image', loading: 'lazy' }}
+              {% else %}
+                {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+              {% endif %}
+            </div>
+
+            <div class="card-content">
+              {%- if b.quote != blank -%}
+                <div class="card-quote">{{ b.quote }}</div>
+              {%- endif -%}
+
+              {%- if b.name != blank -%}
+                <h3 class="card-name">{{ b.name }}</h3>
+              {%- endif -%}
+              
+              {%- if b.credentials != blank -%}
+                <p class="card-credentials">{{ b.credentials }}</p>
+              {%- endif -%}
+            </div>
+
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+  {%- if s.floating_icon != blank -%}
+      <div class="pract-floating-icon-wrapper">
+        {{ s.floating_icon | image_url: width: 400 | image_tag: class: 'floating-icon-img', loading: 'lazy' }}
+      </div>
+    {%- endif -%}
+</div>
+
+{% schema %}
+  {
+    "name": "Practitioner Testimonials",
+    "tag": "section",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Section Background & Dividers"
+      },
+      {
+        "type": "color",
+        "id": "bg_color",
+        "label": "Background Color",
+        "default": "#E7DAFA"
+      },
+      {
+        "type": "checkbox",
+        "id": "top_wave_divider",
+        "label": "Show Top Wave Divider",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "bottom_wave_divider",
+        "label": "Show Bottom Wave Divider",
+        "default": false
+      },
+      {
+        "type": "header",
+        "content": "Section Text"
+      },
+      {
+        "type": "text",
+        "id": "heading",
+        "label": "Heading",
+        "default": "Trusted By Practitioners"
+      },
+      {
+        "type": "textarea",
+        "id": "subheading",
+        "label": "Subheading",
+        "default": "Read More From Practitioners Who Recommend Lovebug!"
+      },
+      {
+        "type": "header",
+        "content": "Floating Icon"
+      },
+      {
+        "type": "image_picker",
+        "id": "floating_icon",
+        "label": "Floating Icon Image",
+        "info": "Used for the clipboard icon that floats near the text."
+      }
+    ],
+    "blocks": [
+      {
+        "type": "practitioner_card",
+        "name": "Practitioner Card",
+        "limit": 4,
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Practitioner Photo"
+          },
+          {
+            "type": "text",
+            "id": "name",
+            "label": "Name",
+            "default": "Arash Hashemi"
+          },
+          {
+            "type": "text",
+            "id": "credentials",
+            "label": "Credentials",
+            "default": "MD, MPH, MSPhD, MBA"
+          },
+          {
+            "type": "textarea",
+            "id": "quote",
+            "label": "Quote",
+            "default": "“Magna is precisely formulated to enhance sleep, focus and performance recovery, I have found daily use delivers consistent benefit within these domains.”"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Practitioner Testimonials",
+        "blocks": [
+          {
+            "type": "practitioner_card",
+            "settings": {
+              "name": "Arash Hashemi",
+              "credentials": "MD, MPH, MSPhD, MBA",
+              "quote": "“Magna is precisely formulated to enhance sleep, focus and performance recovery, I have found daily use delivers consistent benefit within these domains.”"
+            }
+          },
+          {
+            "type": "practitioner_card",
+            "settings": {
+              "name": "Arash Hashemi",
+              "credentials": "MD, MPH, MSPhD, MBA",
+              "quote": "“Magna is precisely formulated to enhance sleep, focus and performance recovery, I have found daily use delivers consistent benefit within these domains.”"
+            }
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

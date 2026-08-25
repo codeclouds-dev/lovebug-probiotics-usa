@@ -1,0 +1,191 @@
+{% render 'renderer__color-scheme', name: "section", color_scheme: section.settings.color_scheme, selector: ".shopify-section", section_id: "filter-wrapper" %}
+{% assign page_url = request.path %}
+{%- assign page_url = content_for_header | split:'"pageurl":"' | last | split: '"' | first -%}
+{% assign filter_sortings = section.blocks | where: "type", "filter_sorting" %}
+
+<div class="offcanvas-filter__content"
+  id="filter-wrapper">
+
+  <button class="close-button close" aria-label="Close contact panel" type="button" data-close tabindex="-1">
+    <span>
+      {%- capture caret_svg -%}{%- render 'icon-small-close' -%}{%- endcapture -%}
+      {% render 'component__svg-encoder', svg_code: caret_svg, alt: "caret" %}
+    </span> {{ section.settings.close_label | default: "Filter By"}}
+  </button>
+
+  <form id="ProductFiltersForm" action="{{ collection.url }}" method="POST" class="offcanvas-filter__inner"
+    data-mfr-collections-filter>
+    <ul class="accordion" data-accordion data-multi-expand="true" data-allow-all-closed="true">
+      <li class="filter-group accordion-item"  data-accordion-item
+        data-handle="sort">
+        <a href="#" class="accordion-title">
+          Sort
+          <span class="indicator"></span>
+        </a>
+        <div class="filter-group-display accordion-content" data-tab-content>
+          <div class="accordion-content__inner">
+            <label for="sort--price-ascending">
+              <input type="radio" id="sort--price-ascending" name="sort_by" value="price-ascending"
+                {% if page_url contains 'sort_by=price-ascending' %}checked{%- endif %}>
+              <span>Price - Low to High</span>
+            </label>
+            <label for="sort--price-descending">
+              <input type="radio" id="sort--price-descending" name="sort_by" value="price-descending"
+                {% if page_url contains 'sort_by=price-descending' %}checked{%- endif %}>
+              <span>Price - High to Low</span>
+            </label>
+            <label for="sort--title-ascending">
+              <input type="radio" id="sort--title-ascending" name="sort_by" value="title-ascending"
+                {% if page_url contains 'sort_by=title-ascending' %}checked{%- endif %}>
+              <span>Alphabetically, A-Z</span>
+            </label>
+            <label for="sort--title-descending">
+              <input type="radio" id="sort--title-descending" name="sort_by" value="title-descending"
+                {% if page_url contains 'sort_by=title-descending' %}checked{%- endif %}>
+              <span>Alphabetically, Z-A</span>
+            </label>
+          </div>
+        </div>
+      </li>
+      {%- for filter in collection.filters -%}
+        {% assign sorting_current_filters = filter_sortings | map: "settings" | where: "filter_label", filter.label | first %}
+        {% assign sorting_filter_values = sorting_current_filters.filter_values | newline_to_br | strip_newlines | split: '<br />' %}
+        <li class="filter-group accordion-item"  data-accordion-item
+          data-handle="{{ filter.label | handleize }}">
+          <a href="#" class="accordion-title">
+            {{ filter.label }}
+            <span class="indicator"></span>
+          </a>
+
+          <div class="filter-group-display accordion-content" data-tab-content>
+            <div class="accordion-content__inner">
+              {%- case filter.type -%}
+                {%- when 'boolean' or 'list' -%}
+                  {% assign printed_values = "" %}
+                  {% for sort_value in sorting_filter_values %}
+                    {%- for filter_value in filter.values -%}
+                      {% assign handleized_sort_value = sort_value | handleize %}
+                      {% assign handleized_filter_value = filter_value.label | handleize %}
+
+                      {% if handleized_filter_value == handleized_sort_value %}
+                        {% assign printed_values = printed_values | append: handleized_filter_value | append: "," %}
+                        <label for="Filter-{{ filter.param_name }}-{{ forloop.index }}">
+                          <input type="checkbox"
+                            name="{{ filter_value.param_name }}"
+                            value="{{ filter_value.value }}"
+                            id="Filter-{{ filter.param_name }}-{{ forloop.index }}"
+                            {% if filter_value.active -%}checked{%- endif %}
+                            {% if filter_value.count == 0 and filter_value.active == false -%}disabled{%- endif %}
+                          >
+                          <span>{{ filter_value.label }}</span>
+                        </label>
+                        {% break %}
+                      {% endif %}
+                    {% endfor %}
+                  {%- endfor -%}
+                {% assign printed_values = printed_values | split: "," %}
+                {%- for filter_value in filter.values -%}
+                  {% assign handleized_filter_value = filter_value.label | handleize %}
+
+                  {% unless printed_values contains handleized_filter_value %}
+                    <label for="Filter-{{ filter.param_name }}-{{ forloop.index }}">
+                      <input type="checkbox"
+                        name="{{ filter_value.param_name }}"
+                        value="{{ filter_value.value }}"
+                        id="Filter-{{ filter.param_name }}-{{ forloop.index }}"
+                        {% if filter_value.active -%}checked{%- endif %}
+                        {% if filter_value.count == 0 and filter_value.active == false -%}disabled{%- endif %}
+                      >
+                      <span>{{ filter_value.label }}</span>
+                    </label>
+                  {% endunless %}
+                {% endfor %}
+
+                {%- when 'price_range' -%}
+                  <label for="sort--price-ascending">
+                    <input type="radio" id="sort--price-ascending" name="sort_by" value="price-ascending"
+                      {% if page_url contains 'sort_by=price-ascending' %}checked{%- endif %}>
+                    <span>Price - Low to High</span>
+                  </label>
+                  <label for="sort--price-descending">
+                    <input type="radio" id="sort--price-descending" name="sort_by" value="price-descending"
+                      {% if page_url contains 'sort_by=price-descending' %}checked{%- endif %}>
+                    <span>Price - High to Low</span>
+                  </label>
+              {%- endcase -%}
+            </div>
+          </div>
+        </li>
+      {%- endfor -%}
+    </ul>
+
+    <div class="offcanvas-filter__ctas">
+        <div class="offcanvas-filter__ctas-inner flex-align-center">
+          <button
+            type="button"
+            class="button secondary"
+            data-reset
+            data-close>
+            CLEAR
+          </button>
+          <input type="submit" class="button primary" value="DONE"
+            data-close>
+        </div>
+      </div>
+  </form>
+</div>
+{% render 'script__section', file: "mfr-collections-filter.js" %}
+
+
+{% schema %}
+  {
+    "name": "Product Filters",
+    "class": "off-canvas__wrapper",
+    "enabled_on": {
+      "templates": ["collection"]
+    },
+    "settings": [
+      {
+        "type": "text",
+        "id": "close_label",
+        "label": "Close Label",
+        "default": "Filter By"
+      },
+      {
+        "type": "header",
+        "content": "Color Schemes Settings"
+      },
+      {
+        "type": "color_scheme",
+        "id": "color_scheme",
+        "default": "scheme_1",
+        "label": "Color Scheme",
+        "info": "This will be the color scheme of the header initially."
+      },
+      {
+        "type": "header",
+        "content": "Color Settings"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "filter_sorting",
+        "name": "Filter Sorting",
+        "settings": [
+          {
+            "type": "text",
+            "id": "filter_label",
+            "label": "Filter Label"
+          },
+          {
+            "type": "textarea",
+            "id": "filter_values",
+            "label": "Filter Values",
+            "info": "Separated by newline."
+          }
+        ]
+      }
+    ]
+  }
+
+{% endschema %}

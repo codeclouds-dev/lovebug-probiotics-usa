@@ -1,0 +1,29 @@
+<div 
+  class="accordion-v2"
+  :class='isOpen ? "is-active" : ""'
+  x-data="{ isOpen: false }">
+  
+  <button 
+    class="accordion-v2__trigger" 
+    @click="isOpen = !isOpen"
+    :aria-expanded="isOpen"
+  >
+    <span class="accordion-v2__title">
+      {{ title }}
+    </span>
+
+    <span class="accordion-v2__icon" :class='isOpen ? "is-open" : ""'>
+      {% render 'icons', icon: 'accordion-arrow', fill: fill %}
+    </span>
+  </button>
+
+  <div 
+    class="accordion-v2__content"
+    x-show="isOpen" 
+    x-collapse
+    x-cloak>
+    <div class="accordion-v2__content-inner">
+      {{ content }}
+    </div>
+  </div>
+</div>

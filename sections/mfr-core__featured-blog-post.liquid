@@ -1,0 +1,266 @@
+{%- comment -%}
+--------------------------------------
+assign section settings to variables
+--------------------------------------
+{%- endcomment -%}
+
+{% render 'style-tags__section', asset_file_name: "mfr-core__featured-blog-post.css" %}
+{% if section.settings.text_side_desktop == "left" %}
+  {% assign text_cell_order = "medium-order-1 " %}
+  {% assign image_cell_order = "medium-order-2" %}
+{% else %}
+  {% assign text_cell_order = "medium-order-2" %}
+  {% assign image_cell_order = "medium-order-1" %}
+{% endif %}
+
+{% if section.settings.text_side_mobile == "first" %}
+  {% assign image_section_margin = "margin-top" %}
+{% else %}
+  {% assign image_section_margin = "margin-bottom" %}
+{% endif %}
+
+{% if section.settings.is_centered %}
+  {% assign text_alignment = "text-center" %}
+{% else %}
+  {% assign text_alignment = "text-left" %}
+{% endif %}
+{% assign section_id = section.settings.custom_id | default: section.id %}
+
+{% assign featured_post = articles[section.settings.featured_post] %}
+
+{% capture spacer %}
+  --top-spacing-mobile: {{ section.settings.top_spacing_mobile }}px;
+  --bottom-spacing-mobile: {{ section.settings.bottom_spacing_mobile }}px;
+  --top-spacing-desktop: {{ section.settings.top_spacing_desktop }}px;
+  --bottom-spacing-desktop: {{ section.settings.bottom_spacing_desktop }}px;
+{% endcapture %}
+ 
+{% capture section_content %}
+  {% if featured_post.title != blank %}
+    <div class="cell small-12 section-content {{ section.settings.color_theme }} {{ text_alignment }} medium-6 {{ text_cell_order }} {{ text_color }}">
+      <div class="inner">  
+        <div class="small-text">Featured Post</div>
+        {% render 'component__title-block', classes: 'h2', text: featured_post.title %}
+        <div class="description">
+          <p>{{ featured_post.excerpt }}</p>
+        </div>
+        <div class="button-set">
+          <a href="{{ featured_post.url }}" class="button {{ section.settings.button_style }} {{ section.settings.button_color }}">
+            <span class="button_text">View Article</span>
+          </a>   
+        </div>
+      </div>
+    </div>
+  {% endif %}
+{% endcapture %}
+
+{% capture section_media %}
+  {% if featured_post %}
+    <div class="cell small-12 section-image {{ image_section_margin }} {{ image_cell_order }} medium-6  {{ image_sizing }}">
+      <a href="{{ featured_post.url }}" class="image-wrapper" data-aos="height" data-aos-offset="-300">
+        {% render 'component__responsive-image', image: featured_post.image.src, loading_lazy: true %}
+      </a>
+    </div>  
+  {% endif %}
+{% endcapture %}
+
+<section class="mfr-core__image-text background {{ section.settings.custom_class }}" id="{{ section_id }}" >
+  <div class="section-spacer" style="{{ spacer }}">
+    <div class="grid-container {{ top_spacing }} {{ bottom_spacing }}">
+
+      <div class="grid-x blog-featured align-center">
+
+        {% case section.settings.text_side_mobile %}
+          {% when 'first' %}
+            {{ section_content }}
+            {{ section_media }}
+          {% when 'second' %}
+            {{ section_media }}
+            {{ section_content }}
+          {% else %}     
+        {% endcase %}
+      </div>
+    </div>
+  </div>
+  {% render 'component__gradient-bg-styles' %}
+  {%- render 'component__section-dividers', is_video_background: true -%}
+</section>
+
+
+{% schema %}
+{
+  "name": "Featured Blog Post",
+  "disabled_on": {
+    "groups": ["header","footer","custom.offcanvas","custom.modals"]
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": "Featured Post"
+    },
+    {
+      "type": "article",
+      "id": "featured_post",
+      "label": "Featured Post"
+    },
+    {
+      "type": "header",
+      "content": "Color Schemes Settings"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "default": "scheme_1",
+      "label": "Color Scheme",
+      "info": "This will be the color scheme of the header initially."
+    },
+    {
+      "type": "select",
+      "id": "button_style",
+      "options": [
+        { "value": "primary", "label": "Primary" },
+        { "value": "secondary", "label": "Secondary" },
+        { "value": "tertiary", "label": "Tertiary" }
+        ],
+      "label": "Button Style",
+      "default": "primary"
+    },
+    {
+      "type": "select",
+      "id": "button_color",
+      "options": [
+          { "value": "color-accent-1", "label": "Color 1"},
+          { "value": "color-accent-2", "label": "Color 2"},
+          { "value": "color-accent-3", "label": "Color 3"},
+          { "value": "black", "label": "Black"},
+          { "value": "outline", "label": "Outline"}
+          ],
+      "label": "Button Color",
+      "default": "outline"
+    },
+    {
+      "type": "select",
+      "id": "text_side_desktop",
+      "options": [
+          { "value": "left", "label": "Text Left" },
+          { "value": "right", "label": "Text Right" }
+      ],
+      "label": "Desktop Layout",
+      "default": "left"
+    },
+    {
+      "type": "select",
+      "id": "text_side_mobile",
+      "options": [
+          { "value": "first", "label": "Text Top" },
+          { "value": "second", "label": "Text Bottom" }
+      ],
+      "label": "Mobile Layout",
+      "default": "second"
+    },
+    {
+      "type": "checkbox",
+      "id": "is_centered",
+      "default": false,
+      "label": "Center Text"
+    },
+    {
+      "type": "header",
+      "content": "Mobile Section Spacing"
+    },
+    {
+      "type": "range",
+      "id": "top_spacing_mobile",
+      "min": 0,
+      "max": 300,
+      "step": 5,
+      "unit": "px",
+      "label": "Top Spacing",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "bottom_spacing_mobile",
+      "min": 0,
+      "max": 300,
+      "step": 5,
+      "unit": "px",
+      "label": "Bottom Spacing",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Desktop Section Spacing"
+    },
+    {
+      "type": "range",
+      "id": "top_spacing_desktop",
+      "min": 0,
+      "max": 300,
+      "step": 5,
+      "unit": "px",
+      "label": "Top Spacing",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "bottom_spacing_desktop",
+      "min": 0,
+      "max": 300,
+      "step": 5,
+      "unit": "px",
+      "label": "Bottom Spacing",
+      "default": 0
+    },
+    {
+      "type":"header",
+      "content":"Background"
+    },
+    {
+      "type": "color_background",
+      "id": "bg_color",
+      "label": "Background Color"
+    },
+    {
+      "type": "image_picker",
+      "id": "bg_image_mobile",
+      "label": "Background Image - Mobile"
+    },
+    {
+      "type": "image_picker",
+      "id": "bg_image",
+      "label": "Background Image - Desktop"
+    },
+    {
+      "type": "header",
+      "content": "Divider Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "top_wave_divider",
+      "label": "Top Wave Divider",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "bottom_wave_divider",
+      "label": "Bottom Wave Divider",
+      "default": false
+    },
+    {
+      "type":"header",
+      "content":"Attribute Settings"
+    },
+    {
+      "type": "text",
+      "id": "custom_class",
+      "label": "Custom class"
+    },
+    {
+      "type": "text",
+      "id": "custom_id",
+      "label": "Custom ID"
+    }
+  ]
+}
+{% endschema %}

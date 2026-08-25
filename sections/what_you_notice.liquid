@@ -1,0 +1,138 @@
+<section class="lovebug_drops">
+  <div class="grid-container">
+{%- for block in section.blocks -%}
+            {% case block.type %}
+
+            
+
+              {%- when 'heading' -%}
+                {% render 'renderer__block-title', block: block %}    
+                {%- endcase -%}
+            
+          {%- endfor -%}
+<div class="notice-row">
+
+    <!-- loop this card -->
+    {%- for block in section.blocks -%}
+            {% case block.type %}
+
+            {%- when 'image' -%} 
+           
+    <div class="notic-card"> 
+         {% if block.settings.img  %}
+        <i>{{ block.settings.img  | image_url: width: 100 | image_tag }}</i>
+         {% endif %}
+               {{ block.settings.description_text }}   
+    </div>
+     {%- endcase -%}
+            
+          {%- endfor -%}
+
+         
+</div>
+
+<form method="post" action="/cart/add">
+  <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+
+   <button class="addtocart_notice button {{ button_class }} {{ has_price_class }} add-to-cart " {% unless product.available -%} disabled {%- endunless %} {{ open_off_canvas }}>
+    <div class="button-text">
+      {% if product.available %}
+        {% if button_label != blank %}
+          {{ button_label }}
+        {% else %}
+          {{ 'products.product.add_to_cart' | t }}
+        {% endif %}
+      {% else %} 
+        {{ 'products.product.sold_out' | t }}
+      {% endif %}
+    </div>
+    
+    {%- if product.available -%}
+      {%- if show_price == true or show_price == "true" -%}
+        {% if for_subscription %}
+          <span class="price">{{ first_selling_plan.price | money }}</span>
+          <span class="price old">{{ first_selling_plan.compare_at_price | money }}</span>
+        {% else %}
+          {%- render 'price', product: product -%}
+        {% endif %}
+      {%- endif -%}
+    {%- endif -%}
+  </button>
+</form>
+
+
+
+
+
+</div>
+</section>
+
+{% schema %}
+{
+  "name": "What you notice",
+  "blocks": [
+   
+    {
+      "type": "heading",
+      "name": "Main Heading",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "inline_richtext",
+          "id": "heading",
+          "label": "Heading",
+          "default": "WHAT YOU'LL NOTICE"
+        },
+        {
+          "type": "checkbox",
+          "id": "disable_animation",
+          "label": "Disable Animation",
+          "default": false
+        },
+        {
+          "type": "select",
+          "id": "header_style",
+          "label": "Header Style",
+          "default": "h1",
+          "options": [
+            { "value": "h1", "label": "H1" },
+            { "value": "h2", "label": "H2" },
+            { "value": "h3", "label": "H3" }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "image",
+      "name": "Small Image",
+      
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "img",
+          "label": "Star Icon",
+          
+        },
+        {
+          "type": "textarea",
+          "id": "description_text",
+          "label": "Description text",
+          
+        },
+      ]
+    },
+   
+  ],
+  "presets": [
+    {
+      "name": "What You Notice",
+      "blocks": [
+      
+        { "type": "heading" },
+        { "type": "image" },
+       
+      ]
+    }
+  ]
+}
+{% endschema %}

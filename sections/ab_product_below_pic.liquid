@@ -1,0 +1,59 @@
+<div class="grid-container">
+
+    <div class="img_below">
+
+    {% for block in section.blocks %}
+    <div class="img_below_txt">
+
+        {% if block.settings.icon %}
+        <i><img src="{{ block.settings.icon | img_url }}" alt="icon"></i>
+
+        {% endif %}
+
+        {% if block.settings.text %}
+        
+        <span>{{ block.settings.text }}</span>
+        
+        {% endif %}
+    </div> 
+    {% endfor %}
+     
+</div>
+</div>
+
+
+
+{% schema %}
+{
+    "name": "Product_image_below",
+    "settings": [
+
+    ],
+    "blocks": [
+        {
+            "type": "item",
+            "name":"Product_image_below",
+            "settings": [
+                {
+                    "type":"image_picker",
+                    "id": "icon",
+                    "label":"icon",
+                },
+
+                {
+                    "type": "text",
+                    "id": "text",
+                    "label": "text"
+                }
+            ]
+        }
+    ],
+
+    "presets": [
+        {
+            "name": "Product Image Below Part"
+        }
+    ]
+}
+
+{% endschema %}

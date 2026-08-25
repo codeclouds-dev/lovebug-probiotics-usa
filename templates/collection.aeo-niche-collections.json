@@ -1,0 +1,315 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "hide_page_title": true,
+        "text_alignment": "",
+        "container_width": "full",
+        "max_width": 0,
+        "grid_gutter": "grid-gutter",
+        "color_scheme": "",
+        "top_spacing_mobile": 40,
+        "bottom_spacing_mobile": 80,
+        "top_spacing_desktop": 80,
+        "bottom_spacing_desktop": 100,
+        "bg_color": "",
+        "top_wave_divider": false,
+        "bottom_wave_divider": false,
+        "custom_class": "",
+        "custom_id": ""
+      }
+    },
+    "mfr_core_hero_banner_YdxTcz": {
+      "type": "mfr-core__hero-banner",
+      "blocks": {
+        "heading_ffzfX9": {
+          "type": "heading",
+          "settings": {
+            "heading": "{{ collection.title }}",
+            "disable_animation": false,
+            "header_style": "h1",
+            "make_xl": "",
+            "highlight_color": "",
+            "underline_color": "",
+            "max_width": 0
+          }
+        },
+        "image_EXp8CC": {
+          "type": "image",
+          "settings": {
+            "image_desktop": "shopify://shop_images/banner_infant_B.png",
+            "lazyload_image": false
+          }
+        }
+      },
+      "block_order": [
+        "heading_ffzfX9",
+        "image_EXp8CC"
+      ],
+      "custom_css": [],
+      "settings": {
+        "disable_entrance_animation": true,
+        "content_alignment": "align-center",
+        "text_alignment": "text-center",
+        "container_width": "full",
+        "max_width": 0,
+        "grid_gutter": "grid-gutter",
+        "color_scheme": "scheme-3d6d5546-cc24-4027-ae43-eb909eaaabba",
+        "top_spacing_mobile": 60,
+        "bottom_spacing_mobile": 70,
+        "top_spacing_desktop": 50,
+        "bottom_spacing_desktop": 300,
+        "bg_color": "",
+        "top_wave_divider": false,
+        "bottom_wave_divider": false,
+        "custom_class": "",
+        "custom_id": ""
+      }
+    },
+    "mfr_collection_product_grid_fFQPUr": {
+      "type": "mfr-collection__product-grid",
+      "blocks": {
+        "image_card_8Lxr7N": {
+          "type": "image_card",
+          "settings": {
+            "image": "{{ collection.metafields.mfr_fields.grid_image_card.value }}"
+          }
+        }
+      },
+      "block_order": [
+        "image_card_8Lxr7N"
+      ],
+      "settings": {
+        "text_alignment": "text-center",
+        "container_width": "",
+        "max_width": 0,
+        "grid_gutter": "",
+        "color_scheme": "",
+        "top_spacing_mobile": 20,
+        "bottom_spacing_mobile": 70,
+        "top_spacing_desktop": 40,
+        "bottom_spacing_desktop": 150,
+        "bg_color": "",
+        "top_wave_divider": true,
+        "bottom_wave_divider": false,
+        "custom_class": "",
+        "custom_id": ""
+      }
+    },
+    "mfr_lb_scrolling_waved_texts_KfPFHy": {
+      "type": "mfr-lb__scrolling-waved-texts",
+      "settings": {
+        "lottie_desktop": "https://cdn.shopify.com/s/files/1/0509/9677/3062/files/text-banner__desktop.json?v=1736756419",
+        "background_top": "#ffffff",
+        "background_bottom": "#E9F4FC",
+        "text_alignment": "text-center",
+        "container_width": "full",
+        "max_width": 0,
+        "grid_gutter": "",
+        "color_scheme": "",
+        "top_spacing_mobile": 0,
+        "bottom_spacing_mobile": 0,
+        "top_spacing_desktop": 0,
+        "bottom_spacing_desktop": 0,
+        "bg_color": "",
+        "top_wave_divider": false,
+        "bottom_wave_divider": false,
+        "custom_class": "",
+        "custom_id": ""
+      }
+    },
+    "mfr_lb_video_reviews_carousel_eVakr7": {
+      "type": "mfr-lb__video-reviews-carousel",
+      "blocks": {
+        "small_text_6x7i7J": {
+          "type": "small_text",
+          "settings": {
+            "text": "Reviews",
+            "small_text_color": ""
+          }
+        },
+        "heading_XzdnyH": {
+          "type": "heading",
+          "settings": {
+            "heading": "Trusted By Grown Ups Everywhere",
+            "disable_animation": false,
+            "header_style": "h2",
+            "make_xl": "",
+            "highlight_color": "",
+            "underline_color": "",
+            "max_width": 0
+          }
+        },
+        "star_rating_KmKTNB": {
+          "type": "star_rating",
+          "settings": {
+            "stars": 5,
+            "label": "Over 2,000+ 5 star reviews"
+          }
+        },
+        "button_xe9Hpb": {
+          "type": "button",
+          "settings": {
+            "button_label": "Read Our Reviews",
+            "button_link": "#",
+            "color_theme": "primary"
+          }
+        },
+        "entry_xNLU4N": {
+          "type": "entry",
+          "settings": {
+            "video": "shopify://files/videos/testimonial-1.mp4",
+            "image": "shopify://shop_images/review-1-thumbnail.jpg",
+            "label": "Quality",
+            "stars": 5,
+            "review": "Lorem ipsum dolor sit.",
+            "name": "Kassandra L."
+          }
+        },
+        "entry_RD6qAK": {
+          "type": "entry",
+          "settings": {
+            "video": "shopify://files/videos/testimonial-2.mp4",
+            "image": "shopify://shop_images/review-2-thumbnail.jpg",
+            "label": "Effectiveness",
+            "stars": 5,
+            "review": "Lorem ipsum dolor sit.",
+            "name": "Kassandra L."
+          }
+        },
+        "entry_cGyJnx": {
+          "type": "entry",
+          "settings": {
+            "video": "shopify://files/videos/testimonial-3.mp4",
+            "image": "shopify://shop_images/review-3-thumbnail.jpg",
+            "label": "trust",
+            "stars": 5,
+            "review": "Lorem ipsum dolor sit.",
+            "name": "Kassandra L."
+          }
+        }
+      },
+      "block_order": [
+        "small_text_6x7i7J",
+        "heading_XzdnyH",
+        "star_rating_KmKTNB",
+        "button_xe9Hpb",
+        "entry_xNLU4N",
+        "entry_RD6qAK",
+        "entry_cGyJnx"
+      ],
+      "settings": {
+        "video_reviews": [
+          "kassandra-l",
+          "kevin-m",
+          "jessie-r"
+        ],
+        "order_mobile": "text-top",
+        "order_desktop": "text-left",
+        "vertical_alignment": "flex-start",
+        "image_column_size": "two-thirds",
+        "text_alignment": "",
+        "container_width": "",
+        "max_width": 0,
+        "grid_gutter": "",
+        "color_scheme": "",
+        "top_spacing_mobile": 70,
+        "bottom_spacing_mobile": 30,
+        "top_spacing_desktop": 50,
+        "bottom_spacing_desktop": 80,
+        "bg_color": "#E9F4FC",
+        "top_wave_divider": false,
+        "bottom_wave_divider": false,
+        "custom_class": "",
+        "custom_id": ""
+      }
+    },
+    "mfr_core_icon_text_grid_f3eXVT": {
+      "type": "mfr-core__icon-text-grid",
+      "blocks": {
+        "icon_text_ff4fwV": {
+          "type": "icon_text",
+          "settings": {
+            "icon": "shopify://shop_images/bestsellers-icon-min.png",
+            "text": "Bestsellers",
+            "url": "shopify://collections/bestsellers"
+          }
+        },
+        "icon_text_AUcWej": {
+          "type": "icon_text",
+          "settings": {
+            "icon": "shopify://shop_images/Screenshot_2024-11-06_at_7.31.43_PM_4x_7e8d9462-b6e7-4bff-b9ed-7930f3dabbe0.png",
+            "text": "What The 🤬",
+            "url": "shopify://pages/what-the"
+          }
+        },
+        "icon_text_qeKmaN": {
+          "type": "icon_text",
+          "settings": {
+            "icon": "shopify://shop_images/general-banner-desktop.jpg",
+            "text": "The Gut Bible",
+            "url": "shopify://blogs/news"
+          }
+        },
+        "icon_text_FtBGeh": {
+          "type": "icon_text",
+          "settings": {
+            "icon": "shopify://shop_images/women-icon-min.png",
+            "text": "Women",
+            "url": "shopify://collections/women"
+          }
+        },
+        "icon_text_F8WmtE": {
+          "type": "icon_text",
+          "settings": {
+            "icon": "shopify://shop_images/general-icon-min.png",
+            "text": "General",
+            "url": "shopify://collections/general-health"
+          }
+        }
+      },
+      "block_order": [
+        "icon_text_ff4fwV",
+        "icon_text_AUcWej",
+        "icon_text_qeKmaN",
+        "icon_text_FtBGeh",
+        "icon_text_F8WmtE"
+      ],
+      "settings": {
+        "text_alignment": "text-center",
+        "container_width": "",
+        "max_width": 0,
+        "grid_gutter": "",
+        "color_scheme": "",
+        "top_spacing_mobile": 30,
+        "bottom_spacing_mobile": 80,
+        "top_spacing_desktop": 50,
+        "bottom_spacing_desktop": 120,
+        "bg_color": "#E9F4FC",
+        "top_wave_divider": false,
+        "bottom_wave_divider": false,
+        "custom_class": "",
+        "custom_id": ""
+      }
+    }
+  },
+  "order": [
+    "main",
+    "mfr_core_hero_banner_YdxTcz",
+    "mfr_collection_product_grid_fFQPUr",
+    "mfr_lb_scrolling_waved_texts_KfPFHy",
+    "mfr_lb_video_reviews_carousel_eVakr7",
+    "mfr_core_icon_text_grid_f3eXVT"
+  ]
+}

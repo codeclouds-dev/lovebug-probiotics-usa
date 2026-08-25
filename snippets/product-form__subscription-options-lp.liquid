@@ -1,0 +1,215 @@
+{%- liquid
+  assign all_selling_plan_groups = product.selling_plan_groups
+  assign first_plan = all_selling_plan_groups.first.selling_plans.first
+  assign first_discount = first_plan.price_adjustments[0].value | default: 0
+  assign first_discount_decimal = first_discount | divided_by: 100.00
+  assign first_discount_active = false
+  if first_discount > 0
+    assign first_discount_active = true
+  endif
+  assign original_price = product.selected_or_first_available_variant.price
+  assign original_price_money = original_price | money
+
+  assign first_plan_quantity = 1
+  for opt in first_plan.options
+    if opt.name == 'Product Quantity'
+      assign first_plan_quantity = opt.value | plus: 0
+    endif
+  endfor
+
+  assign max_discount = 0
+  for group in all_selling_plan_groups
+    for plan in group.selling_plans
+      assign current_discount = plan.price_adjustments[0].value | default: 0
+      if current_discount > max_discount
+        assign max_discount = current_discount
+      endif
+    endfor
+  endfor
+-%}
+
+<div class="subscription-selector subscription-selector--flat"
+  x-ref='subscriptionSelector'
+  x-init='
+    sellingPlanId = {{ first_plan.id }};
+    sellingPlanType = "{% if all_selling_plan_groups != blank %}subscription{% else %}one-time{% endif %}";
+    discountPercentage = {{ first_discount_decimal }};
+    planQuantity = {{ first_plan_quantity }};
+    {% if all_selling_plan_groups != blank %}
+      showDiscountLabel = {{ first_discount_active }};
+      discountLabel = "Save " + Math.round({{ first_discount_decimal }} * 100) + "%";
+    {% endif %}
+  '>
+
+  {% if all_selling_plan_groups != blank %}
+    <template x-if='sellingPlanType != "one-time"'>
+      <input
+        type="hidden"
+        name="selling_plan"
+        :value='sellingPlanId'>
+    </template>
+  {% endif %}
+
+  <div class="subscription-selector__options">
+
+    {%- assign is_first_plan = true -%}
+
+    {%- for group in all_selling_plan_groups -%}
+      {%- for plan in group.selling_plans -%}
+
+        {%- liquid
+          assign plan_discount = plan.price_adjustments[0].value | default: 0
+          assign plan_discount_decimal = plan_discount | divided_by: 100.00
+          assign plan_discount_active = false
+          if plan_discount > 0
+            assign plan_discount_active = true
+          endif
+
+          assign plan_quantity = 1
+          assign plan_frequency_raw = ''
+          for opt in plan.options
+            if opt.name == 'Product Quantity'
+              assign plan_quantity = opt.value | plus: 0
+            endif
+            if opt.name == 'Order Frequency and Unit'
+              assign plan_frequency_raw = opt.value
+            endif
+          endfor
+
+          assign freq_parts = plan_frequency_raw | split: '-'
+          assign freq_number = freq_parts[0]
+
+          assign unit_word = 'unit'
+          if plan_quantity > 1
+            assign unit_word = 'units'
+          endif
+          assign unit_phrase = plan_quantity | append: ' ' | append: unit_word
+
+          assign plan_total = original_price | times: plan_quantity
+          assign plan_discount_amount = plan_total | times: plan_discount_decimal
+          assign plan_discounted_price = plan_total | minus: plan_discount_amount
+          assign plan_discounted_price_money = plan_discounted_price | money
+          assign plan_total_money = plan_total | money
+        -%}
+
+        <label for="plan-{{- plan.id -}}-{{- block.id -}}">
+          <input
+            type="radio"
+            id="plan-{{- plan.id -}}-{{- block.id -}}"
+            class="visually-hidden"
+            name="purchase_selector"
+            value="subscription"
+            {% if is_first_plan %}checked{% endif %}
+            data-plan-quantity="{{ plan_quantity }}"
+            :checked='sellingPlanId == {{ plan.id }}'
+            @change='
+              sellingPlanId = {{ plan.id }};
+              sellingPlanType = "subscription";
+              discountPercentage = {{ plan_discount_decimal }};
+              planQuantity = {{ plan_quantity }};
+              showDiscountLabel = {{ plan_discount_active }};
+              discountLabel = "Save " + Math.round({{ plan_discount_decimal }} * 100) + "%";
+            '>
+          <div class="subscription-selector__options-wrapper">
+
+            {% if plan_discount > 0 %}
+              <div class="subscription-selector__badge">
+                Save {{ plan_discount }}%
+              </div>
+            {% endif %}
+
+            <div class="subscription-selector__options-head">
+              <span
+                class="subscription-selector__options-indicator"
+                :class='sellingPlanId == {{ plan.id }} ? "is-active" : ""'></span>
+              <span class="subscription-selector__options-label">
+                {{ plan.name }}
+                {% if plan_discount == max_discount and max_discount > 0 %}
+                  <span class="subscription-selector__best-value">BEST VALUE</span>
+                {% endif %}
+              </span>
+              <span class="subscription-selector__options-prices">
+
+                {% if plan_discount > 0 %}
+                  <span class="price-strikethrough"
+                    x-text='Shopify.formatMoney(basePrice * {{ plan_quantity }})'>
+                    {{ plan_total_money }}
+                  </span>
+                {% endif %}
+
+                <span class="price-value"
+                  x-text='Shopify.formatMoney((basePrice - (basePrice * {{ plan_discount_decimal }})) * {{ plan_quantity }})'>
+                  {{ plan_discounted_price_money }}
+                </span>
+              </span>
+            </div>
+
+            <div class="subscription-selector__options-content">
+              <ul class="subscription-perks-list">
+                {% if block.settings.perk_1 != blank %}
+                  <li class="subscription-perks-list-item">
+                    {% render 'icons', icon: 'circle-check', class: 'flex-icon' %}
+                    {{ block.settings.perk_1 | replace: '<|discount|>', plan_discount | replace: '<|unit|>', unit_phrase | replace: '<|days|>', freq_number }}
+                  </li>
+                {% endif %}
+                {% if block.settings.perk_2 != blank %}
+                  <li class="subscription-perks-list-item">
+                    {% render 'icons', icon: 'circle-check', class: 'flex-icon' %}
+                    {{ block.settings.perk_2 | replace: '<|discount|>', plan_discount | replace: '<|unit|>', unit_phrase | replace: '<|days|>', freq_number }}
+                  </li>
+                {% endif %}
+                {% if block.settings.perk_3 != blank %}
+                  <li class="subscription-perks-list-item">
+                    {% render 'icons', icon: 'circle-check', class: 'flex-icon' %}
+                    {{ block.settings.perk_3 | replace: '<|discount|>', plan_discount | replace: '<|unit|>', unit_phrase | replace: '<|days|>', freq_number }}
+                  </li>
+                {% endif %}
+                {% if block.settings.perk_4 != blank %}
+                  <li class="subscription-perks-list-item">
+                    {% render 'icons', icon: 'circle-check', class: 'flex-icon' %}
+                    {{ block.settings.perk_4 | replace: '<|discount|>', plan_discount | replace: '<|unit|>', unit_phrase | replace: '<|days|>', freq_number }}
+                  </li>
+                {% endif %}
+              </ul>
+            </div>
+
+          </div>
+        </label>
+        {%- assign is_first_plan = false -%}
+      {%- endfor -%}
+    {%- endfor -%}
+
+    <label for="one-time-selector-{{ block.id }}">
+      <input type="radio"
+        id="one-time-selector-{{ block.id }}"
+        class="visually-hidden"
+        name="purchase_selector"
+        value="one-time"
+        data-price="{{ original_price }}"
+        data-plan-quantity="1"
+        :checked='sellingPlanType == "one-time"'
+        @change='
+          sellingPlanId = false;
+          sellingPlanType = $el.value;
+          planQuantity = 1;
+          showDiscountLabel = false;
+        '>
+      <div class="subscription-selector__options-wrapper">
+        <div class="subscription-selector__options-head">
+          <span class="subscription-selector__options-indicator"
+            :class='sellingPlanType == "one-time" ? "is-active" : ""'></span>
+          <span class="subscription-selector__options-label">
+            {{- block.settings.one_time_label -}}
+          </span>
+          <span class="subscription-selector__options-prices">
+            <span class="price-value"
+              x-text='Shopify.formatMoney(basePrice * quantity)'>
+              {{ original_price_money }}
+            </span>
+          </span>
+        </div>
+      </div>
+    </label>
+
+  </div>
+</div>

@@ -1,0 +1,375 @@
+{%- capture mobile_menu_content -%}
+  {% render 'style-tags__section', asset_file_name: "offcanvas-menu.css", lazyload: true %}
+  {% render 'renderer__color-scheme', name: "section", color_scheme: section.settings.color_scheme, selector: ".shopify-section", section_id: "offCanvasMenu" %}
+  {% assign search_block = section.blocks | where: "type", "search" | first %}
+  {% assign mini_menu = section.blocks | where: "type", "mini_menu" | first %}
+  {% assign inner_menus = section.blocks | where: "type", "inner_menu" %}
+  {% assign inner_menu_products = section.blocks | where: "type", "inner_menu_product" %}
+  {% assign inner_menu_menus = section.blocks | where: "type", "inner_menu_menu" %}
+  {% assign inner_menu_ctas = section.blocks | where: "type", "inner_menu_cta" %}
+
+  <div class="offcanvas-menu__wrapper off-canvas__wrapper offcanvas-menu__content">
+    <div class="offcanvas-menu__panel offcanvas-menu-panel">
+      <div class="offcanvas-menu__inner" 
+        x-data="
+          {
+            mainMenuOpened: true,
+            innerMenuOpened: false,
+            innerMenus: {
+              {%- for inner_menu in inner_menus -%}
+                '{{- inner_menu.settings.handle -}}': false{%- unless forloop.last -%},{%- endunless -%}
+              {%- endfor -%}
+            }
+          }
+        ">
+        {% if search_block != blank %}
+          {% render 'search__form', predictive: true, custom_id: "-Offcanvas" %}
+        {% endif %}
+        <div class="offcanvas-menu__blocks"
+          x-show="mainMenuOpened"
+          x-transition:enter-start="opacity-0 -translate-x-full"
+          x-transition:enter-end="opacity-100 translate-x-0"
+          x-transition:leave-start="opacity-100 translate-x-0"
+          x-transition:leave-end="opacity-0 -translate-x-full"
+          x-cloak>
+          {% for block in section.blocks %}
+            {%- case block.type -%}
+                
+              {%- when "menu" -%}
+                {% if block.settings.menu != blank %}
+                  <ul class="offcanvas-menu__menu">
+                    {% for item in block.settings.menu.links %}
+                      <li>
+                        {% assign assigned_inner_menu = inner_menus 
+                          | map: "settings" 
+                          | where: "trigger_label", item.title
+                          | first %}
+                        <a href="{{ item.url }}"
+                          aria-label="{{ item.title }}"
+                          title="{{ item.title }}"
+                          {% if assigned_inner_menu != blank %}
+                            x-on:click="
+                              mainMenuOpened = false;
+                              innerMenus['{{- assigned_inner_menu.handle -}}'] = true;
+                              setTimeout( () => {
+                                innerMenuOpened = true;
+                              }, 400 );
+                            "
+                          {% endif %}>
+                          <span class="label">{{ item.title }}</span>
+                          <span class="indicator">
+                            {% render 'icon__chevron-right' %}
+                          </span>
+                        </a>
+                      </li>
+                    {% endfor %}
+                  </ul>
+                {% endif %}
+  
+              {%- when "superhero_graphic" -%}
+                <div class="offcanvas-menu__superhero-graphic">
+                  {% if block.settings.main_image != blank %}
+                    <div class="offcanvas-menu__superhero-graphic-main">
+                      {% render 'component__lazyload-image',
+                        image: block.settings.main_image,
+                        width: 144 %}
+                    </div>
+                  {% endif %}
+                  {% for i in (1..6) %}
+                    {% assign accent_var = "accent_" | append: i %}
+                    {% assign accent = block.settings[accent_var] %}
+  
+                    {% if accent != blank %}
+                      <div class="offcanvas-menu__superhero-graphic-accent rotating"
+                        data-index="{{ forloop.index0 }}">
+                        {% render 'component__lazyload-image',
+                          image: accent,
+                          width: 144 %}
+                      </div>
+                    {% endif %}
+                  {% endfor %}
+                </div>
+            {%- endcase -%}
+          {% endfor %}
+        </div>
+
+        {% if inner_menus != blank %}
+          {% render 'offcanvas-menu__inner-menus',
+            inner_menus: inner_menus,
+            inner_menu_products: inner_menu_products,
+            inner_menu_menus: inner_menu_menus,
+            inner_menu_ctas: inner_menu_ctas %}
+        {% endif %}
+        
+        {% if mini_menu != blank %}
+          <ul class="offcanvas-menu__mini-menu">
+            {% for item in mini_menu.settings.menu.links %}
+              <li>
+                <a href="{{ item.url }}"
+                  aria-label="{{ item.title }}"
+                  title="{{ item.title }}">
+                  <span class="label">{{ item.title }}</span>
+                </a>
+              </li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+      </div>
+    </div> <!-- .offcanvas-menu__panel -->
+  </div>
+{%- endcapture -%}
+{% render 'mfr-component__offcanvas',
+  id: "offCanvasMenu",
+  class: "offcanvas-menu",
+  position: "left",
+  content: mobile_menu_content %}
+
+
+{% schema %}
+{ 
+  "name": "OffCanvas Menu",
+  "enabled_on": {
+    "groups": ["custom.offcanvas"]
+  },
+  "limit": 1,
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo"
+    },
+    {
+      "type": "header",
+      "content": "Color Schemes Settings"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "default": "scheme_1",
+      "label": "Color Scheme",
+      "info": "This will be the color scheme of the header initially."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "menu",
+      "name": "Menu",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "link_list",
+          "id": "menu",
+          "label": "Menu"
+        }
+      ]
+    },
+    {
+      "type": "search",
+      "name": "Search",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "header",
+          "content": "Search Bar"
+        }
+      ]
+    },
+    {
+      "type": "superhero_graphic",
+      "name": "Superhero Graphic",
+      "settings": [
+        {
+          "type": "header",
+          "content": "Superhero Graphic"
+        },
+        {
+          "type": "header",
+          "content": "Main Image Settings"
+        },
+        {
+          "type": "image_picker",
+          "id": "main_image",
+          "label": "Main Image"
+        },
+        {
+          "type": "header",
+          "content": "Accent Images Settings"
+        },
+        {
+          "type": "image_picker",
+          "id": "accent_1",
+          "label": "Accent 1"
+        },
+        {
+          "type": "image_picker",
+          "id": "accent_2",
+          "label": "Accent 2"
+        },
+        {
+          "type": "image_picker",
+          "id": "accent_3",
+          "label": "Accent 3"
+        },
+        {
+          "type": "image_picker",
+          "id": "accent_4",
+          "label": "Accent 4"
+        },
+        {
+          "type": "image_picker",
+          "id": "accent_5",
+          "label": "Accent 5"
+        },
+        {
+          "type": "image_picker",
+          "id": "accent_6",
+          "label": "Accent 6"
+        }
+      ]
+    },
+    {
+      "type": "mini_menu",
+      "name": "Mini Menu",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "link_list",
+          "id": "menu",
+          "label": "Menu"
+        }
+      ]
+    },
+    {
+      "type": "inner_menu",
+      "name": "Inner Menu",
+      "settings": [
+        {
+          "type": "text",
+          "id": "trigger_label",
+          "label": "Trigger Label",
+          "default": "Shop"
+        },
+        {
+          "type": "text",
+          "id": "handle",
+          "label": "Inner Menu Handle",
+          "default": "inner-menu-1",
+          "info": "Unique identifier. Use this to assign megamenu child blocks to this mega menu."
+        },
+        {
+          "type": "text",
+          "id": "products_label",
+          "label": "Products Label",
+          "default": "Featured"
+        }
+      ]
+    },
+    {
+      "type": "inner_menu_product",
+      "name": "Inner Menu: Product",
+      "settings": [
+        {
+          "type": "text",
+          "id": "inner_menu_handle",
+          "label": "Inner Menu Handle",
+          "default": "inner-menu-1"
+        },
+        {
+          "type": "header",
+          "content": "Block Settings"
+        },
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product"
+        },
+        {
+          "type": "text",
+          "id": "product_badge",
+          "label": "Product Badge",
+          "default": "Best Seller"
+        }
+      ]
+    },
+    {
+      "type": "inner_menu_menu",
+      "name": "Inner Menu: Menu",
+      "settings": [
+        {
+          "type": "text",
+          "id": "inner_menu_handle",
+          "label": "Inner Menu Handle",
+          "default": "inner-menu-1"
+        },
+        {
+          "type": "header",
+          "content": "Block Settings"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Label"
+        },
+        {
+          "type": "link_list",
+          "id": "menu",
+          "label": "Menu",
+        }
+      ]
+    },
+    {
+      "type": "inner_menu_cta",
+      "name": "Inner Menu: CTA",
+      "settings": [
+        {
+          "type": "text",
+          "id": "inner_menu_handle",
+          "label": "Inner Menu Handle",
+          "default": "inner-menu-1"
+        },
+        {
+          "type": "header",
+          "content": "Block Settings"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "default": "Button label",
+          "label": "Button",
+          "info": "Leave the label blank to hide the button."
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Button Link"
+        },
+        {
+          "type": "select",
+          "id": "color_theme",
+          "label": "Color Theme",
+          "options": [
+            {
+              "value": "primary",
+              "label": "Primary"
+            },
+            {
+              "value": "secondary",
+              "label": "Secondary"
+            },
+            {
+              "value": "tertiary",
+              "label": "Tertiary"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Offcanvas Menu"
+    }
+  ]
+}
+{% endschema %}

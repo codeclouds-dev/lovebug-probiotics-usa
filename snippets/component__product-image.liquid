@@ -1,0 +1,112 @@
+{% comment %}
+  Attributes:
+  - product
+  - image
+  - glow
+  - width
+  - widths
+
+  Example of variables to pass through render tag:
+    {% render 'component__product-image', product: product, image: product.featured_image, glow: 'yes', width: 300, widths: 300 %}
+    {% render 'component__product-image', product: product, image: product.metafields.mfr_fields.product_card_image, glow: 'no' %}
+{% endcomment %}
+
+{% if image == blank %}
+  {% assign image = product.metafields.mfr_fields.temporary_product_hero_image.value | default: product.media[0] %}
+{% endif %}
+
+{% assign accent_width = accent_width | default: 144 %}
+{% assign accent_widths = accent_widths | default: "144" %}
+
+{% assign alternate_layout = product.metafields.mfr_fields.product_card_alternate_layout %}
+{% if alternate_layout == true %}
+
+  <div class="product-image-component-alt">
+
+      {% comment %} {%- capture sizes -%}(min-width: 640px) 30vw{%- endcapture -%} {% endcomment %}
+      {% assign image = image | default: product.featured_image %}
+      {% comment %} {{ image | image_url: width: 1000 | image_tag:
+          sizes: sizes,
+          height: nil,
+          loading: 'lazy' }} {% endcomment %}
+      {% render 'component__lazyload-image',
+        image: image,
+        width: 720,
+        alt: product.title %}
+
+  </div>
+
+{% else %}
+
+  <div class="product-image-component">
+
+    <div class="image {% if glow=='yes' %} glow{% endif %}">
+      {%- if image != blank -%}
+
+        {% comment %} {%- capture sizes -%}(min-width: 640px) 30vw{%- endcapture -%} {% endcomment %}
+        {% assign image = image | default: product.featured_image %}
+        {% comment %} {{ image | image_url: width: 1000 | image_tag:
+          sizes: sizes,
+          height: nil,
+          loading: 'lazy' }} {% endcomment %}
+        {% render 'component__lazyload-image',
+          image: image,
+          width: width,
+          widths: widths,
+          alt: product.title %}
+
+        {% comment %} <div class="shadow"></div> {% endcomment %}
+
+        {%- if product.metafields.mfr_fields.product_image_accents != blank -%}
+
+          {% assign product_image_styles = '' %}
+
+          {% for i in (1..3) %}
+
+            {% assign image_var = "image_" | append: i %}
+            {% assign width_var = image_var | append: "_width" %}
+            {% assign top_var = image_var | append: "_top_position" %}
+            {% assign left_var = image_var | append: "_left_position" %}
+
+            {%- capture style_set -%}
+              --{{ width_var }}: {{ product.metafields.mfr_fields.product_image_accents.value[width_var] }}%;
+              --{{ top_var }}: {{ product.metafields.mfr_fields.product_image_accents.value[top_var] }}%;
+              --{{ left_var }}: {{ product.metafields.mfr_fields.product_image_accents.value[left_var] }}%;
+            {%- endcapture -%}
+
+            {% assign accent_image_styles = accent_image_styles | append: style_set %}
+
+          {% endfor %}
+
+          <div class="image-accents" style="{{ accent_image_styles }}">
+
+            {% for i in (1..3) %}
+
+              {% assign image_var = "image_" | append: i %}
+              {% assign image = product.metafields.mfr_fields.product_image_accents.value[image_var] %}
+
+              {% comment %} {{ image 
+                | image_url: width: accent_width 
+                | image_tag: class: image_var, 
+                width: accent_width, 
+                widths: accent_widths, 
+                alt: image.alt }} {% endcomment %}
+              {% if image != blank %}
+                {% render 'component__lazyload-image',
+                  image: image,
+                  width: accent_width,
+                  widths: accent_widths,
+                  alt: "image accents that is different per product",
+                  class: image_var %}
+              {% endif %}
+
+            {% endfor %}
+
+          </div>
+        {%- endif -%}
+
+      {%- endif -%}
+    </div>
+  </div>
+
+{% endif %}

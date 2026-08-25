@@ -1,0 +1,132 @@
+{% assign initial_price = product.selected_or_first_available_variant.price | money_without_currency %}
+{% assign variant_selectors = blocks | where: "type", "variant_selector" | first %}
+{% assign variants_size = product.variants | size %}
+{% assign form_id = "product_form_" | append: product.id %}
+{%- assign quantity_selectors = section.blocks | where: "type", "quantity_selector" -%}
+{%- assign first_quantity_selector = quantity_selectors | first -%}
+{%- liquid
+  assign lp_first_plan = product.selling_plan_groups.first.selling_plans.first
+  if product.selling_plan_groups != blank
+    assign lp_initial_type = 'subscription'
+  else
+    assign lp_initial_type = 'one-time'
+  endif
+-%}
+{%- capture x_data -%}
+  {
+    showDiscountLabel: false,
+    discountLabel: "",
+    quantity: 1,
+    planQuantity: 1,
+    basePrice: {{ product.price }},
+    sellingPlanId: {% if lp_first_plan.id %}{{ lp_first_plan.id }}{% else %}false{% endif %},
+    sellingPlanType: "{{ lp_initial_type }}",
+    discountPercentage: false
+  }
+{%- endcapture -%}
+{% form "product", product, data-productid: product.id,
+  class: "product-top__form",
+  data-product-form: '',
+  data-product-handle: product.handle,
+  data-enable-history-state: "true",
+  data-cart-submit: '',
+  data-product-id: product.id,
+  data-base-price: initial_price,
+  data-price-discount: 0,
+  x-data: x_data,
+  x-ref: 'productForm'
+  %}
+
+  <input type="hidden" name="id" data-productid="{{ product.id }}" value="{{ product.selected_or_first_available_variant.id }}">
+
+  {%- comment -%}
+    Quantity submission:
+    - Subscription mode → submits planQuantity (the plan's allocation), regardless of any qty stepper
+    - One-time mode → relies on the quantity_selector radios below; if no radio block is configured,
+      this hidden input submits the Alpine `quantity` state (default 1) so the form never POSTs without a qty
+  {%- endcomment -%}
+  <input type="hidden" name="quantity" value="1"
+    :value='sellingPlanType == "subscription" ? planQuantity : quantity'>
+
+  {% for block in blocks %}
+    {% case block.type %}
+      {%- when "@app" -%}
+        {% if block.id contains "recharge_subscriptions_subscription_widget" %}
+          {% render block %}
+        {% endif %}
+
+      {% when "form_caption" %}
+          {% render 'product-top__form-caption', block: block %}
+
+      {% when "product_links" %}
+        {% render 'product-top__form-links', block: block %}
+
+      {% when "old_recharge_widget" %}
+        <!-- Begin ReCharge code -->
+        {% if product.available %}
+          {% render 'subscription-product' %}
+        {% endif %}
+        <!-- End ReCharge code -->
+
+      {% when "submit_button" %}
+          {% render 'product-top__submit', block: block, price: price, product: product %}
+
+      {% when "subscription_option" %}
+        {% if context == 'landing' %}
+          {% if block.settings.enable_toggle_layout %}
+            {% render 'product-form__subscription-toggle-lp', block: block, product: product, form_id: form_id %}
+          {% else %}
+            {% render 'product-form__subscription-options-lp', block: block, product: product, form_id: form_id %}
+          {% endif %}
+        {% else %}
+          {% render 'product-form__subscription-options', block: block, product: product, form_id: form_id %}
+        {% endif %}
+
+      {%- when "variant_selector" -%}
+        {% render 'product-form__variant-selector' %}
+
+      {%- when "quantity_selector" -%}
+        {% if block.id == first_quantity_selector.id %}
+          {%- comment -%}
+            Hidden during subscription mode — qty is driven by the plan's allocation, not the stepper.
+            Radios use name="quantity_selector_radio" so they don't submit duplicate qty values; the
+            hidden input above is the single source of truth for the submitted quantity.
+          {%- endcomment -%}
+          <div class="product-top__quantity-selectors"
+            x-show='sellingPlanType != "subscription"'
+            x-cloak>
+            {% if section.settings.quantity_label != blank %}
+              <span class="product-top__quantity-selectors-label selectors-label">
+                {{- section.settings.quantity_label -}}
+              </span>
+            {% endif %}
+            <ul>
+              {% for selector in quantity_selectors %}
+                <li>
+                  <label for="{{- selector.id -}}">
+                    <input
+                      type="radio"
+                      name="quantity_selector_radio"
+                      id="{{- selector.id -}}"
+                      value="{{ selector.settings.quantity }}"
+                      class="visually-hidden"
+                      :checked="quantity == {{ selector.settings.quantity }}"
+                      @change='
+                        quantity = $el.value
+                      '>
+                    <div class="product-top__quantity-selector">
+                      {{ selector.settings.quantity }} {{ selector.settings.label }}
+                    </div>
+                    {% if selector.settings.sub_label != blank %}
+                      <span>{{ selector.settings.sub_label }}</span>
+                    {% endif %}
+                  </label>
+                </li>
+              {% endfor %}
+            </ul>
+          </div>
+        {% endif %}
+
+    {% endcase %}
+  {% endfor %}
+{% endform %}

@@ -1,0 +1,40 @@
+{% if shop.customer_accounts_enabled %}
+  {% if customer %}
+    <div class="user-account-icon show-for-medium">
+      {% if customer.first_name != blank %}
+        <div class="customer-name">
+          Welcome, {{  customer.first_name }}
+        </div>
+      {% endif %}
+      <a class="header-cta-icon button" href="/account">
+        {{section.settings.right_cta_icon}}
+      </a>
+    </div>
+
+  {% else %}
+
+    <div class="login-wrapper show-for-medium">
+      <div class="user-account-icon">
+        {% if template contains "customers" %}
+          <a href="/account" class="header-cta-icon button">
+            {{section.settings.right_cta_icon}}
+          </a>
+        {% else %}
+          <div class="header-cta-icon button" data-open="offCanvasLogin">
+            {{section.settings.right_cta_icon}}
+          </div>
+        {% endif %}
+      </div>
+      {% comment %}
+      <div class="login-button">
+        {{ 'layout.customer.log_in' | t | customer_login_link }}
+      </div>
+      <div class="create-account-button">
+        <div class="account-link ds-auth-login" href="/account">
+          {{ 'layout.customer.create_account' | t | customer_register_link }}
+        </div>
+      </div>
+      {% endcomment %}
+    </div>
+  {% endif %}
+{% endif %}

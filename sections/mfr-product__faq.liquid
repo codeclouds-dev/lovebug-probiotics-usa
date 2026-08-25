@@ -1,0 +1,651 @@
+{%- comment -%}
+--------------------------------------
+assign section settings to variables
+--------------------------------------
+{%- endcomment -%}
+
+{% comment %} wrap everything in unless statement so section only shows if content is added to the metafields {% endcomment %}
+{% unless template == "product" and product.metafields.mfr_fields.product_ugc_reviews == blank %}
+
+{% render 'style-tags__section', asset_file_name: "mfr-product__faq.css" %}
+{%- assign text_alignment = section.settings.text_alignment -%}
+{%- assign container_width = section.settings.container_width -%}
+{%- assign max_width = section.settings.max_width -%}
+{%- assign grid_gutter = section.settings.grid_gutter -%}
+{%- assign color_theme = section.settings.color_theme -%}
+{%- assign custom_class = section.settings.custom_class -%}
+{%- assign section_id = section.settings.custom_id | default: section.id -%}
+{% render 'renderer__color-scheme', name: "section", color_scheme: section.settings.color_scheme, selector: ".shopify-section", section_id: section_id %}
+
+{%- if max_width != 0 and container_width == "" -%}
+  {%- capture max_width_style -%}
+    style="max-width: {{ max_width }}rem;" 
+  {%- endcapture -%}
+{%- endif -%}
+
+{% if section.settings.text_alignment != blank %}
+  {% assign content_alignment = "align-center" %}
+{% else %}
+  {% assign content_alignment = "" %}
+{% endif %}
+
+{% assign icons = section.blocks | where: "type", "icon" %}
+{% assign small_texts = section.blocks | where: "type", "small_text" %}
+{% assign headings = section.blocks | where: "type", "heading" %}
+{% assign texts = section.blocks | where: "type", "text" %}
+{% assign buttons = section.blocks | where: "type", "button" %}
+{% assign accordions = section.blocks | where: "type", "accordion" %}
+
+{% capture spacer %}
+  --top-spacing-mobile: {{ section.settings.top_spacing_mobile }}px;
+  --bottom-spacing-mobile: {{ section.settings.bottom_spacing_mobile }}px;
+  --top-spacing-desktop: {{ section.settings.top_spacing_desktop }}px;
+  --bottom-spacing-desktop: {{ section.settings.bottom_spacing_desktop }}px;
+{% endcapture %}
+
+{% comment %}
+  Insert your custom section content here 
+{% endcomment %}
+{% capture custom_section_content %}
+  <ul class="accordion" 
+    data-accordion data-allow-all-closed="true" 
+    data-stagger-inview=".accordion-item">
+
+    {%- for accordion in accordions -%}
+      
+        <li class="accordion-item" data-accordion-item>
+          <a href="#" class="accordion-title color_theme_text">
+            <div class="h4">{{ accordion.settings.title }}</div>
+            <button class="accordion-icon" type="button">
+              <span>{% render "icon__plus" %}</span>
+            </button>
+          </a>
+          <div class="accordion-content color_theme_text" data-tab-content>
+            {{ accordion.settings.description }}
+          </div>
+        </li>
+
+    {%- endfor -%}
+    
+  </ul>
+{% endcapture %}
+
+<section class="mfr-pdp__faq {{ custom_class }}" id="{{ section_id }}">
+	<div class="section-spacer background {{ grid_gutter }}" style="{{ spacer }}">
+    <div class="grid-container {{ container_width }}" {{ max_width_style }}>
+      <div class="grid-x align-center">
+        <div class="cell small-12 large-12 section-content {{ color_theme }} {{ text_alignment }} faq-accordion" id="{{ section.settings.custom_id }}">
+          <div class="inner">
+            {%- for block in section.blocks -%}
+              {% case block.type %}
+            
+                {%- when 'icon' -%}
+                  {% render 'component__section-icon', icon: block.settings.icon, icon_width: block.settings.icon_width, svg_code: block.settings.svg_code, inline_styling: block.settings.icon_styling %} 
+              
+                {%- when 'small_text' -%}
+                  {% render "renderer__block-small-text", block: block %}
+                  
+                {%- when 'heading' -%}
+                  {% render "renderer__block-title", block: block %}
+                  
+                {%- when 'text' -%}
+                  {% render "renderer__block-text", block: block %}
+
+              {%- endcase -%}
+            {%- endfor -%}
+            {{ custom_section_content }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {%- render 'component__gradient-bg-styles' -%}
+  {%- render 'component__accent-graphics' -%}
+  {%- render 'component__section-dividers', is_video_background: true -%}
+</section>
+
+{% endunless %}
+
+{% schema %}
+{
+  "name":"FAQ",
+  "enabled_on": {
+    "templates": ["product"]
+  },
+  "settings":[
+    {
+      "type": "header",
+      "content": "Section Settings"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "options": [
+          { "value": "", "label": "Left" },
+          { "value": "text-center", "label": "Center" }
+          ],
+      "label": "Text Alignment",
+      "default": "text-center"
+    },
+    {
+      "type": "select",
+      "id": "container_width",
+      "options": [
+          { "value": "full", "label": "Full" },
+          { "value": "", "label": "Contain" }
+          ],
+      "label": "Width",
+      "default": "full"
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "rem",
+      "label": "Max Content Width",
+      "default": 0
+    },
+    {
+      "type": "select",
+      "id": "grid_gutter",
+      "options": [
+          { "value": "grid-gutter", "label": "Padding" },
+          { "value": "", "label": "No Padding" }
+          ],
+      "label": "Section Padding",
+      "default": ""
+    },
+      {
+        "type": "header",
+        "content": "Color Schemes Settings"
+      },
+      {
+        "type": "color_scheme",
+        "id": "color_scheme",
+        "default": "scheme_1",
+        "label": "Color Scheme",
+        "info": "This will be the color scheme of the header initially."
+      },
+
+    {
+      "type": "header",
+      "content": "Mobile Section Spacing"
+    },
+    {
+      "type": "range",
+      "id": "top_spacing_mobile",
+      "min": 0,
+      "max": 500,
+      "step": 10,
+      "unit": "px",
+      "label": "Top Spacing",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "bottom_spacing_mobile",
+      "min": 0,
+      "max": 500,
+      "step": 10,
+      "unit": "px",
+      "label": "Bottom Spacing",
+      "default": 100
+    },
+
+    {
+      "type": "header",
+      "content": "Desktop Section Spacing"
+    },
+    {
+      "type": "range",
+      "id": "top_spacing_desktop",
+      "min": 0,
+      "max": 500,
+      "step": 10,
+      "unit": "px",
+      "label": "Top Spacing",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "bottom_spacing_desktop",
+      "min": 0,
+      "max": 500,
+      "step": 10,
+      "unit": "px",
+      "label": "Bottom Spacing",
+      "default": 100
+    },
+
+    {
+      "type":"header",
+      "content":"Background"
+    },
+    {
+      "type": "color_background",
+      "id": "bg_color",
+      "label": "Background Color/Gradient"
+    },
+
+    {
+      "type": "image_picker",
+      "id": "bg_image_mobile",
+      "label": "Background Image - Mobile"
+    },
+    {
+      "type": "image_picker",
+      "id": "bg_image",
+      "label": "Background Image - Desktop"
+    },
+    {
+      "type": "header",
+      "content": "Divider Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "top_wave_divider",
+      "label": "Top Wave Divider",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "bottom_wave_divider",
+      "label": "Bottom Wave Divider",
+      "default": false
+    },
+    {
+      "type":"header",
+      "content":"Attribute Settings"
+    },
+    {
+      "type": "text",
+      "id": "custom_class",
+      "label": "Custom class"
+    },
+    {
+      "type": "text",
+      "id": "custom_id",
+      "label": "Custom ID"
+    }
+  ],
+  "blocks":[
+    {
+      "type": "accordion", 
+      "name": "Question/Answer",
+      "limit": 15,
+			"settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Question",
+          "default": "Lorem ipsum dolor sit amet"
+        },
+				{
+          "type": "richtext",
+          "id": "description",
+          "label": "Answer",
+          "default": "<p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>"
+        }
+      ]
+    },
+    {
+      "type": "icon", 
+      "name": "Icon",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon"
+        },
+        {
+          "type": "text",
+          "id": "file_lottie_url",
+          "label": "File Lottie URL"
+        },
+        {
+          "type": "number",
+          "id": "icon_width",
+          "label": "Image width",
+          "default": 150,
+          "info": "in pixels."
+        }
+      ]
+    },
+    {
+      "type":"small_text",
+      "name":"Small Text",
+      "limit":1,
+      "settings":[
+        {
+          "type":"text",
+          "id":"text",
+          "default":"Section Title",
+          "label":"Text"
+        },
+        {
+          "type": "color",
+          "id": "small_text_color",
+          "label": "Color"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "name": "Heading",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "inline_richtext",
+          "id": "heading",
+          "default": "Heading Text",
+          "label": "Heading Text"
+        },
+        {
+          "type": "select",
+          "id": "header_style",
+          "options": [
+              { "value": "h1", "label": "H1"},
+              { "value": "h2", "label": "H2"},
+              { "value": "h3", "label": "H3"},
+              { "value": "h4", "label": "H4"},
+              { "value": "h5", "label": "H5"},
+              { "value": "h6", "label": "H6"}
+              ],
+          "label": "Header Style",
+          "default": "h1"
+        },
+        {
+          "type": "header",
+          "content": "Bold Settings",
+          "info": "Adding bold color or bold underline color will remove the boldness of the text"
+        },
+        {
+            "type": "color",
+            "id": "bold_color",
+            "label": "Bold Color"
+        },
+        {
+            "type": "color",
+            "id": "underline_color",
+            "label": "Underline Color",
+            "info": "Bold text to make it underlined"
+        },
+        {
+          "type": "header",
+          "content": "Width Settings"
+        },
+        {
+            "type": "range",
+            "id": "max_width",
+            "min": 0,
+            "max": 50,
+            "step": 1,
+            "unit": "rem",
+            "label": "Max Width",
+            "default": 40
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "name": "Text",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "text",
+          "default": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum vel metus auctor.</p>",
+          "label": "Text"
+        },
+        {
+          "type":"select",
+          "id":"text_style",
+          "options":[
+            { "value":"xsmall", "label":"xSmall" },
+            { "value":"small", "label":"Small" },
+            { "value":"regular", "label":"Regular" },
+            { "value":"large", "label":"Large" },
+            { "value":"xlarge", "label":"xLarge" }
+          ],
+          "label":"Text Style",
+          "default":"regular"
+        },
+        {
+          "type": "color",
+          "id": "color",
+          "label": "Text Color",
+          "info": "Leave it blank to use system settings."
+        },
+        {
+          "type": "color",
+          "id": "bold_color",
+          "label": "Bold Color",
+          "info": "Adding bold color will make the bolded text colored instead of being bold."
+        },
+        {
+            "type": "color",
+            "id": "underline_color",
+            "label": "Underline Color",
+            "info": "Bold text to make it underlined"
+        },
+        {
+          "type": "header",
+          "content": "Width Settings"
+        },
+        {
+            "type": "range",
+            "id": "max_width",
+            "min": 0,
+            "max": 50,
+            "step": 1,
+            "unit": "rem",
+            "label": "Max Width",
+            "default": 40
+        }
+      ]
+    },
+    {
+        "type": "accent_graphic", 
+        "name": "Accent Graphic",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "icon",
+            "label": "Icon"
+          },
+          {
+            "type":"html",
+            "id":"svg_code",
+            "label":"Graphic SVG Code",
+            "info":"Paste SVG code for vector graphic"
+          },
+          {
+            "type":"header",
+            "content":"Visibility"
+          },
+          {
+            "type": "select",
+            "id": "visibility",
+            "options": [
+                { "value": "always", "label": "Always" },
+                { "value": "desktop_only", "label": "Desktop Only" },
+                { "value": "mobile_only", "label": "Mobile Only" }
+                ],
+            "label": "Show on..",
+            "default": "always"
+          },
+          {
+            "type":"header",
+            "content":"Value Type"
+          },
+          {
+            "type": "select",
+            "id": "value_type",
+            "options": [
+                { "value": "px", "label": "Pixels" },
+                { "value": "%", "label": "Percentage" }
+                ],
+            "label": "Position Value Type",
+            "default": "%",
+            "info": "Pixel values are multiplied by 5"
+          },
+          {
+            "type":"header",
+            "content":"Position"
+          },
+          {
+            "type": "select",
+            "id": "x_setting",
+            "options": [
+                { "value": "left", "label": "Left" },
+                { "value": "center", "label": "Center" },
+                { "value": "right", "label": "Right" }
+                ],
+            "label": "X Position",
+            "default": "left"
+          },
+          {
+            "type": "select",
+            "id": "y_setting",
+            "options": [
+                { "value": "top", "label": "Top" },
+                { "value": "bottom", "label": "Bottom" }
+                ],
+            "label": "Y Position",
+            "default": "top"
+          },
+          { 
+            "type":"header",
+            "content":"Large Screen Settings"
+          },
+          {
+            "type": "range",
+            "id": "width_large",
+            "min": 10,
+            "max": 400,
+            "step": 10,
+            "unit": "px",
+            "label": "Graphic Width",
+            "default": 150
+          },
+          {
+            "type": "range",
+            "id": "position_x_large",
+            "min": -100,
+            "max": 100,
+            "step": 2,
+            "label": "X Position",
+            "default": 10
+          },
+          {
+            "type": "range",
+            "id": "position_y_large",
+            "min": -100,
+            "max": 100,
+            "step": 2,
+            "label": "Y Position",
+            "default": 10
+          },
+          {
+            "type":"header",
+            "content":"Small Screen Settings"
+          },
+          {
+            "type": "range",
+            "id": "width_small",
+            "min": 10,
+            "max": 400,
+            "step": 10,
+            "unit": "px",
+            "label": "Graphic Width",
+            "default": 150
+          },
+          {
+            "type": "range",
+            "id": "position_x_small",
+            "min": -100,
+            "max": 100,
+            "step": 2,
+            "label": "X Position",
+            "default": 10
+          },
+          {
+            "type": "range",
+            "id": "position_y_small",
+            "min": -100,
+            "max": 100,
+            "step": 2,
+            "label": "Y Position",
+            "default": 10
+          },
+          {
+            "type":"header",
+            "content":"Animation Settings"
+          },
+          {
+            "type": "select",
+            "id": "animation",
+            "options": [
+                { "value": "none", "label": "None" },
+                { "value": "rotating", "label": "Rotate" },
+                { "value": "floating", "label": "Float" },
+                { "value": "spark", "label": "Spark" }
+              ],
+            "label": "Animation",
+            "default": "none"
+          },
+
+          {
+            "type":"header",
+            "content":"Appearance Settings"
+          },
+          {
+            "type": "range",
+            "id": "rotate",
+            "min": 0,
+            "max": 360,
+            "step": 36,
+            "unit": "%",
+            "label": "Rotate",
+            "default": 0
+          },
+          {
+            "type": "checkbox",
+            "id": "flip",
+            "label": "Flip Graphics?",
+            "default": false
+          }
+        ]
+      }
+  ],
+  "presets":[
+    {
+      "name":"PDP: FAQ",
+      "blocks":[
+        {
+          "type":"heading"
+        },
+        {
+          "type":"text"
+        },
+        {
+          "type":"accordion"
+        },
+        {
+          "type":"accordion"
+        },
+        {
+          "type":"accordion"
+        },
+        {
+          "type":"accordion"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

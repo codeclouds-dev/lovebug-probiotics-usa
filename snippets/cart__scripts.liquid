@@ -1,0 +1,254 @@
+<!-- Handles the bundle view, when products are in bundle type -->
+<script type="text/javascript">
+  onReady( function() {
+    {% comment %} waitForObjectAndRun( "rivets", () => { {% endcomment %}
+      /**
+      * Add formatters to rivets.
+      */
+      rivets.formatters.is_empty = function( items ) {
+        return Array.isArray( items ) && !Boolean( items.length );
+      }
+
+      rivets.formatters.only_bundle = function( items, bundle ) {
+        var newItems = []
+
+        $.each( items, function( index, item ){
+          const bundle_hash = item.properties._bundle_hash;
+          if( bundle == bundle_hash ) {
+            newItems.push( item );
+          }
+        });
+        return newItems;
+      }
+
+      rivets.formatters.get_price = function( items, bundle ) {
+        let price = 0;
+
+        $.each( items, function( index, item ){
+          const bundle_hash = item.properties._bundle_hash;
+          if( bundle == bundle_hash ) {
+            price += item.line_price
+          }
+        });
+        return price;
+      }
+
+      rivets.formatters.bundle_size = function( items, bundle ) {
+        let quantity = 0;
+
+        $.each( items, function( index, item ){
+          const bundle_hash = item.properties._bundle_hash;
+          if( bundle == bundle_hash ) {
+            quantity += item.quantity
+          }
+        });
+        return quantity;
+      }
+
+      rivets.formatters.exclude_bundles = function( items, added_by ) {
+        var newItems = []
+
+        $.each( items, function( index, item ){
+          const item_added_by = item.properties._added_by;
+          if( !item_added_by || item_added_by != added_by ) {
+            newItems.push( item );
+          }
+        });
+
+        return newItems;
+      }
+
+      rivets.formatters.check_options = function( items ) {
+        return Array.isArray( items ) && items.length > 1;
+      }
+
+      rivets.formatters.check_discounts = function( items ) {
+        return Array.isArray( items ) && items.length >= 1;
+      }
+
+      rivets.formatters.convert_to_days = function( plan ) {
+        if(plan) {
+          const conversions = {
+            "daily": 1,
+            "weekly": 7,
+            "bi-weekly": 14,
+            "monthly": 30,
+            "quarterly": 90,
+            "yearly": 365
+          };
+
+          return `Delivery every ${conversions[plan.toLowerCase()]} days` || "";
+        }
+
+        return plan;
+      }
+
+      rivets.formatters.render_discount_price = function( item ) {
+        return item.original_line_price != item.line_price
+      }
+
+      rivets.formatters.render_options = function( option ) {
+        let optionItem
+
+        if (option.includes( ":" )) {
+          optionItem = option.split( ":" )[0] != 'Default Title' ? option.split( ":" )[0] : ''
+        } else {
+          optionItem = option != 'Default Title' ? option : ''
+        }
+
+        return optionItem;
+      }
+
+      rivets.formatters.render_discounts = function( discount ) {
+        return discount.amount > 0;
+      }
+
+      rivets.formatters.remove_text = function( text, textToRemove ) {
+        return ( text ) ? text.replace( textToRemove, "" ) : null;
+      }
+
+      rivets.formatters.json = function( value ) {
+        return JSON.stringify( value );
+      }
+
+      rivets.formatters.is_on_cart = function( id, items ) {
+        if( !items ) return;
+
+        let isOnCart = items.find( function(item){
+          return item.product_id == id && item.properties._added_by != "bundle builder";
+        } );
+
+        return isOnCart;
+      }
+
+      rivets.formatters.is_products_on_cart = function( ids, items ) {
+        if( !items ) return;
+
+        const idsARR = ids.split( "," );
+        const upsellIds = idsARR.map( a => parseInt(a) );
+        const cartProductIds = items.map( a => a.product_id );
+        const isOnCart = upsellIds.every(val => cartProductIds.includes(val));
+
+        return isOnCart;
+      }
+
+      /**
+      * Free Shipping Message
+      */
+      rivets.formatters.is_free_shipping = function( cartPrice, minPrice ) {
+        const cp = cartPrice / 100;
+        const mp = minPrice;
+
+        return parseInt(cp) >= parseInt(mp);
+      }
+
+      rivets.formatters.free_shipping_remaining = function( cartPrice, percentage ) {
+        const cp = cartPrice;
+        const mp = parseFloat("{{ section.settings.free_shipping_minimum }}").toFixed(2) * 100;
+
+        return ( percentage ) ? `${ cp / mp * 100 }%` : mp - cp;
+      }
+
+      rivets.formatters.default = function( first, second ) {
+        return first ?? second;
+      }
+
+      rivets.formatters.hasSubscription = ( items ) => {
+        return items.filter( (e) => e.selling_plan_allocation ).length;
+      }
+
+      //check an individual product for a subscriptoin
+      rivets.formatters.hasSubscription = function(item) {
+        return item.selling_plan_allocation != null; //change to != to see if it has one
+      };
+
+
+      /**
+        * Add binders and formatters to rivets.
+      */
+      rivets.binders.width = function( element, value ) {
+        $( element ).css( "width", value );
+      }
+
+      rivets.binders.bg = function( element, value ) {
+          $( element ).css( "background-color", value );
+      }
+
+      var BundleController = function ( data ) {
+        return data;
+      }
+
+      rivets.components['bundles'] = {
+        attributes: [],
+        template: function() {
+          return $('#bundle-template').text();
+        },
+        initialize: function( el, data ) {
+          var self = this;
+          var cart = data.cart;
+
+          // add it to cart so that it will update also together with cart
+          cart.uniqueBundleHash = this.component._getUniqueBundleHash( cart.items );
+
+          // to watch cart changes and its values
+          sightglass.adapters = rivets.adapters;
+          sightglass.root = '.';
+          sightglass(cart, 'items', function() {
+            cart.uniqueBundleHash = self.component._getUniqueBundleHash( cart.items );
+          });
+
+          return new BundleController({
+            cart: cart
+          });
+        },
+        _getUniqueBundleHash: function( items ) {
+          var uniqueBundleHash = [];
+          $.each( items, function( i, item ){
+            var prop = item.properties;
+
+            if( prop._added_by == "MFR Bundle Builder" ) {
+              if( !uniqueBundleHash.includes( prop._bundle_hash ) ) {
+                uniqueBundleHash.push( prop._bundle_hash );
+              }
+            }
+          });
+
+          return uniqueBundleHash;
+        }
+      }
+    {% comment %} }); {% endcomment %}
+  });
+</script>
+
+{%- comment -%}FOR SUBSCRIPTION BUTTON{%- endcomment -%}
+<script>
+  onReady( () => {
+    $( document ).on( "click", "[data-update-to-subscription][data-subscription-id]", (e) => {
+      const lineNumber = $( e.currentTarget ).attr( "data-update-to-subscription" );
+      const subscriptionID = $( e.currentTarget ).attr( "data-subscription-id" );
+
+      $( ".cart-form" ).addClass( "loading" );
+
+      let formData = {
+          'line': lineNumber,
+          "selling_plan": subscriptionID
+      };
+      fetch(window.Shopify.routes.root + 'cart/change.js', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+      })
+      .then(response => {
+        CartJS.getCart();
+        return response.json();
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+        $( ".cart-form" ).removeClass( "loading" );
+      });
+
+    } );
+  } );
+</script>

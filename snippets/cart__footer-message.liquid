@@ -1,0 +1,10 @@
+<div class="cart-form__footer-message">
+    <div class="cart-form__footer-message-inner">
+        {% if gen_msg != blank %}
+            <div>{{ gen_msg }}</div>
+        {% endif %}
+        {% if sub_msg != blank %}
+            <div rv-if="cart.items | hasSubscription">{{ sub_msg }}</div>
+        {% endif %}
+    </div>
+</div>

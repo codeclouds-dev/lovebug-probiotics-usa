@@ -1,0 +1,57 @@
+# we use Shopify as our ecommerce platform
+
+{%- comment -%}
+# Caution! Please read https://help.shopify.com/en/manual/promoting-marketing/seo/editing-robots-txt before proceeding to make changes to this file.
+{% endcomment %}
+
+{% for group in robots.default_groups %}
+{{ group.user_agent }}
+{% for rule in group.rules %}
+{% unless rule.directive == 'Disallow' and rule.value == '/checkouts/internal/preloads.js?locale=en-US' %}
+{{ rule }}
+{% endunless %}
+{% endfor %}
+{% if group.sitemap != blank %}
+{{ group.sitemap }}
+{% endif %}
+
+{% endfor %}
+
+User-agent: *
+Allow: /cart
+Allow: /policies/
+Allow: /search
+Allow: /account
+Content-Signal: search=yes, ai-input=yes, ai-train=yes
+
+User-agent: GPTBot
+Allow: /
+Content-Signal: search=yes, ai-input=yes, ai-train=yes
+
+User-agent: ChatGPT-User
+Allow: /
+Content-Signal: search=yes, ai-input=yes, ai-train=yes
+
+User-agent: OAI-SearchBot
+Allow: /
+Content-Signal: search=yes, ai-input=yes, ai-train=yes
+
+User-agent: ClaudeBot
+Allow: /
+Content-Signal: search=yes, ai-input=yes, ai-train=yes
+
+User-agent: Claude-SearchBot
+Allow: /
+Content-Signal: search=yes, ai-input=yes, ai-train=yes
+
+User-agent: PerplexityBot
+Allow: /
+Content-Signal: search=yes, ai-input=yes, ai-train=yes
+
+User-agent: Google-Extended
+Allow: /
+Content-Signal: search=yes, ai-input=yes, ai-train=yes
+
+User-agent: Applebot-Extended
+Allow: /
+Content-Signal: search=yes, ai-input=yes, ai-train=yes

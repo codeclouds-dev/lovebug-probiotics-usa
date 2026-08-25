@@ -1,0 +1,306 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "type": "header",
+  "name": "Header Sections",
+  "sections": {
+    "header_announcement_bar_76niEF": {
+      "type": "header__announcement-bar",
+      "blocks": {
+        "announcement_Ma9yqP": {
+          "type": "announcement",
+          "settings": {
+            "announcement_bar_text": "Spend $50+ and get free shipping",
+            "announcement_bar_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "announcement_Ma9yqP"
+      ],
+      "settings": {
+        "announcement_bar_color_scheme": "scheme-1",
+        "bg_color": "#FEE9E2"
+      }
+    },
+    "header": {
+      "type": "header",
+      "blocks": {
+        "mega_menu_WVCYRa": {
+          "type": "mega_menu",
+          "settings": {
+            "trigger_label": "Shop",
+            "handle": "shop-mega-menu",
+            "products_label": "Featured"
+          }
+        },
+        "mega_menu_product_w8tg6g": {
+          "type": "mega_menu_product",
+          "disabled": true,
+          "settings": {
+            "mega_menu_handle": "shop-mega-menu",
+            "product": "baby-probiotics-ages-6-12-months",
+            "product_badge": "(Ages 0-12 months)"
+          }
+        },
+        "mega_menu_product_zfhT3k": {
+          "type": "mega_menu_product",
+          "disabled": true,
+          "settings": {
+            "mega_menu_handle": "shop-mega-menu",
+            "product": "toddler-probiotic-ages-1-4",
+            "product_badge": "(Ages 12 Months to 4 Years)"
+          }
+        },
+        "mega_menu_product_zChjQM": {
+          "type": "mega_menu_product",
+          "disabled": true,
+          "settings": {
+            "mega_menu_handle": "shop-mega-menu",
+            "product": "infant-probiotics-ages-0-6-months",
+            "product_badge": "(Ages 4+ years)"
+          }
+        },
+        "mega_menu_menu_VFDPr7": {
+          "type": "mega_menu_menu",
+          "settings": {
+            "mega_menu_handle": "shop-mega-menu",
+            "label": "Baby Probiotics<em>(Ages 0-12 months)</em>",
+            "menu": "baby-probiotics"
+          }
+        },
+        "mega_menu_menu_8cbbx9": {
+          "type": "mega_menu_menu",
+          "settings": {
+            "mega_menu_handle": "shop-mega-menu",
+            "label": "Toddler Probiotics<em>(Ages 12 Months to 4 Years)</em>",
+            "menu": "toddler-probiotics"
+          }
+        },
+        "mega_menu_menu_ndJcL7": {
+          "type": "mega_menu_menu",
+          "settings": {
+            "mega_menu_handle": "shop-mega-menu",
+            "label": "Kids Probiotics<em>(Ages 4+ years)</em>",
+            "menu": "kids-probiotics"
+          }
+        },
+        "mega_menu_menu_PTNeQW": {
+          "type": "mega_menu_menu",
+          "settings": {
+            "mega_menu_handle": "shop-mega-menu",
+            "label": "Women’s",
+            "menu": "mfr-little-heroes-woman"
+          }
+        },
+        "mega_menu_menu_yFkd86": {
+          "type": "mega_menu_menu",
+          "settings": {
+            "mega_menu_handle": "shop-mega-menu",
+            "label": "Adults",
+            "menu": "mfr-little-heroes-wellness"
+          }
+        },
+        "mega_menu_cta_96RAi3": {
+          "type": "mega_menu_cta",
+          "settings": {
+            "mega_menu_handle": "shop-mega-menu",
+            "button_label": "Shop All",
+            "button_link": "shopify://collections/all",
+            "color_theme": "primary"
+          }
+        },
+        "mega_menu_q8UmWi": {
+          "type": "mega_menu",
+          "settings": {
+            "trigger_label": "Learn1",
+            "handle": "learn1-mega-menu",
+            "products_label": "Featured"
+          }
+        },
+        "mega_menu_product_TrF86b": {
+          "type": "mega_menu_product",
+          "disabled": true,
+          "settings": {
+            "mega_menu_handle": "learn-mega-menu",
+            "product": "advanced-strength-daily",
+            "product_badge": "Bestseller"
+          }
+        },
+        "mega_menu_product_pzEFEJ": {
+          "type": "mega_menu_product",
+          "disabled": true,
+          "settings": {
+            "mega_menu_handle": "learn-mega-menu",
+            "product": "prenatal-probiotic",
+            "product_badge": "Fearless women"
+          }
+        },
+        "mega_menu_menu_cXjHxc": {
+          "type": "mega_menu_menu",
+          "settings": {
+            "mega_menu_handle": "learn-mega-menu",
+            "label": "General",
+            "menu": "mfr-big-heroes-learn"
+          }
+        },
+        "mega_menu_menu_fi6tad": {
+          "type": "mega_menu_menu",
+          "disabled": true,
+          "settings": {
+            "mega_menu_handle": "learn-mega-menu",
+            "label": "Women",
+            "menu": "mfr-big-heroes-women"
+          }
+        },
+        "mega_menu_cta_79Ug4G": {
+          "type": "mega_menu_cta",
+          "settings": {
+            "mega_menu_handle": "learn-mega-menu",
+            "button_label": "Shop All",
+            "button_link": "shopify://collections/all",
+            "color_theme": "primary"
+          }
+        }
+      },
+      "block_order": [
+        "mega_menu_WVCYRa",
+        "mega_menu_product_w8tg6g",
+        "mega_menu_product_zfhT3k",
+        "mega_menu_product_zChjQM",
+        "mega_menu_menu_VFDPr7",
+        "mega_menu_menu_8cbbx9",
+        "mega_menu_menu_ndJcL7",
+        "mega_menu_menu_PTNeQW",
+        "mega_menu_menu_yFkd86",
+        "mega_menu_cta_96RAi3",
+        "mega_menu_q8UmWi",
+        "mega_menu_product_TrF86b",
+        "mega_menu_product_pzEFEJ",
+        "mega_menu_menu_cXjHxc",
+        "mega_menu_menu_fi6tad",
+        "mega_menu_cta_79Ug4G"
+      ],
+      "settings": {
+        "logo": "shopify://shop_images/main-logo.svg",
+        "logo_lottie_url": "https://cdn.shopify.com/s/files/1/0509/9677/3062/files/logo.json?v=1736925481",
+        "layout_mobile": "logo-center",
+        "layout_desktop": "logo-center",
+        "color_scheme": "scheme-1",
+        "color_scheme_sticky": "scheme-1",
+        "offset_mobile": 0,
+        "offset_desktop": 0,
+        "offset_sticky_mobile": 0,
+        "offset_sticky_desktop": 0,
+        "border_radius_mobile": 0,
+        "border_radius_desktop": 0,
+        "sticky_border_radius_mobile": 0,
+        "sticky_border_radius_desktop": 0,
+        "menu_display": "standard",
+        "menu": "mfr-desktop-left-menu-copy",
+        "right_menu": "",
+        "show_cart_cta": true,
+        "show_cart_icon": true,
+        "show_search_bar": true,
+        "show_account_cta": true,
+        "account_icon": "shopify://shop_images/Account.svg",
+        "account_label": "Account",
+        "show_contact_cta": true,
+        "contact_icon": "shopify://shop_images/Contact.svg",
+        "contact_label": "Contact Us",
+        "appear_on": ""
+      }
+    },
+    "link_carousel_8J9dpm": {
+      "type": "link-carousel",
+      "blocks": {
+        "collection_link_tdnEY9": {
+          "type": "collection_link",
+          "settings": {
+            "collection": "for-kids",
+            "label": "Kids",
+            "link": ""
+          }
+        },
+        "collection_link_4RDfKW": {
+          "type": "collection_link",
+          "settings": {
+            "collection": "toddler-probiotics",
+            "label": "Toddlers",
+            "link": ""
+          }
+        },
+        "collection_link_3UggRg": {
+          "type": "collection_link",
+          "settings": {
+            "collection": "newborn-4",
+            "label": "Babies",
+            "link": ""
+          }
+        },
+        "collection_link_RKftLf": {
+          "type": "collection_link",
+          "settings": {
+            "collection": "women-s-probiotics",
+            "label": "Women's",
+            "link": ""
+          }
+        },
+        "collection_link_DcFy9T": {
+          "type": "collection_link",
+          "settings": {
+            "collection": "adults",
+            "label": "Adults",
+            "link": ""
+          }
+        },
+        "collection_link_ViRfaQ": {
+          "type": "collection_link",
+          "settings": {
+            "collection": "bestsellers",
+            "label": "Best Sellers",
+            "link": ""
+          }
+        },
+        "collection_link_VKxqnH": {
+          "type": "collection_link",
+          "settings": {
+            "collection": "all",
+            "label": "Shop All",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "collection_link_tdnEY9",
+        "collection_link_4RDfKW",
+        "collection_link_3UggRg",
+        "collection_link_RKftLf",
+        "collection_link_DcFy9T",
+        "collection_link_ViRfaQ",
+        "collection_link_VKxqnH"
+      ],
+      "name": "Link Carousel",
+      "settings": {
+        "bg_color": "#e8f0ff",
+        "text_color": "#2b3990",
+        "aria_label": "Shop by category",
+        "hide_on_desktop": true,
+        "custom_class": "",
+        "custom_id": ""
+      }
+    }
+  },
+  "order": [
+    "header_announcement_bar_76niEF",
+    "header",
+    "link_carousel_8J9dpm"
+  ]
+}

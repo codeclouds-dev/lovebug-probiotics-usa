@@ -1,0 +1,238 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-article",
+      "disabled": true,
+      "settings": {
+        "show_back_button": false,
+        "section_spacing_top": "section_spacing_none_top",
+        "section_spacing_bottom": "section_spacing_none_bottom",
+        "bg_color": "",
+        "svg_pattern_divider": "no-divider",
+        "svg_pattern_divider_color": "",
+        "custom_class": ""
+      }
+    },
+    "mfr_article_header_7YyJpj": {
+      "type": "mfr-article__header",
+      "blocks": {
+        "article_category_zwEKBf": {
+          "type": "article_category",
+          "settings": {}
+        },
+        "heading_tt7qcq": {
+          "type": "heading",
+          "settings": {
+            "heading": "{{ article.title }}",
+            "disable_animation": false,
+            "header_style": "h3",
+            "make_xl": "",
+            "highlight_color": "",
+            "underline_color": "",
+            "max_width": 0
+          }
+        },
+        "image_pA7gcX": {
+          "type": "image",
+          "settings": {
+            "image": "{{ article.image }}"
+          }
+        },
+        "article_details_i4NWEp": {
+          "type": "article_details",
+          "settings": {
+            "article_subject": "{{ article.metafields.mfr_fields.article_subject.value }}"
+          }
+        },
+        "article_introduction_VgkLgD": {
+          "type": "article_introduction",
+          "settings": {}
+        },
+        "featured_products_feNb6U": {
+          "type": "featured_products",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "article_category_zwEKBf",
+        "heading_tt7qcq",
+        "image_pA7gcX",
+        "article_details_i4NWEp",
+        "article_introduction_VgkLgD",
+        "featured_products_feNb6U"
+      ],
+      "settings": {
+        "enabled_back_button": false,
+        "back_button_label": "Back",
+        "back_button_url": "",
+        "text_alignment": "text-center",
+        "container_width": "full",
+        "max_width": 0,
+        "grid_gutter": "",
+        "color_scheme": "",
+        "top_spacing_mobile": 100,
+        "bottom_spacing_mobile": 40,
+        "top_spacing_desktop": 100,
+        "bottom_spacing_desktop": 10,
+        "bg_color": "",
+        "top_wave_divider": false,
+        "bottom_wave_divider": false,
+        "custom_class": "",
+        "custom_id": ""
+      }
+    },
+    "mfr_article_content_gfDY9h": {
+      "type": "mfr-article__content",
+      "blocks": {
+        "content_La7jmi": {
+          "type": "content",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "content_La7jmi"
+      ],
+      "settings": {
+        "text_alignment": "text-center",
+        "container_width": "full",
+        "max_width": 0,
+        "grid_gutter": "",
+        "color_scheme": "",
+        "top_spacing_mobile": 30,
+        "bottom_spacing_mobile": 130,
+        "top_spacing_desktop": 20,
+        "bottom_spacing_desktop": 150,
+        "bg_color": "",
+        "top_wave_divider": false,
+        "bottom_wave_divider": false,
+        "custom_class": "",
+        "custom_id": ""
+      }
+    },
+    "mfr_blog_carousel_6cMjkL": {
+      "type": "mfr-blog__carousel",
+      "blocks": {
+        "heading_rNkQCC": {
+          "type": "heading",
+          "settings": {
+            "heading": "Recommended Articles",
+            "disable_animation": false,
+            "header_style": "h1",
+            "make_xl": "",
+            "highlight_color": "",
+            "underline_color": "",
+            "max_width": 0
+          }
+        }
+      },
+      "block_order": [
+        "heading_rNkQCC"
+      ],
+      "settings": {
+        "blog": "news",
+        "posts_limit": 10,
+        "show_blog_category": true,
+        "show_read_time": true,
+        "desktop_text_alignment": "text-center",
+        "mobile_text_alignment": "text-center",
+        "container_width": "full",
+        "max_width": 0,
+        "grid_gutter": "",
+        "color_scheme": "",
+        "top_spacing_mobile": 50,
+        "bottom_spacing_mobile": 50,
+        "top_spacing_desktop": 40,
+        "bottom_spacing_desktop": 60,
+        "bg_color": "#FFE9E2",
+        "top_wave_divider": true,
+        "bottom_wave_divider": false,
+        "custom_class": "",
+        "custom_id": ""
+      }
+    },
+    "mfr_core_icon_text_grid_JarkYU": {
+      "type": "mfr-core__icon-text-grid",
+      "blocks": {
+        "icon_text_EQEc7n": {
+          "type": "icon_text",
+          "settings": {
+            "icon": "shopify://shop_images/bestsellers-icon-min.png",
+            "text": "Best Sellers",
+            "url": "shopify://collections/bestsellers"
+          }
+        },
+        "icon_text_49mJfr": {
+          "type": "icon_text",
+          "settings": {
+            "icon": "shopify://shop_images/what-the-quick-link-new.png",
+            "text": "What The 🤬",
+            "url": "shopify://pages/what-the"
+          }
+        },
+        "icon_text_QxWRff": {
+          "type": "icon_text",
+          "settings": {
+            "icon": "shopify://shop_images/general-banner-desktop.jpg",
+            "text": "The Gut Bible",
+            "url": "shopify://blogs/news"
+          }
+        },
+        "icon_text_iRmWrm": {
+          "type": "icon_text",
+          "settings": {
+            "icon": "shopify://shop_images/women-icon-min.png",
+            "text": "Women",
+            "url": "shopify://collections/women"
+          }
+        },
+        "icon_text_KrVPBj": {
+          "type": "icon_text",
+          "settings": {
+            "icon": "shopify://shop_images/general-icon-min.png",
+            "text": "General",
+            "url": "shopify://collections/general-health"
+          }
+        }
+      },
+      "block_order": [
+        "icon_text_EQEc7n",
+        "icon_text_49mJfr",
+        "icon_text_QxWRff",
+        "icon_text_iRmWrm",
+        "icon_text_KrVPBj"
+      ],
+      "settings": {
+        "text_alignment": "text-center",
+        "container_width": "full",
+        "max_width": 0,
+        "grid_gutter": "",
+        "color_scheme": "",
+        "top_spacing_mobile": 50,
+        "bottom_spacing_mobile": 100,
+        "top_spacing_desktop": 50,
+        "bottom_spacing_desktop": 120,
+        "bg_color": "#FFE9E2",
+        "top_wave_divider": false,
+        "bottom_wave_divider": false,
+        "custom_class": "",
+        "custom_id": ""
+      }
+    }
+  },
+  "order": [
+    "main",
+    "mfr_article_header_7YyJpj",
+    "mfr_article_content_gfDY9h",
+    "mfr_blog_carousel_6cMjkL",
+    "mfr_core_icon_text_grid_JarkYU"
+  ]
+}

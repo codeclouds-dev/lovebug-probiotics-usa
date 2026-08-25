@@ -1,0 +1,71 @@
+{%- comment -%}
+  Settings
+  --
+  product_hotspot
+
+  x_setting
+  y_setting
+  
+  width_desktop
+  position_x_desktop
+  position_y_desktop
+
+  width_mobile
+  position_x_mobile
+  position_y_mobile 
+
+{%- endcomment -%}
+
+{%- assign block_number = block_number -%}
+{%- assign block_id = block_id -%}
+
+{% if product != blank %}
+  
+  <div class="accent-graphic-wrapper product-hotspot">
+    
+    {%- assign product = all_products[product] -%}
+    <div class="accent-graphic product-graphic-{{ block_number }}-{{ block_id }} visible__{{ visibility }}">
+      <a href="{{ product.url }}" class="accent-graphic__inner" data-inview {{ scroll_speed }} aria-haspopup="true" title="Tooltip Text">
+        <div data-inview>
+          <div>
+            <div class="tooltip" data-toggler=".is-active">
+              <div class="tooltip-header">{{ product.metafields.mfr_fields.product_type | default: product.type }}</div>
+              <div class="tooltip-title">{{ product.metafields.mfr_fields.nice_title | default: product.title | truncate: "30" }}</div>
+              <div class="arrow">{% render 'icon__caret-left' %}</div>
+            </div>
+            <div class="icon">
+              {% render 'icon__plus' %}
+            </div>
+          </div>
+        </div>
+      </a>
+    </div>
+    
+    <style>
+        #shopify-section-{{ section.id }} .accent-graphic.product-graphic-{{ block_number }}-{{ block_id }} {
+          {%- if x_setting == 'center' -%}
+            left: 0;
+            right: 0;
+            margin: auto;
+          {% else %}
+            {{ x_setting }}: {{ position_x_small }}%;
+          {%- endif -%}
+          {{ y_setting }}: {{ position_y_small }}%;
+        }
+        @media print, screen and (min-width: 64em) {
+          #shopify-section-{{ section.id }} .accent-graphic.product-graphic-{{ block_number }}-{{ block_id }} {
+            {%- if x_setting == 'center' -%}
+              left: 0;
+              right: 0;
+              margin: auto;
+            {% else %}
+              {{ x_setting }}: {{ position_x_large }}%;
+            {%- endif -%}
+            {{ y_setting }}: {{ position_y_large }}%;
+          }
+        }
+    </style>
+
+  </div>
+
+{% endif %}

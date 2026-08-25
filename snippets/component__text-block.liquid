@@ -1,0 +1,27 @@
+<div class="carousel text-block__wrapper">
+
+  <div class="text-block text-block--{{ columns | default: 3}} carousel__slides"
+    data-stagger-inview=".text-block__item"
+    data-carousel-on-mobile="true"
+      >
+      {% for text_block in text_blocks %}
+          <div class="text-block__item carousel__item">
+              <div class="text-block__icon">
+                <div class="text-block__icon-inner">
+                  {% render 'component__lazyload-image',
+                    image: text_block.settings.icon,
+                    width: 360,
+                    alt: text_block.settings.icon.alt %}
+                </div>
+              </div>
+              <div class="text-block__title">
+                {{ text_block.settings.title }}
+            </div>
+              <div class="text-block__text">
+                  {{ text_block.settings.text }}
+              </div>
+          </{% if text_block.settings.url != blank %}a{% else %}div{% endif %}>
+      {% endfor %}
+  </div>
+
+</div>

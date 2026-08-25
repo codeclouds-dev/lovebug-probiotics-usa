@@ -1,0 +1,328 @@
+{%- liquid
+  assign show_bar = false
+  assign sticky_product = product
+  assign show_desktop = settings.show_sticky_bar_desktop
+  assign show_mobile = settings.show_sticky_bar_mobile
+
+  if template.name == 'page' and page.metafields.custom.sticky_atc_product != blank
+      assign show_bar = true
+      assign sticky_product = page.metafields.custom.sticky_atc_product.value
+      assign show_desktop = true
+      assign show_mobile = true
+  elsif settings.show_sticky_bar_desktop or settings.show_sticky_bar_mobile
+      if template.name == 'product'
+          assign show_bar = true
+      endif
+  endif
+-%}
+
+{%- if show_bar -%}
+    {% assign product = sticky_product %}
+    {% assign first_variant = product.selected_or_first_available_variant %}
+    {% assign selling_plan_groups = product.selling_plan_groups[0] %}
+
+    {% assign shade_name = product.first_available_variant.title %}
+    {% assign shade_color = product.first_available_variant.metafields.mfr_fields.variant_color %}
+    {% assign color_name = product.first_available_variant.metafields.mfr_fields.variant_shade %}
+
+    {% comment %} Compute first-plan subscription price for legacy data-subscription-price attribute (single-bottle, qty=1) {% endcomment %}
+    {% if selling_plan_groups != blank %}
+      {% assign sp_discount = selling_plan_groups.selling_plans[0].price_adjustments[0].value | default: 0 %}
+      {% assign sp_discount_decimal = sp_discount | divided_by: 100.00 %}
+      {% assign sp_discount_amount = first_variant.price | times: sp_discount_decimal %}
+      {% assign subscription_price = first_variant.price | minus: sp_discount_amount | round %}
+    {% endif %}
+
+    {% comment %}
+      Per-plan config map: { "plan_id": { "d": discount_decimal, "q": plan_quantity }, ... }
+      The sticky bar JS reads this and computes price as basePrice * q * (1 - d).
+      Plan quantity is sourced from selling_plan.options[name=="Product Quantity"].
+    {% endcomment %}
+    {%- assign plan_config_parts = '' -%}
+    {%- for group in product.selling_plan_groups -%}
+      {%- for plan in group.selling_plans -%}
+        {%- assign plan_discount_val = plan.price_adjustments[0].value | default: 0 | divided_by: 100.0 | round: 4 -%}
+        {%- assign plan_qty_val = 1 -%}
+        {%- for opt in plan.options -%}
+          {%- if opt.name == 'Product Quantity' -%}
+            {%- assign plan_qty_val = opt.value | plus: 0 -%}
+          {%- endif -%}
+        {%- endfor -%}
+        {%- capture plan_part -%}"{{ plan.id }}":{"d":{{ plan_discount_val }},"q":{{ plan_qty_val }}}{%- endcapture -%}
+        {%- if plan_config_parts == '' -%}
+          {%- assign plan_config_parts = plan_part -%}
+        {%- else -%}
+          {%- assign plan_config_parts = plan_config_parts | append: ',' | append: plan_part -%}
+        {%- endif -%}
+      {%- endfor -%}
+    {%- endfor -%}
+    {%- assign plan_discounts_json = '{' | append: plan_config_parts | append: '}' -%}
+
+    {% style %}
+        .product-sticky-bar.sticky-bar--subscription-active .quantity {
+            display: none;
+        }
+        .product-sticky-bar--mobile {
+            --sticky-bar-height: {{ settings.sticky_bar_height_mobile | default: 94 }}px;
+        }
+        .product-sticky-bar--mobile .product-sticky-bar__inner {
+            height: var(--sticky-bar-height);
+        }
+        .product-sticky-bar--mobile .product-sticky-bar__form .quantity,
+        .product-sticky-bar--mobile .product-sticky-bar__form button.add-to-cart {
+            height: calc(var(--sticky-bar-height) - 24px);
+        }
+
+        .product-sticky-bar--desktop {
+            --sticky-bar-height: {{ settings.sticky_bar_height_desktop | default: 94 }}px;
+        }
+        .product-sticky-bar--desktop .product-sticky-bar__inner {
+            height: var(--sticky-bar-height);
+        }
+        .product-sticky-bar--desktop .product-sticky-bar__form .quantity,
+        .product-sticky-bar--desktop .product-sticky-bar__form button.add-to-cart {
+            height: calc(var(--sticky-bar-height) - 24px);
+        }
+
+        .product-sticky-bar--desktop { display: none; }
+        .product-sticky-bar--mobile  { display: block; }
+
+        @media screen and (min-width: 990px) {
+            .product-sticky-bar--desktop { display: block; }
+            .product-sticky-bar--mobile  { display: none; }
+        }
+    {% endstyle %}
+
+    {% if show_desktop %}
+    <div class="shopify-section">
+        <div class="product-sticky-bar product-sticky-bar--desktop" data-price="{{ first_variant.price }}"{% if selling_plan_groups != blank %} data-subscription-price="{{ subscription_price }}" data-discount-percentage="{{ sp_discount }}"{% endif %} data-plan-discounts='{{ plan_discounts_json }}'>
+            <div class="product-sticky-bar__inner"
+                {% if template.name == 'page' and page.metafields.custom.sticky_atc_color %}
+                    style="background-color: {{ page.metafields.custom.sticky_atc_color }};"
+                {% elsif settings.sticky_bar_inner_bg_color_desktop %}
+                    style="background-color: {{ settings.sticky_bar_inner_bg_color_desktop }};"
+                {% endif %}
+            >
+                <div class="product-sticky-bar__info">
+                    {%- unless template.name == 'page' -%}
+                        {% if product.featured_image %}
+                            <div class="product-sticky-bar__image">
+                                <img src="{{ product.featured_image | image_url: width: 150 }}"
+                                    alt="{{ product.title | escape }}"
+                                    width="76"
+                                    height="74"
+                                    loading="lazy">
+                            </div>
+                        {% endif %}
+                    {%- endunless -%}
+                    <div class="product-sticky-bar__text">
+                        <div class="product-sticky-bar__title">
+                            {{ product.metafields.accentuate.product_nice_title | default: product.title }}
+                        </div>
+
+                        {% if shade_name != blank and color_name != blank  %}
+                            <div class="product-sticky-bar__detail">
+                                {% if shade_color != blank %}
+                                    <div class="shade-color" style="background-color: {{ shade_color }};"></div>
+                                {% endif %}
+
+                                {% if shade_name != blank %}
+                                    <span class="shade-name">{{ shade_name | upcase }}</span>
+                                {% endif %}
+
+                                {% if color_name != blank %}
+                                    <span class="shade-separator">&ndash;</span>
+                                    <span class="shade-description">{{ color_name | capitalize }}</span>
+                                {% endif %}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="product-sticky-bar__form">
+                    {% form "product",
+                        product,
+                        data-productid: product.id,
+                        class: "product-top__form",
+                        data-product-form: '',
+                        data-product-handle: product.handle,
+                        data-enable-history-state: "true",
+                        data-cart-submit: ''
+                        %}
+                        {% render 'product-form__hidden-input', product: product %}
+                        <input type="hidden" name="id" data-productid="{{ product.id }}" value="{{ first_variant.id }}">
+                        <input type="hidden" name="selling_plan" value="" disabled>
+                        {% if settings.sticky_bar_show_quantity_desktop %}
+                            <div class="quantity">
+                                {% assign product_inventory_quantity = product.selected_or_first_available_variant.inventory_quantity %}
+
+                                {% if product_inventory_quantity <= 1 %}
+                                    {% assign product_inventory_quantity = 100 %}
+                                {% endif %}
+
+                                {%- render "component__quantity-selector",
+                                    name: "quantity",
+                                    min: 1,
+                                    max: product_inventory_quantity -%}
+                            </div>
+                        {% else %}
+                            <input type="hidden" name="quantity" value="1">
+                        {% endif %}
+
+                        <button 
+                            class="button add-to-cart primary" data-inview data-open="offCanvasCart"
+                            style="
+                                {%- if template.name == 'page' and page.metafields.custom.sticky_atc_button -%}
+                                    background-color: {{ page.metafields.custom.sticky_atc_button }};
+                                {%- else -%}
+                                    background-color: {{ settings.sticky_bar_button_color_desktop | default: '#2c3233' }};  
+                                {%- endif -%}
+                                
+                                {%- if template.name == 'page' and page.metafields.custom.sticky_atc_text -%}
+                                    color: {{ page.metafields.custom.sticky_atc_text }}; 
+                                {%- else -%}
+                                    color: {{ settings.sticky_bar_button_text_color_desktop | default: '#ffffff' }};
+                                {%- endif -%}
+
+                                {%- if template.name == 'page' and page.metafields.custom.sticky_atc_border -%}
+                                    border: {{ settings.sticky_bar_button_border_width_desktop | default: 0 }}px solid {{ page.metafields.custom.sticky_atc_border }};
+                                {%- else -%}
+                                    border: {{ settings.sticky_bar_button_border_width_desktop | default: 0 }}px solid {{ settings.sticky_bar_button_border_color_desktop | default: '#2c3233' }};
+                                {%- endif -%}
+                            "
+                            {% unless product.selected_or_first_available_variant.available %}
+                                disabled
+                            {% endunless %}>
+
+                            {% if product.selected_or_first_available_variant.available %}
+                                {{ settings.button_text_desktop | default: "Add To Cart" }} - <span class="sticky-price">{{- product.selected_or_first_available_variant.price | money | remove: ' ' -}}</span>
+                            {% else %}
+                                <span>{{ 'products.product.sold_out' | t }}</span>
+                            {% endif %}
+                        </button>
+
+                    {% endform %}
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    {% if show_mobile %}
+    <div class="shopify-section">
+        <div class="product-sticky-bar product-sticky-bar--mobile" data-price="{{ first_variant.price }}"{% if selling_plan_groups != blank %} data-subscription-price="{{ subscription_price }}" data-discount-percentage="{{ sp_discount }}"{% endif %} data-plan-discounts='{{ plan_discounts_json }}'>
+            <div class="product-sticky-bar__inner" 
+                {%- if template.name == 'page' and page.metafields.custom.sticky_atc_color -%}
+                    style="background-color: {{ page.metafields.custom.sticky_atc_color }};"
+                {%- elsif settings.sticky_bar_inner_bg_color_mobile -%}
+                    style="background-color: {{ settings.sticky_bar_inner_bg_color_mobile }};"
+                {%- endif -%}
+            >
+                <div class="product-sticky-bar__info">
+                    {%- unless template.name == 'page' -%}
+                        {% if product.featured_image %}
+                            <div class="product-sticky-bar__image">
+                                <img src="{{ product.featured_image | image_url: width: 150 }}"
+                                    alt="{{ product.title | escape }}"
+                                    width="76"
+                                    height="74"
+                                    loading="lazy">
+                            </div>
+                        {% endif %}
+                    {%- endunless -%}
+                    <div class="product-sticky-bar__text">
+                        <div class="product-sticky-bar__title">
+                            {{ product.metafields.accentuate.product_nice_title | default: product.title }}
+                        </div>
+
+                        {% if shade_name != blank and color_name != blank  %}
+                            <div class="product-sticky-bar__detail">
+                                {% if shade_color != blank %}
+                                    <div class="shade-color" style="background-color: {{ shade_color }};"></div>
+                                {% endif %}
+
+                                {% if shade_name != blank %}
+                                    <span class="shade-name">{{ shade_name | upcase }}</span>
+                                {% endif %}
+
+                                {% if color_name != blank %}
+                                    <span class="shade-separator">&ndash;</span>
+                                    <span class="shade-description">{{ color_name | capitalize }}</span>
+                                {% endif %}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="product-sticky-bar__form">
+                    {% form "product",
+                        product,
+                        data-productid: product.id,
+                        class: "product-top__form",
+                        data-product-form: '',
+                        data-product-handle: product.handle,
+                        data-enable-history-state: "true",
+                        data-cart-submit: ''
+                        %}
+                        {% render 'product-form__hidden-input', product: product %}
+                        <input type="hidden" name="id" data-productid="{{ product.id }}" value="{{ first_variant.id }}">
+                        <input type="hidden" name="selling_plan" value="" disabled>
+                        {% if settings.sticky_bar_show_quantity_mobile %}
+                            <div class="quantity">
+                                {% assign product_inventory_quantity = product.selected_or_first_available_variant.inventory_quantity %}
+
+                                {% if product_inventory_quantity <= 1 %}
+                                    {% assign product_inventory_quantity = 100 %}
+                                {% endif %}
+
+                                {%- render "component__quantity-selector",
+                                    name: "quantity",
+                                    min: 1,
+                                    max: product_inventory_quantity -%}
+                            </div>
+                        {% else %}
+                            <input type="hidden" name="quantity" value="1">
+                        {% endif %}
+
+                        <button 
+                            class="button add-to-cart primary" data-inview data-open="offCanvasCart"
+                            style="
+                                {%- if template.name == 'page' and page.metafields.custom.sticky_atc_button -%}
+                                    background-color: {{ page.metafields.custom.sticky_atc_button }};
+                                {%- else -%}
+                                    background-color: {{ settings.sticky_bar_button_color_mobile | default: '#2c3233' }}; 
+                                {%- endif -%}
+                                
+                                {%- if template.name == 'page' and page.metafields.custom.sticky_atc_text -%}
+                                    color: {{ page.metafields.custom.sticky_atc_text }}; 
+                                {%- else -%}
+                                    color: {{ settings.sticky_bar_button_text_color_mobile | default: '#ffffff' }}; 
+                                {%- endif -%}
+
+                                {%- if template.name == 'page' and page.metafields.custom.sticky_atc_border -%}
+                                    border: {{ settings.sticky_bar_button_border_width_mobile | default: 0 }}px solid {{ page.metafields.custom.sticky_atc_border }};
+                                {%- else -%}
+                                    border: {{ settings.sticky_bar_button_border_width_mobile | default: 0 }}px solid {{ settings.sticky_bar_button_border_color_mobile | default: '#2c3233' }};
+                                {%- endif -%}
+                            "
+                            {% unless product.selected_or_first_available_variant.available %}
+                                disabled
+                            {% endunless %}>
+
+                            {% if product.selected_or_first_available_variant.available %}
+                                {{ settings.button_text_mobile | default: "Add To Cart" }} - <span class="sticky-price">{{- product.selected_or_first_available_variant.price | money | remove: ' ' -}}</span>
+                            {% else %}
+                                <span>{{ 'products.product.sold_out' | t }}</span>
+                            {% endif %}
+                        </button>
+
+                    {% endform %}
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    {{ 'mfr-component__mfr-product-sticky-bar.css' | asset_url | stylesheet_tag }}
+    {% render 'script__section', file: "mfr-product-sticky-bar.js" %}
+{%- endif -%}

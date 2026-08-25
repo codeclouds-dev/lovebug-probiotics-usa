@@ -1,0 +1,164 @@
+{% if quantity_block.settings.enable_promotion_bar or price_block.settings.enable_promotion_bar %}
+
+	{% capture quantity_progress %}
+		{% if quantity_block.settings.enable_promotion_bar and quantity_block.settings.quantity != 0 and quantity_block.settings.quantity != blank %}
+
+			<div class="promotion-bar__promotion quantity-progress" data-target="{{ quantity_block.settings.quantity }}">
+				<div class="promotion-bar__text fail">
+					<div class="fail">
+						{%- capture quantity_element -%}
+			            	<span class="remaining">{{ quantity_block.settings.quantity }}</span>
+				        {%- endcapture -%}
+				        {{ quantity_block.settings.condition_label 
+				            | replace: "[quantity]", quantity_element }}
+					</div>
+					<div class="success">
+						{{ quantity_block.settings.success_message }}
+					</div>
+				</div>
+				<div class="promotion-bar__progress-bar">
+					<div class="progress"></div>
+				</div>
+			</div>
+
+		{% endif %}
+	{% endcapture %}
+
+	{% capture price_progress %}
+		{% if price_block.settings.enable_promotion_bar and price_block.settings.price != 0 and price_block.settings.price != blank %}
+
+			<div class="promotion-bar__promotion price-progress" data-target="{{ price_block.settings.price | times: '100' }}" data-item-ids="{%- for condition_product in price_block.settings.collection.products -%}
+              {{ condition_product.id }}, 
+            {%- endfor -%}">
+				<div class="promotion-bar__text fail">
+					<div class="fail">
+						{%- capture price_element -%}
+			            	<span class="remaining">{{ price_block.settings.price }}</span>
+				        {%- endcapture -%}
+				        {{ price_block.settings.condition_label 
+				            | replace: "[price]", price_element }}
+					</div>
+					<div class="success">
+						{{ price_block.settings.success_message }}
+					</div>
+				</div>
+				<div class="promotion-bar__progress-bar">
+					<div class="progress"></div>
+				</div>
+			</div>
+
+		{% endif %}
+	{% endcapture %}
+
+	{% capture promo_bar_html %}
+		<style>
+			#admin-bar-iframe,
+			.cc-revoke.cc-bottom.cc-left,
+			.smile-launcher-frame-container,
+			.smile-improved-mobile-launcher,
+			#smile-ui-lite-launcher-frame-container {
+				bottom: calc( 62px + 16px ) !important;
+			}
+		</style>
+		<div class="promotion-bar" data-target="{{ block.settings.quantity }}">
+
+			{{ quantity_progress }}
+
+			{{ price_progress }}
+
+		</div>
+	{% endcapture %}
+
+	<script>
+		// Update the quantity progress bar
+		function updateQuantityPromotionProgress() {
+			if ( $('.promotion-bar__promotion.quantity-progress').length ) {
+				$.getJSON('/cart.js', function(cart){ 
+				    var cartcount = cart.item_count;
+				    var target = $('.promotion-bar__promotion.quantity-progress').data('target');
+				    var remaining = Number(target) - cartcount;
+					var root = document.querySelector(':root'); // get root element
+
+					root.style.setProperty('--cart-count', cartcount); // set the value of variable --cart-count
+					root.style.setProperty('--promo-target', target); // set the value of variable --promo-target
+
+					$('.promotion-bar__promotion.quantity-progress .remaining').text(remaining);
+
+					if (cartcount > 0) {
+						$('.promotion-bar__promotion.quantity-progress .progress').addClass('progress-underway');
+
+						if (remaining <= 0) {
+							$('.promotion-bar__promotion.quantity-progress .promotion-bar__text').removeClass('fail');
+							$('.promotion-bar__promotion.quantity-progress .promotion-bar__text').addClass('success');
+						} else {
+							$('.promotion-bar__promotion.quantity-progress .promotion-bar__text').addClass('fail');
+							$('.promotion-bar__promotion.quantity-progress .promotion-bar__text').removeClass('success');
+						}
+
+					} else {
+						$('.promotion-bar__promotion.quantity-progress .progress').removeClass('progress-underway');
+					}
+				});
+			}
+		}
+
+		// Update the price progress bar
+		function updatePricePromotionProgress() {
+			if ( $('.promotion-bar__promotion.price-progress').length ) {
+				$.getJSON('/cart.js', function(cart){ 
+					const productIds = window.priceProgressBar.productIds;
+                    const requiredTotal = window.priceProgressBar.requiredTotal;
+                    const getQualifiedItemsTotal = ( items ) => {
+                        let itemPrice = 0;
+                        let total = 0;
+                        $.each( items, ( i, e ) => {
+                            if ( typeof e.selling_plan_allocation === "undefined" && productIds.includes( e.product_id ) )
+                            	total += e.quantity * e.price;
+                        } )
+                        return total;
+                    }
+                    let remaining = ( requiredTotal - getQualifiedItemsTotal(cart.items) ) / 100;
+                    let percentage = `${ getQualifiedItemsTotal(cart.items) / requiredTotal * 100 }%`;
+
+                    $('.promotion-bar__promotion.price-progress .promotion-bar__progress-bar .progress').css('width', percentage);
+					$('.promotion-bar__promotion.price-progress .remaining').text(remaining);
+
+					if (getQualifiedItemsTotal(cart.items) > 0) {
+						$('.promotion-bar__promotion.price-progress .progress').addClass('progress-underway');
+
+						if (remaining <= 0) {
+							$('.promotion-bar__promotion.price-progress .promotion-bar__text').removeClass('fail');
+							$('.promotion-bar__promotion.price-progress .promotion-bar__text').addClass('success');
+						} else {
+							$('.promotion-bar__promotion.price-progress .promotion-bar__text').addClass('fail');
+							$('.promotion-bar__promotion.price-progress .promotion-bar__text').removeClass('success');
+						}
+
+					} else {
+						$('.promotion-bar__promotion.price-progress .progress').removeClass('progress-underway');
+						$('.promotion-bar__promotion.price-progress .promotion-bar__progress-bar .progress').css('width', '5px');
+					}
+				});
+			}
+		}
+
+		// Generate promotion bar element
+		function generatePromotionBar() {
+			var $promotionBar = `{{ promo_bar_html }}`;
+			$( "body" ).append( $promotionBar ); // add element to DOM
+			updateQuantityPromotionProgress();
+			updatePricePromotionProgress();
+		}
+
+		onReady( () => {
+			generatePromotionBar();
+
+			// Check every time cart is updated
+			$(document).on('cart.requestComplete', function(event, cart) {
+				updateQuantityPromotionProgress();
+				updatePricePromotionProgress();
+			});
+		} );
+	</script>
+
+{% endif %}

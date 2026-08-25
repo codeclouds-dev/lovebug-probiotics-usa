@@ -1,0 +1,41 @@
+<div class="cart-form__gift-note">
+    <div class="cart-attribute__field">
+    <input type="hidden" name="attributes[Is this a gift?]" value="No">
+    <input type="checkbox" id="isGift" name="attributes[Is this a gift?]" onclick="showMessage()" value="Yes" {%
+        if cart.attributes["Is this a gift?"]=="Yes" %} checked{% endif %}>
+    <label for="isGift">Is this a gift?</label>
+    </div>
+    <div class="cart-attribute__field">
+    <label for="gift-note" class="visually-hidden">Gift Note</label>
+    <div id="gift-message" style="display:none;">
+        <textarea id="gift-note" placeholder="Gift Note" name="attributes[Gift Note]"
+        maxlength="200">{{ cart.attributes["Gift Note"] }}</textarea>
+        <span id='remainingC'></span>
+    </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    onReady( () => {
+        $('textarea').keypress(function(){
+            if(this.value.length > 200){
+                return false;
+            }
+            $("#remainingC").html("Remaining characters : " +(200 - this.value.length));
+        });
+
+        function showMessage() {
+            // Get the checkbox
+            var checkBox = document.getElementById("isGift");
+            // Get the output text
+            var text = document.getElementById("gift-message");
+            // If the checkbox is checked, display the output text
+            if (checkBox.checked == true){
+                text.style.display = "block";
+            } else {
+                text.style.display = "none";
+            }
+        }
+    } )
+</script>

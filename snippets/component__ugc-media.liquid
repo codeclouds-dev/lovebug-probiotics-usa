@@ -1,0 +1,53 @@
+{%- comment -%}
+    Renders media content based on file type. 
+    Can use a single media URL or separate image/video URLs.
+
+    Accepts:
+    - metaobject: {string} URL of the media file from the metaobject (optional).
+    - image: {string} URL of the image file from the block settings (optional).
+    - video: {string} URL of the video file from the block settings (optional).
+    - section_id: {string} The ID of the section where the media is being rendered.
+
+    Usage:
+    {%- render 'media-renderer', metaobject: metaobject, image: block.settings.image, video: block.settings.video, section_id: section.id -%}
+{%- endcomment -%}
+
+{% assign media_url = metaobject.media | default: image | default: video %}
+{% assign section_id = section_id %}
+
+<div class="media">
+  {% if media_url %}
+    {% assign file_extension = media_url | split: '.' | last %}
+
+    {% if file_extension == 'mp4' or file_extension == 'webm' %}
+      <!-- Render video -->
+      <div class="mfr-components__video video-player-{{ section_id }} mfr-components__video--hosted-video"
+           data-scroll
+           data-scroll-id="video--{{ section_id }}"
+           id="video-player-{{ section_id }}">
+        <div class="mfr-components__video-inner">
+          {{ media_url
+              | video_tag:
+                image_size: '360x',
+                autoplay: false,
+                loop: true,
+                muted: false,
+                controls: false,
+                playsinline: true }}
+        </div>
+        <div class="mfr-components__video-cover">
+          {% if image %}
+            {{ image | image_url: width: 420 | image_tag: alt: image.alt, loading: "lazy" }}
+          {% endif %}
+            <span class="mfr-components__video-icon">{% render "icon-play" %}</span>
+        </div>
+        {% render 'script__section', file: "mfr-hosted-video.js" %}
+      </div>
+    {% else %}
+      <!-- Render image -->
+      {{ media_url | image_url: width: 420 | image_tag: alt: media_url.alt, loading: "lazy" }}
+    {% endif %}
+  {% else %}
+    <div class="shopify-placeholder-image">{{ 'image' | placeholder_svg_tag }}</div>
+  {% endif %}
+</div>

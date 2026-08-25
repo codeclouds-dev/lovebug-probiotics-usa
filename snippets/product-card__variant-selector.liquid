@@ -1,0 +1,80 @@
+{% assign variants_size = variants | size %}
+{% assign initially_seleted_variant = selected_variant %}
+
+{% unless variants_size <= 1 %}
+  <div class="variant-selector multiple-vs-per-page" id="product-card--{{- product.id -}}" data-form="#{{- form_id -}}">
+    <div class="variant-selector__variant-options">
+      {%- for variant_options in product.options_with_values -%}
+        {%- assign use_custom_selector = false -%}
+
+        {%- if variant_options.name == 'Color' -%}
+          {%- assign use_custom_selector = true -%}
+        {%- endif -%}
+
+        <div class="variant-selector__variant-option">
+          <span class="variant-selector__options-label selectors-label ada-hide-element">
+            {{- variant_options.name -}}
+          </span>
+          
+          <div class="variant-selector__options {% if use_custom_selector %}variant-selector__options-shade{% endif %}">
+            {% for option in variant_options.values %}
+
+              {% for variant in product.variants %}
+                {% assign condition1 = variant.title | handleize %}
+                {% assign condition2 = option | handleize %}
+                {% if condition1 contains condition2 and variant.image %}
+                  {% assign selected_variant = variant %}
+                {% endif %}
+              {% endfor %}
+
+              <label for="radio-{{ product.id }}-{{- variant_options.name | handleize -}}-{{- forloop.index0 -}}">
+                <input 
+                  type="radio" 
+                  name="{{- variant_options.name -}}" 
+                  id="radio-{{ product.id }}-{{- variant_options.name | handleize -}}-{{- forloop.index0 -}}"
+                  value="{{- option -}}" 
+                  data-unique="{{ selected_variant.id }}" 
+                  data-image="{{ selected_variant.featured_image | image_url: width: 420 }}" 
+                  data-shade="{{ selected_variant.metafields.mfr_fields.variant_shade }}" 
+                  data-color="{{ selected_variant.metafields.mfr_fields.variant_color }}" 
+                  data-price="{{ selected_variant.price | money | remove: ' ' }}" 
+                  data-title="{{ selected_variant.metafields.mfr_fields.variant_nice_title }}" 
+                  data-discounted="{{ selected_variant.compare_at_price | money | remove: ' ' }}"
+                  data-available="{{ selected_variant.available }}"
+                  form="{{- form_id -}}"
+                  {%- if forloop.first and initially_seleted_variant == blank -%}checked{%- endif -%}
+                  {% if initially_seleted_variant != blank and selected_variant.id == initially_seleted_variant.id %}
+                    checked
+                  {% endif %}>
+
+                <div class="variant-selector__option">
+                  <div class="image-wrapper" style="--variant-shade-color: {{ selected_variant.metafields.mfr_fields.variant_color }};">
+                    <div class="image">
+                      {% if use_custom_selector %}
+                        <span data-tooltip class="top" tabindex="2" title="{{ selected_variant.metafields.mfr_fields.variant_nice_title }}"></span>
+                      {% else %}
+                        <img src="{{ selected_variant.image.src | img_url: '128x' }}" alt="{{ selected_variant.title }}" />
+                      {% endif %}
+                    </div>
+                  </div>
+
+                  <div class="text {% if use_custom_selector %}ada-hide-element{% endif %}">{{- option -}}</div>
+                </div>
+              </label>
+            {% endfor %}
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+
+    <script type="application/json" class="variant-selector__variants-json">{{ variants | json }}</script>
+    <script type="application/json" class="variant-selector__quantities-json">{
+        {%- for variant in variants -%}
+          "{{- variant.id -}}":{{- variant.inventory_quantity -}}{%- unless forloop.last -%},{%- endunless -%}
+        {%- endfor -%}
+      }</script>
+  </div>
+{% endunless %}
+<script>
+  initializeComponent( "#product-card--{{- product.id -}} .variant-selector", "VariantSelector" );
+</script>

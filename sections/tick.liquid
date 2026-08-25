@@ -1,0 +1,93 @@
+<section class="ingrdnt_sec">
+  <div class="grid-container">
+    <div class="tick_cls">
+      {% for block in section.blocks %}
+        <div class="img_below_txt">
+         <div class="dotwrap">
+           <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+         </div>
+          {% if block.settings.icon %}
+            <i><img src="{{ block.settings.icon | img_url }}" alt="icon"></i>
+          {% endif %}
+
+          {% if block.settings.text %}
+            <span>{{ block.settings.text }}</span>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+
+    
+{% assign default_popup_id = "popup " | replace: "_", " " | camelcase %}
+                    {% assign block_popup_id = "popup " %}
+                    {% assign popup_id = block_popup_id | default: default_popup_id %}
+                    {% assign popup_content = section.settings.indi_text %} 
+     <button    id="popup_btn"
+                      class="button primary product-top__popup-trigger"
+                      data-inview
+                      @click='
+                        $store["{{ popup_id }}"].openPopup()
+                      '>
+                    &#8595; Show Ingredients &#8595;
+                 
+                    </button>
+
+                      {% render 'mfr-component__popup',
+                      popup_id: popup_id,
+                      class: "product-top__popup",
+                      content: popup_content %}
+  </div>
+</section>
+<script>
+let popup_btn = document.getElementById('popup_btn');
+popup_btn.addEventListener('click',()=>{
+
+  popup_btn.blur()
+})
+
+</script>
+{% schema %}
+{
+  "name": "Tick",
+  "settings": [
+            {
+          "type": "textarea",
+          "id": "indi_text",
+          "label": "Ingredients Text",
+          "default": "<p>Ingredients</p>"
+        }
+
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Tick",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "icon"
+        },
+
+        {
+          "type": "text",
+          "id": "text",
+          "label": "text"
+        }
+      ]
+    }
+  ],
+
+  "presets": [
+    {
+      "name": "Tick"
+    }
+  ]
+}
+{% endschema %}

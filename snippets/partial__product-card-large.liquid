@@ -1,0 +1,89 @@
+{% comment %}
+  Metafields
+
+  - product_card_image
+  - product_card_description
+  - product_type
+  - nice_title
+  - product_light_color
+  - product_dark_color
+
+{% endcomment %}
+
+
+{%- assign metafields = product.metafields.mfr_fields -%}
+{%- assign current_variant = product.selected_or_first_available_variant -%}
+
+<a
+  href="{{ product.url }}"  
+  role="button"
+  id="product-{{ product.id }}"
+  class="product-card"
+  >
+  <div class="product-card-large__inner">
+    <div class="product-card-large__image">
+      {% assign image = metafields.temporary_product_card_image | default: product.featured_image %}
+      {% if image %}
+        {{ image 
+          | image_url: width: 500
+          | image_tag: width: 500,
+            class: "image",
+            widths: "500",
+            alt: image.alt,
+            loading: "lazy" }}
+      {% else %}
+        <div class="image shopify-placeholder-image">
+          {%- capture svg_code -%}{{- 'image' | placeholder_svg_tag -}}{%- endcapture -%}
+          {% render 'component__svg-encoder', svg_code: svg_code, alt: "placeholder image" %}
+        </div>
+      {% endif %}
+    </div>
+
+    <div class="product-card-large__header">
+      
+      <div class="product-card-large__tag">
+        {% for tag in product.tags %}
+          {% assign tag_handle = tag | handleize %}
+          {% if tag_handle contains 'new' %}
+            {{ tag_handle }}
+          {% endif %}
+        {% endfor %}
+      </div>
+
+      <h3 class="product-card-large__title h4">
+        {{ metafields.nice_title | default: product.title | replace: 'with', '</br><span>with</span>'  }}
+      </h3>
+
+      {% if metafields.product_detail != blank %}
+        <div class="product-card-large__desc">
+          {{ metafields.product_detail | metafield_tag }}
+        </div>
+      {% endif %}
+
+      <div class="product-card-large__reviews">
+        {% if product.id %}
+          {% render 'okendo-reviews-product-rating-summary', product: product %}
+        {% else %}
+          <div class="product-card-large__reviews-stars">
+            {% render 'icon__5-stars', star_color: "#000000" %}
+          </div>
+        {% endif %}
+      </div>
+      
+    </div>
+    
+   
+    <div class="product-card-large__footer">
+      <div class="product-card-large__footer-info">
+      
+      </div>
+      {% render 'component__add-to-cart-button',
+          product: product,
+          show_price: true,
+          color_theme: "secondary",
+          button_class: "product-card-large__button button secondary" %}
+    </div>
+
+  </div>
+  {% render 'schema__product', product: product %}
+</a>

@@ -1,0 +1,181 @@
+{{ 'component-card.css' | asset_url | stylesheet_tag }}
+{{ 'component-price.css' | asset_url | stylesheet_tag }}
+{{ 'component-product-grid.css' | asset_url | stylesheet_tag }}
+
+<link rel="stylesheet" href="{{ 'component-badge.css' | asset_url }}" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="{{ 'component-search.css' | asset_url }}" media="print" onload="this.media='all'">
+
+<noscript>{{ 'component-badge.css' | asset_url | stylesheet_tag }}</noscript>
+<noscript>{{ 'component-search.css' | asset_url | stylesheet_tag }}</noscript>
+
+<div class="template-search container section_spacing_xlarge_top section_spacing_large_bottom spaced-section{% unless search.performed and search.results.size > 0 %} template-search--empty{% endunless %}">
+  <div class="page-width center">
+    {%- if search.performed -%}
+      <h1 class="h2">{{ 'templates.search.title' | t }}</h1>
+    {%- else -%}
+      <h1 class="h2">{{ 'general.search.search' | t }}</h1>
+    {%- endif -%}
+    <div class="template-search__search">
+      <form action="{{ routes.search_url }}" method="get" role="search" class="search">
+        <div class="field">
+          <input
+            class="search__input field__input"
+            id="Search-In-Template"
+            type="search"
+            name="q"
+            value="{{ search.terms | escape }}"
+            {% if search.performed %}autofocus{% endif %} 
+            placeholder="{{ 'general.search.search' | t }}"
+          >
+          <label class="field__label hidden" for="Search-In-Template" aria-hidden="true">{{ 'general.search.search' | t }}</label>
+          <input name="options[prefix]" type="hidden" value="last">
+          <button type="submit" class="search__button field__button focus-inset button" aria-label="{{ 'general.search.search' | t }}">
+            Search
+          </button>
+        </div>
+      </form>
+    </div>
+    {%- if search.performed -%}
+      <p class="element-margin" role="status">
+        {%- if search.results_count == 0 -%}
+          {{ 'templates.search.no_results' | t: terms: search.terms }}
+        {%- else -%}
+          {{ 'templates.search.results_with_count' | t: terms: search.terms, count: search.results_count }}
+        {%- endif -%}
+      </p>
+    {%- endif -%}
+  </div>
+  {%- if search.performed and search.results.size > 0 -%}
+    {% paginate search.results by 24 %}
+      <div class="template-search__results page-width">
+        <ul class="grid grid--4-col-desktop grid--3-col-tablet grid--2-col grid--one-third-max grid--quarter-max negative-margin product-grid" role="list">
+          {%- for item in search.results -%}
+            <li class="grid__item{% unless item.object_type == 'product' %} grid__item--small{% endunless %}">
+              {%- case item.object_type -%}
+                {%- when 'product' -%}
+                  <div class="item">
+                    <div class="image">
+                      <a href="{{ item.url }}">
+                        <img src="{{ item.featured_image | img_url: 'large' }}" alt="{{ item.title }}" class="image-cover" />
+                      </a>
+                    </div>
+                    <div class="content">
+                      <span class="tag tag-product">Product</span>
+                      <h3><a href="{{ item.url }}">{{ item.title }}</a></h3>
+                      <h5>{{ item.metafields.details.alternative_title }}</h5>
+                      <div>{{ item.content | strip_html | truncate: 200, '...' }}</div>
+                      <a href="{{ item.url }}" class="link link-product">Shop now</a>
+                    </div>
+                  </div>
+                {%- when 'article' -%}
+                <div class="item">
+                  <div class="image">
+                    <a href="{{ item.url }}">
+                      <img src="{{ item.image | img_url: 'large' }}" alt="{{ item.title }}" class="image-cover" />
+                    </a>
+                  </div>
+                  <div class="content">
+                    <span class="tag tag-article">Recipe</span>
+                    <h3><a href="{{ item.url }}">{{ item.title }}</a></h3>
+
+                    <h5>{{ item.author }}</h5>
+                    <div>{{ item.content | strip_html | truncate: 200, '...' }}</div>
+                    <a href="{{ item.url }}" class="link link-article">Read more</a>
+                  </div>
+                </div>
+
+                  
+                {%- when 'page' -%}
+                  <div class="item">
+                    <div class="image">
+                      <a href="{{ item.url }}">
+                        <img src="{{ item.image | img_url: 'large' }}" alt="{{ item.title }}" class="image-cover" />
+                      </a>
+                    </div>
+                    <div class="content">
+                      <span class="tag tag-page">Page</span>
+                      <h3><a href="{{ item.url }}">{{ item.title }}</a></h3>
+                      <div>{{ item.content | strip_html | truncate: 200, '...' }}</div>
+                      <a href="{{ item.url }}" class="link link-page">Learn more</a>
+                    </div>
+                  </div>
+              {%- endcase -%}
+            </li>
+          {%- endfor -%}
+        </ul>
+
+        {%- if paginate.pages > 1 -%}
+          {% render 'pagination', paginate: paginate %}
+        {%- endif -%}
+      </div>
+    {% endpaginate %}
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.main-search.name",
+  "tag": "section",
+  "class": "spaced-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "t:sections.main-search.settings.header__1.content"
+    },
+    {
+      "type": "select",
+      "id": "image_ratio",
+      "options": [
+        {
+          "value": "adapt",
+          "label": "t:sections.main-search.settings.image_ratio.options__1.label"
+        },
+        {
+          "value": "portrait",
+          "label": "t:sections.main-search.settings.image_ratio.options__2.label"
+        },
+        {
+          "value": "square",
+          "label": "t:sections.main-search.settings.image_ratio.options__3.label"
+        }
+      ],
+      "default": "adapt",
+      "label": "t:sections.main-search.settings.image_ratio.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_secondary_image",
+      "default": false,
+      "label": "t:sections.main-search.settings.show_secondary_image.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "add_image_padding",
+      "default": false,
+      "label": "t:sections.main-search.settings.add_image_padding.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_vendor",
+      "default": false,
+      "label": "t:sections.main-search.settings.show_vendor.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.main-search.settings.header__2.content"
+    },
+    {
+      "type": "checkbox",
+      "id": "article_show_date",
+      "default": true,
+      "label": "t:sections.main-search.settings.article_show_date.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "article_show_author",
+      "default": false,
+      "label": "t:sections.main-search.settings.article_show_author.label"
+    }
+  ]
+}
+{% endschema %}

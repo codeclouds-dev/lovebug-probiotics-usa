@@ -1,0 +1,1324 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "mfr_product_top_LaKdaN": {
+      "type": "mfr-product__top",
+      "blocks": {
+        "okendo_star_rating_GTykTy": {
+          "type": "shopify://apps/okendo/blocks/star-rating/bb689e69-ea70-4661-8fb7-ad24a2e23c29",
+          "settings": {
+            "product": "{{product}}"
+          }
+        },
+        "heading_gNE7GU": {
+          "type": "heading",
+          "settings": {
+            "heading": "{{ product.metafields.mfr_fields.product_card_nice_title.value }}",
+            "heading_below": "Fast, Gentle Support For Gas, Fussiness, and Irregular Poops",
+            "disable_animation": true,
+            "header_style": "h3",
+            "make_xl": "",
+            "highlight_color": "",
+            "underline_color": "",
+            "max_width": 0
+          }
+        },
+        "product_tags_Y9EFiT": {
+          "type": "product_tags",
+          "settings": {
+            "color_1": "#2b3990",
+            "color_2": "#e50695",
+            "color_3": "#1ebcc5"
+          }
+        },
+        "form_NcCEdE": {
+          "type": "form",
+          "settings": {}
+        },
+        "quantity_selector_bCrbb7": {
+          "type": "quantity_selector",
+          "disabled": true,
+          "settings": {
+            "quantity": 1,
+            "label": "{{ product.metafields.mfr_fields.pdp_quantity_label_singular.value }}",
+            "sub_label": ""
+          }
+        },
+        "quantity_selector_cGr3wg": {
+          "type": "quantity_selector",
+          "disabled": true,
+          "settings": {
+            "quantity": 2,
+            "label": "{{ product.metafields.mfr_fields.pdp_quantity_label_plural.value }}",
+            "sub_label": "Save $5"
+          }
+        },
+        "quantity_selector_Bbxy7t": {
+          "type": "quantity_selector",
+          "disabled": true,
+          "settings": {
+            "quantity": 3,
+            "label": "{{ product.metafields.mfr_fields.pdp_quantity_label_plural.value }}",
+            "sub_label": "Save $5"
+          }
+        },
+        "quantity_selector_kqBHLG": {
+          "type": "quantity_selector",
+          "disabled": true,
+          "settings": {
+            "quantity": 4,
+            "label": "{{ product.metafields.mfr_fields.pdp_quantity_label_plural.value }}",
+            "sub_label": "Save $5"
+          }
+        },
+        "subscription_option_ni8axW": {
+          "type": "subscription_option",
+          "disabled": true,
+          "settings": {
+            "index": 0,
+            "subscription_label": "Subscribe & save",
+            "subscription_sub_label": "Deliver Monthly",
+            "subscription_caption": "<ul><li>No commitments, cancel anytime</li><li>Save 10% on every order</li></ul>",
+            "one_time_label": "One time purchase"
+          }
+        },
+        "variant_selector_dUrJyg": {
+          "type": "variant_selector",
+          "disabled": true,
+          "settings": {}
+        },
+        "recharge_subscriptions_subscription_widget_v2_jUW8zi": {
+          "type": "shopify://apps/recharge-subscriptions/blocks/subscription-widget-v2/371eed76-0b44-4869-9813-730372ea378e",
+          "settings": {}
+        },
+        "submit_button_rKANVn": {
+          "type": "submit_button",
+          "settings": {
+            "show_price": false,
+            "label": "Add To Cart",
+            "bottom_caption": "Free shipping on all orders over $50"
+          }
+        },
+        "product_features_K3VEEW": {
+          "type": "product_features",
+          "settings": {}
+        },
+        "text_p6xgEB": {
+          "type": "text",
+          "disabled": true,
+          "settings": {
+            "text": "<p>{{ product.metafields.mfr_fields.nice_description | metafield_tag }}</p><p>[geek-text]{{ product.metafields.mfr_fields.product_description_geek_text | metafield_tag }}[/geek-text]</p>",
+            "text_style": "regular",
+            "font_family": "",
+            "color": "",
+            "bold_color": "",
+            "underline_color": "",
+            "max_width": 0
+          }
+        },
+        "geek_switch_GrKgCX": {
+          "type": "geek_switch",
+          "disabled": true,
+          "settings": {}
+        },
+        "popup_button_dAKaKj": {
+          "type": "popup_button",
+          "disabled": true,
+          "settings": {
+            "popup_id": "nutrition-facts-popup",
+            "button_label": "See Supplement Facts",
+            "title": "{{ product.title }}",
+            "caption": "<p>{{ product.metafields.mfr_fields.nutrition_facts_text | metafield_tag }}</p>",
+            "image": "{{ product.metafields.mfr_fields.nutrition_facts_image.value }}"
+          }
+        },
+        "accordion_nzYKRy": {
+          "type": "accordion",
+          "disabled": true,
+          "settings": {
+            "title": "How to Use",
+            "content": "<p>{{ product.metafields.mfr_fields.product_card_how_to_use | metafield_tag }}</p>"
+          }
+        },
+        "rebuy_personalization_engine_rebuy_widget_whqhAU": {
+          "type": "shopify://apps/rebuy-personalization-engine/blocks/rebuy-widget/a26ae9b9-933b-40bf-bbc6-bf1220bbc4dc",
+          "disabled": true,
+          "settings": {
+            "enabled": true,
+            "id": "232475",
+            "product_id_enabled": true,
+            "collection_id_enabled": false
+          }
+        },
+        "carousel_image_DBUmYw": {
+          "type": "carousel_image",
+          "disabled": true,
+          "settings": {
+            "image": "{{ product.metafields.mfr_fields.product_card_main_image.value }}"
+          }
+        },
+        "item1_fa8pmw": {
+          "type": "item1",
+          "settings": {
+            "icon_new1": "shopify://shop_images/organic_1.png",
+            "text_new1": "USDA ORGANIC"
+          }
+        },
+        "item1_RW4nbw": {
+          "type": "item1",
+          "settings": {
+            "icon_new1": "shopify://shop_images/pediatrics_1.png",
+            "text_new1": "Pediatrician Approved"
+          }
+        },
+        "item1_LHVwyn": {
+          "type": "item1",
+          "settings": {
+            "icon_new1": "shopify://shop_images/shield_1.png",
+            "text_new1": "30-DAY GUARANTEE"
+          }
+        }
+      },
+      "block_order": [
+        "okendo_star_rating_GTykTy",
+        "heading_gNE7GU",
+        "product_tags_Y9EFiT",
+        "form_NcCEdE",
+        "quantity_selector_bCrbb7",
+        "quantity_selector_cGr3wg",
+        "quantity_selector_Bbxy7t",
+        "quantity_selector_kqBHLG",
+        "subscription_option_ni8axW",
+        "variant_selector_dUrJyg",
+        "recharge_subscriptions_subscription_widget_v2_jUW8zi",
+        "submit_button_rKANVn",
+        "product_features_K3VEEW",
+        "text_p6xgEB",
+        "geek_switch_GrKgCX",
+        "popup_button_dAKaKj",
+        "accordion_nzYKRy",
+        "rebuy_personalization_engine_rebuy_widget_whqhAU",
+        "carousel_image_DBUmYw",
+        "item1_fa8pmw",
+        "item1_RW4nbw",
+        "item1_LHVwyn"
+      ],
+      "settings": {
+        "moms_choice": "shopify://shop_images/moms-choice.png",
+        "quantity_label": "Select Pack",
+        "color_scheme": "",
+        "grid_gutter": "",
+        "top_spacing_mobile": 20,
+        "bottom_spacing_mobile": 100,
+        "top_spacing_desktop": 40,
+        "bottom_spacing_desktop": 160
+      }
+    },
+    "ab_product_below_pic_NMGQx6": {
+      "type": "ab_product_below_pic",
+      "blocks": {
+        "item_pRLLpp": {
+          "type": "item",
+          "settings": {
+            "icon": "shopify://shop_images/checklist.png",
+            "text": "USDA ORGANIC"
+          }
+        },
+        "item_rBrwWN": {
+          "type": "item",
+          "settings": {
+            "icon": "shopify://shop_images/checklist.png",
+            "text": "Pediatrician Approved"
+          }
+        },
+        "item_N9VmAc": {
+          "type": "item",
+          "settings": {
+            "icon": "shopify://shop_images/checklist.png",
+            "text": "30-DAY GUARANTEE"
+          }
+        }
+      },
+      "block_order": [
+        "item_pRLLpp",
+        "item_rBrwWN",
+        "item_N9VmAc"
+      ],
+      "disabled": true,
+      "name": "Product Image Below Part",
+      "settings": {}
+    },
+    "purple_bar_W3VBdt": {
+      "type": "purple_bar",
+      "blocks": {
+        "item_ypUKGR": {
+          "type": "item",
+          "settings": {
+            "icon": "shopify://shop_images/no-oil.png",
+            "text": "No Seed Oil"
+          }
+        },
+        "item_yKcKce": {
+          "type": "item",
+          "settings": {
+            "icon": "shopify://shop_images/sugar-free.png",
+            "text": "No Sugars"
+          }
+        },
+        "item_k8nrkW": {
+          "type": "item",
+          "settings": {
+            "icon": "shopify://shop_images/no-fast-food.png",
+            "text": "No Junk"
+          }
+        }
+      },
+      "block_order": [
+        "item_ypUKGR",
+        "item_yKcKce",
+        "item_k8nrkW"
+      ],
+      "name": "purple bar",
+      "settings": {}
+    },
+    "mfr_core_scrolling_images_XxwCpM": {
+      "type": "mfr-core__scrolling-images",
+      "blocks": {
+        "entry_bYtAD4": {
+          "type": "entry",
+          "settings": {
+            "image": "shopify://shop_images/mother_baby_4x_d676026b-f476-441d-849a-365c0e3f80de.png",
+            "max_width_mobile": 244,
+            "max_width_desktop": 218
+          }
+        },
+        "entry_3MKwHB": {
+          "type": "entry",
+          "settings": {
+            "image": "shopify://shop_images/vogue_4x_93e235be-7541-4644-b600-62f225c2f92f.png",
+            "max_width_mobile": 230,
+            "max_width_desktop": 218
+          }
+        },
+        "entry_yyJYKM": {
+          "type": "entry",
+          "settings": {
+            "image": "shopify://shop_images/evening_standard_4x_7bdc8fe2-66be-44c9-9dba-2d4bf8870ab3.png",
+            "max_width_mobile": 230,
+            "max_width_desktop": 218
+          }
+        }
+      },
+      "block_order": [
+        "entry_bYtAD4",
+        "entry_3MKwHB",
+        "entry_yyJYKM"
+      ],
+      "name": "Scrolling Images",
+      "settings": {
+        "pause_on_drag": true,
+        "render_autoscroll_on": "",
+        "gap_mobile": 24,
+        "gap_desktop": 12,
+        "text_alignment": "text-center",
+        "container_width": "full",
+        "max_width": 10,
+        "grid_gutter": "",
+        "color_scheme": "",
+        "top_spacing_mobile": 0,
+        "bottom_spacing_mobile": 30,
+        "top_spacing_desktop": 0,
+        "bottom_spacing_desktop": 50,
+        "bg_color": "",
+        "top_wave_divider": false,
+        "bottom_wave_divider": false,
+        "custom_class": "",
+        "custom_id": ""
+      }
+    },
+    "ab_product_desc_xHpkzR": {
+      "type": "ab_product_desc",
+      "blocks": {
+        "small_text_WjxJAA": {
+          "type": "small_text",
+          "disabled": true,
+          "settings": {
+            "text": "PRODUCT DESCRIPTION",
+            "small_text_color": ""
+          }
+        },
+        "heading_zTQFQc": {
+          "type": "heading",
+          "settings": {
+            "heading": "The 6-Strain \"Gut Shield\" Every Newborn Needs From Day 1.",
+            "disable_animation": false,
+            "header_style": "h1"
+          }
+        },
+        "description_text_XNGwBm": {
+          "type": "description_text",
+          "settings": {
+            "text": "<b>Build the foundation. Stop the tears.</b>\n\n\n\n<b>Colic. Eczema.Crying.</b> It isn't \"bad luck.\" It's a gut deficiency. Your\nbaby's biome is vulnerable. Stop treating the symptoms and fix\nt h e source with our 6 clinically studied strains that actually matter.\nDesigned for Day 1 (0+ Months) Lovebug isn't a generic band-aid, it\nis the world's first staged probiotic system specifically engineered\nt o evolve from birth to age 4.\n<br><br>\n<p><b>Build the foundation. Stop the tears.</b></p>",
+            "disable_animation": false
+          }
+        }
+      },
+      "block_order": [
+        "small_text_WjxJAA",
+        "heading_zTQFQc",
+        "description_text_XNGwBm"
+      ],
+      "disabled": true,
+      "name": "ab_product_description",
+      "settings": {}
+    },
+    "mfr_lb_note_media_eN7ryb": {
+      "type": "mfr-lb__note-media",
+      "blocks": {
+        "heading_wjifzb": {
+          "type": "heading",
+          "settings": {
+            "heading": "The 6-Strain \"Gut Shield\" Every Newborn Needs From Day 1",
+            "disable_animation": false,
+            "header_style": "h1",
+            "make_xl": "",
+            "highlight_color": "",
+            "underline_color": "",
+            "max_width": 0
+          }
+        },
+        "text_CpAQgh": {
+          "type": "text",
+          "settings": {
+            "text": "<p>It isn't \"bad luck.\" It's a gut deficiency. Your<br/>baby's biome is vulnerable. Stop treating the symptoms and fix<br/>the source with our 6 clinically studied strains that actually matter.<br/>Designed for Day 1 (0+ Months) Lovebug isn't a generic band-aid, it<br/>is the world's first staged probiotic system specifically engineered<br/>to evolve from birth to age 4.<br/><br/><strong>Build the foundation. Stop the tears.</strong></p>",
+            "disable_animation": false,
+            "text_style": "regular",
+            "color": "",
+            "max_width": 0
+          }
+        }
+      },
+      "block_order": [
+        "heading_wjifzb",
+        "text_CpAQgh"
+      ],
+      "name": "LB: Note/Media Section",
+      "settings": {
+        "note_background": "#ffe9e2",
+        "alternate_layout": false,
+        "text_alignment": "text-center",
+        "container_width": "full",
+        "max_width": 0,
+        "grid_gutter": "",
+        "color_scheme": "",
+        "top_spacing_mobile": 100,
+        "bottom_spacing_mobile": 100,
+        "top_spacing_desktop": 100,
+        "bottom_spacing_desktop": 100,
+        "bg_color": "",
+        "top_wave_divider": false,
+        "bottom_wave_divider": false,
+        "custom_class": "",
+        "custom_id": ""
+      }
+    },
+    "mfr_product_reviews_zUiGGJ": {
+      "type": "mfr-product__reviews",
+      "blocks": {
+        "heading_BURapB": {
+          "type": "heading",
+          "settings": {
+            "heading": "Why Parents Choose Us",
+            "disable_animation": false,
+            "header_style": "h2",
+            "make_xl": "",
+            "highlight_color": "",
+            "underline_color": "",
+            "max_width": 0
+          }
+        }
+      },
+      "block_order": [
+        "heading_BURapB"
+      ],
+      "settings": {
+        "is_centered": true,
+        "color_scheme": "",
+        "is_full_width": false,
+        "top_spacing_mobile": 20,
+        "bottom_spacing_mobile": 50,
+        "top_spacing_desktop": 100,
+        "bottom_spacing_desktop": 150,
+        "bg_color": "#e9f4fc",
+        "top_wave_divider": true,
+        "bottom_wave_divider": false,
+        "custom_class": "ab_rv1",
+        "custom_id": ""
+      }
+    },
+    "lovebug_science_8dCkJ8": {
+      "type": "lovebug_science",
+      "blocks": {
+        "heading_x3EA7f": {
+          "type": "heading",
+          "disabled": true,
+          "settings": {
+            "heading": "A Little Bit Of Lovebug Science",
+            "disable_animation": false,
+            "header_style": "h1"
+          }
+        },
+        "image_Fh8iHC": {
+          "type": "image",
+          "disabled": true,
+          "settings": {
+            "img": "shopify://shop_images/add-selection.png",
+            "below_text": "<p><br/>5 BILLION LIVE PROBIOTICS P / DOSE<br/><br/></p>"
+          }
+        },
+        "image_pY7FPk": {
+          "type": "image",
+          "disabled": true,
+          "settings": {
+            "img": "shopify://shop_images/add-selection.png",
+            "below_text": "<p><br/>6 CLINICALLY STUDIED STRAINS<br/><br/></p>"
+          }
+        },
+        "image_RH7h3i": {
+          "type": "image",
+          "disabled": true,
+          "settings": {
+            "img": "shopify://shop_images/add-selection.png",
+            "below_text": "<p><br/>FREE OF SEED-OILS<br/><br/></p>"
+          }
+        },
+        "image_HEPX4N": {
+          "type": "image",
+          "disabled": true,
+          "settings": {
+            "img": "shopify://shop_images/add-selection.png",
+            "below_text": "<p><br/>VITAMIN D FOR EARLY IMMUNE SUPPORT<br/><br/></p>"
+          }
+        },
+        "image_zHTjcb": {
+          "type": "image",
+          "disabled": true,
+          "settings": {
+            "img": "shopify://shop_images/add-selection.png",
+            "below_text": "<p><br/>ABSOLUTELY NOTHING ARTIFICIAL<br/><br/></p>"
+          }
+        },
+        "image_qeKCpL": {
+          "type": "image",
+          "disabled": true,
+          "settings": {
+            "img": "shopify://shop_images/add-selection.png",
+            "below_text": "<p><br/>No Bitter Taste!<br/><br/></p>"
+          }
+        }
+      },
+      "block_order": [
+        "heading_x3EA7f",
+        "image_Fh8iHC",
+        "image_pY7FPk",
+        "image_RH7h3i",
+        "image_HEPX4N",
+        "image_zHTjcb",
+        "image_qeKCpL"
+      ],
+      "disabled": true,
+      "name": "A little bit of lovebug SCIENCE",
+      "settings": {
+        "text": "<p><br/>Our strains are selected for how a baby’s gut actually behaves in the first 12 months of life. Each 5-drop serving delivers:<br/><br/></p>"
+      }
+    },
+    "tick_tNbxQP": {
+      "type": "tick",
+      "blocks": {
+        "item_pE4wdb": {
+          "type": "item",
+          "settings": {
+            "icon": "shopify://shop_images/check.png",
+            "text": "6 clinically studied strains"
+          }
+        },
+        "item_grrN4Y": {
+          "type": "item",
+          "settings": {
+            "icon": "shopify://shop_images/check.png",
+            "text": "Eases gas and colic at the root"
+          }
+        },
+        "item_mVTrcq": {
+          "type": "item",
+          "settings": {
+            "icon": "shopify://shop_images/check.png",
+            "text": "Supports regular poops"
+          }
+        },
+        "item_4ji49j": {
+          "type": "item",
+          "settings": {
+            "icon": "shopify://shop_images/check.png",
+            "text": "With Vitamin D for immunity"
+          }
+        },
+        "item_ccbhHN": {
+          "type": "item",
+          "settings": {
+            "icon": "shopify://shop_images/check.png",
+            "text": "Organic, gentle, newborn-safe"
+          }
+        },
+        "item_BEHTer": {
+          "type": "item",
+          "settings": {
+            "icon": "shopify://shop_images/check.png",
+            "text": "No artificial ingredients!"
+          }
+        }
+      },
+      "block_order": [
+        "item_pE4wdb",
+        "item_grrN4Y",
+        "item_mVTrcq",
+        "item_4ji49j",
+        "item_ccbhHN",
+        "item_BEHTer"
+      ],
+      "name": "Tick",
+      "settings": {
+        "indi_text": "<div class=\"product-top__popup-content\">\n                        \n                          <p class=\"product-top__popup-title\">\n                            Baby Probiotic Drops\n                          </p>\n                        \n                        \n                          <div class=\"product-top__popup-caption\">\n                            <p><span class=\"metafield-multi_line_text_field\">Vitamin D (as cholecalciferol) Proprietary Probiotic Blend Bifidobacterium lactis Lactobacillus reuteri Lactobacillus plantarum Lactobacillus acidophilus Lactobacillus rhamnosus GG Bifidobacterium infantis + Daily Value (DV) not established Amount % Daily Value Infants through Per Serving 12 months 10 mcg (400 IU) 100% 5 Billion CFU Other ingredients: Organic Medium Chain Triglycerid (MCT) Oil, Silicon Dioxide, Natural Source of Vitamin E. At time of manufacture.</span></p>\n                          </div>\n                        \n                        \n                      </div>"
+      }
+    },
+    "star_9pTHXN": {
+      "type": "star",
+      "name": "Star Section",
+      "settings": {
+        "img": "shopify://shop_images/stars-new.png",
+        "text": "<p>\"The only thing that worked.\"<br/><em><strong> - Donna V.</strong></em></p>"
+      }
+    },
+    "reason_works_well_39eqHr": {
+      "type": "reason_works_well",
+      "blocks": {
+        "heading_Dy3YCe": {
+          "type": "heading",
+          "settings": {
+            "heading": "The Reason It Works So Well",
+            "disable_animation": false,
+            "header_style": "h1"
+          }
+        }
+      },
+      "block_order": [
+        "heading_Dy3YCe"
+      ],
+      "name": "Reason Section",
+      "settings": {
+        "img": "shopify://shop_images/Copy_of_Dropper_BottleandBox_front-Photoroom.png",
+        "text": "When your baby’s gut is out of balance you feel it instantly. These drops restore harmony fast, quiet the discomfort, and bring noticeable calm into the home."
+      }
+    },
+    "how_use_lovebug_drops_AbdWVn": {
+      "type": "how_use_lovebug_drops",
+      "blocks": {
+        "heading_qGV8qn": {
+          "type": "heading",
+          "settings": {
+            "heading": "How To Use Lovebug Drops",
+            "disable_animation": false,
+            "header_style": "h1"
+          }
+        },
+        "image_68hgtK": {
+          "type": "image",
+          "settings": {
+            "img": "shopify://shop_images/Fresh-and-potent-icon.png",
+            "description_text": "Just 7 drops,<br>once a day."
+          }
+        },
+        "image_FFpncR": {
+          "type": "image",
+          "settings": {
+            "img": "shopify://shop_images/Mess-free-and-easy-to-use-icon.png",
+            "description_text": "Drop to mix with <br>formula or breast milk"
+          }
+        },
+        "image_D4VTMy": {
+          "type": "image",
+          "settings": {
+            "img": "shopify://shop_images/5-billion-cfu-icon.png",
+            "description_text": "No taste, no mess,<br>\nno battles."
+          }
+        }
+      },
+      "block_order": [
+        "heading_qGV8qn",
+        "image_68hgtK",
+        "image_FFpncR",
+        "image_D4VTMy"
+      ],
+      "name": "Ab Lovebug Drops",
+      "settings": {
+        "heading_new": "<h2 class=\"section-title__inner\">\n    How To Use <span class=\"animatelogo\"> <img src=\"https://cdn.shopify.com/s/files/1/0509/9677/3062/files/main-logo.svg?v=1735528561\"></span> Baby Probiotic Drops\n</h2>"
+      }
+    },
+    "star_ncgywA": {
+      "type": "star",
+      "custom_css": [],
+      "name": "Star Section",
+      "settings": {
+        "img": "shopify://shop_images/stars-new.png",
+        "text": "<p>\"Night and Day Difference.\"</p>"
+      }
+    },
+    "what_you_notice_LLbaTF": {
+      "type": "what_you_notice",
+      "blocks": {
+        "heading_VdmnRh": {
+          "type": "heading",
+          "settings": {
+            "heading": "What You'll Notice",
+            "disable_animation": false,
+            "header_style": "h1"
+          }
+        },
+        "image_ggCYFj": {
+          "type": "image",
+          "settings": {
+            "img": "shopify://shop_images/Group_45.svg",
+            "description_text": "<strong>+ Softer</strong>,<br> more regular poops"
+          }
+        },
+        "image_m3t968": {
+          "type": "image",
+          "settings": {
+            "img": "shopify://shop_images/Group_77_4x-min.png",
+            "description_text": "<strong>+ Less</strong><br>straining"
+          }
+        },
+        "image_g9yjTG": {
+          "type": "image",
+          "settings": {
+            "img": "shopify://shop_images/Group_51_4x-min.png",
+            "description_text": "<strong>+ Shorter </strong><br>crying episodes"
+          }
+        },
+        "image_3xFerJ": {
+          "type": "image",
+          "settings": {
+            "img": "shopify://shop_images/Group_77_4x-min.png",
+            "description_text": "<strong>+ Easier </strong>settling<br>before bedtime"
+          }
+        },
+        "image_qX9pP8": {
+          "type": "image",
+          "settings": {
+            "img": "shopify://shop_images/Group_45.svg",
+            "description_text": "<strong>+ Relaxed</strong><br>little belly"
+          }
+        }
+      },
+      "block_order": [
+        "heading_VdmnRh",
+        "image_ggCYFj",
+        "image_m3t968",
+        "image_g9yjTG",
+        "image_3xFerJ",
+        "image_qX9pP8"
+      ],
+      "custom_css": [
+        "@media (max-width: 400px) {.lovebug_drops {padding-top: 0; }}"
+      ],
+      "name": "What You Notice",
+      "settings": {}
+    },
+    "star_iUiLhi": {
+      "type": "star",
+      "custom_css": [
+        ".rateing-withtxt {padding-top: 0;}"
+      ],
+      "name": "Star Section",
+      "settings": {
+        "img": "shopify://shop_images/stars-new.png",
+        "text": "<p>Less strain,more smiles.</p>"
+      }
+    },
+    "mfr_product_probiotics_n6hV6B": {
+      "type": "mfr-product__probiotics_ab",
+      "blocks": {
+        "heading_BjYG7C": {
+          "type": "heading",
+          "settings": {
+            "heading": "A Little Bit Of [highlight]Lovebug[/highlight]  Science",
+            "heading_logo": "<h2 class=\"section-title__inner\">\n    A Little Bit Of <span class=\"animatelogo\"> <img src=\"https://cdn.shopify.com/s/files/1/0509/9677/3062/files/main-logo-yellow.svg?v=1767872629\"></span> Science\n</h2>",
+            "disable_animation": false,
+            "header_style": "h1",
+            "make_xl": "",
+            "highlight_color": "#f7c127",
+            "underline_color": "",
+            "max_width": 41
+          }
+        },
+        "heading_UXxJKr": {
+          "type": "heading",
+          "settings": {
+            "heading": "{{ product.metafields.mfr_fields.pdp_probiotic_description.value }}",
+            "heading_logo": "",
+            "disable_animation": false,
+            "header_style": "h5",
+            "make_xl": "",
+            "highlight_color": "",
+            "underline_color": "",
+            "max_width": 0
+          }
+        },
+        "text_wQwrHB": {
+          "type": "text",
+          "settings": {
+            "text": "<h6><strong>Developing Tummies Need Different Probiotics</strong></h6><p>The first years of life are crucial to the physical and mental development of children, a baby's microbiome is seeded during birth as the baby passes through the birth canal. </p><p>From birth to age 4, the number of different microbial strains in a baby's tummy increased 10x from 100 to 1,000. By the child's third birthday, the gut microbiome stabilizes and closely resembles the microbiome of an adult. Ensuring your child has the best possible bacterial exposures from birth throughout early childhood could be vital for your child for the rest of their life. </p>",
+            "disable_animation": false,
+            "text_style": "xlarge",
+            "color": "",
+            "max_width": 46
+          }
+        },
+        "accent_graphic_3CX7NY": {
+          "type": "accent_graphic",
+          "settings": {
+            "icon": "shopify://shop_images/Group_103_4x-min.png",
+            "svg_code": "",
+            "visibility": "always",
+            "value_type": "%",
+            "x_setting": "left",
+            "y_setting": "top",
+            "width_large": 50,
+            "position_x_large": 10,
+            "position_y_large": 8,
+            "width_small": 40,
+            "position_x_small": 0,
+            "position_y_small": 40,
+            "animation": "rotating",
+            "rotate": 0,
+            "flip": false
+          }
+        },
+        "accent_graphic_YfVLqx": {
+          "type": "accent_graphic",
+          "settings": {
+            "icon": "shopify://shop_images/Group_3_1.svg",
+            "svg_code": "",
+            "visibility": "always",
+            "value_type": "%",
+            "x_setting": "right",
+            "y_setting": "top",
+            "width_large": 110,
+            "position_x_large": 18,
+            "position_y_large": 8,
+            "width_small": 70,
+            "position_x_small": -6,
+            "position_y_small": 14,
+            "animation": "floating",
+            "rotate": 0,
+            "flip": false
+          }
+        },
+        "accent_graphic_khpr98": {
+          "type": "accent_graphic",
+          "settings": {
+            "icon": "shopify://shop_images/Group_3_4x_426e8116-3d68-4a77-b680-e3735d66176d.svg",
+            "svg_code": "",
+            "visibility": "always",
+            "value_type": "%",
+            "x_setting": "left",
+            "y_setting": "top",
+            "width_large": 130,
+            "position_x_large": 16,
+            "position_y_large": 18,
+            "width_small": 100,
+            "position_x_small": -10,
+            "position_y_small": 22,
+            "animation": "floating",
+            "rotate": 0,
+            "flip": false
+          }
+        },
+        "accent_graphic_KNp6V7": {
+          "type": "accent_graphic",
+          "settings": {
+            "icon": "shopify://shop_images/Group_103_4x-min.png",
+            "svg_code": "",
+            "visibility": "always",
+            "value_type": "%",
+            "x_setting": "right",
+            "y_setting": "top",
+            "width_large": 50,
+            "position_x_large": 8,
+            "position_y_large": 32,
+            "width_small": 40,
+            "position_x_small": 4,
+            "position_y_small": 32,
+            "animation": "rotating",
+            "rotate": 0,
+            "flip": false
+          }
+        }
+      },
+      "block_order": [
+        "heading_BjYG7C",
+        "heading_UXxJKr",
+        "text_wQwrHB",
+        "accent_graphic_3CX7NY",
+        "accent_graphic_YfVLqx",
+        "accent_graphic_khpr98",
+        "accent_graphic_KNp6V7"
+      ],
+      "name": "Product: Probiotics",
+      "settings": {
+        "probiotics": "{{ product.metafields.mfr_fields.probiotics.value }}",
+        "text_alignment": "text-center",
+        "container_width": "full",
+        "max_width": 0,
+        "grid_gutter": "",
+        "color_scheme": "scheme-3d6d5546-cc24-4027-ae43-eb909eaaabba",
+        "top_spacing_mobile": 50,
+        "bottom_spacing_mobile": 30,
+        "top_spacing_desktop": 100,
+        "bottom_spacing_desktop": 70,
+        "bg_color": "",
+        "top_wave_divider": true,
+        "bottom_wave_divider": false,
+        "custom_class": "new_p_ab",
+        "custom_id": ""
+      }
+    },
+    "mfr_product_shakey_shakey_mMAVnB": {
+      "type": "mfr-product__shakey-shakey",
+      "blocks": {
+        "heading_yYV3Kh": {
+          "type": "heading",
+          "settings": {
+            "heading": "Shakey Shakey",
+            "disable_animation": false,
+            "header_style": "h1",
+            "make_xl": "",
+            "highlight_color": "",
+            "underline_color": "",
+            "max_width": 0
+          }
+        },
+        "text_xEbA9H": {
+          "type": "text",
+          "settings": {
+            "text": "<p>It's What's Inside That Counts<br/><br/></p>",
+            "disable_animation": false,
+            "text_style": "regular",
+            "color": "",
+            "max_width": 0
+          }
+        },
+        "text_list_entry_yJcmia": {
+          "type": "text_list_entry",
+          "settings": {}
+        },
+        "nutrition_facts_MG3MPx": {
+          "type": "nutrition_facts",
+          "settings": {
+            "button_label": "Supplement Facts & Strains",
+            "button_link": "#",
+            "color_theme": "secondary"
+          }
+        }
+      },
+      "block_order": [
+        "heading_yYV3Kh",
+        "text_xEbA9H",
+        "text_list_entry_yJcmia",
+        "nutrition_facts_MG3MPx"
+      ],
+      "name": "Product: Shakey Shakey",
+      "settings": {
+        "text_alignment": "",
+        "container_width": "",
+        "max_width": 0,
+        "grid_gutter": "",
+        "color_scheme": "scheme-3d6d5546-cc24-4027-ae43-eb909eaaabba",
+        "top_spacing_mobile": 70,
+        "bottom_spacing_mobile": 110,
+        "top_spacing_desktop": 70,
+        "bottom_spacing_desktop": 200,
+        "bg_color": "",
+        "top_wave_divider": false,
+        "bottom_wave_divider": false,
+        "custom_class": "",
+        "custom_id": ""
+      }
+    },
+    "1766391730ca1a5f79": {
+      "type": "apps",
+      "blocks": {
+        "heading_8GbNtF": {
+          "type": "heading",
+          "settings": {
+            "heading": "Real Parents, Real Calm",
+            "disable_animation": false,
+            "header_style": "h1",
+            "make_xl": "",
+            "highlight_color": "",
+            "underline_color": "",
+            "max_width": 0
+          }
+        },
+        "okendo_reviews_carousel_hhktRN": {
+          "type": "shopify://apps/okendo/blocks/reviews-carousel/bb689e69-ea70-4661-8fb7-ad24a2e23c29",
+          "settings": {
+            "show_heading": false,
+            "heading": "",
+            "badge_link": "",
+            "product": "{{product}}"
+          }
+        }
+      },
+      "block_order": [
+        "heading_8GbNtF",
+        "okendo_reviews_carousel_hhktRN"
+      ],
+      "settings": {
+        "text_alignment": "text-center",
+        "container_width": "full",
+        "max_width": 0,
+        "grid_gutter": "",
+        "color_scheme": "",
+        "top_spacing_mobile": 100,
+        "bottom_spacing_mobile": 100,
+        "top_spacing_desktop": 100,
+        "bottom_spacing_desktop": 100,
+        "bg_color": "",
+        "top_wave_divider": false,
+        "bottom_wave_divider": false,
+        "custom_class": "ab_rv",
+        "custom_id": ""
+      }
+    },
+    "subscribe_save_HdFKtj": {
+      "type": "Subscribe_save",
+      "blocks": {
+        "heading_TEkirz": {
+          "type": "heading",
+          "settings": {
+            "heading": "Subscribe & Save 10%",
+            "disable_animation": false,
+            "header_style": "h1"
+          }
+        },
+        "image_VpphXC": {
+          "type": "image",
+          "settings": {
+            "img": "shopify://shop_images/tick.jpg",
+            "below_text": "<p>Save 10 percent</p>"
+          }
+        },
+        "image_HKNYFr": {
+          "type": "image",
+          "settings": {
+            "img": "shopify://shop_images/tick.jpg",
+            "below_text": "<p>Pause anytime</p>"
+          }
+        },
+        "image_rbXgcy": {
+          "type": "image",
+          "settings": {
+            "img": "shopify://shop_images/tick.jpg",
+            "below_text": "<p>Always ships free</p>"
+          }
+        }
+      },
+      "block_order": [
+        "heading_TEkirz",
+        "image_VpphXC",
+        "image_HKNYFr",
+        "image_rbXgcy"
+      ],
+      "name": "Subscribe_save",
+      "settings": {
+        "text": "<p>Get uninterrupted calm delivered on your schedule.</p>",
+        "img1": "shopify://shop_images/photo_2025-12-31_13-46-02.jpg"
+      }
+    },
+    "ab_faq_7WAMje": {
+      "type": "ab_faq",
+      "blocks": {
+        "heading_LWG4RK": {
+          "type": "heading",
+          "settings": {
+            "heading": "Questions Parents Ask Us Daily",
+            "header_style": "h1",
+            "bold_color": "",
+            "underline_color": "",
+            "max_width": 40
+          }
+        },
+        "accordion_r6i8fF": {
+          "type": "accordion",
+          "settings": {
+            "title": "Q: Why do colic and gas nappen?",
+            "description": "<p>They're often caused by an overgrowth of the wrong gut bacteria - probiotics restore that balance naturally.</p>"
+          }
+        },
+        "accordion_LHTXrc": {
+          "type": "accordion",
+          "settings": {
+            "title": "Q: Is this safe for newborns?",
+            "description": "<p>Yes, probiotic drops are safe for newborns and recommended for full-term babies from day one. Not recommended for preterm infants, who have special health needs and should be cared for under medical supervision.</p>"
+          }
+        },
+        "accordion_JE86Mn": {
+          "type": "accordion",
+          "settings": {
+            "title": "Q: How quickly will I see results?",
+            "description": "<p>Many parents notice improved digestion and calmer nights within 5-7 days.</p>"
+          }
+        },
+        "accordion_AWtDfW": {
+          "type": "accordion",
+          "settings": {
+            "title": "Q: What if it doesn't work?",
+            "description": "<p>You're covered by our 30-day money-back guarantee. Try it risk-free!</p>"
+          }
+        },
+        "accordion_aHje3g": {
+          "type": "accordion",
+          "disabled": true,
+          "settings": {
+            "title": "Q: What if it doesn't work?",
+            "description": "<p>You're covered by our 30-day money-back guarantee. Try it risk-free!</p>"
+          }
+        }
+      },
+      "block_order": [
+        "heading_LWG4RK",
+        "accordion_r6i8fF",
+        "accordion_LHTXrc",
+        "accordion_JE86Mn",
+        "accordion_AWtDfW",
+        "accordion_aHje3g"
+      ],
+      "name": "AB: FAQ",
+      "settings": {
+        "text_alignment": "text-center",
+        "container_width": "full",
+        "max_width": 0,
+        "grid_gutter": "",
+        "color_scheme": "",
+        "top_spacing_mobile": 100,
+        "bottom_spacing_mobile": 100,
+        "top_spacing_desktop": 100,
+        "bottom_spacing_desktop": 100,
+        "bg_color": "",
+        "top_wave_divider": false,
+        "bottom_wave_divider": false,
+        "custom_class": "",
+        "custom_id": "",
+        "faqright_img": "shopify://shop_images/sleeping-baby.png"
+      }
+    },
+    "clinically_proven_RwhgKf": {
+      "type": "clinically_proven",
+      "blocks": {
+        "heading_fGdBw4": {
+          "type": "heading",
+          "disabled": true,
+          "settings": {
+            "heading": "Lovebug Is 100% Clinically Proven",
+            "disable_animation": false,
+            "header_style": "h1"
+          }
+        },
+        "image_B7bTCD": {
+          "type": "image",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "heading_fGdBw4",
+        "image_B7bTCD"
+      ],
+      "name": "clinically proven",
+      "settings": {
+        "heading_new": "",
+        "text": "<p><strong>Hundreds of Clinicians shared this with their patients without compensation. </strong></p>",
+        "img1": "shopify://shop_images/clicl.png"
+      }
+    },
+    "comparison_table_CMC4FU": {
+      "type": "comparison_table",
+      "blocks": {
+        "heading_UJ7dPU": {
+          "type": "heading",
+          "settings": {
+            "heading": "Comparison Table",
+            "disable_animation": false,
+            "header_style": "h1"
+          }
+        }
+      },
+      "block_order": [
+        "heading_UJ7dPU"
+      ],
+      "name": "Comparison",
+      "settings": {
+        "img1": "shopify://shop_images/Screenshot_2025-12-05_at_16.49.57_1.png"
+      }
+    },
+    "marketing_dept_LphU3c": {
+      "type": "marketing_dept",
+      "blocks": {
+        "heading_C9Qx8i": {
+          "type": "heading",
+          "settings": {
+            "heading": "Not Made In A Marketing Department",
+            "disable_animation": false,
+            "header_style": "h2"
+          }
+        },
+        "image_btTrNL": {
+          "type": "image",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "heading_C9Qx8i",
+        "image_btTrNL"
+      ],
+      "name": "Marketing Dept",
+      "settings": {
+        "text": "<p>This all started in my kitchen at 3AM – a tired mom (me) holding a colicky newborn. It was another night of pacing, bouncing, Googling, and wishing something gentle and effective actually existed. Lovebug is a product made from necessity, tested on real tears, built to genuinely help babies feel better, and I’m confident it will help yours, too!</p>",
+        "img1": "shopify://shop_images/photo_2025-12-31_13-53-23_1.png",
+        "text1": "<span>Founder & CEO</span>",
+        "signature": "shopify://shop_images/ah-sign.png"
+      }
+    },
+    "mfr_core_scrolling_images_db7qhD": {
+      "type": "mfr-core__scrolling-images",
+      "blocks": {
+        "entry_XETgd6": {
+          "type": "entry",
+          "settings": {
+            "image": "shopify://shop_images/mother_baby_4x_d676026b-f476-441d-849a-365c0e3f80de.png",
+            "max_width_mobile": 244,
+            "max_width_desktop": 218
+          }
+        },
+        "entry_ipAmBT": {
+          "type": "entry",
+          "settings": {
+            "image": "shopify://shop_images/vogue_4x_93e235be-7541-4644-b600-62f225c2f92f.png",
+            "max_width_mobile": 230,
+            "max_width_desktop": 218
+          }
+        },
+        "entry_RzyFUk": {
+          "type": "entry",
+          "settings": {
+            "image": "shopify://shop_images/evening_standard_4x_7bdc8fe2-66be-44c9-9dba-2d4bf8870ab3.png",
+            "max_width_mobile": 230,
+            "max_width_desktop": 218
+          }
+        }
+      },
+      "block_order": [
+        "entry_XETgd6",
+        "entry_ipAmBT",
+        "entry_RzyFUk"
+      ],
+      "name": "Scrolling Images",
+      "settings": {
+        "pause_on_drag": true,
+        "render_autoscroll_on": "",
+        "gap_mobile": 24,
+        "gap_desktop": 12,
+        "text_alignment": "text-center",
+        "container_width": "full",
+        "max_width": 10,
+        "grid_gutter": "",
+        "color_scheme": "",
+        "top_spacing_mobile": 0,
+        "bottom_spacing_mobile": 30,
+        "top_spacing_desktop": 0,
+        "bottom_spacing_desktop": 50,
+        "bg_color": "",
+        "top_wave_divider": false,
+        "bottom_wave_divider": false,
+        "custom_class": "",
+        "custom_id": ""
+      }
+    },
+    "1766498307651105a5": {
+      "type": "apps",
+      "blocks": {
+        "okendo_reviews_widget_Hzpxei": {
+          "type": "shopify://apps/okendo/blocks/reviews-widget/bb689e69-ea70-4661-8fb7-ad24a2e23c29",
+          "settings": {
+            "product": "{{product}}",
+            "widget_type": "reviews_widget"
+          }
+        }
+      },
+      "block_order": [
+        "okendo_reviews_widget_Hzpxei"
+      ],
+      "settings": {
+        "text_alignment": "text-center",
+        "container_width": "full",
+        "max_width": 0,
+        "grid_gutter": "",
+        "color_scheme": "",
+        "top_spacing_mobile": 100,
+        "bottom_spacing_mobile": 100,
+        "top_spacing_desktop": 100,
+        "bottom_spacing_desktop": 100,
+        "bg_color": "",
+        "top_wave_divider": false,
+        "bottom_wave_divider": false,
+        "custom_class": "ab_rv2",
+        "custom_id": ""
+      }
+    }
+  },
+  "order": [
+    "mfr_product_top_LaKdaN",
+    "ab_product_below_pic_NMGQx6",
+    "purple_bar_W3VBdt",
+    "mfr_core_scrolling_images_XxwCpM",
+    "ab_product_desc_xHpkzR",
+    "mfr_lb_note_media_eN7ryb",
+    "mfr_product_reviews_zUiGGJ",
+    "lovebug_science_8dCkJ8",
+    "tick_tNbxQP",
+    "star_9pTHXN",
+    "reason_works_well_39eqHr",
+    "how_use_lovebug_drops_AbdWVn",
+    "star_ncgywA",
+    "what_you_notice_LLbaTF",
+    "star_iUiLhi",
+    "mfr_product_probiotics_n6hV6B",
+    "mfr_product_shakey_shakey_mMAVnB",
+    "1766391730ca1a5f79",
+    "subscribe_save_HdFKtj",
+    "ab_faq_7WAMje",
+    "clinically_proven_RwhgKf",
+    "comparison_table_CMC4FU",
+    "marketing_dept_LphU3c",
+    "mfr_core_scrolling_images_db7qhD",
+    "1766498307651105a5"
+  ]
+}

@@ -1,0 +1,1756 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "hide_page_title": true,
+        "text_alignment": "",
+        "container_width": "full",
+        "max_width": 0,
+        "grid_gutter": "grid-gutter",
+        "color_scheme": "",
+        "top_spacing_mobile": 40,
+        "bottom_spacing_mobile": 80,
+        "top_spacing_desktop": 80,
+        "bottom_spacing_desktop": 100,
+        "bg_color": "",
+        "top_wave_divider": false,
+        "bottom_wave_divider": false,
+        "custom_class": "",
+        "custom_id": ""
+      }
+    },
+    "mfr_core_hero_banner_4nThhh": {
+      "type": "mfr-core__hero-banner",
+      "blocks": {
+        "icon_rY9yxM": {
+          "type": "icon",
+          "settings": {
+            "icon": "shopify:\/\/shop_images\/Group_45.svg",
+            "file_lottie_url": "",
+            "icon_width": 101
+          }
+        },
+        "small_text_PgenDz": {
+          "type": "small_text",
+          "settings": {
+            "text": "Clinician Approved ✅",
+            "small_text_color": ""
+          }
+        },
+        "heading_pEGrDi": {
+          "type": "heading",
+          "settings": {
+            "heading": "Award Winning Probiotics for the Whole Family",
+            "disable_animation": true,
+            "header_style": "h2",
+            "make_xl": "",
+            "highlight_color": "",
+            "underline_color": "",
+            "max_width": 28
+          }
+        },
+        "star_rating_fGHrxE": {
+          "type": "star_rating",
+          "settings": {
+            "stars": 5,
+            "label": "Over 10,000+ 5 star reviews"
+          }
+        },
+        "button_PY8rhf": {
+          "type": "button",
+          "settings": {
+            "button_label": "Shop Now",
+            "button_link": "shopify:\/\/collections\/all",
+            "color_theme": "primary"
+          }
+        },
+        "image_eBUHXB": {
+          "type": "image",
+          "settings": {
+            "image_mobile": "shopify:\/\/shop_images\/MobileHero_small02.jpg",
+            "image_desktop": "shopify:\/\/shop_images\/WebHero_Final.jpg",
+            "lazyload_image": false
+          }
+        },
+        "review_3hFDUH": {
+          "type": "review",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/Screenshot_2025-05-27_at_10.14.45.png",
+            "review": "My little one is finally regular! This is the only thing that works.",
+            "reviewer": "Christina T.",
+            "stars": 5,
+            "star_color": "#ffb925"
+          }
+        },
+        "review_raBRYY": {
+          "type": "review",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/Mask_4x_9.jpg",
+            "review": "My 3 year old loves the taste and his tummy loves the probiotics!",
+            "reviewer": "Ali R.",
+            "stars": 5,
+            "star_color": "#ffb925"
+          }
+        },
+        "review_QpjMgP": {
+          "type": "review",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/baby_probiotics_mask.png",
+            "review": "This probiotic has helped so much for my little babe.",
+            "reviewer": "Kyra T.",
+            "stars": 5,
+            "star_color": "#ffb925"
+          }
+        },
+        "accent_graphic_BRV7bL": {
+          "type": "accent_graphic",
+          "disabled": true,
+          "settings": {
+            "icon": "shopify:\/\/shop_images\/Group_39_Copy.svg",
+            "svg_code": "",
+            "visibility": "always",
+            "value_type": "%",
+            "x_setting": "left",
+            "y_setting": "top",
+            "width_large": 250,
+            "position_x_large": 40,
+            "position_y_large": 0,
+            "width_small": 150,
+            "position_x_small": -10,
+            "position_y_small": 40,
+            "animation": "floating",
+            "rotate": 180,
+            "flip": false
+          }
+        },
+        "accent_graphic_zX7CzL": {
+          "type": "accent_graphic",
+          "disabled": true,
+          "settings": {
+            "icon": "shopify:\/\/shop_images\/2.svg",
+            "svg_code": "",
+            "visibility": "always",
+            "value_type": "%",
+            "x_setting": "right",
+            "y_setting": "top",
+            "width_large": 160,
+            "position_x_large": -2,
+            "position_y_large": 2,
+            "width_small": 140,
+            "position_x_small": -18,
+            "position_y_small": 2,
+            "animation": "floating",
+            "rotate": 0,
+            "flip": false
+          }
+        },
+        "accent_graphic_W6FYxk": {
+          "type": "accent_graphic",
+          "disabled": true,
+          "settings": {
+            "icon": "shopify:\/\/shop_images\/1_copy_2_4x-min.png",
+            "svg_code": "",
+            "visibility": "always",
+            "value_type": "%",
+            "x_setting": "right",
+            "y_setting": "top",
+            "width_large": 180,
+            "position_x_large": 2,
+            "position_y_large": 30,
+            "width_small": 120,
+            "position_x_small": -8,
+            "position_y_small": 50,
+            "animation": "floating",
+            "rotate": 0,
+            "flip": false
+          }
+        },
+        "accent_graphic_wrterL": {
+          "type": "accent_graphic",
+          "disabled": true,
+          "settings": {
+            "icon": "shopify:\/\/shop_images\/3.svg",
+            "svg_code": "",
+            "visibility": "always",
+            "value_type": "%",
+            "x_setting": "left",
+            "y_setting": "top",
+            "width_large": 100,
+            "position_x_large": -2,
+            "position_y_large": 42,
+            "width_small": 70,
+            "position_x_small": -6,
+            "position_y_small": 14,
+            "animation": "rotating",
+            "rotate": 0,
+            "flip": false
+          }
+        },
+        "accent_graphic_hjLmgx": {
+          "type": "accent_graphic",
+          "disabled": true,
+          "settings": {
+            "icon": "shopify:\/\/shop_images\/Group_102.svg",
+            "svg_code": "",
+            "visibility": "always",
+            "value_type": "%",
+            "x_setting": "left",
+            "y_setting": "top",
+            "width_large": 70,
+            "position_x_large": 44,
+            "position_y_large": 70,
+            "width_small": 50,
+            "position_x_small": 0,
+            "position_y_small": 86,
+            "animation": "rotating",
+            "rotate": 0,
+            "flip": false
+          }
+        }
+      },
+      "block_order": [
+        "icon_rY9yxM",
+        "small_text_PgenDz",
+        "heading_pEGrDi",
+        "star_rating_fGHrxE",
+        "button_PY8rhf",
+        "image_eBUHXB",
+        "review_3hFDUH",
+        "review_raBRYY",
+        "review_QpjMgP",
+        "accent_graphic_BRV7bL",
+        "accent_graphic_zX7CzL",
+        "accent_graphic_W6FYxk",
+        "accent_graphic_wrterL",
+        "accent_graphic_hjLmgx"
+      ],
+      "settings": {
+        "disable_entrance_animation": true,
+        "content_alignment": "align-left",
+        "text_alignment": "text-center",
+        "container_width": "",
+        "max_width": 0,
+        "grid_gutter": "",
+        "color_scheme": "",
+        "top_spacing_mobile": 50,
+        "bottom_spacing_mobile": 470,
+        "top_spacing_desktop": 100,
+        "bottom_spacing_desktop": 80,
+        "bg_color": "",
+        "top_wave_divider": false,
+        "bottom_wave_divider": false,
+        "custom_class": "",
+        "custom_id": ""
+      }
+    },
+    "mfr_core_scrolling_images_fhk4Bg": {
+      "type": "mfr-core__scrolling-images",
+      "blocks": {
+        "review_jwPejK": {
+          "type": "review",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/Mask_4x_9.jpg",
+            "review": "Great product! Easy to give to my smallest love bugs.",
+            "reviewer": "Christina K.",
+            "stars": 5,
+            "star_color": "#ffb925"
+          }
+        },
+        "review_8PhzAJ": {
+          "type": "review",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/Mask_4x_9.jpg",
+            "review": "Great product! Easy to give to my smallest love bugs.",
+            "reviewer": "Christina K.",
+            "stars": 5,
+            "star_color": "#ffb925"
+          }
+        },
+        "review_MyyQ9r": {
+          "type": "review",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/Mask_4x_9.jpg",
+            "review": "Great product! Easy to give to my smallest love bugs.",
+            "reviewer": "Christina K.",
+            "stars": 5,
+            "star_color": "#ffb925"
+          }
+        },
+        "entry_VrEPDd": {
+          "type": "entry",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/INC-Press-LB_1.png",
+            "max_width_mobile": 151.3,
+            "max_width_desktop": 189.9
+          }
+        },
+        "entry_EiVHqP": {
+          "type": "entry",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/evening_standard_4x_7bdc8fe2-66be-44c9-9dba-2d4bf8870ab3.png",
+            "max_width_mobile": 151.3,
+            "max_width_desktop": 189.9
+          }
+        },
+        "entry_eXAUaw": {
+          "type": "entry",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/vogue_4x_93e235be-7541-4644-b600-62f225c2f92f.png",
+            "max_width_mobile": 151.3,
+            "max_width_desktop": 189.9
+          }
+        },
+        "entry_8EnVCJ": {
+          "type": "entry",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/mother_baby_4x_d676026b-f476-441d-849a-365c0e3f80de.png",
+            "max_width_mobile": 151.3,
+            "max_width_desktop": 189.9
+          }
+        },
+        "entry_pxQnDC": {
+          "type": "entry",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/parents.png",
+            "max_width_mobile": 151.3,
+            "max_width_desktop": 189.9
+          }
+        },
+        "entry_iEG3kD": {
+          "type": "entry",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/Forbes_4x_6c6d5d01-7543-43d5-a5f6-4051b9f499b9.png",
+            "max_width_mobile": 151.3,
+            "max_width_desktop": 189.9
+          }
+        },
+        "entry_mrqV64": {
+          "type": "entry",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/Group_35.svg",
+            "max_width_mobile": 151.3,
+            "max_width_desktop": 189.9
+          }
+        },
+        "entry_T8TY9B": {
+          "type": "entry",
+          "disabled": true,
+          "settings": {
+            "image": "shopify:\/\/shop_images\/Group_37.svg",
+            "max_width_mobile": 151.3,
+            "max_width_desktop": 189.9
+          }
+        },
+        "entry_7tJiWT": {
+          "type": "entry",
+          "disabled": true,
+          "settings": {
+            "image": "shopify:\/\/shop_images\/Group_41.svg",
+            "max_width_mobile": 151.3,
+            "max_width_desktop": 189.9
+          }
+        },
+        "entry_KUTaVx": {
+          "type": "entry",
+          "disabled": true,
+          "settings": {
+            "image": "shopify:\/\/shop_images\/Group_42.svg",
+            "max_width_mobile": 151.3,
+            "max_width_desktop": 189.9
+          }
+        },
+        "entry_8QFqWw": {
+          "type": "entry",
+          "disabled": true,
+          "settings": {
+            "image": "shopify:\/\/shop_images\/Group_46.svg",
+            "max_width_mobile": 151.3,
+            "max_width_desktop": 189.9
+          }
+        },
+        "entry_f87f6i": {
+          "type": "entry",
+          "disabled": true,
+          "settings": {
+            "image": "shopify:\/\/shop_images\/byrdie.png",
+            "max_width_mobile": 151.3,
+            "max_width_desktop": 189.9
+          }
+        }
+      },
+      "block_order": [
+        "review_jwPejK",
+        "review_8PhzAJ",
+        "review_MyyQ9r",
+        "entry_VrEPDd",
+        "entry_EiVHqP",
+        "entry_eXAUaw",
+        "entry_8EnVCJ",
+        "entry_pxQnDC",
+        "entry_iEG3kD",
+        "entry_mrqV64",
+        "entry_T8TY9B",
+        "entry_7tJiWT",
+        "entry_KUTaVx",
+        "entry_8QFqWw",
+        "entry_f87f6i"
+      ],
+      "settings": {
+        "pause_on_drag": true,
+        "render_autoscroll_on": "",
+        "gap_mobile": 23,
+        "gap_desktop": 40,
+        "text_alignment": "text-center",
+        "container_width": "full",
+        "max_width": 0,
+        "grid_gutter": "",
+        "color_scheme": "scheme-3d6d5546-cc24-4027-ae43-eb909eaaabba",
+        "top_spacing_mobile": 10,
+        "bottom_spacing_mobile": 20,
+        "top_spacing_desktop": 20,
+        "bottom_spacing_desktop": 20,
+        "bg_color": "",
+        "top_wave_divider": true,
+        "bottom_wave_divider": false,
+        "custom_class": "",
+        "custom_id": ""
+      }
+    },
+    "mfr_lb_note_media_Ufbt8F": {
+      "type": "mfr-lb__note-media",
+      "blocks": {
+        "heading_HyaUKj": {
+          "type": "heading",
+          "settings": {
+            "heading": "Made by a Mom,[br]for Moms",
+            "disable_animation": false,
+            "header_style": "h3",
+            "make_xl": "",
+            "highlight_color": "",
+            "underline_color": "",
+            "max_width": 0
+          }
+        },
+        "text_qQxRMB": {
+          "type": "text",
+          "settings": {
+            "text": "<p>During the birth of my son, Hudson, I was put on broad-spectrum antibiotics as a preventive measure for group B strep. Over the next few months, both Hudson and I started getting sick, <strong>the culprit: Bad Gut Bacteria<\/strong>. That’s why I created Lovebug…<\/p>",
+            "disable_animation": false,
+            "text_style": "large",
+            "color": "",
+            "max_width": 0
+          }
+        },
+        "button_yxRYYe": {
+          "type": "button",
+          "settings": {
+            "button_label": "Discover Our Journey",
+            "button_link": "shopify:\/\/pages\/about-us",
+            "color_theme": "primary"
+          }
+        }
+      },
+      "block_order": [
+        "heading_HyaUKj",
+        "text_qQxRMB",
+        "button_yxRYYe"
+      ],
+      "settings": {
+        "note_background": "#ffe9e2",
+        "alternate_layout": false,
+        "image": "shopify:\/\/shop_images\/Mask_1.png",
+        "text_alignment": "text-center",
+        "container_width": "",
+        "max_width": 0,
+        "grid_gutter": "",
+        "color_scheme": "",
+        "top_spacing_mobile": 120,
+        "bottom_spacing_mobile": 100,
+        "top_spacing_desktop": 70,
+        "bottom_spacing_desktop": 90,
+        "bg_color": "#2B3990",
+        "top_wave_divider": false,
+        "bottom_wave_divider": false,
+        "custom_class": "",
+        "custom_id": ""
+      }
+    },
+    "mfr_lb_scrolling_waved_texts_KfPFHy": {
+      "type": "mfr-lb__scrolling-waved-texts",
+      "settings": {
+        "lottie_desktop": "https:\/\/cdn.shopify.com\/s\/files\/1\/0509\/9677\/3062\/files\/text-banner__desktop.json?v=1736756419",
+        "background_top": "#2B3990",
+        "background_bottom": "#ffffff",
+        "text_alignment": "text-center",
+        "container_width": "full",
+        "max_width": 0,
+        "grid_gutter": "",
+        "color_scheme": "",
+        "top_spacing_mobile": 0,
+        "bottom_spacing_mobile": 0,
+        "top_spacing_desktop": 0,
+        "bottom_spacing_desktop": 0,
+        "bg_color": "",
+        "top_wave_divider": false,
+        "bottom_wave_divider": false,
+        "custom_class": "",
+        "custom_id": ""
+      }
+    },
+    "1756393530284d08fb": {
+      "type": "apps",
+      "blocks": {
+        "rebuy_personalization_engine_rebuy_widget_PxXRXH": {
+          "type": "shopify:\/\/apps\/rebuy-personalization-engine\/blocks\/rebuy-widget\/a26ae9b9-933b-40bf-bbc6-bf1220bbc4dc",
+          "settings": {
+            "enabled": true,
+            "id": "236409",
+            "product_id_enabled": true,
+            "collection_id_enabled": false
+          }
+        }
+      },
+      "block_order": [
+        "rebuy_personalization_engine_rebuy_widget_PxXRXH"
+      ],
+      "settings": {
+        "text_alignment": "text-center",
+        "container_width": "full",
+        "max_width": 0,
+        "grid_gutter": "",
+        "color_scheme": "",
+        "top_spacing_mobile": 100,
+        "bottom_spacing_mobile": 100,
+        "top_spacing_desktop": 100,
+        "bottom_spacing_desktop": 100,
+        "bg_color": "",
+        "top_wave_divider": false,
+        "bottom_wave_divider": false,
+        "custom_class": "",
+        "custom_id": ""
+      }
+    },
+    "mfr_lb_collections_carousel_eBikjL": {
+      "type": "mfr-lb__collections-carousel",
+      "blocks": {
+        "small_text_BWk9zj": {
+          "type": "small_text",
+          "settings": {
+            "text": "Shop",
+            "small_text_color": ""
+          }
+        },
+        "heading_LFtBFW": {
+          "type": "heading",
+          "settings": {
+            "heading": "Our Family of Probiotics",
+            "disable_animation": false,
+            "header_style": "h2",
+            "make_xl": "",
+            "highlight_color": "",
+            "underline_color": "",
+            "max_width": 0
+          }
+        },
+        "filters_6kc6Ab": {
+          "type": "filters",
+          "settings": {}
+        },
+        "collection_GgtNRy": {
+          "type": "collection",
+          "settings": {
+            "label": "Bestsellers",
+            "collection": "bestsellers"
+          }
+        },
+        "collection_RXwpJT": {
+          "type": "collection",
+          "settings": {
+            "label": "Babies",
+            "collection": "newborn-4"
+          }
+        },
+        "collection_RQUh4C": {
+          "type": "collection",
+          "settings": {
+            "label": "Kids",
+            "collection": "for-kids"
+          }
+        },
+        "collection_dXmXDR": {
+          "type": "collection",
+          "settings": {
+            "label": "Women",
+            "collection": "women"
+          }
+        },
+        "collection_DremLK": {
+          "type": "collection",
+          "settings": {
+            "label": "General",
+            "collection": "general-health"
+          }
+        },
+        "button_FdiG7n": {
+          "type": "button",
+          "settings": {
+            "button_label": "See All Products",
+            "button_link": "shopify:\/\/collections\/all",
+            "color_theme": "primary"
+          }
+        }
+      },
+      "block_order": [
+        "small_text_BWk9zj",
+        "heading_LFtBFW",
+        "filters_6kc6Ab",
+        "collection_GgtNRy",
+        "collection_RXwpJT",
+        "collection_RQUh4C",
+        "collection_dXmXDR",
+        "collection_DremLK",
+        "button_FdiG7n"
+      ],
+      "disabled": true,
+      "settings": {
+        "text_alignment": "text-center",
+        "container_width": "full",
+        "max_width": 0,
+        "grid_gutter": "",
+        "color_scheme": "",
+        "top_spacing_mobile": 50,
+        "bottom_spacing_mobile": 150,
+        "top_spacing_desktop": 90,
+        "bottom_spacing_desktop": 160,
+        "bg_color": "",
+        "top_wave_divider": false,
+        "bottom_wave_divider": false,
+        "custom_class": "",
+        "custom_id": ""
+      }
+    },
+    "mfr_lb_video_reviews_carousel_eVakr7": {
+      "type": "mfr-lb__video-reviews-carousel",
+      "blocks": {
+        "small_text_6x7i7J": {
+          "type": "small_text",
+          "settings": {
+            "text": "Reviews",
+            "small_text_color": ""
+          }
+        },
+        "heading_XzdnyH": {
+          "type": "heading",
+          "settings": {
+            "heading": "Trusted By Grown Ups Everywhere",
+            "disable_animation": false,
+            "header_style": "h2",
+            "make_xl": "",
+            "highlight_color": "",
+            "underline_color": "",
+            "max_width": 0
+          }
+        },
+        "star_rating_KmKTNB": {
+          "type": "star_rating",
+          "settings": {
+            "stars": 5,
+            "label": "Over 2,000+ 5 star reviews"
+          }
+        },
+        "button_xe9Hpb": {
+          "type": "button",
+          "settings": {
+            "button_label": "Read Our Reviews",
+            "button_link": "shopify:\/\/pages\/reviews",
+            "color_theme": "primary"
+          }
+        },
+        "accent_graphic_MrALNi": {
+          "type": "accent_graphic",
+          "settings": {
+            "icon": "shopify:\/\/shop_images\/kid-2.png",
+            "svg_code": "",
+            "visibility": "always",
+            "value_type": "%",
+            "x_setting": "right",
+            "y_setting": "top",
+            "width_large": 230,
+            "position_x_large": 4,
+            "position_y_large": -30,
+            "width_small": 180,
+            "position_x_small": 0,
+            "position_y_small": -14,
+            "animation": "floating",
+            "rotate": 0,
+            "flip": false
+          }
+        }
+      },
+      "block_order": [
+        "small_text_6x7i7J",
+        "heading_XzdnyH",
+        "star_rating_KmKTNB",
+        "button_xe9Hpb",
+        "accent_graphic_MrALNi"
+      ],
+      "settings": {
+        "video_reviews": [
+          "kassandra-l",
+          "kevin-m",
+          "jessie-r"
+        ],
+        "order_mobile": "text-top",
+        "order_desktop": "text-left",
+        "vertical_alignment": "flex-start",
+        "image_column_size": "two-thirds",
+        "text_alignment": "",
+        "container_width": "",
+        "max_width": 0,
+        "grid_gutter": "",
+        "color_scheme": "",
+        "top_spacing_mobile": 70,
+        "bottom_spacing_mobile": 70,
+        "top_spacing_desktop": 50,
+        "bottom_spacing_desktop": 80,
+        "bg_color": "#FFE9E2",
+        "top_wave_divider": true,
+        "bottom_wave_divider": false,
+        "custom_class": "",
+        "custom_id": ""
+      }
+    },
+    "mfr_lb_animated_numbers_YQUYta": {
+      "type": "mfr-lb__animated-numbers",
+      "blocks": {
+        "heading_37fXqw": {
+          "type": "heading",
+          "settings": {
+            "heading": "Real Results from Real Customers",
+            "disable_animation": false,
+            "header_style": "h3",
+            "make_xl": "",
+            "highlight_color": "",
+            "underline_color": "",
+            "max_width": 0
+          }
+        },
+        "entry_xUTKQG": {
+          "type": "entry",
+          "settings": {
+            "percentage": 98,
+            "caption": "Customers reported <mark>improvement in their mood.<\/mark>",
+            "progress_bar_color": "#ff8300",
+            "mark_color": "#faff00"
+          }
+        },
+        "entry_CtRrmp": {
+          "type": "entry",
+          "settings": {
+            "percentage": 96,
+            "caption": "Customers reported <mark>fewer skin related issues.<\/mark>",
+            "progress_bar_color": "#798bfb",
+            "mark_color": "#faff00"
+          }
+        },
+        "entry_qBaLBY": {
+          "type": "entry",
+          "settings": {
+            "percentage": 89,
+            "caption": "Customers reported <mark>improved regularity, and reduced digestive upsets.<\/mark>",
+            "progress_bar_color": "#ed40a9",
+            "mark_color": "#faff00"
+          }
+        },
+        "entry_pVENiE": {
+          "type": "entry",
+          "settings": {
+            "percentage": 82,
+            "caption": "Customers reported <mark>fewer sick days.<\/mark>",
+            "progress_bar_color": "#3e52ce",
+            "mark_color": "#faff00"
+          }
+        },
+        "accent_graphic_x3Hj4f": {
+          "type": "accent_graphic",
+          "settings": {
+            "icon": "shopify:\/\/shop_images\/Group_70_4x-min.png",
+            "svg_code": "",
+            "visibility": "always",
+            "value_type": "%",
+            "x_setting": "right",
+            "y_setting": "top",
+            "width_large": 110,
+            "position_x_large": 4,
+            "position_y_large": 14,
+            "width_small": 100,
+            "position_x_small": -6,
+            "position_y_small": 14,
+            "animation": "floating",
+            "rotate": 0,
+            "flip": false
+          }
+        },
+        "accent_graphic_qDxAQG": {
+          "type": "accent_graphic",
+          "settings": {
+            "icon": "shopify:\/\/shop_images\/Group_11.svg",
+            "svg_code": "",
+            "visibility": "always",
+            "value_type": "%",
+            "x_setting": "left",
+            "y_setting": "bottom",
+            "width_large": 100,
+            "position_x_large": 4,
+            "position_y_large": 10,
+            "width_small": 90,
+            "position_x_small": 0,
+            "position_y_small": 0,
+            "animation": "floating",
+            "rotate": 0,
+            "flip": false
+          }
+        }
+      },
+      "block_order": [
+        "heading_37fXqw",
+        "entry_xUTKQG",
+        "entry_CtRrmp",
+        "entry_qBaLBY",
+        "entry_pVENiE",
+        "accent_graphic_x3Hj4f",
+        "accent_graphic_qDxAQG"
+      ],
+      "settings": {
+        "text_alignment": "text-center",
+        "container_width": "",
+        "max_width": 0,
+        "grid_gutter": "",
+        "color_scheme": "",
+        "top_spacing_mobile": 0,
+        "bottom_spacing_mobile": 110,
+        "top_spacing_desktop": 0,
+        "bottom_spacing_desktop": 180,
+        "bg_color": "#FFE9E2",
+        "top_wave_divider": false,
+        "bottom_wave_divider": false,
+        "custom_class": "",
+        "custom_id": ""
+      }
+    },
+    "mfr_lb_three_column_lottie_Tnz3Hi": {
+      "type": "mfr-lb__three-column-lottie",
+      "blocks": {
+        "small_text_QBgzHg": {
+          "type": "small_text",
+          "settings": {
+            "text": "About Your Gut…",
+            "small_text_color": ""
+          }
+        },
+        "heading_w6Vdkf": {
+          "type": "heading",
+          "settings": {
+            "heading": "What are [highlight]probiotics[\/highlight] and why do you need them?",
+            "disable_animation": false,
+            "header_style": "h1",
+            "make_xl": "",
+            "highlight_color": "#f7c127",
+            "underline_color": "",
+            "max_width": 0
+          }
+        },
+        "text_iVpAD3": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Probiotics are \"good\" or \"friendly\" bacteria, and they help maintain a balanced gut microbiome by promoting the growth of healthy bacteria.<\/p>",
+            "disable_animation": false,
+            "text_style": "xlarge",
+            "color": "",
+            "max_width": 0
+          }
+        },
+        "geek_info_VMqcqV": {
+          "type": "geek_info",
+          "settings": {
+            "title": "Probiotics are live microorganisms (good bacteria and yeasts)",
+            "caption": "that naturally live in your gut and help keep it healthy. Think of them as the friendly bacteria that balance the bad ones and support your body in functioning its best."
+          }
+        },
+        "geek_info_YydkAM": {
+          "type": "geek_info",
+          "settings": {
+            "title": "We need probiotics because our gut is like the body’s command center",
+            "caption": "—it plays a big role in digestion, immunity, mood, and even energy levels. Stress, diet, illness, and antibiotics can all throw your gut out of balance, leading to issues like bloating, fatigue, and a weakened immune system."
+          }
+        },
+        "geek_info_bEBAmB": {
+          "type": "geek_info",
+          "settings": {
+            "title": "They're like tiny superheroes for your body! 🦸‍♀️🦠",
+            "caption": "Probiotics help restore and maintain this balance, keeping your gut—and you—healthy and thriving."
+          }
+        },
+        "button_yjg3Ag": {
+          "type": "button",
+          "settings": {
+            "button_label": "What The 🤬",
+            "button_link": "shopify:\/\/pages\/what-the",
+            "color_theme": "secondary"
+          }
+        },
+        "accent_graphic_rBzz7m": {
+          "type": "accent_graphic",
+          "settings": {
+            "icon": "shopify:\/\/shop_images\/Superhero-Graphic.png",
+            "svg_code": "",
+            "visibility": "always",
+            "geek_mode_visibility": "",
+            "value_type": "%",
+            "x_setting": "left",
+            "y_setting": "top",
+            "width_large": 150,
+            "position_x_large": 34,
+            "position_y_large": 66,
+            "width_small": 120,
+            "position_x_small": 20,
+            "position_y_small": 94,
+            "animation": "none",
+            "rotate": 0,
+            "flip": false
+          }
+        },
+        "accent_graphic_rFLGep": {
+          "type": "accent_graphic",
+          "settings": {
+            "icon": "shopify:\/\/shop_images\/TheTruth-Graphic.png",
+            "svg_code": "",
+            "visibility": "desktop_only",
+            "geek_mode_visibility": "",
+            "value_type": "%",
+            "x_setting": "left",
+            "y_setting": "top",
+            "width_large": 180,
+            "position_x_large": 60,
+            "position_y_large": 78,
+            "width_small": 150,
+            "position_x_small": 10,
+            "position_y_small": 10,
+            "animation": "none",
+            "rotate": 0,
+            "flip": false
+          }
+        },
+        "accent_graphic_Rd4WCH": {
+          "type": "accent_graphic",
+          "settings": {
+            "icon": "shopify:\/\/shop_images\/accent-10_1.png",
+            "svg_code": "",
+            "visibility": "mobile_only",
+            "geek_mode_visibility": "",
+            "value_type": "%",
+            "x_setting": "left",
+            "y_setting": "top",
+            "width_large": 180,
+            "position_x_large": 34,
+            "position_y_large": 64,
+            "width_small": 140,
+            "position_x_small": 54,
+            "position_y_small": 90,
+            "animation": "none",
+            "rotate": 0,
+            "flip": false
+          }
+        },
+        "accent_graphic_crcUPb": {
+          "type": "accent_graphic",
+          "settings": {
+            "icon": "shopify:\/\/shop_images\/accent-7.png",
+            "svg_code": "",
+            "visibility": "always",
+            "geek_mode_visibility": "",
+            "value_type": "%",
+            "x_setting": "left",
+            "y_setting": "top",
+            "width_large": 140,
+            "position_x_large": 94,
+            "position_y_large": 60,
+            "width_small": 90,
+            "position_x_small": 80,
+            "position_y_small": 54,
+            "animation": "none",
+            "rotate": 0,
+            "flip": false
+          }
+        },
+        "accent_graphic_wLUJCt": {
+          "type": "accent_graphic",
+          "settings": {
+            "icon": "shopify:\/\/shop_images\/accent-4.png",
+            "svg_code": "",
+            "visibility": "always",
+            "geek_mode_visibility": "",
+            "value_type": "%",
+            "x_setting": "left",
+            "y_setting": "top",
+            "width_large": 50,
+            "position_x_large": 94,
+            "position_y_large": 16,
+            "width_small": 40,
+            "position_x_small": 48,
+            "position_y_small": 54,
+            "animation": "none",
+            "rotate": 0,
+            "flip": false
+          }
+        },
+        "accent_graphic_AMrNzd": {
+          "type": "accent_graphic",
+          "settings": {
+            "icon": "shopify:\/\/shop_images\/accent-1.png",
+            "svg_code": "",
+            "visibility": "always",
+            "geek_mode_visibility": "",
+            "value_type": "%",
+            "x_setting": "left",
+            "y_setting": "top",
+            "width_large": 110,
+            "position_x_large": 58,
+            "position_y_large": 4,
+            "width_small": 70,
+            "position_x_small": 88,
+            "position_y_small": 34,
+            "animation": "none",
+            "rotate": 0,
+            "flip": false
+          }
+        },
+        "accent_graphic_TwGYiP": {
+          "type": "accent_graphic",
+          "settings": {
+            "icon": "shopify:\/\/shop_images\/accent-2.png",
+            "svg_code": "",
+            "visibility": "always",
+            "geek_mode_visibility": "",
+            "value_type": "%",
+            "x_setting": "left",
+            "y_setting": "top",
+            "width_large": 110,
+            "position_x_large": 36,
+            "position_y_large": 18,
+            "width_small": 110,
+            "position_x_small": 6,
+            "position_y_small": 30,
+            "animation": "none",
+            "rotate": 0,
+            "flip": false
+          }
+        },
+        "accent_graphic_febtkp": {
+          "type": "accent_graphic",
+          "settings": {
+            "icon": "shopify:\/\/shop_images\/accent-5.png",
+            "svg_code": "",
+            "visibility": "always",
+            "geek_mode_visibility": "",
+            "value_type": "%",
+            "x_setting": "left",
+            "y_setting": "top",
+            "width_large": 50,
+            "position_x_large": 40,
+            "position_y_large": 2,
+            "width_small": 40,
+            "position_x_small": 76,
+            "position_y_small": 28,
+            "animation": "none",
+            "rotate": 0,
+            "flip": false
+          }
+        },
+        "accent_graphic_EzXJTQ": {
+          "type": "accent_graphic",
+          "settings": {
+            "icon": "shopify:\/\/shop_images\/accent-8.png",
+            "svg_code": "",
+            "visibility": "always",
+            "geek_mode_visibility": "",
+            "value_type": "%",
+            "x_setting": "left",
+            "y_setting": "top",
+            "width_large": 110,
+            "position_x_large": 10,
+            "position_y_large": 78,
+            "width_small": 70,
+            "position_x_small": -4,
+            "position_y_small": 46,
+            "animation": "none",
+            "rotate": 0,
+            "flip": false
+          }
+        },
+        "accent_graphic_PynmUb": {
+          "type": "accent_graphic",
+          "settings": {
+            "icon": "shopify:\/\/shop_images\/accent-6.png",
+            "svg_code": "",
+            "visibility": "always",
+            "geek_mode_visibility": "",
+            "value_type": "%",
+            "x_setting": "left",
+            "y_setting": "top",
+            "width_large": 80,
+            "position_x_large": 0,
+            "position_y_large": 6,
+            "width_small": 80,
+            "position_x_small": -8,
+            "position_y_small": 2,
+            "animation": "none",
+            "rotate": 0,
+            "flip": false
+          }
+        }
+      },
+      "block_order": [
+        "small_text_QBgzHg",
+        "heading_w6Vdkf",
+        "text_iVpAD3",
+        "geek_info_VMqcqV",
+        "geek_info_YydkAM",
+        "geek_info_bEBAmB",
+        "button_yjg3Ag",
+        "accent_graphic_rBzz7m",
+        "accent_graphic_rFLGep",
+        "accent_graphic_Rd4WCH",
+        "accent_graphic_crcUPb",
+        "accent_graphic_wLUJCt",
+        "accent_graphic_AMrNzd",
+        "accent_graphic_TwGYiP",
+        "accent_graphic_febtkp",
+        "accent_graphic_EzXJTQ",
+        "accent_graphic_PynmUb"
+      ],
+      "settings": {
+        "lottie_file_url": "https:\/\/cdn.shopify.com\/s\/files\/1\/0509\/9677\/3062\/files\/stomach_good.json?v=1736913907",
+        "text_alignment": "text-center",
+        "container_width": "",
+        "max_width": 0,
+        "grid_gutter": "",
+        "color_scheme": "scheme-3d6d5546-cc24-4027-ae43-eb909eaaabba",
+        "top_spacing_mobile": 50,
+        "bottom_spacing_mobile": 270,
+        "top_spacing_desktop": 60,
+        "bottom_spacing_desktop": 140,
+        "bg_color": "",
+        "top_wave_divider": true,
+        "bottom_wave_divider": false,
+        "custom_class": "",
+        "custom_id": ""
+      }
+    },
+    "mfr_lb_icon_text_image_yJjjeA": {
+      "type": "mfr-lb__icon-text-image",
+      "blocks": {
+        "small_text_PVMHRR": {
+          "type": "small_text",
+          "settings": {
+            "text": "",
+            "small_text_color": ""
+          }
+        },
+        "heading_VygmkK": {
+          "type": "heading",
+          "settings": {
+            "heading": "Why Lovebug?",
+            "disable_animation": false,
+            "header_style": "h1",
+            "make_xl": "",
+            "highlight_color": "",
+            "underline_color": "",
+            "max_width": 0
+          }
+        },
+        "geek_switch_9HYETN": {
+          "type": "geek_switch",
+          "settings": {}
+        },
+        "text_yiFW4Y": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Probiotics literally means “for life”.<\/p>",
+            "disable_animation": false,
+            "text_style": "large",
+            "color": "",
+            "max_width": 0
+          }
+        },
+        "text_qrmriq": {
+          "type": "text",
+          "settings": {
+            "text": "<p>At Lovebug, when we use the term probiotics, we’re talking about the good bacteria which live inside of your gut. [geek-text] Not all probiotics are created equal, and Lovebug stands out by going above and beyond to deliver the best for your family and ours:[\/geek-text]<\/p>",
+            "disable_animation": false,
+            "text_style": "xlarge",
+            "color": "",
+            "max_width": 40
+          }
+        },
+        "main_image_EUbrzA": {
+          "type": "main_image",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/Group_14_4x-min.png"
+          }
+        },
+        "icon_text_UAz7J9": {
+          "type": "icon_text",
+          "settings": {
+            "icon": "shopify:\/\/shop_images\/Group_66.svg",
+            "title": "Firmly Rooted In Science",
+            "caption": "Developed with leading scientists, our probiotics target specific health needs, from immunity and digestion to mood and overall wellness."
+          }
+        },
+        "icon_text_zzhrGz": {
+          "type": "icon_text",
+          "settings": {
+            "icon": "shopify:\/\/shop_images\/Group_66_1.svg",
+            "title": "Family-Focused",
+            "caption": "Created by a mom for moms, we understand the importance of safe, gentle, and effective products for all ages."
+          }
+        },
+        "icon_text_JncTat": {
+          "type": "icon_text",
+          "settings": {
+            "icon": "shopify:\/\/shop_images\/Group_66_2.svg",
+            "title": "Clean Ingredients",
+            "caption": "No unnecessary fillers, ingredients, or artificial junk—just high-quality, effective supplements you can trust."
+          }
+        },
+        "icon_text_NcxK4g": {
+          "type": "icon_text",
+          "settings": {
+            "icon": "shopify:\/\/shop_images\/Group_66_3.svg",
+            "title": "Award-Winning Quality",
+            "caption": "Lovebug is consistently recognized for excellence, offering premium probiotics you can rely on."
+          }
+        },
+        "button_AXFgLq": {
+          "type": "button",
+          "settings": {
+            "button_label": "Our Journey",
+            "button_link": "shopify:\/\/pages\/about-us",
+            "color_theme": "primary"
+          }
+        },
+        "accent_graphic_pT9EWJ": {
+          "type": "accent_graphic",
+          "settings": {
+            "icon": "shopify:\/\/shop_images\/accent-bacteria-1.png",
+            "svg_code": "",
+            "visibility": "always",
+            "geek_mode_visibility": "",
+            "value_type": "%",
+            "x_setting": "left",
+            "y_setting": "top",
+            "width_large": 170,
+            "position_x_large": 6,
+            "position_y_large": 6,
+            "width_small": 120,
+            "position_x_small": -12,
+            "position_y_small": 10,
+            "animation": "none",
+            "rotate": 0,
+            "flip": false
+          }
+        },
+        "accent_graphic_GDM8re": {
+          "type": "accent_graphic",
+          "settings": {
+            "icon": "shopify:\/\/shop_images\/accent-bacteria-2.png",
+            "svg_code": "",
+            "visibility": "always",
+            "geek_mode_visibility": "",
+            "value_type": "%",
+            "x_setting": "left",
+            "y_setting": "top",
+            "width_large": 150,
+            "position_x_large": 94,
+            "position_y_large": 64,
+            "width_small": 100,
+            "position_x_small": 88,
+            "position_y_small": 72,
+            "animation": "none",
+            "rotate": 0,
+            "flip": false
+          }
+        },
+        "accent_graphic_3QpWXG": {
+          "type": "accent_graphic",
+          "settings": {
+            "icon": "shopify:\/\/shop_images\/2.svg",
+            "svg_code": "",
+            "visibility": "always",
+            "geek_mode_visibility": "",
+            "value_type": "%",
+            "x_setting": "left",
+            "y_setting": "top",
+            "width_large": 160,
+            "position_x_large": 78,
+            "position_y_large": 20,
+            "width_small": 120,
+            "position_x_small": 68,
+            "position_y_small": 30,
+            "animation": "none",
+            "rotate": 0,
+            "flip": false
+          }
+        },
+        "accent_graphic_xW8kJ4": {
+          "type": "accent_graphic",
+          "settings": {
+            "icon": "shopify:\/\/shop_images\/3.svg",
+            "svg_code": "",
+            "visibility": "always",
+            "geek_mode_visibility": "",
+            "value_type": "%",
+            "x_setting": "left",
+            "y_setting": "top",
+            "width_large": 100,
+            "position_x_large": 24,
+            "position_y_large": 94,
+            "width_small": 70,
+            "position_x_small": 10,
+            "position_y_small": 98,
+            "animation": "none",
+            "rotate": 0,
+            "flip": false
+          }
+        },
+        "accent_graphic_DMYp9F": {
+          "type": "accent_graphic",
+          "settings": {
+            "icon": "shopify:\/\/shop_images\/accent-bacteria-5.png",
+            "svg_code": "",
+            "visibility": "always",
+            "geek_mode_visibility": "",
+            "value_type": "%",
+            "x_setting": "left",
+            "y_setting": "top",
+            "width_large": 80,
+            "position_x_large": 6,
+            "position_y_large": 42,
+            "width_small": 70,
+            "position_x_small": -6,
+            "position_y_small": 50,
+            "animation": "none",
+            "rotate": 0,
+            "flip": false
+          }
+        }
+      },
+      "block_order": [
+        "small_text_PVMHRR",
+        "heading_VygmkK",
+        "geek_switch_9HYETN",
+        "text_yiFW4Y",
+        "text_qrmriq",
+        "main_image_EUbrzA",
+        "icon_text_UAz7J9",
+        "icon_text_zzhrGz",
+        "icon_text_JncTat",
+        "icon_text_NcxK4g",
+        "button_AXFgLq",
+        "accent_graphic_pT9EWJ",
+        "accent_graphic_GDM8re",
+        "accent_graphic_3QpWXG",
+        "accent_graphic_xW8kJ4",
+        "accent_graphic_DMYp9F"
+      ],
+      "settings": {
+        "text_alignment": "text-center",
+        "container_width": "",
+        "max_width": 0,
+        "grid_gutter": "",
+        "color_scheme": "",
+        "top_spacing_mobile": 0,
+        "bottom_spacing_mobile": 0,
+        "top_spacing_desktop": 0,
+        "bottom_spacing_desktop": 0,
+        "bg_color": "#2B3990",
+        "notepad_bg": true,
+        "top_wave_divider": false,
+        "bottom_wave_divider": false,
+        "custom_class": "",
+        "custom_id": ""
+      }
+    },
+    "mfr_core_reviews_carousel_FBRQKG": {
+      "type": "mfr-core__reviews-carousel",
+      "blocks": {
+        "small_text_3DjdTG": {
+          "type": "small_text",
+          "settings": {
+            "text": "Customer Reviews",
+            "small_text_color": ""
+          }
+        },
+        "heading_FiijKT": {
+          "type": "heading",
+          "settings": {
+            "heading": "Moms Love Lovebug",
+            "disable_animation": false,
+            "header_style": "h2",
+            "make_xl": "",
+            "highlight_color": "",
+            "underline_color": "",
+            "max_width": 0
+          }
+        },
+        "media_text_entry_TzTUJV": {
+          "type": "media_text_entry",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/Screenshot_2025-05-27_at_11.03.24.png",
+            "caption": "I’ve tried many things but these are a simple solution and I love them 🫶🏾 #probiotics @LoveBug Probiotics #babiesoftiktok #momsoftiktoks #fyp",
+            "subcaption": "@thetruthfulmom"
+          }
+        },
+        "review_entry_KBeMVF": {
+          "type": "review_entry",
+          "settings": {
+            "initials": "NM.",
+            "name": "Nicole M.",
+            "review": "HUGE difference in my son;s digestive health with this product. We were using a different brand that worked well for my daughter but did nothing for him. Glad to say this is keeping him regular and dissolves easily in his milk. Love it!",
+            "stars": 5,
+            "bg_color": "#3e52ce",
+            "text_color": "#ffffff"
+          }
+        },
+        "media_text_entry_6dVVVH": {
+          "type": "media_text_entry",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/Screenshot_2025-05-27_at_11.08.07.png",
+            "caption": "My wellbeing travel essentials 💊❤️",
+            "subcaption": "@milliemackintosh"
+          }
+        },
+        "review_entry_qTHcFb": {
+          "type": "review_entry",
+          "settings": {
+            "initials": "AM.",
+            "name": "Ashlee M.",
+            "review": "I feel like I've found the missing piece to my daughters 3.5 year struggle through frequent UTIs\/kidney infections, lots of antibiotics, surgeries, constipation and stool withholding. It's been a long road but I think this is helping up to get a more naturally restored system! She seems like she feels so good and more confident.",
+            "stars": 5,
+            "bg_color": "#f97fb5",
+            "text_color": "#ffffff"
+          }
+        },
+        "media_text_entry_dxTehX": {
+          "type": "media_text_entry",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/Screenshot_2025-05-27_at_11.06.06.png",
+            "caption": "Thank you @LoveBug Probiotics...for some relief 🥺🫶🏻 #crunchymom #nontoxicliving",
+            "subcaption": "@faithfullynontoxic"
+          }
+        },
+        "accent_graphic_MCBUk6": {
+          "type": "accent_graphic",
+          "settings": {
+            "icon": "shopify:\/\/shop_images\/Group_39_4x_1_-min.png",
+            "svg_code": "",
+            "visibility": "mobile_only",
+            "value_type": "%",
+            "x_setting": "left",
+            "y_setting": "top",
+            "width_large": 150,
+            "position_x_large": 10,
+            "position_y_large": 10,
+            "width_small": 140,
+            "position_x_small": -2,
+            "position_y_small": 0,
+            "animation": "floating",
+            "rotate": 324,
+            "flip": false
+          }
+        },
+        "accent_graphic_k8QF8j": {
+          "type": "accent_graphic",
+          "settings": {
+            "icon": "shopify:\/\/shop_images\/Group_39_4x_1_-min.png",
+            "svg_code": "",
+            "visibility": "desktop_only",
+            "value_type": "%",
+            "x_setting": "left",
+            "y_setting": "top",
+            "width_large": 250,
+            "position_x_large": 10,
+            "position_y_large": 0,
+            "width_small": 140,
+            "position_x_small": -2,
+            "position_y_small": 0,
+            "animation": "floating",
+            "rotate": 0,
+            "flip": false
+          }
+        }
+      },
+      "block_order": [
+        "small_text_3DjdTG",
+        "heading_FiijKT",
+        "media_text_entry_TzTUJV",
+        "review_entry_KBeMVF",
+        "media_text_entry_6dVVVH",
+        "review_entry_qTHcFb",
+        "media_text_entry_dxTehX",
+        "accent_graphic_MCBUk6",
+        "accent_graphic_k8QF8j"
+      ],
+      "settings": {
+        "text_alignment": "text-center",
+        "container_width": "full",
+        "max_width": 0,
+        "grid_gutter": "",
+        "color_scheme": "",
+        "top_spacing_mobile": 80,
+        "bottom_spacing_mobile": 100,
+        "top_spacing_desktop": 80,
+        "bottom_spacing_desktop": 140,
+        "bg_color": "#FFE9E2",
+        "top_wave_divider": true,
+        "bottom_wave_divider": false,
+        "custom_class": "",
+        "custom_id": ""
+      }
+    },
+    "mfr_blog_carousel_iCLLW6": {
+      "type": "mfr-blog__carousel",
+      "blocks": {
+        "small_text_qmMG7z": {
+          "type": "small_text",
+          "settings": {
+            "text": "What's Your Gut Feeling?",
+            "small_text_color": ""
+          }
+        },
+        "heading_EWD3ct": {
+          "type": "heading",
+          "settings": {
+            "heading": "The Gut Bible",
+            "disable_animation": false,
+            "header_style": "h1",
+            "make_xl": "",
+            "highlight_color": "",
+            "underline_color": "",
+            "max_width": 0
+          }
+        },
+        "text_4r7MYx": {
+          "type": "text",
+          "disabled": true,
+          "settings": {
+            "text": "<p>Welcome to <em>The Gut Bible<\/em>—your ultimate guide to all things gut health! Here, you’ll find science-backed insights, practical tips, and the latest research on how to support your microbiome. From breaking down the basics of probiotics to exploring how your gut impacts immunity, digestion, mood, and beyond, this is your one-stop resource for a healthier, happier you.<\/p><p>Whether you're a wellness enthusiast or just starting your journey, <em>The Gut Bible<\/em> is here to empower you with knowledge to take control of your gut health. Dive in, explore, and let’s get your gut thriving<\/p>",
+            "disable_animation": false,
+            "text_style": "large",
+            "color": "",
+            "max_width": 50
+          }
+        },
+        "accent_graphic_6EtU8g": {
+          "type": "accent_graphic",
+          "settings": {
+            "icon": "shopify:\/\/shop_images\/2_4x-min_1_a4fb80e5-6e8b-4047-b6f1-57fa7aa73113.png",
+            "svg_code": "",
+            "visibility": "always",
+            "value_type": "%",
+            "x_setting": "right",
+            "y_setting": "top",
+            "width_large": 200,
+            "position_x_large": 16,
+            "position_y_large": -20,
+            "width_small": 140,
+            "position_x_small": 0,
+            "position_y_small": -10,
+            "animation": "floating",
+            "rotate": 0,
+            "flip": false
+          }
+        },
+        "button_kkBAxE": {
+          "type": "button",
+          "settings": {
+            "button_label": "Explore The Gut Bible",
+            "button_link": "shopify:\/\/blogs\/news",
+            "color_theme": "primary"
+          }
+        }
+      },
+      "block_order": [
+        "small_text_qmMG7z",
+        "heading_EWD3ct",
+        "text_4r7MYx",
+        "accent_graphic_6EtU8g",
+        "button_kkBAxE"
+      ],
+      "settings": {
+        "blog": "news",
+        "posts_limit": 10,
+        "show_blog_category": true,
+        "show_read_time": true,
+        "desktop_text_alignment": "text-center",
+        "mobile_text_alignment": "text-center",
+        "container_width": "full",
+        "max_width": 0,
+        "grid_gutter": "",
+        "color_scheme": "",
+        "top_spacing_mobile": 70,
+        "bottom_spacing_mobile": 100,
+        "top_spacing_desktop": 50,
+        "bottom_spacing_desktop": 120,
+        "bg_color": "",
+        "top_wave_divider": true,
+        "bottom_wave_divider": false,
+        "custom_class": "",
+        "custom_id": ""
+      }
+    },
+    "mfr_lb_dress_up_UGCVda": {
+      "type": "mfr-lb__dress-up",
+      "blocks": {
+        "heading_GPT4ww": {
+          "type": "heading",
+          "settings": {
+            "heading": "Create Your Superhero",
+            "disable_animation": false,
+            "header_style": "h4",
+            "make_xl": "",
+            "highlight_color": "",
+            "underline_color": "",
+            "max_width": 0
+          }
+        },
+        "selected_presets_X8qECe": {
+          "type": "selected_presets",
+          "settings": {
+            "selected_skin": "skin-9",
+            "selected_faces": "face-1",
+            "selected_hair": "hair-1",
+            "selected_outfits": "outfit-1",
+            "selected_scene": "outside-scene"
+          }
+        }
+      },
+      "block_order": [
+        "heading_GPT4ww",
+        "selected_presets_X8qECe"
+      ],
+      "settings": {
+        "text_alignment": "text-center",
+        "container_width": "",
+        "max_width": 0,
+        "grid_gutter": "",
+        "color_scheme": "",
+        "top_spacing_mobile": 30,
+        "bottom_spacing_mobile": 30,
+        "top_spacing_desktop": 70,
+        "bottom_spacing_desktop": 50,
+        "bg_color": "#E9F4FC",
+        "top_wave_divider": true,
+        "bottom_wave_divider": false,
+        "custom_class": "",
+        "custom_id": ""
+      }
+    },
+    "mfr_core_icon_text_grid_f3eXVT": {
+      "type": "mfr-core__icon-text-grid",
+      "blocks": {
+        "icon_text_ff4fwV": {
+          "type": "icon_text",
+          "settings": {
+            "icon": "shopify:\/\/shop_images\/bestsellers-icon-min.png",
+            "text": "Bestsellers",
+            "url": "shopify:\/\/collections\/bestsellers"
+          }
+        },
+        "icon_text_AUcWej": {
+          "type": "icon_text",
+          "settings": {
+            "icon": "shopify:\/\/shop_images\/babies-icon-min.png",
+            "text": "Babies",
+            "url": "shopify:\/\/collections\/newborn-4"
+          }
+        },
+        "icon_text_qeKmaN": {
+          "type": "icon_text",
+          "settings": {
+            "icon": "shopify:\/\/shop_images\/kids-icon-min.png",
+            "text": "Kids",
+            "url": "shopify:\/\/collections\/for-kids"
+          }
+        },
+        "icon_text_FtBGeh": {
+          "type": "icon_text",
+          "settings": {
+            "icon": "shopify:\/\/shop_images\/women-icon-min.png",
+            "text": "Women",
+            "url": "shopify:\/\/collections\/women"
+          }
+        },
+        "icon_text_F8WmtE": {
+          "type": "icon_text",
+          "settings": {
+            "icon": "shopify:\/\/shop_images\/general-icon-min.png",
+            "text": "General",
+            "url": "shopify:\/\/collections\/general-health"
+          }
+        }
+      },
+      "block_order": [
+        "icon_text_ff4fwV",
+        "icon_text_AUcWej",
+        "icon_text_qeKmaN",
+        "icon_text_FtBGeh",
+        "icon_text_F8WmtE"
+      ],
+      "settings": {
+        "text_alignment": "text-center",
+        "container_width": "",
+        "max_width": 0,
+        "grid_gutter": "",
+        "color_scheme": "",
+        "top_spacing_mobile": 50,
+        "bottom_spacing_mobile": 80,
+        "top_spacing_desktop": 50,
+        "bottom_spacing_desktop": 120,
+        "bg_color": "#E9F4FC",
+        "top_wave_divider": false,
+        "bottom_wave_divider": false,
+        "custom_class": "",
+        "custom_id": ""
+      }
+    }
+  },
+  "order": [
+    "main",
+    "mfr_core_hero_banner_4nThhh",
+    "mfr_core_scrolling_images_fhk4Bg",
+    "mfr_lb_note_media_Ufbt8F",
+    "mfr_lb_scrolling_waved_texts_KfPFHy",
+    "1756393530284d08fb",
+    "mfr_lb_collections_carousel_eBikjL",
+    "mfr_lb_video_reviews_carousel_eVakr7",
+    "mfr_lb_animated_numbers_YQUYta",
+    "mfr_lb_three_column_lottie_Tnz3Hi",
+    "mfr_lb_icon_text_image_yJjjeA",
+    "mfr_core_reviews_carousel_FBRQKG",
+    "mfr_blog_carousel_iCLLW6",
+    "mfr_lb_dress_up_UGCVda",
+    "mfr_core_icon_text_grid_f3eXVT"
+  ]
+}

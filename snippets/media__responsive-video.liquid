@@ -1,0 +1,129 @@
+{% assign mobile_poster = mobile_poster | default: mobile_video %}
+{% assign desktop_poster = desktop_poster | default: desktop_video %}
+<div class="mfr-responsive-video">
+  <video 
+    id="video-{{ block.id }}" 
+    data-mobile-data='{{ mobile_video | json }}'
+    data-desktop-data='{{ desktop_video | json }}'
+    playsinline
+    {% if muted %}
+      muted
+    {% endif %}
+    {% if autoplay %}
+      autoplay
+    {% endif %}
+    {% if loop %}
+      loop
+    {% endif %}
+    {% if controls %}
+      controls
+    {% endif %}></video>
+    <button aria-label="Mute/Unmute" class="mute-button">
+      <span class="icon">🔊</span> <!-- Use icons or text for visual representation -->
+    </button>
+  {% if mobile_poster != blank %}
+    {% render 'component__lazyload-image',
+      image: mobile_poster,
+      alt: mobile_poster.alt,
+      class: "hide-for-large",
+      width: 1080,
+      widths: "420,480,600,720,900,1080" %}
+  {% endif %}
+  {% if desktop_poster != blank %}
+    {% render 'component__lazyload-image',
+      image: desktop_poster,
+      alt: desktop_poster.alt,
+      class: "show-for-large"
+      width: 2560,
+      widths: "1260,1440,1800,2160, 2560" %}
+  {% endif %}
+</div>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const video = document.getElementById('video-{{ block.id }}');
+    
+    if (video) {
+      video.addEventListener('play', function() {
+        const parent = video.closest('.mfr-responsive-video');
+        if (parent) {
+          parent.setAttribute('data-loaded', 'true');
+        }
+      });
+    }
+  });
+  onReady( () => {
+    const $video = $( "#video-{{ block.id }}" );
+    if( !$video.length ) return;
+
+    const $muteButton = $video.find( "+ .mute-button" );
+    // Get the mobile and desktop video URLs from data attributes
+    const mobileVideoData = $video.data('mobile-data');
+    const desktopVideoData = $video.data('desktop-data');
+
+    function setVideoSources(videoData) {
+      // Sort sources by height (smallest to largest)
+      videoData.sources.sort((a, b) => b.height - a.height );
+
+      // Remove current source elements
+      $video.find('source').remove();
+
+      // Append sorted sources
+      videoData.sources.forEach(source => {
+        $('<source>', {
+          src: source.url,
+          type: source.mime_type
+        }).appendTo($video);
+      });
+
+      // Reload video with new sources
+      $video[0].load();
+
+      // Set poster image
+      $video.attr('poster', videoData.preview_image.src);
+    }
+
+
+    window.onViewportChange(
+      function() { // Mobile view
+        setVideoSources(mobileVideoData);
+      },
+      function() { // Desktop view
+        setVideoSources(desktopVideoData);
+      }
+    );
+
+    // For Mute Functionality
+    // Function to update the mute button icon
+    function updateMuteButton() {
+      if ($video.prop('muted')) {
+        $muteButton.find('.icon').text('🔇'); // Change to muted icon/text
+      } else {
+        $muteButton.find('.icon').text('🔊'); // Change to unmuted icon/text
+      }
+    }
+
+    // Click event for mute button
+    $muteButton.on('click', function() {
+      $video.prop('muted', !$video.prop('muted'));
+      updateMuteButton();
+    });
+
+    $video.siblings( "img" ).on( "click", (e) => {
+      $( e.currentTarget ).siblings( "video" )[0].play();
+    } );
+
+    // Observer to track changes made via video controls
+    const observer = new MutationObserver(function(mutations) {
+      mutations.forEach(function(mutation) {
+        if (mutation.attributeName === 'muted') {
+          updateMuteButton();
+        }
+      });
+    });
+
+    observer.observe($video[0], { attributes: true });
+
+    // Initialize button state
+    updateMuteButton();
+  } );
+</script>

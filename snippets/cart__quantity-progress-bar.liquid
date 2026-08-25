@@ -1,0 +1,86 @@
+{% if block.settings.quantity != 0 and block.settings.quantity != blank %}
+    <script>
+        window.quantityProgressBar = window.quantityProgressBar || {};
+        window.quantityProgressBar.productIds = [];
+        window.quantityProgressBar.requiredTotal = 0;
+    </script>
+    <script>
+          {%- comment -%}
+            Build the cartCondition object for the scripts to be able to access it.
+          {%- endcomment -%}
+          window.quantityProgressBar = window.cartCondition || {};
+          window.quantityProgressBar.productIds = [
+            {%- for condition_product in block.settings.collection.products -%}
+              {{ condition_product.id }}, 
+            {%- endfor -%}
+          ];
+
+          window.quantityProgressBar.requiredTotal = {{ block.settings.quantity | times: '100' }};
+    </script>
+    <div class="quantity-progress-bar">
+
+        <div class="quantity-progress-bar__label"
+            style="
+                --progress-bar-track-color: {{ block.settings.track_color }};
+                --progress-bar-track-bg-color: {{ block.settings.track_bg_color }};
+            ">
+            <div class="quantity-progress-bar__label-success"
+                rv-show="cart.items | is_quantity_progress_bar_success {{ block.settings.quantity }}">
+                {{ block.settings.success_message }}
+            </div>
+            <div class="quantity-progress-bar__label-fail"
+                rv-hide="cart.items | is_quantity_progress_bar_success {{ block.settings.quantity }}">
+                {%- capture quantity_element -%}
+                    <span class="quantity-progress-bar__quantity"
+                        rv-text="cart.items | get_quantity_progress_bar_remaining {{ block.settings.quantity }}">
+                    </span>
+                {%- endcapture -%}
+                {{ block.settings.condition_label 
+                    | replace: "[quantity]", quantity_element }}
+            </div>
+        </div>
+        
+        <div class="quantity-progress-bar__progress progress-bar"
+            style="
+                --progress-bar-track-color: {{ block.settings.track_color }};
+                --progress-bar-track-bg-color: {{ block.settings.track_bg_color }};
+            ">
+            <div class="progress-bar__track"></div>
+            <div class="progress-bar__value" 
+                rv-class-completed="cart.items | is_quantity_progress_bar_success {{ block.settings.quantity }}" 
+                rv-width="cart.items | get_quantity_progress_bar_percentage {{ block.settings.quantity }}"></div>
+        </div>
+
+        <script>
+            onReady(() => {
+                const includeSubscription = true;
+                function initQuantityProgressBar() {
+                    const productIds = window.quantityProgressBar.productIds;
+                    const requiredTotal = window.quantityProgressBar.requiredTotal;
+                    const getQualifiedItemsCount = ( items ) => {
+                        let count = 0;
+                        $.each( items, ( i, e ) => {
+                            if( includeSubscription ) {
+                                if( productIds.includes( e.product_id ) ) 
+                                    count += e.quantity;
+                            }
+                            else {
+                                if( typeof e.selling_plan_allocation === "undefined" && productIds.includes( e.product_id ) ) 
+                                    count += e.quantity;
+                            }
+                        } )
+                        return count;
+                    }
+                    
+                    rivets.formatters.is_quantity_progress_bar_success = ( items, quantity ) => getQualifiedItemsCount( items ) >= quantity;
+
+                    rivets.formatters.get_quantity_progress_bar_percentage = ( items, quantity ) => `${ getQualifiedItemsCount( items ) / quantity * 100 }%`;
+
+                    rivets.formatters.get_quantity_progress_bar_remaining = ( items, quantity ) => quantity - getQualifiedItemsCount( items );
+                }
+                {% comment %} waitForObjectAndRun( "rivets", () => initQuantityProgressBar() ); {% endcomment %}
+                 initQuantityProgressBar();
+            });
+        </script>
+    </div>
+{% endif %}

@@ -1,0 +1,1729 @@
+{{ 'section-landing-product-top.css' | asset_url | stylesheet_tag }}
+{{ 'section-landing-product-top-v2.css' | asset_url | stylesheet_tag }}
+{% render 'style-tags__section', asset_file_name: 'mfr-lb__animated-numbers.css' %}
+
+{%- assign lp_sub_option_block = section.blocks | where: 'type', 'subscription_option' | first -%}
+{%- if lp_sub_option_block.settings.enable_toggle_layout -%}
+  {{ 'section-subscription-toggle-lp.css' | asset_url | stylesheet_tag }}
+{%- endif -%}
+
+{%- if section.settings.hide_dress_up_character -%}
+  <style>
+    .dress-up__character {
+      display: none !important;
+    }
+  </style>
+{%- endif -%}
+
+{%- if product.metafields.custom.pdp_secondary_color -%}
+  {%- assign fill = product.metafields.custom.pdp_secondary_color -%}
+  
+  <style>
+    .lp-product__metafield-subtitle {
+      color: {{ fill }};
+    }
+    .subscription-selector--flat .subscription-selector__badge {
+      background: {{ fill }};
+    }
+    .subscription-selector__best-value {
+      color: {{ fill }};
+      border: 1px solid {{ fill }};
+       background: color-mix(in srgb, {{ fill }} 15%, white);
+    }
+  </style>
+{%- endif -%}
+
+{%- liquid
+  if product.metafields.custom.pdp_objection_buster_icon_color
+    assign objection_bg = product.metafields.custom.pdp_objection_buster_icon_color
+  endif 
+-%}
+
+{% render 'style-tags__section', asset_file_name: 'mfr-product__top.css' %}
+{% render 'renderer__color-scheme',
+  name: 'section',
+  color_scheme: section.settings.color_scheme,
+  selector: '.shopify-section',
+  section_id: section_id
+%}
+
+{%- liquid
+  assign product = section.settings.selected_product | default: product
+  assign section_id = section.settings.custom_id | default: section.id
+  assign grid_gutter = section.settings.grid_gutter
+  assign metafields = product.metafields.mfr_fields
+  assign icons = section.blocks | where: 'type', 'icon'
+  assign small_text = section.blocks | where: 'type', 'small_text'
+  assign headings = section.blocks | where: 'type', 'heading'
+  assign text = section.blocks | where: 'type', 'text'
+  assign buttons = section.blocks | where: 'type', 'button'
+  assign geek_switches = section.blocks | where: 'type', 'geek_switch'
+  assign variant = product.selected_or_first_available_variant
+  assign variant_size = product.variants | size
+-%}
+
+{% capture spacer %}
+  --top-spacing-mobile: {{ section.settings.top_spacing_mobile }}px;
+  --bottom-spacing-mobile: {{ section.settings.bottom_spacing_mobile }}px;
+  --top-spacing-desktop: {{ section.settings.top_spacing_desktop }}px;
+  --bottom-spacing-desktop: {{ section.settings.bottom_spacing_desktop }}px;
+{% endcapture %}
+
+<section
+  class="mfr-product__top product-top--v2 background product-top__{{ template.suffix | default: 'default' }} {{ section.settings.custom_class }}"
+  id="{{ section_id }}"
+  {{ sticky_bar_data }}
+  data-mfr-product-top
+  style="    --product-accent-color: {{ metafields.product_card_accent_color | default: '#E50695' }};"
+  {% if geek_switches != blank %}
+    x-data="
+      {
+          geekMode: false
+      }
+    "
+  {% endif %}
+>
+  {% render 'component__section-dividers' %}
+  <div class="section-spacer {{ grid_gutter }}" style="{{ spacer }}">
+    <div class="grid-container">
+      <div class="grid-x product-top">
+        <div
+          class="cell small-12 large-7 product-top__media carousel"
+          data-mfr-carousel="
+            {
+              prevNextButtons: {{ section.settings.show_carousel_arrows }},
+              contain: true,
+              cellAlign: 'center',
+              pageDots: false,
+              wrapAround: false,
+              groupCells: false,
+              draggable: true,
+              imagesLoaded: true,
+              mobileSettings: {
+                cellAlign: 'center',
+                contain: true,
+                wrapAround: false,
+                groupCells: false,
+                draggable: true
+              }
+            }
+          "
+          data-mfr-carousel-on-settle='
+            this.$video.each( (i,e) => {
+              if( !e.paused ) e.pause();
+            } );
+            if(selectedSlide.find( "video" ).length)
+              selectedSlide.find( "video" ).get(0).play();
+          '
+        >
+          {%- assign carousel_images = section.blocks | where: 'type', 'carousel_image' -%}
+          {% render 'product-top__images-carousel-lp',
+            product: product,
+            section_id: section_id,
+            carousel_images: carousel_images
+          %}
+
+          <div class="ingrdentlist">
+            {% for block in section.blocks %}
+              <div class="img_below_txt">
+                {% if block.settings.icon_new1 %}
+                  <i><img src="{{ block.settings.icon_new1 | img_url }}" alt="icon"></i>
+                {% endif %}
+
+                {% if block.settings.text_new1 %}
+                  <span>{{ block.settings.text_new1 }}</span>
+                {% endif %}
+              </div>
+            {% endfor %}
+          </div>
+
+          {%- assign stat_blocks = section.blocks | where: 'type', 'stat' -%}
+          {%- if stat_blocks != blank -%}
+            <div class="product-top__stats mfr-lb__animated-numbers">
+              <div class="product-top__stats-card" style="--stats-card-bg: {{ section.settings.stats_bg_color | default: '#FFE9E2' }};">
+                {%- if section.settings.stats_accent_image != blank -%}
+                  <img
+                    class="product-top__stats-accent"
+                    src="{{ section.settings.stats_accent_image | image_url: width: 200 }}"
+                    alt=""
+                    loading="lazy"
+                    width="{{ section.settings.stats_accent_image.width }}"
+                    height="{{ section.settings.stats_accent_image.height }}"
+                  >
+                {%- endif -%}
+                {%- if section.settings.stats_heading != blank -%}
+                  <div class="section-content text-center">
+                    <div class="inner">
+                      <h3 class="product-top__stats-heading">{{ section.settings.stats_heading }}</h3>
+                    </div>
+                  </div>
+                {%- endif -%}
+                <div class="animated-numbers">
+                  {%- for block in stat_blocks -%}
+                    <div class="animated-numbers__entry" data-inview {{ block.shopify_attributes }}>
+                      <div class="animated-numbers__entry-head">
+                        <div class="animated-numbers__entry-head-inner">
+                          {% for i in (1..11) %}
+                            <span></span>
+                          {% endfor %}
+                        </div>
+                      </div>
+                      <div class="animated-numbers__entry-body">
+                        <div class="progress-bar html"
+                          data-animated-progress="{{ block.settings.percentage }}"
+                          style='
+                            --progress-value: {{ block.settings.percentage }};
+                            --main-color-alpha: {{ block.settings.progress_bar_color | color_modify: "alpha", 0.2 }};
+                            --main-color: {{ block.settings.progress_bar_color }};
+                          '>
+
+                          <span class="progress-bar__counter"
+                            data-animated-number="{{ block.settings.percentage }}">
+                              {{ block.settings.percentage }}
+                            </span>
+                        </div>
+
+                        {% if block.settings.caption != blank %}
+                          {%- capture svg_code -%}
+                            url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='152' height='29' preserveAspectRatio='none'%3E%3Cpath fill='{{- block.settings.mark_color | color_modify: "alpha", 0.57 | replace: "#", "%23" -}}' transform='translate(0.505371 2.23291)' d='M1.7397418 16.569C0.95674175 16.542999 1.2397418 14.435 1.7397418 14.075C1.6907418 13.708 0.95074177 14.033 1.0277418 13.541C0.90274173 12.845 1.6517417 13.532 1.9177418 13.541C1.9717418 13.071 1.6707418 12.956 1.2057418 13.006C2.1837418 10.238 1.0437417 4.8169999 5.3027415 4.098C42.79874 -2.233 104.21914 0.986 149.75314 0C149.75214 0.90100002 149.73714 1.748 150.28815 2.4949999C150.13214 2.7550001 150.14613 3.1849999 149.57513 3.029C149.71614 3.4230001 150.19814 3.4749999 150.46614 3.7420001C149.90514 4.3429999 149.37415 5.1919999 148.50613 4.9889998C148.16614 5.0599999 148.90414 5.52 149.21915 5.5229998C148.90215 6.0939999 148.42413 5.973 147.79314 5.8800001C148.07713 6.6999998 148.73114 6.0409999 149.21915 6.592C148.69414 6.8870001 148.29514 6.4959998 147.25914 6.592C147.64514 7.513 148.85214 7.6129999 149.39714 8.3739996C148.51514 8.4329996 148.36115 8.9449997 147.43713 8.552C147.59914 9.1619997 148.55515 8.9790001 149.21915 9.0869999C148.86613 9.625 148.29214 9.941 147.25914 9.7989998C147.32014 10.326 147.76215 10.745 149.04114 10.868C148.17314 11.294 147.76414 10.874 146.90314 11.046C147.07513 11.409 147.58714 11.431 148.15015 11.403C147.45415 11.657 147.08714 12.24 146.01215 12.115C146.72115 12.416 147.45714 12.689 148.32814 12.828C148.02814 13.631 147.11714 12.84 146.36914 13.006C146.65015 13.674 147.98714 13.288 148.50613 13.719C148.17714 13.984 147.66014 14.06 147.08115 14.075C147.33414 14.594 148.13614 14.564 148.68414 14.788C148.55814 15.433 147.38614 15.034 146.72414 15.144C146.90215 15.621 147.81013 15.365 147.79314 16.035C147.49715 16.035 147.20013 16.035 146.90314 16.035C147.80714 16.382999 147.22514 16.483999 148.15015 16.569C148.12814 16.962999 147.39413 16.645 147.08115 16.747999C147.32614 17.097 148.17213 16.844 148.50613 17.104C148.48415 17.497 147.75114 17.18 147.43713 17.282C148.06615 17.926001 147.61314 18.139999 148.68414 18.707001C148.65913 19.299999 147.49715 18.66 148.32814 19.242001C113.05614 19.598 69.825745 19.41 31.314741 21.202C21.601742 21.653 9.9817419 25 2.4527419 23.160999C1.8027418 23.216 1.2927418 23.132999 0.84874177 22.983C0.62674177 22.226 1.4417417 22.506001 1.5617417 22.091999C0.093741752 21.766001 -0.50525826 20.502001 0.49274176 18.707001C1.1777418 19.204 1.1837418 18.242001 1.7397418 18.707001C1.2047417 17.527 1.1727418 17.066999 0.49274176 16.391001C0.65474176 16.014 1.2087418 16.728001 1.7397418 16.569Z' fill-rule='evenodd'/%3E%3C/svg%3E&quot;);
+                          {%- endcapture -%}
+                          <p class="animated-numbers__entry-caption"
+                            style="
+                              --main-color: {{ block.settings.progress_bar_color }};
+                              --marker-bg: {{ svg_code }};
+                            ">
+                            {{ block.settings.caption }}
+                          </p>
+                        {% endif %}
+                      </div>
+                    </div>
+                  {%- endfor -%}
+                </div>
+              </div>
+            </div>
+          {%- endif -%}
+        </div>
+        <div class="cell small-12 large-5 section-content">
+          <div class="inner">
+            {%- for block in section.blocks -%}
+              {% case block.type %}
+                {%- when '@app' -%}
+                  {% unless block.id contains 'recharge_subscriptions_subscription_widget' %}
+                    {% render block %}
+                  {% endunless %}
+
+                {%- when 'icon' -%}
+                  {% render 'renderer__block-icon', block: block %}
+
+                {%- when 'small_text' -%}
+                  {% if block.settings.text != blank %}
+                    <div class="product-top__detail">
+                      {{ block.settings.text }}
+                    </div>
+                  {% endif %}
+
+                {%- when 'heading' -%}
+                  {% assign default_product_title = product.metafields.accentuate.product_nice_title %}
+
+                  <div class="section-title {{ block.settings.header_style }}">
+                    {% if default_product_title != blank %}
+                      {{ default_product_title }}
+                      {% if block.settings.heading_below != blank %}
+                        <span class="blw_hd"> {{ block.settings.heading_below }}</span>
+                      {% endif %}
+                    {% else %}
+                      {{ block.settings.heading | default: product.title }}
+                      {% if block.settings.heading_below != blank %}
+                        <span class="blw_hd"> {{ block.settings.heading_below }}</span>
+                      {% endif %}
+                    {% endif %}
+                  </div>
+
+                {%- when 'text' -%}
+                  {%- if block.settings.custom_font_size != 0 -%}
+                    {%- style -%}
+                      .custom-font-size {
+                        font-size: {{ block.settings.custom_font_size }}
+                      }
+                    {%- endstyle -%}
+                  {%- endif -%}
+                  {%- liquid
+                    assign text = block.settings.text | strip_html 
+                    assign custom_class = ''
+
+                    if block.settings.bottom_spacing != true
+                      assign custom_class = 'no-spacing'
+                    endif 
+
+                    if block.settings.custom_font_size != 0
+                      assign custom_class = ' custom-font-size'
+                    endif
+                  -%}
+
+                  {% if text != blank %}
+                    {% render 'renderer__block-text', block: block, custom_class: custom_class %}
+                  {% endif %}
+
+                {%- when 'metafield_subtitle' -%}
+                  {%- if product.metafields.custom.pdp_subtitle != blank -%}
+                    <p class="lp-product__metafield-subtitle">
+                      {{ product.metafields.custom.pdp_subtitle }}
+                    </p>
+                  {%- endif -%}
+
+                {%- when 'metafield_description' -%}
+                  {%- if product.metafields.custom.pdp_description != blank -%}
+                    <p class="lp-product__metafield-description">
+                      {{ product.metafields.custom.pdp_description | newline_to_br }}
+                    </p>
+                  {%- endif -%}
+
+                {%- when 'form' -%}
+                  {% render 'product-top__form-lp', product: product, blocks: section.blocks, context: 'landing' %}
+                  {% render 'product-form__sanitize-selling-plan-lp', section_id: section_id %}
+
+                {%- when 'product_description' -%}
+                  {% assign product_description = product.metafields.product.description
+                    | default: product.description
+                  %}
+                  {% if product_description != blank %}
+                    <div class="product-top__description">
+                      {% render 'renderer__block-text', block: block, text: product_description %}
+                    </div>
+                  {% endif %}
+
+                {%- when 'accordion' -%}
+                  {%- capture accordion_content -%}
+                    {{ block.settings.content }}
+                  {%- endcapture -%}
+                  {%- if block.settings.accordion_style == 'original' -%}
+                    {% render 'mfr-component__accordion',
+                      block_id: block.id,
+                      class: 'product-top__accordion',
+                      trigger_class: 'product-top__accordion-label',
+                      trigger_label: block.settings.title,
+                      content_class: 'product-top__accordion-content',
+                      content: accordion_content
+                    %}
+                  {%- else -%}
+                    {% render 'component_accordion_v2', title: block.settings.title, content: accordion_content, fill: fill  %}
+                  {%- endif -%}
+
+                {%- when 'dynamic_faqs' -%}
+                  {%- capture accordion_content -%}
+                    {%- for faq in product.metafields.mfr_fields.faqs.value -%}
+                      <p><strong>{{ faq.question }}</strong></p>
+                      <div class="faq-answer">{{ faq.answer | metafield_tag }}</div>
+                      {%- unless forloop.last -%}<div style="margin-bottom: 1rem;"></div>{%- endunless -%}
+                    {%- endfor -%}
+                  {%- endcapture -%}
+                  {%- if block.settings.accordion_style == 'original' -%}
+                    {% render 'mfr-component__accordion',
+                      block_id: block.id,
+                      class: 'product-top__accordion',
+                      trigger_class: 'product-top__accordion-label',
+                      trigger_label: block.settings.title,
+                      content_class: 'product-top__accordion-content',
+                      content: accordion_content
+                    %}
+                  {%- else -%}
+                    {% render 'component_accordion_v2', title: block.settings.title, content: accordion_content, block_id: block.id, fill: fill %}
+                  {%- endif -%}
+
+                {%- when 'price' -%}
+                  <div class="product-top__price" data-inview>
+                    <div class="product-top__price-inner">
+                      <div class="product-top__price-header">
+                        {% if block.settings.show_compare_at_price
+                          and variant.compare_at_price != blank
+                          and variant.compare_at_price > 0
+                          and variant.compare_at_price > variant.price
+                        %}
+                          <span class="product-top__price-old-value">
+                            {{ variant.compare_at_price | money | remove: ' ' }}
+                          </span>
+                        {% endif %}
+                        <span class="product-top__price-value">
+                          {{ variant.price | money | remove: ' ' }}
+                        </span>
+                        {% if block.settings.price_label != blank %}
+                          <span class="product-top__price-label">
+                            {{ block.settings.price_label }}
+                          </span>
+                        {% endif %}
+                      </div>
+                      {% if block.settings.desc != blank %}
+                        <div class="product-top__price-desc">
+                          {{ block.settings.desc }}
+                        </div>
+                      {% endif %}
+                    </div>
+                  </div>
+
+                {%- when 'product_tags' -%}
+                  <ul
+                    class="product-top__product-tags"
+                    style="
+                      --bg-color-1: {{ block.settings.color_1 }};
+                      --bg-color-2: {{ block.settings.color_2 }};
+                      --bg-color-3: {{ block.settings.color_3 }};
+                    "
+                  >
+                    {%- for tag in metafields.product_tags.value -%}
+                      <li>
+                        <span>
+                          {{ tag }}
+                        </span>
+                      </li>
+                    {%- endfor -%}
+                  </ul>
+
+                {%- when 'frontrow' -%}
+                  {% render 'frontrow', product_handle: block.settings.product_handle %}
+                
+                {%- when 'geek_switch' %}
+                  {% render 'component__geek-switch' %}
+
+                {%- when 'popup_button' -%}
+                  <div class="product-top__popup-wrapper">
+                    {%- capture popup_content -%}
+                      <div class="product-top__popup-content">
+                        {% if block.settings.title != blank %}
+                          <p class="product-top__popup-title">
+                            {{ block.settings.title }}
+                          </p>
+                        {% endif %}
+                        {% if block.settings.caption != blank %}
+                          <div class="product-top__popup-caption">
+                            {{ block.settings.caption }}
+                          </div>
+                        {% endif %}
+                        {% if block.settings.image != blank %}
+                          <div class="product-top__popup-image">
+                            {% assign default_alt = "maybe an image about " | append: product.title %}
+                            {% assign alt = block.settings.image.alt | default: default_alt %}
+                            {% render 'component__lazyload-image',
+                              image: block.settings.image,
+                              alt: alt,
+                              width: 420,
+                              widths: "420" %}
+                          </div>
+                        {% endif %}
+                      </div>
+                    {%- endcapture -%}
+                    {% assign default_popup_id = 'popup ' | append: block.id | replace: '_', ' ' | camelcase %}
+                    {% assign block_popup_id = block.settings.popup_id %}
+                    {% assign popup_id = block_popup_id | default: default_popup_id %}
+                    <button
+                      class="product-top__popup-trigger"
+                      data-inview
+                      @click='                        $store["{{ popup_id }}"].openPopup()'
+                    >
+                      {{ block.settings.button_label }}
+                    </button>
+                    {% render 'mfr-component__popup',
+                      popup_id: popup_id,
+                      class: 'product-top__popup',
+                      content: popup_content
+                    %}
+                  </div>
+                {%- when 'icon_grid' -%}
+                  <div class="product-top__icon-grid">
+                    {%- if block.settings.use_metafield and product.metafields.custom.pdp_features != blank -%}
+                      {%- for feature in product.metafields.custom.pdp_features.value limit: 6 -%}
+                        {%- if feature != blank -%}
+                          <div class="icon-grid-item">
+                            <div class="icon-grid-icon">
+                              {% render 'icons', icon: 'blue-star-check', class: 'check-icon', fill: objection_bg %}
+                            </div>
+                            <span class="icon-grid-text">
+                              {{ feature }}
+                            </span>
+                          </div>
+                        {%- endif -%}
+                      {%- endfor -%}
+                    {%- else -%}
+                      {%- assign grid_keys = "text_1,text_2,text_3,text_4,text_5,text_6" | split: "," -%}
+
+                      {%- for key in grid_keys -%}
+                        {%- assign grid_text = block.settings[key] -%}
+
+                        {%- if grid_text != blank -%}
+                          <div class="icon-grid-item">
+                            <div class="icon-grid-icon">
+                              {% render 'icons', icon: 'blue-star-check', class: 'check-icon', fill: objection_bg %}
+                            </div>
+                            <span class="icon-grid-text">
+                              {{ grid_text }}
+                            </span>
+                          </div>
+                        {%- endif -%}
+                      {%- endfor -%}
+                    {%- endif -%}
+                  </div>
+              {%- endcase -%}
+            {%- endfor -%}
+
+            {% if buttons != blank %}
+              <div class="button-set {{ content_alignment }}">
+                {%- for block in section.blocks -%}
+                  {% case block.type %}
+                    {%- when 'button' -%}
+                      {% render 'renderer__block-button', block: block %}
+                  {%- endcase -%}
+                {%- endfor -%}
+              </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {%- render 'component__gradient-bg-styles' -%}
+  {%- render 'component__accent-graphics' -%}
+
+  {% render 'script__section', file: 'mfr-product-top.js' %}
+  {% render 'script__section', file: 'mfr-carousel.js' %}
+  {%- render 'component__section-dividers', is_video_background: true -%}
+</section>
+
+{% schema %}
+{
+  "name": "LP Product v2",
+  "class": "mfr-section",
+  "settings": [
+    {
+      "type": "product",
+      "id": "selected_product",
+      "label": "Select Product"
+    },
+    {
+      "type": "text",
+      "id": "custom_id",
+      "label": "Custom ID",
+      "info": "Optional anchor id, e.g. for a 'Shop now' button that scrolls here."
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Wave Divider Color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "checkbox",
+      "id": "top_wave_divider",
+      "label": "Show Top Wave Divider",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "bottom_wave_divider",
+      "label": "Show Bottom Wave Divider",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Desktop Stats Card",
+      "info": "Shown under the image carousel on desktop only. Add 'Stat' blocks to populate."
+    },
+    {
+      "type": "text",
+      "id": "stats_heading",
+      "label": "Stats Heading",
+      "default": "Real Results from Real Customers"
+    },
+    {
+      "type": "color",
+      "id": "stats_bg_color",
+      "label": "Stats Card Background",
+      "default": "#FFE9E2"
+    },
+    {
+      "type": "image_picker",
+      "id": "stats_accent_image",
+      "label": "Stats Accent Image",
+      "info": "Decorative image overlapping the top-right of the stats card."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_carousel_arrows",
+      "label": "Show Carousel Arrows",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "moms_choice",
+      "label": "Mom's Choice Icon"
+    },
+    {
+      "type": "checkbox",
+      "id": "clinicians_choice_first_slide_only",
+      "label": "Show Clinician's Choice badge on first slide only",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "quantity_label",
+      "label": "Quantity Label",
+      "default": "Select Quantity"
+    },
+    {
+      "type": "header",
+      "content": "Color Schemes Settings"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "default": "scheme_1",
+      "label": "Color Scheme",
+      "info": "This will be the color scheme of the header initially."
+    },
+    {
+      "type": "header",
+      "content": "Section Padding"
+    },
+    {
+      "type": "select",
+      "id": "grid_gutter",
+      "options": [
+        { "value": "grid-gutter", "label": "Padding" },
+        { "value": "", "label": "No Padding" }
+      ],
+      "label": "Section Padding",
+      "default": "grid-gutter"
+    },
+    {
+      "type": "header",
+      "content": "Mobile Section Spacing"
+    },
+    {
+      "type": "range",
+      "id": "top_spacing_mobile",
+      "min": 0,
+      "max": 300,
+      "step": 5,
+      "unit": "px",
+      "label": "Top Spacing",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "bottom_spacing_mobile",
+      "min": 0,
+      "max": 300,
+      "step": 5,
+      "unit": "px",
+      "label": "Bottom Spacing",
+      "default": 0
+    },
+
+    {
+      "type": "header",
+      "content": "Desktop Section Spacing"
+    },
+    {
+      "type": "range",
+      "id": "top_spacing_desktop",
+      "min": 0,
+      "max": 300,
+      "step": 5,
+      "unit": "px",
+      "label": "Top Spacing",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "bottom_spacing_desktop",
+      "min": 0,
+      "max": 300,
+      "step": 5,
+      "unit": "px",
+      "label": "Bottom Spacing",
+      "default": 0
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_dress_up_character",
+      "label": "Hide Dress Up Character",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "stat",
+      "name": "Stat",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "range",
+          "id": "percentage",
+          "min": 1,
+          "max": 100,
+          "step": 1,
+          "unit": "%",
+          "label": "Percentage",
+          "default": 100
+        },
+        {
+          "type": "textarea",
+          "id": "caption",
+          "label": "Caption",
+          "info": "Use <mark></mark> to highlight text.",
+          "default": "Customers reported <mark>improvement in their mood.</mark>"
+        },
+        {
+          "type": "color",
+          "id": "progress_bar_color",
+          "label": "Progress Bar Color",
+          "default": "#FF8300"
+        },
+        {
+          "type": "color",
+          "id": "mark_color",
+          "label": "Mark Color",
+          "default": "#FAFF00",
+          "info": "Background color for <mark></mark>"
+        }
+      ]
+    },
+    {
+      "type": "item1",
+      "name": "Product_image_below1",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon_new1",
+          "label": "icon"
+        },
+
+        {
+          "type": "text",
+          "id": "text_new1",
+          "label": "text"
+        }
+      ]
+    },
+    {
+      "type": "@app"
+    },
+    {
+      "type": "icon_grid",
+      "name": "Checkmark Grid",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "use_metafield",
+          "label": "Use Metafield",
+          "info": "When checked, pulls values from product.metafields.custom.pdp_features (max 6) and ignores the static text fields below.",
+          "default": false
+        },
+        {
+          "type": "header",
+          "content": "Column 1"
+        },
+        {
+          "type": "text",
+          "id": "text_1",
+          "label": "Text 1",
+          "default": "5 Billion CFU"
+        },
+        {
+          "type": "text",
+          "id": "text_4",
+          "label": "Text 4",
+          "default": "Made in USA"
+        },
+        {
+          "type": "header",
+          "content": "Column 2"
+        },
+        {
+          "type": "text",
+          "id": "text_2",
+          "label": "Text 2",
+          "default": "400 IU Vitamin D"
+        },
+        {
+          "type": "text",
+          "id": "text_5",
+          "label": "Text 5",
+          "default": "No Seed Oil"
+        },
+        {
+          "type": "header",
+          "content": "Column 3"
+        },
+        {
+          "type": "text",
+          "id": "text_3",
+          "label": "Text 3",
+          "default": "USDA Organic"
+        },
+        {
+          "type": "text",
+          "id": "text_6",
+          "label": "Text 6",
+          "default": "Sugar Free"
+        }
+      ]
+    },
+    {
+      "type": "form",
+      "name": "Form (For Positioning)",
+      "limit": 1
+    },
+    {
+      "type": "product_tags",
+      "name": "Product Tags",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "color",
+          "id": "color_1",
+          "label": "Color 1",
+          "default": "#E50695"
+        },
+        {
+          "type": "color",
+          "id": "color_2",
+          "label": "Color 2",
+          "default": "#2B3990"
+        },
+        {
+          "type": "color",
+          "id": "color_3",
+          "label": "Color 3",
+          "default": "#1EBCC5"
+        }
+      ]
+    },
+    {
+      "type": "frontrow",
+      "name": "Frontrow",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "Enter the product handle to render the correct Frontrow widget. Valid handles are: immune-support-probiotic, postnatal-probiotic, prenatal-probiotic, womens-health-probiotic, advanced-strength-daily, heres-the-skinny, yeast-is-a-beast, baby-probiotic-drops, baby-probiotics-ages-6-12-months, infant-probiotics-ages-0-6-months, little-ones-for-kids-4, kids-probiotic-organic-gummies, kids-probiotic-chewable, toddler-probiotic-ages-1-4."
+        },
+        {
+          "type": "text",
+          "id": "product_handle",
+          "label": "Product Handle",
+          "default": "baby-probiotic-drops"
+        }
+      ]
+    },
+    {
+      "type": "product_links",
+      "name": "Product Links",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "product_link_1_label",
+          "label": "Product Link 1: Label"
+        },
+        {
+          "type": "text",
+          "id": "product_link_1_url",
+          "label": "Product Link 1: URL"
+        },
+        {
+          "type": "text",
+          "id": "product_link_2_label",
+          "label": "Product Link 2: Label"
+        },
+        {
+          "type": "text",
+          "id": "product_link_2_url",
+          "label": "Product Link 2: URL"
+        }
+      ]
+    },
+    {
+      "type": "quantity_selector",
+      "name": "Quantity Selector",
+      "settings": [
+        {
+          "type": "number",
+          "id": "quantity",
+          "label": "Quantity",
+          "default": 1
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Box"
+        },
+        {
+          "type": "text",
+          "id": "sub_label",
+          "label": "Sub Label"
+        }
+      ]
+    },
+    {
+      "type": "old_recharge_widget",
+      "name": "Old Recharge Widget",
+      "limit": 1
+    },
+    {
+      "type": "variant_selector",
+      "name": "Variant Selector",
+      "limit": 1
+    },
+    {
+      "type": "geek_switch",
+      "name": "Geek Switch"
+    },
+    {
+      "type": "submit_button",
+      "name": "Submit Button",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "show_price",
+          "label": "Show Price?",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Add To Cart: "
+        },
+        {
+          "type": "textarea",
+          "id": "bottom_caption",
+          "label": "Bottom Caption"
+        }
+      ]
+    },
+    {
+      "type": "divider",
+      "name": "Divider",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "header",
+          "content": "Divider Color"
+        },
+        {
+          "type": "color",
+          "id": "divider_color",
+          "label": "Color",
+          "info": "leave blank for transparent"
+        },
+        {
+          "type": "header",
+          "content": "Top Spacing"
+        },
+        {
+          "type": "select",
+          "id": "divider_size_top",
+          "label": "size",
+          "options": [
+            { "value": "", "label": "None" },
+            { "value": "small-margin-top", "label": "Small" },
+            { "value": "large-margin-top", "label": "Large" }
+          ],
+          "info": "adjusts the top margin",
+          "default": "large-margin-top"
+        },
+        {
+          "type": "header",
+          "content": "Bottom Spacing"
+        },
+        {
+          "type": "select",
+          "id": "divider_size_bottom",
+          "label": "size",
+          "options": [
+            { "value": "", "label": "None" },
+            { "value": "small-margin-bottom", "label": "Small" },
+            { "value": "large-margin-bottom", "label": "Large" }
+          ],
+          "info": "adjusts the bottom margin",
+          "default": "large-margin-bottom"
+        }
+      ]
+    },
+
+    {
+      "type": "subscription_option",
+      "name": "Subscription Options",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "header",
+          "content": "Subscription Settings"
+        },
+        {
+          "type": "number",
+          "id": "index",
+          "label": "Selling Plan Index",
+          "info": "If you're not sure what to input, just put 0.",
+          "default": 0
+        },
+        {
+          "type": "header",
+          "content": "Text Settings"
+        },
+        {
+          "type": "text",
+          "id": "one_time_label",
+          "label": "One Time Label",
+          "default": "One Time Purchase"
+        },
+        {
+          "type": "header",
+          "content": "Subscription Perks"
+        },
+        {
+          "type": "text",
+          "id": "perk_1",
+          "label": "Perk 1",
+          "default": "FREE shipping on all subscription orders!",
+          "info": "Use '<|discount|>' to show the dynamic discount. Use '<|unit|>' to show dynamic units. Use '<|days|>' to show the dynamic subscription days."
+        },
+        {
+          "type": "text",
+          "id": "perk_2",
+          "label": "Perk 2",
+          "default": "No commitment, cancel anytime",
+          "info": "Use '<|discount|>' to show the dynamic discount. Use '<|unit|>' to show dynamic units. Use '<|days|>' to show the dynamic subscription days."
+        },
+        {
+          "type": "text",
+          "id": "perk_3",
+          "label": "Perk 3",
+          "default": "Save <|discount|>% on every order",
+          "info": "Use '<|discount|>' to show the dynamic discount. Use '<|unit|>' to show dynamic units. Use '<|days|>' to show the dynamic subscription days."
+        },
+        {
+          "type": "text",
+          "id": "perk_4",
+          "label": "Perk 4",
+          "default": "Ships <|unit|> every <|days|> days",
+          "info": "Use '<|discount|>' to show the dynamic discount. Use '<|unit|>' to show dynamic units. Use '<|days|>' to show the dynamic subscription days."
+        },
+        {
+          "type": "header",
+          "content": "Toggle Layout (A/B Test)"
+        },
+        {
+          "type": "checkbox",
+          "id": "enable_toggle_layout",
+          "label": "Enable subscription toggle layout",
+          "default": false,
+          "info": "Replaces the radio cards with supply pills and a Subscribe & Save toggle switch. Reuses 'One Time Label' and Perks 1-4 above."
+        },
+        {
+          "type": "text",
+          "id": "supply_heading",
+          "label": "Supply Heading",
+          "default": "Select Quantity:"
+        },
+        {
+          "type": "text",
+          "id": "supply_pill_label",
+          "label": "Supply Pill Label",
+          "default": "<|days|> Days",
+          "info": "Rendered once per selling plan. Use '<|days|>' to show the plan's frequency days (e.g. 30)."
+        },
+        {
+          "type": "text",
+          "id": "frequency_heading",
+          "label": "Frequency Heading",
+          "default": "Select Frequency:"
+        },
+        {
+          "type": "text",
+          "id": "subscription_title",
+          "label": "Subscription Card Title",
+          "default": "Subscribe & Save <|discount|>%",
+          "info": "Use '<|discount|>' to show the selected plan's discount percentage."
+        },
+        {
+          "type": "text",
+          "id": "subscription_subtext",
+          "label": "Subscription Card Subtext",
+          "default": "Free Shipping + No Hidden Fees"
+        },
+        {
+          "type": "text",
+          "id": "one_time_subtext",
+          "label": "One-Time Card Subtext",
+          "default": "Want to save <|discount|>%? Switch to Subscription!",
+          "info": "Use '<|discount|>' to show the maximum discount across all plans."
+        },
+        {
+          "type": "text",
+          "id": "one_time_perk_1",
+          "label": "One-Time Perk 1 (X icon)",
+          "default": "FREE shipping on all subscription orders!",
+          "info": "Shown with a gray X icon when One-Time is selected. Use '<|discount|>' to show the maximum discount."
+        },
+        {
+          "type": "text",
+          "id": "one_time_perk_2",
+          "label": "One-Time Perk 2 (X icon)",
+          "default": "Save up to <|discount|>% on every order",
+          "info": "Shown with a gray X icon when One-Time is selected. Use '<|discount|>' to show the maximum discount."
+        }
+      ]
+    },
+    {
+      "type": "form_caption",
+      "name": "Form Caption",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text",
+          "default": "<p></p>"
+        }
+      ]
+    },
+    {
+      "type": "accordion",
+      "name": "Accordion",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "Content",
+          "default": "<p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolorum nulla sit hic soluta in eos rem laudantium, non velit optio?</p>"
+        },
+        {
+          "type": "select",
+          "id": "accordion_style",
+          "label": "Accordion Style",
+          "options": [
+            {
+              "label": "Original",
+              "value": "original"
+            },
+            {
+              "label": "Version 2",
+              "value": "version_2"
+            }
+          ],
+          "default": "version_2"
+        }
+      ]
+    },
+    {
+      "type": "dynamic_faqs",
+      "name": "Dynamic FAQs",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Heading",
+          "default": "FAQs"
+        },
+        {
+          "type": "select",
+          "id": "accordion_style",
+          "label": "Accordion Style",
+          "options": [
+            {
+              "label": "Original",
+              "value": "original"
+            },
+            {
+              "label": "Version 2",
+              "value": "version_2"
+            }
+          ],
+          "default": "version_2"
+        }
+      ]
+    },
+    {
+      "type": "popup_button",
+      "name": "Popup Button",
+      "settings": [
+        {
+          "type": "text",
+          "id": "popup_id",
+          "label": "Popup ID",
+          "default": "popup-1"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "default": "Button label",
+          "label": "Button Text"
+        },
+        {
+          "type": "header",
+          "content": "Content Settings"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Lorem ipsum"
+        },
+        {
+          "type": "richtext",
+          "id": "caption",
+          "label": "Caption",
+          "default": "<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta ullam praesentium inventore consequatur blanditiis suscipit qui enim deserunt sunt dignissimos.</p>"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        }
+      ]
+    },
+    {
+      "type": "icon",
+      "name": "Icon",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon"
+        },
+        {
+          "type": "text",
+          "id": "file_lottie_url",
+          "label": "File Lottie URL"
+        },
+        {
+          "type": "number",
+          "id": "icon_width",
+          "label": "Image width",
+          "default": 150,
+          "info": "in pixels."
+        }
+      ]
+    },
+    {
+      "type": "small_text",
+      "name": "Accent Text",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "default": "Accent Text",
+          "label": "Text"
+        },
+        {
+          "type": "color",
+          "id": "small_text_color",
+          "label": "Color"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "name": "Heading",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "inline_richtext",
+          "id": "heading",
+          "default": "Heading H1",
+          "label": "Heading H1"
+        },
+        {
+          "type": "text",
+          "id": "heading_below",
+          "label": "Heading Below Text"
+        },
+        {
+          "type": "checkbox",
+          "id": "disable_animation",
+          "label": "Disable Animation",
+          "default": false
+        },
+        {
+          "type": "select",
+          "id": "header_style",
+          "options": [
+            { "value": "h1", "label": "H1" },
+            { "value": "h2", "label": "H2" },
+            { "value": "h3", "label": "H3" },
+            { "value": "h4", "label": "H4" },
+            { "value": "h5", "label": "H5" },
+            { "value": "h6", "label": "H6" }
+          ],
+          "label": "Header Style",
+          "default": "h1"
+        },
+
+        {
+          "type": "header",
+          "content": "Accent Settings"
+        },
+        {
+          "type": "select",
+          "id": "make_xl",
+          "options": [
+            { "value": "", "label": "Normal" },
+            { "value": "xl-title", "label": "Oversize" }
+          ],
+          "label": "H1 Size",
+          "default": "",
+          "info": "H1s can be set to oversize if they need to be extra big"
+        },
+
+        {
+          "type": "color",
+          "id": "highlight_color",
+          "label": "Highlight Color",
+          "info": "Use [highlight][/highlight] to highlight text"
+        },
+        {
+          "type": "color",
+          "id": "underline_color",
+          "label": "Underline Color",
+          "info": "Use [underline][/underline] to underline text"
+        },
+
+        {
+          "type": "header",
+          "content": "Width Settings"
+        },
+        {
+          "type": "range",
+          "id": "max_width",
+          "min": 0,
+          "max": 60,
+          "step": 1,
+          "unit": "rem",
+          "label": "Max Width",
+          "default": 0
+        }
+      ]
+    },
+    {
+      "type": "metafield_subtitle",
+      "name": "Subtitle",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "Pulls from product.metafields.custom.pdp_subtitle (single line text)."
+        }
+      ]
+    },
+    {
+      "type": "metafield_description",
+      "name": "Metafield Description",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "Pulls from product.metafields.custom.pdp_description (multi-line text)."
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "name": "Text",
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "text",
+          "default": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum vel metus auctor.</p>",
+          "label": "Text"
+        },
+        {
+          "type": "select",
+          "id": "text_style",
+          "options": [
+            { "value": "", "label": "Default" },
+            { "value": "xsmall", "label": "xSmall" },
+            { "value": "small", "label": "Small" },
+            { "value": "regular", "label": "Regular" },
+            { "value": "large", "label": "Large" },
+            { "value": "xlarge", "label": "xLarge" }
+          ],
+          "label": "Text Style",
+          "default": "regular"
+        },
+        {
+          "type": "select",
+          "id": "font_family",
+          "options": [
+            { "value": "", "label": "Use system settings" },
+            { "value": "custom-font-name-1", "label": "Custom Font Name 1" },
+            { "value": "custom-font-name-2", "label": "Custom Font Name 2" },
+            { "value": "custom-font-name-3", "label": "Custom Font Name 3" },
+            { "value": "custom-font-name-4", "label": "Custom Font Name 4" }
+          ],
+          "label": "Font Family",
+          "default": "",
+          "info": "Custom font names can be via Theme Settings > Custom Fonts"
+        },
+        {
+          "type": "color",
+          "id": "color",
+          "label": "Text Color",
+          "info": "Leave it blank to use system settings."
+        },
+        {
+          "type": "color",
+          "id": "bold_color",
+          "label": "Bold Color",
+          "info": "Adding bold color will make the bolded text colored instead of being bold."
+        },
+        {
+          "type": "color",
+          "id": "underline_color",
+          "label": "Underline Color",
+          "info": "Use [underline][/underline] to underline text(s)"
+        },
+
+        {
+          "type": "header",
+          "content": "Width Settings"
+        },
+        {
+          "type": "range",
+          "id": "max_width",
+          "min": 0,
+          "max": 50,
+          "step": 1,
+          "unit": "rem",
+          "label": "Max Width",
+          "default": 0
+        },
+        {
+          "type": "checkbox",
+          "id": "bottom_spacing",
+          "label": "Bottom Spacing",
+          "default": true
+        },
+        {
+          "type": "number",
+          "id": "custom_font_size",
+          "label": "Custom Font Size",
+          "default": 0,
+          "info": "If set to 0 it won't trigger the custom font size."
+        }
+      ]
+    },
+    {
+      "type": "product_description",
+      "name": "Product Description",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "select",
+          "id": "text_style",
+          "options": [
+            { "value": "", "label": "Default" },
+            { "value": "xsmall", "label": "xSmall" },
+            { "value": "small", "label": "Small" },
+            { "value": "regular", "label": "Regular" },
+            { "value": "large", "label": "Large" },
+            { "value": "xlarge", "label": "xLarge" }
+          ],
+          "label": "Text Style",
+          "default": "regular"
+        },
+        {
+          "type": "select",
+          "id": "font_family",
+          "options": [
+            { "value": "", "label": "Use system settings" },
+            { "value": "custom-font-name-1", "label": "Custom Font Name 1" },
+            { "value": "custom-font-name-2", "label": "Custom Font Name 2" },
+            { "value": "custom-font-name-3", "label": "Custom Font Name 3" },
+            { "value": "custom-font-name-4", "label": "Custom Font Name 4" }
+          ],
+          "label": "Font Family",
+          "default": "",
+          "info": "Custom font names can be via Theme Settings > Custom Fonts"
+        },
+        {
+          "type": "color",
+          "id": "color",
+          "label": "Text Color",
+          "info": "Leave it blank to use system settings."
+        }
+      ]
+    },
+    {
+      "type": "button",
+      "name": "Button",
+      "limit": 2,
+      "settings": [
+        {
+          "type": "text",
+          "id": "button_label",
+          "default": "Button label",
+          "label": "Button",
+          "info": "Leave the label blank to hide the button."
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Button Link"
+        },
+        {
+          "type": "select",
+          "id": "color_theme",
+          "label": "Color Theme",
+          "options": [
+            {
+              "value": "primary",
+              "label": "Primary"
+            },
+            {
+              "value": "secondary",
+              "label": "Secondary"
+            },
+            {
+              "value": "tertiary",
+              "label": "Tertiary"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "carousel_image",
+      "name": "Carousel Image",
+      "settings": [
+        {
+          "type": "header",
+          "content": "Carousel Image",
+          "info": "Adding this block will prepend an image to the carousel."
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        }
+      ]
+    },
+    {
+      "type": "accent_graphic",
+      "name": "Accent Graphic",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon"
+        },
+        {
+          "type": "html",
+          "id": "svg_code",
+          "label": "Graphic SVG Code",
+          "info": "Paste SVG code for vector graphic"
+        },
+        {
+          "type": "header",
+          "content": "Visibility"
+        },
+        {
+          "type": "select",
+          "id": "visibility",
+          "options": [
+            { "value": "always", "label": "Always" },
+            { "value": "desktop_only", "label": "Desktop Only" },
+            { "value": "mobile_only", "label": "Mobile Only" }
+          ],
+          "label": "Show on..",
+          "default": "always"
+        },
+        {
+          "type": "select",
+          "id": "geek_mode_visibility",
+          "label": "Geek mode Visibility",
+          "options": [
+            {
+              "value": "",
+              "label": "Both"
+            },
+            {
+              "value": "on",
+              "label": "Geek Mode On"
+            },
+            {
+              "value": "off",
+              "label": "Geek Mode Off"
+            }
+          ],
+          "default": ""
+        },
+        {
+          "type": "header",
+          "content": "Value Type"
+        },
+        {
+          "type": "select",
+          "id": "value_type",
+          "options": [
+            { "value": "px", "label": "Pixels" },
+            { "value": "%", "label": "Percentage" }
+          ],
+          "label": "Position Value Type",
+          "default": "%",
+          "info": "Pixel values are multiplied by 5"
+        },
+        {
+          "type": "header",
+          "content": "Position"
+        },
+        {
+          "type": "select",
+          "id": "x_setting",
+          "options": [
+            { "value": "left", "label": "Left" },
+            { "value": "center", "label": "Center" },
+            { "value": "right", "label": "Right" }
+          ],
+          "label": "X Position",
+          "default": "left"
+        },
+        {
+          "type": "select",
+          "id": "y_setting",
+          "options": [
+            { "value": "top", "label": "Top" },
+            { "value": "bottom", "label": "Bottom" }
+          ],
+          "label": "Y Position",
+          "default": "top"
+        },
+        {
+          "type": "header",
+          "content": "Large Screen Settings"
+        },
+        {
+          "type": "range",
+          "id": "width_large",
+          "min": 10,
+          "max": 400,
+          "step": 10,
+          "unit": "px",
+          "label": "Graphic Width",
+          "default": 150
+        },
+        {
+          "type": "range",
+          "id": "position_x_large",
+          "min": -100,
+          "max": 100,
+          "step": 2,
+          "label": "X Position",
+          "default": 10
+        },
+        {
+          "type": "range",
+          "id": "position_y_large",
+          "min": -100,
+          "max": 100,
+          "step": 2,
+          "label": "Y Position",
+          "default": 10
+        },
+        {
+          "type": "header",
+          "content": "Small Screen Settings"
+        },
+        {
+          "type": "range",
+          "id": "width_small",
+          "min": 10,
+          "max": 400,
+          "step": 10,
+          "unit": "px",
+          "label": "Graphic Width",
+          "default": 150
+        },
+        {
+          "type": "range",
+          "id": "position_x_small",
+          "min": -100,
+          "max": 100,
+          "step": 2,
+          "label": "X Position",
+          "default": 10
+        },
+        {
+          "type": "range",
+          "id": "position_y_small",
+          "min": -100,
+          "max": 100,
+          "step": 2,
+          "label": "Y Position",
+          "default": 10
+        },
+        {
+          "type": "header",
+          "content": "Animation Settings"
+        },
+        {
+          "type": "select",
+          "id": "animation",
+          "options": [
+            { "value": "none", "label": "None" },
+            { "value": "rotating", "label": "Rotate" },
+            { "value": "floating", "label": "Float" },
+            { "value": "spark", "label": "Spark" }
+          ],
+          "label": "Animation",
+          "default": "none"
+        },
+
+        {
+          "type": "header",
+          "content": "Appearance Settings"
+        },
+        {
+          "type": "range",
+          "id": "rotate",
+          "min": 0,
+          "max": 360,
+          "step": 36,
+          "unit": "%",
+          "label": "Rotate",
+          "default": 0
+        },
+        {
+          "type": "checkbox",
+          "id": "flip",
+          "label": "Flip Graphics?",
+          "default": false
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "LP Product v2",
+      "blocks": [
+        {
+          "type": "heading"
+        },
+        {
+          "type": "text"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

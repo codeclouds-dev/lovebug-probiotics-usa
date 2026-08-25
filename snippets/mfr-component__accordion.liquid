@@ -1,0 +1,27 @@
+{% assign block_id = block_id | replace: "-", " " | replace: "_", " " | camelcase %}
+<div 
+  class="mfr-accordion {{ class }}"
+  :class='isOpen ? "is-active" : ""'
+  x-data="{ isOpen: false }">
+  <button 
+    class="mfr-accordion__trigger {{ trigger_class }}" 
+    @click="isOpen = !isOpen"
+    :aria-expanded="isOpen"
+  >
+    <span class="mfr-accordion__trigger-label">
+      {{ trigger_label }}
+    </span>
+
+    <span class="mfr-accordion__indicator"></span>
+  </button>
+
+  <div 
+    class="mfr-accordion__content {{ content_class }}"
+    x-show="isOpen" 
+    x-collapse
+    x-cloak>
+    <div class="mfr-accordion__content-inner">
+      {{ content }}
+    </div>
+  </div>
+</div>

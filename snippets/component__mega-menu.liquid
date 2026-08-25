@@ -1,0 +1,72 @@
+<div class="header-menu__mega-menu mega-menu" data-mega-menu="trigger--{{ link.handle }}">
+    <div class="mega-menu__wrapper">
+        <div class="mega-menu__nav">
+            <ul class="mega-menu__links">
+                {%- for child_link in link.links -%}
+                    <li>
+                        <a href="{{ child_link.url }}" 
+                            title="{{ child_link.title }}"
+                            {% if child_link.links != blank %}
+                                data-filter="menu--{{ child_link.handle }}"
+                            {% endif %}>
+                            <span>{{ child_link.title }}</span>
+                            
+                            {%- if child_link.links != blank -%}
+                                {% render 'icon-caret' %}
+                            {%- endif -%}
+                        </a>
+                    </li>
+                {%- endfor -%}
+            </ul>
+            {% if ctas != blank %}
+                <ul class="mega-menu__ctas">
+                    {% for cta in ctas %}
+                        <li>
+                            {% render 'renderer__block-button', block: cta %}
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+        <div class="mega-menu__images">
+            {% for child_link in link.links %}
+                {% if child_link.links != blank %}
+                    <div class="mega-menu__item-wrapper"
+                        data-filter-trigger="menu--{{ child_link.handle }}">
+                        {% for grandchild_link in child_link.links %}
+                            {% for image in images %}
+                                {% assign name_handle = image.settings.menu_name | handleize %}
+                                {% if name_handle == grandchild_link.handle %}
+                                    {% assign image_type = image.settings.image_type %}
+                                    {% assign bg_color_inline = "--mega-menu-image-bg: " | append: image.settings.bg_color | append: ";" %}
+                                    <a href="{{ grandchild_link.url }}" 
+                                        class="mega-menu__item mega-menu__item--{{ image_type }}" 
+                                        title="{{ grandchild_link.title }}"
+                                        style="{{ bg_color_inline }}"
+                                        {{ image.settings.shopify_attributes }}>
+                                        {% if image_type == "small" %}
+                                            {% assign width = 144 %}
+                                        {% else %}
+                                            {% assign width = 360 %}
+                                        {% endif %}
+                                        <div class="mega-menu__item-inner">
+                                            <div class="mega-menu__item-image">
+                                                {% render 'component__lazyload-image',
+                                                    image: image.settings.image,
+                                                    width: width,
+                                                    alt: grandchild_link.title %}
+                                            </div>
+                                            <div class="mega-menu__item-label">
+                                                {{ grandchild_link.title }}
+                                            </div>
+                                        </div>
+                                    </a>
+                                {% endif %}
+                            {% endfor %}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</div>

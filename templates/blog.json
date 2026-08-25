@@ -1,0 +1,205 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-blog",
+      "disabled": true,
+      "settings": {
+        "hide_tags": "",
+        "show_image": true,
+        "show_date": true,
+        "show_author": false
+      }
+    },
+    "mfr_blog_featured_article_9TUbE4": {
+      "type": "mfr-blog__featured-article",
+      "blocks": {
+        "small_text_BJYD7X": {
+          "type": "small_text",
+          "settings": {
+            "text": "Blog",
+            "small_text_color": ""
+          }
+        },
+        "heading_4gR6Cp": {
+          "type": "heading",
+          "settings": {
+            "heading": "The Gut Bible",
+            "disable_animation": false,
+            "header_style": "h1",
+            "make_xl": "",
+            "highlight_color": "",
+            "underline_color": "",
+            "max_width": 0
+          }
+        },
+        "text_gHtzGE": {
+          "type": "text",
+          "settings": {
+            "text": "<p>At Lovebug we don’t believe that anything is TMI.  We will give you the full Scoop on Poop, delve into the science behind it, and provide loads of health and wellness tips. We want all the information because we believe the most important thing you can do to improve your health is to get educated. From practical tips on diet and probiotics to the latest scientific research, we offer actionable advice to help you nurture your gut and improve your health.  In this blog we aim to improve our health education and yours! </p>",
+            "disable_animation": false,
+            "text_style": "large",
+            "color": "",
+            "max_width": 50
+          }
+        }
+      },
+      "block_order": [
+        "small_text_BJYD7X",
+        "heading_4gR6Cp",
+        "text_gHtzGE"
+      ],
+      "settings": {
+        "article": "news/9-reasons-to-try-probiotic-supplements-this-year",
+        "disable_entrance_animation": true,
+        "text_alignment": "text-center",
+        "container_width": "",
+        "max_width": 0,
+        "grid_gutter": "",
+        "color_scheme": "",
+        "top_spacing_mobile": 60,
+        "bottom_spacing_mobile": 60,
+        "top_spacing_desktop": 60,
+        "bottom_spacing_desktop": 200,
+        "bg_color": "#FFE9E2",
+        "top_wave_divider": false,
+        "bottom_wave_divider": false,
+        "custom_class": "",
+        "custom_id": ""
+      }
+    },
+    "mfr_blog_grid_Ukgtin": {
+      "type": "mfr-blog__grid",
+      "blocks": {
+        "filter_ANgcqK": {
+          "type": "filter",
+          "settings": {
+            "label": "Digestive Health"
+          }
+        },
+        "filter_Y8w436": {
+          "type": "filter",
+          "settings": {
+            "label": "Women"
+          }
+        },
+        "filter_MNpHRy": {
+          "type": "filter",
+          "settings": {
+            "label": "Babies"
+          }
+        },
+        "filter_DqP8zW": {
+          "type": "filter",
+          "settings": {
+            "label": "Kids"
+          }
+        }
+      },
+      "block_order": [
+        "filter_ANgcqK",
+        "filter_Y8w436",
+        "filter_MNpHRy",
+        "filter_DqP8zW"
+      ],
+      "settings": {
+        "text_alignment": "text-center",
+        "container_width": "",
+        "max_width": 0,
+        "grid_gutter": "",
+        "color_scheme": "",
+        "top_spacing_mobile": 10,
+        "bottom_spacing_mobile": 60,
+        "top_spacing_desktop": 10,
+        "bottom_spacing_desktop": 110,
+        "bg_color": "",
+        "top_wave_divider": true,
+        "bottom_wave_divider": false,
+        "custom_class": "",
+        "custom_id": ""
+      }
+    },
+    "mfr_core_icon_text_grid_f3eXVT": {
+      "type": "mfr-core__icon-text-grid",
+      "blocks": {
+        "icon_text_ff4fwV": {
+          "type": "icon_text",
+          "settings": {
+            "icon": "shopify://shop_images/bestsellers-icon-min.png",
+            "text": "Bestsellers",
+            "url": "shopify://collections/bestsellers"
+          }
+        },
+        "icon_text_AUcWej": {
+          "type": "icon_text",
+          "settings": {
+            "icon": "shopify://shop_images/what-the-quick-link-new.png",
+            "text": "What The 🤬",
+            "url": "shopify://pages/what-the"
+          }
+        },
+        "icon_text_qeKmaN": {
+          "type": "icon_text",
+          "settings": {
+            "icon": "shopify://shop_images/general-banner-desktop.jpg",
+            "text": "The Gut Bible",
+            "url": "shopify://blogs/news"
+          }
+        },
+        "icon_text_FtBGeh": {
+          "type": "icon_text",
+          "settings": {
+            "icon": "shopify://shop_images/women-icon-min.png",
+            "text": "Women",
+            "url": "shopify://collections/women"
+          }
+        },
+        "icon_text_F8WmtE": {
+          "type": "icon_text",
+          "settings": {
+            "icon": "shopify://shop_images/general-icon-min.png",
+            "text": "General",
+            "url": "shopify://collections/general-health"
+          }
+        }
+      },
+      "block_order": [
+        "icon_text_ff4fwV",
+        "icon_text_AUcWej",
+        "icon_text_qeKmaN",
+        "icon_text_FtBGeh",
+        "icon_text_F8WmtE"
+      ],
+      "settings": {
+        "text_alignment": "text-center",
+        "container_width": "",
+        "max_width": 0,
+        "grid_gutter": "",
+        "color_scheme": "",
+        "top_spacing_mobile": 0,
+        "bottom_spacing_mobile": 80,
+        "top_spacing_desktop": 0,
+        "bottom_spacing_desktop": 120,
+        "bg_color": "",
+        "top_wave_divider": false,
+        "bottom_wave_divider": false,
+        "custom_class": "",
+        "custom_id": ""
+      }
+    }
+  },
+  "order": [
+    "main",
+    "mfr_blog_featured_article_9TUbE4",
+    "mfr_blog_grid_Ukgtin",
+    "mfr_core_icon_text_grid_f3eXVT"
+  ]
+}

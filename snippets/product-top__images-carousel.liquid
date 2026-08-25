@@ -1,0 +1,186 @@
+{% assign metafields = product.metafields.mfr_fields %}
+<div class="product-top__media-carousel-inner"
+  data-mfr-sticky>
+
+   <div class="product-top__media-carousel-badge_new" id="clinicians-choice-badge-{{- section_id -}}">
+     {% comment %} <img src="https://cdn.shopify.com/s/files/1/0509/9677/3062/files/Hundreds_-_Banner.svg?v=1755852865" alt="img"> {% endcomment %}
+    {% if product.metafields.custom.clinicians_choice  %}
+     <img
+            src="{{ product.metafields.custom.clinicians_choice | image_url }}"
+            alt="Clinician's Choice"
+      >
+      {% endif %}
+    </div>
+  {% if product.tags contains "Mom's Choice" %}
+    <div class="product-top__media-carousel-badge">
+      {% render 'component__lazyload-image',
+        image: section.settings.moms_choice,
+        width: 108,
+        alt: "mom's choice icon" %}
+    </div>
+  {% endif %}
+  <div class="product-top__dress-up loaded"
+    x-init='
+      window.addEventListener("load", () => {
+        $el.classList.remove( "loaded" );
+
+        document.querySelectorAll( ".dress-up__character").forEach( (e,i ) => Alpine.$data(e).show = false )
+
+        setTimeout( () => {
+          $refs["pdpImageCarousel"].querySelector( ".flickity-viewport" ).style.zIndex = "2";
+        }, 400 );
+      } );
+    '>
+    {% render 'dress-up__character' %}
+  </div>
+  <div class="product-top__media-carousel carousel__slides"
+    id="main-carousel-{{- section_id -}}"
+    x-ref='pdpImageCarousel'
+    style="--bg-color: {{ metafields.product_card_accent_color | default: '#E50695' }};">
+    {%- assign card_image = metafields.product_card_main_image -%}
+    {%- assign card_image_id = card_image.id -%}
+    {%- assign card_image_src = "" -%}
+    {%- if card_image != blank -%}
+      {%- assign card_image_src = card_image | image_url -%}
+    {%- endif -%}
+    {%- assign pdp_first_image = product.metafields.custom.pdp_first_image -%}
+    {%- assign pdp_first_alt = pdp_first_image.alt | default: product.title -%}
+    {%- assign featured_image_src = "" -%}
+    {%- if pdp_first_image != blank and product.featured_image -%}
+      {%- assign featured_image_src = product.featured_image | image_url -%}
+    {%- endif -%}
+    {%- if pdp_first_image != blank -%}
+      <div class="product-top__media-item carousel__item">
+        {%- assign pdp_first_width = 900 -%}
+        {%- assign pdp_first_height = nil -%}
+        {%- if pdp_first_image.width and pdp_first_image.height and pdp_first_image.height > 0 -%}
+          {%- assign pdp_first_aspect = pdp_first_image.width | times: 1.00 | divided_by: pdp_first_image.height -%}
+          {%- assign pdp_first_height = pdp_first_width | divided_by: pdp_first_aspect | round: 2 -%}
+        {%- endif -%}
+        {{ pdp_first_image
+          | image_url: width: pdp_first_width
+          | image_tag: width: pdp_first_width,
+            height: pdp_first_height,
+            widths: "420,480,600,720,900",
+            alt: pdp_first_alt }}
+      </div>
+    {%- endif -%}
+    {% for image in carousel_images %}
+      {%- assign block_image = image.settings.image -%}
+      {%- assign is_card_image = false -%}
+      {%- if card_image != blank and block_image != blank -%}
+        {%- if card_image_id and block_image.id == card_image_id -%}
+          {%- assign is_card_image = true -%}
+        {%- else -%}
+          {%- assign block_image_src = block_image | image_url -%}
+          {%- if block_image_src == card_image_src -%}
+            {%- assign is_card_image = true -%}
+          {%- endif -%}
+        {%- endif -%}
+      {%- endif -%}
+      {% if block_image != blank and is_card_image == false %}
+        <div class="product-top__media-item carousel__item">
+          {% render 'component__lazyload-image',
+            image: block_image,
+            width: 900,
+            widths: "420,480,600,720,900",
+            alt: block_image.alt %}
+        </div>
+      {% endif %}
+    {% endfor %}
+    {% for media in product.media %}
+      {%- assign is_card_image = false -%}
+      {%- if card_image != blank and media.media_type == "image" -%}
+        {%- if card_image_id and media.id == card_image_id -%}
+          {%- assign is_card_image = true -%}
+        {%- else -%}
+          {%- assign media_src = media | image_url -%}
+          {%- if media_src == card_image_src -%}
+            {%- assign is_card_image = true -%}
+          {%- endif -%}
+        {%- endif -%}
+      {%- endif -%}
+      {%- assign is_pdp_first_replacement = false -%}
+      {%- if pdp_first_image != blank and media.media_type == "image" and product.featured_image -%}
+        {%- if media.preview_image.id and product.featured_image.id and media.preview_image.id == product.featured_image.id -%}
+          {%- assign is_pdp_first_replacement = true -%}
+        {%- else -%}
+          {%- assign media_src = media | image_url -%}
+          {%- if media_src == featured_image_src -%}
+            {%- assign is_pdp_first_replacement = true -%}
+          {%- endif -%}
+        {%- endif -%}
+      {%- endif -%}
+      {%- unless is_card_image or is_pdp_first_replacement -%}
+      <div class="product-top__media-item carousel__item">
+
+        {% if media.media_type == "image" %}
+          {%- assign default_alt = "maybe an image about the product: " | append: product.title -%}
+          {%- assign alt = media.alt | default: default_alt -%}
+          {% if forloop.first and carousel_images == blank and pdp_first_image == blank %}
+            {% assign image_width = media.width | times: 1.00 %}
+            {% assign image_height = media.height | times: 1.00 %}
+            {% assign aspect_ratio = image_width | divided_by: image_height %}
+            {% assign height = 900 | divided_by: aspect_ratio | round: 2 %}
+            {{ media
+              | image_url: width: 900
+              | image_tag: width: 900,
+                width: 900,
+                height: height,
+                widths: "420,480,600,720,900",
+                alt: alt }}
+          {% else %}
+            {% render 'component__lazyload-image',
+              image: media,
+              width: 900,
+              widths: "420,480,600,720,900",
+              alt: alt %}
+          {% endif %}
+        {% elsif media.media_type == "video" %}
+          {% assign video_ref = "video" | append: "-" | append: entry.id | replace: "_", "-" | replace: "-", "" %}
+          {% render 'component__video',
+            video: media,
+            poster_size: 420,
+            autoplay: false,
+            loop: true,
+            controls: true,
+            playsinline: true,
+            muted: false,
+            video_ref: video_ref %}
+        {% endif %}
+      </div>
+      {%- endunless -%}
+    {% endfor %}
+  </div>
+</div>
+
+<script>
+  (function() {
+    var MAIN_SEL  = '#main-carousel-{{ section_id }}';
+    var BADGE_SEL = '#clinicians-choice-badge-{{ section_id }}';
+    var BADGE_FIRST_SLIDE_ONLY = {% if section.settings.clinicians_choice_first_slide_only %}true{% else %}false{% endif %};
+
+    function initBadgeToggle() {
+      if (!BADGE_FIRST_SLIDE_ONLY) { return; }
+      if (typeof $ === 'undefined') { return; }
+
+      var $main  = $(MAIN_SEL);
+      var $badge = $(BADGE_SEL);
+
+      if (!$main.length || !$badge.length) { return; }
+      if (!$main.hasClass('flickity-enabled')) { return; }
+
+      var mainFlkty = $main.data('flickity');
+      if (!mainFlkty) { return; }
+
+      $main.off('select.flickity.badge').on('select.flickity.badge', function() {
+        $badge.toggle(mainFlkty.selectedIndex === 0);
+      });
+
+      $badge.toggle(mainFlkty.selectedIndex === 0);
+    }
+
+    onReady(function() { initBadgeToggle(); });
+    window.addEventListener('load', function() { initBadgeToggle(); });
+  })();
+</script>

@@ -1,0 +1,289 @@
+/* =======================================
+   Mobile / Base Structural Styles
+======================================= */
+.paper-board-section {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.paper-board-container {
+  display: flex;
+  flex-direction: column;
+  padding: 0 16px 85px;
+  position: relative;
+  z-index: 1;
+}
+.paper-wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+.paper-img-mobile {
+  display: block;
+  width: 100%;
+}
+.paper-img-desktop {
+  display: none;
+}
+.paper-content-overlay {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  padding: 26px 15px;
+}
+
+/* Header Area */
+.paper-header {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.paper-heading {
+  color: #2B3990;
+  text-align: center;
+  font-family: Recoleta;
+  font-size: 29.184px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  text-transform: capitalize;
+  margin: 0 !important;
+}
+.paper-subheading {
+  color: #2B3990;
+  text-align: center;
+  font-family: "ES Peak Rounded";
+  font-size: 15.009px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  text-transform: capitalize;
+}
+
+.paper-stats-container {
+  display: grid;
+  grid-template-columns: 41% 1fr 42%;
+  padding: 9px 0;
+  position: relative;
+}
+@media screen and (min-width: 400px) {
+  .paper-stats-container {
+    padding: 18px 0;
+  }
+}
+.stat-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+.stat-circle {
+  display: flex;
+  width: 50.779px;
+  height: 50.779px;
+  padding: 5.345px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5.345px;
+  aspect-ratio: 1/1;
+  border-radius: 53.452px;
+  background: #96238D;
+}
+.stat-number {
+  color: #F5FEFC;
+  text-align: center;
+  font-family: "ES Peak Rounded";
+  font-size: 27.795px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 100%;
+  letter-spacing: -0.834px;
+}
+.stat-text {
+  color: #2B3990;
+  text-align: center;
+  font-family: Recoleta;
+  font-size: 18.614px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 110%;
+}
+.stat-divider-container {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  grid-column: 2;
+}
+.stat-divider {
+  color: #2B3990;
+  font-family: Recoleta;
+  font-size: 21.553px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 110%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateY(-50%) translateX(-50%);
+}
+.paper-checkmarks-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  row-gap: 11.8px;
+  column-gap: 21px;
+}
+.checkmark-block {
+  display: flex;
+  gap: 6.6px;
+}
+.checkmark-icon-wrapper-dsk {
+  display: none;
+}
+.checkmark-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.checkmark-text p {
+  margin: 0;
+  color: #2B3990;
+  font-family: "ES Peak Rounded";
+  font-size: 11.807px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 110%;
+}
+
+/* =======================================
+   Desktop Structural Styles
+======================================= */
+@media screen and (min-width: 768px) {
+  .paper-board-section {
+    padding: unset;
+  }
+  .paper-board-container {
+    padding: 0 16px 70px;
+  }
+  .checkmark-icon-wrapper-dsk {
+    display: block;
+  }
+  .checkmark-icon-wrapper-mob {
+    display: none;
+  }
+  .paper-wrapper {
+    margin: 30px auto 120px;
+    width: fit-content;
+  }
+
+  .paper-img-mobile {
+    display: none;
+  }
+  .paper-img-desktop {
+    display: block;
+    width: 100%;
+    max-width: 970px;
+    aspect-ratio: 970 / 807;
+  }
+
+  .paper-content-overlay {
+    padding: 10% 12.6% 8.3%;
+  }
+
+  .paper-header {
+    gap: 8px;
+  }
+  .paper-heading {
+    color: #2B3990;
+    text-align: center;
+    font-family: Recoleta;
+    font-size: 50.193px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    text-transform: capitalize;
+  }
+  .paper-subheading {
+    color: #2B3990;
+    text-align: center;
+    font-family: "ES Peak Rounded";
+    font-size: 22.815px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    text-transform: capitalize;
+  }
+
+  .paper-stats-container {
+    padding: 51px 0;
+  }
+  .stat-block {
+    min-width: 223px;
+  }
+  .stat-circle {
+    display: flex;
+    width: 103.666px;
+    height: 103.666px;
+    padding: 10.912px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10.912px;
+    aspect-ratio: 1/1;
+    border-radius: 109.122px;
+    background: #96238D;
+  }
+  .stat-text {
+    color: #2B3990;
+    text-align: center;
+    font-family: Recoleta;
+    font-size: 38px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 110%;
+  }
+  .stat-divider {
+    padding-left: 4.9%;
+    padding-right: 4%;
+    margin: auto 0;
+    color: #2B3990;
+    text-align: center;
+    font-family: Recoleta;
+    font-size: 44px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 110%;
+  }
+  .stat-number {
+    color: #F5FEFC;
+    text-align: center;
+    font-family: "ES Peak Rounded";
+    font-size: 56.743px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 100%;
+    letter-spacing: -1.702px;
+  }
+
+  .paper-checkmarks-container {
+    row-gap: 26px;
+    column-gap: 6.5%;
+  }
+  .checkmark-block {
+    gap: 14.5px;
+  }
+  .checkmark-text p {
+    color: #2B3990;
+    font-family: "ES Peak Rounded";
+    font-size: 26.106px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 110%;
+  }
+}

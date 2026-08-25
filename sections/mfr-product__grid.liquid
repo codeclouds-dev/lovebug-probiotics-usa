@@ -1,0 +1,1088 @@
+{%- comment -%}
+--------------------------------------
+assign section settings to variables
+--------------------------------------
+{%- endcomment -%}
+
+{% render 'style-tags__section', asset_file_name: "mfr-product__grid.css" %}
+{%- assign text_alignment = section.settings.text_alignment -%}
+{%- assign container_width = section.settings.container_width -%}
+{%- assign max_width = section.settings.max_width -%}
+{%- assign grid_gutter = section.settings.grid_gutter -%}
+{%- assign color_theme = section.settings.color_theme -%}
+{%- assign custom_class = section.settings.custom_class -%}
+{%- assign section_id = section.settings.custom_id | default: section.id -%}
+{% render 'renderer__color-scheme', name: "section", color_scheme: section.settings.color_scheme, selector: ".shopify-section", section_id: section_id %}
+
+{%- if max_width != 0 and container_width == "" -%}
+  {%- capture max_width_style -%}
+    style="max-width: {{ max_width }}rem;" 
+  {%- endcapture -%}
+{%- endif -%}
+
+{% if section.settings.text_alignment != blank %}
+  {% assign content_alignment = "align-center" %}
+{% else %}
+  {% assign content_alignment = "" %} 
+{% endif %}
+
+{% assign icons = section.blocks | where: "type", "icon" %}
+{% assign small_texts = section.blocks | where: "type", "small_text" %}
+{% assign headings = section.blocks | where: "type", "heading" %}
+{% assign texts = section.blocks | where: "type", "text" %}
+{% assign buttons = section.blocks | where: "type", "button" %}
+{% assign image_cards = section.blocks | where: "type", "image_card" | first %}
+{% assign reviews = section.blocks | where: "type", "review" %}
+{% assign collection_images = collection.metafields.mfr_fields.collection_images.value %}
+
+{% assign current_collection = collection.handle %}
+
+{% capture spacer %}
+  --top-spacing-mobile: {{ section.settings.top_spacing_mobile }}px;
+  --bottom-spacing-mobile: {{ section.settings.bottom_spacing_mobile }}px;
+  --top-spacing-desktop: {{ section.settings.top_spacing_desktop }}px;
+  --bottom-spacing-desktop: {{ section.settings.bottom_spacing_desktop }}px;
+{% endcapture %}
+
+{%- capture with_ajax -%}
+  {% if image_cards != blank %}
+    {% assign offset_limit = 2 %}
+  {% endif %}
+
+  {% assign pagination_limit = 14 | minus: offset_limit %}
+  {% assign image_cards_size = image_cards | size | times: 2 %}
+  {% assign pagination_limit = pagination_limit | minus: image_cards_size %}
+
+  {% if section.settings.collection != blank %}
+    {% paginate section.settings.collection.products by pagination_limit %}
+      {% for product in section.settings.collection.products %}
+        {% assign grid_counter = forloop.index0 %}
+
+        {%- for block in section.blocks -%}
+          {%- case block.type -%}
+            {%- when 'image_card' -%}
+              {% if block.settings.index == grid_counter %}
+                {%- liquid
+                  assign default_image = block.settings.image
+                  assign default_video = block.settings.video
+                  assign full_image_size = block.settings.full_image_size
+                  assign visibility = block.settings.visibility
+                -%}
+                {% if default_video != blank %}
+                  <div class="product-grid__image-card {{ visibility }} {% if full_image_size %}mobile-full{% else %}mobile-half{% endif %}">
+                    <div class="product-grid__image-card-inner">
+                        <div class="product-grid__image-card--video">
+                          {{ default_video 
+                            | video_tag: 
+                              controls: true,
+                              muted: true,
+                              autoplay: true,
+                              playsinline: true, 
+                              image_size: '720x' }}
+                        </div>
+                    </div>
+                  </div>
+                {% elsif default_image != blank %}
+                  <div class="product-grid__image-card {{ visibility }} {% if full_image_size %}mobile-full{% else %}mobile-half{% endif %}">
+                    <div class="product-grid__image-card-inner">
+                        <div class="product-grid__image-card--image">
+                          {{ default_image 
+                            | image_url: width: 720
+                            | image_tag: width: 720,
+                              widths: "420,480,600,720",
+                              alt: default_image.alt }}
+                        </div>
+                    </div>
+                  </div>
+                {% endif %}
+              {% endif %}
+          {%- endcase -%}
+        {%- endfor -%}
+
+        <div class="product-grid__entry">
+          {% render 'partial__product-card', product: product %}
+        </div>
+      {% endfor %}
+
+      {% if paginate.next != blank %}
+        <div class="product-grid__load-more">
+          <a href="{{ paginate.next.url }}" class="button underline">
+            <span class="text">{{ section.settings.load_more_label | default: "Load More" }}</span>
+          </a>
+        </div>
+      {% endif %}
+    {% endpaginate %}
+  {% else %}
+    {% paginate collection.products by pagination_limit %}
+
+      {% for product in collection.products %}
+        {% if paginate.current_page == 1 %}
+          {% assign grid_counter = forloop.index0 %}
+
+          {%- for block in section.blocks -%}
+            {%- case block.type -%}
+              {%- when 'image_card' -%}
+                {% if block.settings.index == grid_counter %}
+                  {%- liquid
+                    assign default_image = block.settings.image
+                    assign default_video = block.settings.video
+                    assign full_image_size = block.settings.full_image_size
+                    assign visibility = block.settings.visibility
+                  -%}
+                
+                  {% if default_video != blank %}
+                    <div class="product-grid__image-card {{ visibility }} {% if full_image_size %}mobile-full{% else %}mobile-half{% endif %}">
+                      <div class="product-grid__image-card-inner">
+                          <div class="product-grid__image-card--image">
+                            {{ default_video 
+                              | video_tag: 
+                                controls: true,
+                                muted: true,
+                                autoplay: true,
+                                playsinline: true, 
+                                image_size: '720x' }}
+                          </div>
+                      </div>
+                    </div>
+                  {% elsif default_image != blank %}
+                    <div class="product-grid__image-card {{ visibility }} {% if full_image_size %}mobile-full{% else %}mobile-half{% endif %}">
+                      <div class="product-grid__image-card-inner">
+                          <div class="product-grid__image-card--image">
+                            {{ default_image 
+                              | image_url: width: 720
+                              | image_tag: width: 720,
+                                widths: "420,480,600,720",
+                                alt: default_image.alt }}
+                          </div>
+                      </div>
+                    </div>
+                  {% endif %}
+                {% endif %}
+            {%- endcase -%}
+          {%- endfor -%}
+        {% endif %}
+
+        <div class="product-grid__entry">
+          {% render 'partial__product-card', product: product %}
+        </div>
+      {% endfor %}
+
+      {% if paginate.next != blank %}
+        <div class="product-grid__load-more">
+          <a href="{{ paginate.next.url }}" class="button underline">
+            <span class="text">{{ section.settings.load_more_label | default: "Load More" }}</span>
+          </a>
+        </div>
+      {% endif %}
+    {% endpaginate %}
+  {% endif %}
+{%- endcapture -%}
+
+{%- capture without_ajax -%}
+  {% if section.settings.collection != blank %}
+    {% for product in section.settings.collection.products %}
+
+      {%- for block in section.blocks -%}
+        {%- case block.type -%}
+          {%- when 'image_card' -%}
+            {% if block.settings.index == grid_counter %}
+              {%- liquid
+                assign default_image = block.settings.image
+                assign default_video = block.settings.video
+                assign full_image_size = block.settings.full_image_size
+                assign visibility = block.settings.visibility
+              -%}
+              {% if default_video != blank %}
+                <div class="product-grid__image-card {{ visibility }} {% if full_image_size %}mobile-full{% else %}mobile-half{% endif %}">
+                  <div class="product-grid__image-card-inner">
+                    <div class="product-grid__image-card--video">
+                      {{ default_video 
+                        | video_tag: 
+                          controls: true,
+                          muted: true,
+                          autoplay: true,
+                          playsinline: true, 
+                          image_size: '720x' }}
+                    </div>
+                  </div>
+                </div>
+              {% elsif default_image != blank %}
+                <div class="product-grid__image-card {{ visibility }} {% if full_image_size %}mobile-full{% else %}mobile-half{% endif %}">
+                  <div class="product-grid__image-card-inner">
+                    <div class="product-grid__image-card--image">
+                      {{ default_image 
+                        | image_url: width: 720
+                        | image_tag: width: 720,
+                          widths: "420,480,600,720",
+                          alt: default_image.alt }}
+                    </div>
+                  </div>
+                </div>
+              {% endif %}
+            {% endif %}
+        {%- endcase -%}
+      {%- endfor -%}
+
+      <div class="product-grid__entry">
+        {% render 'partial__product-card', product: product %}
+      </div>
+    {% endfor %}
+  {% else %}
+      {% for product in collection.products %}
+        {%- for block in section.blocks -%}
+          {%- case block.type -%}
+            {%- when 'image_card' -%}
+              {% if block.settings.index == grid_counter %}
+                {%- liquid
+                  assign default_image = block.settings.image
+                  assign default_video = block.settings.video
+                  assign full_image_size = block.settings.full_image_size
+                  assign visibility = block.settings.visibility
+                -%}
+              
+                {% if default_video != blank %}
+                  <div class="product-grid__image-card {{ visibility }} {% if full_image_size %}mobile-full{% else %}mobile-half{% endif %}">
+                    <div class="product-grid__image-card-inner">
+                        <div class="product-grid__image-card--image">
+                          {{ default_video 
+                            | video_tag: 
+                              controls: true,
+                              muted: true,
+                              autoplay: true,
+                              playsinline: true, 
+                              image_size: '720x' }}
+                        </div>
+                    </div>
+                  </div>
+                {% elsif default_image != blank %}
+                  <div class="product-grid__image-card {{ visibility }} {% if full_image_size %}mobile-full{% else %}mobile-half{% endif %}">
+                    <div class="product-grid__image-card-inner">
+                        <div class="product-grid__image-card--image">
+                          {{ default_image 
+                            | image_url: width: 720
+                            | image_tag: width: 720,
+                              widths: "420,480,600,720",
+                              alt: default_image.alt }}
+                        </div>
+                    </div>
+                  </div>
+                {% endif %}
+              {% endif %}
+          {%- endcase -%}
+        {%- endfor -%}
+
+      <div class="product-grid__entry">
+        {% render 'partial__product-card', product: product %}
+      </div>
+    {% endfor %}
+  {% endif %}
+{%- endcapture -%}
+
+{% comment %}
+  Insert your custom section content here 
+{% endcomment %}
+{% capture custom_section_content %}
+  {% unless section.settings.no_ajax %}
+    <div class="product-grid__filter">
+      <button class="button"
+        data-open="offCanvasFilter">
+        {%- capture chevron_code -%}{%- render "icon__filter", color: section.settings.color_scheme.settings.text -%}{%- endcapture -%}
+        {% render 'component__svg-encoder',
+          svg_code: chevron_code,
+          alt: "chevron" %}
+
+        {{ section.settings.filter_label | default: "Filter By" }}
+      </button>
+      <div class="product-grid__active-filters"></div>
+      <button class="button grid-reset">
+        <span>Clear Filters</span>
+      </button>
+    </div>
+  {% endunless %}
+
+  <div class="product-grid" id="product-grid--{{ section.id }}">
+    {% if section.settings.no_ajax %}
+      {{ without_ajax }}
+    {% else %}
+      {{ with_ajax }}
+    {% endif %}
+  </div>
+{% endcapture %}
+
+<section class="mfr-product__grid-with-filters {{ custom_class }}" id="{{ section_id }}">
+  <div class="section-spacer background {{ grid_gutter }}" style="{{ spacer }}">
+    <div class="grid-container {{ container_width }}" {{ max_width_style }}>
+      <div class="grid-x align-center">
+        {% if icons != blank or small_texts != blank or headings != blank or texts != blank or buttons != blank %}
+          <div class="cell small-12 large-12 section-content {{ color_theme }} {{ text_alignment }}">
+            <div class="inner">
+              {%- for block in section.blocks -%}
+                {% case block.type %}
+                  {%- when 'icon' -%}
+                    {% render 'renderer__block-icon', block: block %} 
+                
+                  {%- when 'small_text' -%}
+                    {% render "renderer__block-small-text", block: block %}
+                    
+                  {%- when 'heading' -%}
+                    {% render "renderer__block-title", block: block %}
+                    
+                  {%- when 'text' -%}
+                    {% render "renderer__block-text", block: block %}
+                {%- endcase -%}
+              {%- endfor -%}
+
+              {% if buttons != blank %}
+                <div class="button-set {{ content_alignment }}">
+                  {%- for block in section.blocks -%}
+                    {% case block.type %}
+                      {%- when 'button' -%}
+                        {% render 'renderer__block-button', block: block %}
+                    {%- endcase -%}
+                  {%- endfor -%}
+                </div>
+              {% endif %}
+            </div>
+          </div>
+        {% endif %}
+
+        <div class="cell small-12 product-grid__wrapper">
+          {{ custom_section_content }}
+        </div>
+
+        {% if reviews != blank %}
+          <div class="cell small-12 product-grid__reviews"
+            data-stagger-inview=".product-grid__review">
+            {% for review in reviews %}
+              <div class="product-grid__review">
+                <div class="product-grid__review-info">
+                  {% if review.settings.image != blank %}
+                    <div class="product-grid__review-info-image"
+                      style="
+                        --bg-color: {{ review.settings.image_background }};
+                      ">
+                      {% assign default_alt = "maybe a product image about what " | append: review.settings.name | append: " gave his/her review." %}
+                      {% assign alt = review.settings.image.alt | default: default_alt %}
+                      {% render 'component__lazyload-image',
+                        image: review.settings.image,
+                        width: 144,
+                        alt: alt,
+                        widths: "144" %}
+                    </div>
+                  {% endif %}
+                  <div class="product-grid__review-info-inner">
+                    {% render 'icon-stars',
+                      color: review.settings.star_color,
+                      count: review.settings.stars %}
+                    <p class="product-grid__review-info-name">
+                      {{ review.settings.name }}
+                    </p>
+                    {% if review.settings.caption != blank %}
+                      <p class="product-grid__review-info-caption">
+                        {{ review.settings.caption }}
+                      </p>
+                    {% endif %}
+                  </div>
+                </div>
+
+                <p class="product-grid__review-text">
+                  {{ review.settings.review }}
+                </p>
+              </div>
+            {% endfor %}
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  
+  {%- render 'component__gradient-bg-styles' -%}
+  {%- render 'component__accent-graphics' -%}
+  {%- render 'component__section-dividers' -%}
+</section>
+
+
+{% schema %}
+{
+  "name":"Product: Grid",
+  "disabled_on": {
+    "groups": ["header","footer","custom.offcanvas","custom.modals"]
+  },
+  "settings":[
+    {
+      "type": "checkbox",
+      "id": "no_ajax",
+      "label": "No Ajax?",
+      "default": false
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "text",
+      "id": "filter_label",
+      "label": "Filter Label",
+      "default": "Filter By"
+    },
+    {
+      "type": "text",
+      "id": "load_more_label",
+      "label": "Load More Label",
+      "default": "Load More"
+    },
+    {
+      "type": "header",
+      "content": "Section Settings"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "options": [
+          { "value": "", "label": "Left" },
+          { "value": "text-center", "label": "Center" }
+          ],
+      "label": "Text Alignment",
+      "default": "text-center"
+    },
+    {
+      "type": "select",
+      "id": "container_width",
+      "options": [
+          { "value": "full", "label": "Full" },
+          { "value": "", "label": "Contain" }
+          ],
+      "label": "Width",
+      "default": "full"
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "rem",
+      "label": "Max Content Width",
+      "default": 0
+    },
+    {
+      "type": "select",
+      "id": "grid_gutter",
+      "options": [
+          { "value": "grid-gutter", "label": "Padding" },
+          { "value": "", "label": "No Padding" }
+          ],
+      "label": "Section Padding",
+      "default": ""
+    },
+      {
+        "type": "header",
+        "content": "Color Schemes Settings"
+      },
+      {
+        "type": "color_scheme",
+        "id": "color_scheme",
+        "default": "scheme_1",
+        "label": "Color Scheme",
+        "info": "This will be the color scheme of the header initially."
+      },
+
+    {
+      "type": "header",
+      "content": "Mobile Section Spacing"
+    },
+    {
+      "type": "range",
+      "id": "top_spacing_mobile",
+      "min": 0,
+      "max": 500,
+      "step": 10,
+      "unit": "px",
+      "label": "Top Spacing",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "bottom_spacing_mobile",
+      "min": 0,
+      "max": 500,
+      "step": 10,
+      "unit": "px",
+      "label": "Bottom Spacing",
+      "default": 100
+    },
+
+    {
+      "type": "header",
+      "content": "Desktop Section Spacing"
+    },
+    {
+      "type": "range",
+      "id": "top_spacing_desktop",
+      "min": 0,
+      "max": 500,
+      "step": 10,
+      "unit": "px",
+      "label": "Top Spacing",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "bottom_spacing_desktop",
+      "min": 0,
+      "max": 500,
+      "step": 10,
+      "unit": "px",
+      "label": "Bottom Spacing",
+      "default": 100
+    },
+
+    {
+      "type":"header",
+      "content":"Background"
+    },
+    {
+      "type": "color_background",
+      "id": "bg_color",
+      "label": "Background Color/Gradient"
+    },
+    {
+      "type": "image_picker",
+      "id": "bg_image_mobile",
+      "label": "Background Image - Mobile"
+    },
+    {
+      "type": "image_picker",
+      "id": "bg_image",
+      "label": "Background Image - Desktop"
+    },
+    {
+      "type": "header",
+      "content": "Divider Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "top_wave_divider",
+      "label": "Top Wave Divider",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "bottom_wave_divider",
+      "label": "Bottom Wave Divider",
+      "default": false
+    },
+    {
+      "type":"header",
+      "content":"Attribute Settings"
+    },
+    {
+      "type": "text",
+      "id": "custom_class",
+      "label": "Custom class"
+    },
+    {
+      "type": "text",
+      "id": "custom_id",
+      "label": "Custom ID"
+    }
+  ],
+  "blocks":[
+    {
+      "type": "icon", 
+      "name": "Icon",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon"
+        },
+        {
+          "type": "text",
+          "id": "file_lottie_url",
+          "label": "File Lottie URL"
+        },
+        {
+          "type": "number",
+          "id": "icon_width",
+          "label": "Image width",
+          "default": 150,
+          "info": "in pixels."
+        }
+      ]
+    },
+    {
+      "type":"small_text",
+      "name":"Accent Text",
+      "limit":1,
+      "settings":[
+        {
+          "type":"text",
+          "id":"text",
+          "default":"Accent Text",
+          "label":"Text"
+        },
+        {
+          "type": "color",
+          "id": "small_text_color",
+          "label": "Color"
+        },
+        {
+          "type": "checkbox",
+          "id": "add_underline",
+          "label": "Add Undeline?",
+          "default": false,
+          "info": "adds line under text"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "name": "Heading",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "inline_richtext",
+          "id": "heading",
+          "default": "Heading H1",
+          "label": "Heading H1"
+        },
+        {
+          "type": "checkbox",
+          "id": "disable_animation",
+          "label": "Disable Animation",
+          "default": false
+        },
+        {
+          "type": "select",
+          "id": "header_style",
+          "options": [
+              { "value": "h1", "label": "H1"},
+              { "value": "h2", "label": "H2"},
+              { "value": "h3", "label": "H3"},
+              { "value": "h4", "label": "H4"},
+              { "value": "h5", "label": "H5"},
+              { "value": "h6", "label": "H6"}
+              ],
+          "label": "Header Style",
+          "default": "h1"
+        },
+
+        {
+          "type": "header",
+          "content": "Accent Settings"
+        },
+        {
+          "type": "select",
+          "id": "make_xl",
+          "options": [
+              { "value": "", "label": "Normal"},
+              { "value": "xl-title", "label": "Oversize"}
+              ],
+          "label": "H1 Size",
+          "default": "",
+          "info": "H1s can be set to oversize if they need to be extra big"
+        },
+        {
+          "type": "checkbox",
+          "id": "with_line",
+          "label": "With Line",
+          "default": false
+        },
+        {
+            "type": "color",
+            "id": "highlight_color",
+            "label": "Highlight Color",
+            "info": "Use [highlight][/highlight] to highlight text"
+        },
+        {
+            "type": "color",
+            "id": "underline_color",
+            "label": "Underline Color",
+            "info": "Use [underline][/underline] to underline text"
+        },
+
+        {
+          "type": "header",
+          "content": "Width Settings"
+        },
+        {
+            "type": "range",
+            "id": "max_width",
+            "min": 0,
+            "max": 60,
+            "step": 1,
+            "unit": "rem",
+            "label": "Max Width",
+            "default": 0
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "name": "Text",
+      "limit": 2,
+      "settings": [
+        
+        {
+          "type": "richtext",
+          "id": "text",
+          "default": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum vel metus auctor.</p>",
+          "label": "Text"
+        },
+        {
+          "type": "checkbox",
+          "id": "disable_animation",
+          "label": "Disable Animation",
+          "default": false
+        },
+        {
+          "type":"select",
+          "id":"text_style",
+          "options":[
+            { "value":"", "label":"Default" },
+            { "value":"xsmall", "label":"xSmall" },
+            { "value":"small", "label":"Small" },
+            { "value":"regular", "label":"Regular" },
+            { "value":"large", "label":"Large" },
+            { "value":"xlarge", "label":"xLarge" }
+          ],
+          "label":"Style",
+          "default":"regular"
+        },
+        {
+          "type": "color",
+          "id": "color",
+          "label": "Color",
+          "info": "Leave it blank to use system settings."
+        },
+        {
+            "type": "range",
+            "id": "max_width",
+            "min": 0,
+            "max": 50,
+            "step": 1,
+            "unit": "rem",
+            "label": "Width",
+            "default": 0
+        }
+      ]
+    },
+    {
+      "type":"button",
+      "name":"Button",
+      "limit":2,
+      "settings":[
+        {
+          "type":"text",
+          "id":"button_label",
+          "default":"Button label",
+          "label":"Button",
+          "info":"Leave the label blank to hide the button."
+        },
+        {
+          "type":"url",
+          "id":"button_link",
+          "label":"Button Link"
+        },
+        {
+          "type": "select",
+          "id": "color_theme",
+          "label": "Color Theme",
+          "options": [
+            {
+              "value": "primary",
+              "label": "Primary"
+            },
+            {
+              "value": "secondary",
+              "label": "Secondary"
+            },
+            {
+              "value": "tertiary",
+              "label": "Tertiary"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "image_card",
+      "name": "Image Card",
+      "limit": 50,
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "full_image_size",
+          "label": "Full size in mobile",
+          "info": "Allow full width image in mobile"
+        },
+        {
+          "type": "select",
+          "id": "visibility",
+          "label": "Visibility",
+          "options": [
+            {
+              "value": "hide-in-mobile",
+              "label": "Desktop only"
+            },
+            {
+              "value": "hide-in-desktop",
+              "label": "Mobile only"
+            }
+          ]
+        },
+        {
+          "type": "number",
+          "id": "index",
+          "label": "Index",
+          "info": "This is where the card will appear within the grid"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "video",
+          "id": "video",
+          "label": "A Shopify-hosted video"
+        }
+      ]
+    },
+    {
+      "type": "review",
+      "name": "Review",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "color",
+          "id": "image_background",
+          "label": "Image Background",
+          "default": "#E4F6F6"
+        },
+        {
+          "type": "range",
+          "id": "stars",
+          "min": 1,
+          "max": 5,
+          "step": 1,
+          "unit": "☆",
+          "label": "Rating",
+          "default": 5
+        },
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Name",
+          "default": "John D."
+        },
+        {
+          "type": "text",
+          "id": "caption",
+          "label": "Caption",
+          "default": "Lorem ipsum dolor"
+        },
+        {
+          "type": "textarea",
+          "id": "review",
+          "label": "Review",
+          "default": "“Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla at justo vitae lorem molestie euismod. Lorem ipsum dolor sit amet, consectetur adipiscing elit.”"
+        }
+      ]
+    },
+    {
+      "type": "accent_graphic", 
+      "name": "Accent Graphic",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon"
+        },
+        {
+          "type":"html",
+          "id":"svg_code",
+          "label":"Graphic SVG Code",
+          "info":"Paste SVG code for vector graphic"
+        },
+        {
+          "type":"header",
+          "content":"Visibility"
+        },
+        {
+          "type": "select",
+          "id": "visibility",
+          "options": [
+              { "value": "always", "label": "Always" },
+              { "value": "desktop_only", "label": "Desktop Only" },
+              { "value": "mobile_only", "label": "Mobile Only" }
+              ],
+          "label": "Show on..",
+          "default": "always"
+        },
+        {
+          "type":"header",
+          "content":"Value Type"
+        },
+        {
+          "type": "select",
+          "id": "value_type",
+          "options": [
+              { "value": "px", "label": "Pixels" },
+              { "value": "%", "label": "Percentage" }
+              ],
+          "label": "Position Value Type",
+          "default": "%",
+          "info": "Pixel values are multiplied by 5"
+        },
+        {
+          "type":"header",
+          "content":"Position"
+        },
+        {
+          "type": "select",
+          "id": "x_setting",
+          "options": [
+              { "value": "left", "label": "Left" },
+              { "value": "center", "label": "Center" },
+              { "value": "right", "label": "Right" }
+              ],
+          "label": "X Position",
+          "default": "left"
+        },
+        {
+          "type": "select",
+          "id": "y_setting",
+          "options": [
+              { "value": "top", "label": "Top" },
+              { "value": "bottom", "label": "Bottom" }
+              ],
+          "label": "Y Position",
+          "default": "top"
+        },
+        { 
+          "type":"header",
+          "content":"Large Screen Settings"
+        },
+        {
+          "type": "range",
+          "id": "width_large",
+          "min": 10,
+          "max": 400,
+          "step": 10,
+          "unit": "px",
+          "label": "Graphic Width",
+          "default": 150
+        },
+        {
+          "type": "range",
+          "id": "position_x_large",
+          "min": -100,
+          "max": 100,
+          "step": 2,
+          "label": "X Position",
+          "default": 10
+        },
+        {
+          "type": "range",
+          "id": "position_y_large",
+          "min": -100,
+          "max": 100,
+          "step": 2,
+          "label": "Y Position",
+          "default": 10
+        },
+        {
+          "type":"header",
+          "content":"Small Screen Settings"
+        },
+        {
+          "type": "range",
+          "id": "width_small",
+          "min": 10,
+          "max": 400,
+          "step": 10,
+          "unit": "px",
+          "label": "Graphic Width",
+          "default": 150
+        },
+        {
+          "type": "range",
+          "id": "position_x_small",
+          "min": -100,
+          "max": 100,
+          "step": 2,
+          "label": "X Position",
+          "default": 10
+        },
+        {
+          "type": "range",
+          "id": "position_y_small",
+          "min": -100,
+          "max": 100,
+          "step": 2,
+          "label": "Y Position",
+          "default": 10
+        },
+        {
+          "type":"header",
+          "content":"Animation Settings"
+        },
+        {
+          "type": "select",
+          "id": "animation",
+          "options": [
+              { "value": "none", "label": "None" },
+              { "value": "rotating", "label": "Rotate" },
+              { "value": "floating", "label": "Float" },
+              { "value": "spark", "label": "Spark" }
+            ],
+          "label": "Animation",
+          "default": "none"
+        },
+
+        {
+          "type":"header",
+          "content":"Appearance Settings"
+        },
+        {
+          "type": "range",
+          "id": "rotate",
+          "min": 0,
+          "max": 360,
+          "step": 36,
+          "unit": "%",
+          "label": "Rotate",
+          "default": 0
+        },
+        {
+          "type": "checkbox",
+          "id": "flip",
+          "label": "Flip Graphics?",
+          "default": false
+        }
+      ]
+    }
+  ],
+  "presets":[
+    {
+      "name":"Product: Grid",
+      "blocks":[
+        {
+          "type":"heading"
+        },
+        {
+          "type":"text"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

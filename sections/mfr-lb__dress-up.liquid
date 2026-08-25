@@ -1,0 +1,1016 @@
+{%- comment -%}
+--------------------------------------
+assign section settings to variables
+--------------------------------------
+{%- endcomment -%}
+
+{% render 'style-tags__section', asset_file_name: "mfr-lb__dress-up.css" %}
+{%- assign text_alignment = section.settings.text_alignment -%}
+{%- assign container_width = section.settings.container_width -%}
+{%- assign max_width = section.settings.max_width -%}
+{%- assign grid_gutter = section.settings.grid_gutter -%}
+{%- assign color_theme = section.settings.color_theme -%}
+{%- assign custom_class = section.settings.custom_class -%}
+
+{%- assign section_id = section.settings.custom_id | default: section.id -%}
+{% render 'renderer__color-scheme', name: "section", color_scheme: section.settings.color_scheme, selector: ".shopify-section", section_id: section_id %}
+
+{%- if max_width != 0 and container_width == "" -%}
+  {%- capture max_width_style -%}
+    style="max-width: {{ max_width }}rem;"
+  {%- endcapture -%}
+{%- endif -%}
+
+
+
+{% if section.settings.text_alignment != blank %}
+  {% assign content_alignment = "align-center" %}
+{% else %}
+  {% assign content_alignment = "" %}
+{% endif %}
+
+{% assign icons = section.blocks | where: "type", "icon" %}
+{% assign small_texts = section.blocks | where: "type", "small_text" %}
+{% assign headings = section.blocks | where: "type", "heading" %}
+{% assign texts = section.blocks | where: "type", "text" %}
+{% assign buttons = section.blocks | where: "type", "button" %}
+{% assign selected_preset = section.blocks | where: "type", "selected_presets" | first %}
+
+{% capture spacer %}
+  --top-spacing-mobile: {{ section.settings.top_spacing_mobile }}px;
+  --bottom-spacing-mobile: {{ section.settings.bottom_spacing_mobile }}px;
+  --top-spacing-desktop: {{ section.settings.top_spacing_desktop }}px;
+  --bottom-spacing-desktop: {{ section.settings.bottom_spacing_desktop }}px;
+{% endcapture %}
+
+{% comment %}
+  Insert your custom section content here
+{% endcomment %}
+{% capture custom_section_content %}
+  {% assign metaobjects = shop.metaobjects.dress_up_item.values  %}
+  <div style="background-color: yellow;padding: 10px">{{ shop.metaobjects['dress_up_item'].values.size }}</div>
+  {% assign types = "Skin,Faces,Hair,Outfits,Scene" | split: "," %}
+  <div class="dress-up"
+    x-data='{
+      selectedItems: localStorage.getItem( "mfr-lb__dress-up" ) ? JSON.parse(localStorage.getItem( "mfr-lb__dress-up" )) : {
+        {%- for type in types %}
+          {%- assign first_option = metaobjects | where: "item_type", type | first -%}
+          {%- assign first_option_value = first_option.label | handleize -%}
+          {%- assign setting = "selected_" |  append: type | handleize | downcase -%}
+          {%- assign selected = selected_preset.settings[setting] | handleize | default: first_option_value -%}
+
+          {{ type }}: "{{- selected -}}",
+        {%- endfor -%}
+      },
+      defaultSelectedItems: {
+        {%- for type in types %}
+          {%- assign first_option = metaobjects | where: "item_type", type | first -%}
+          {%- assign first_option_value = first_option.label | handleize -%}
+          {%- assign setting = "selected_" |  append: type | handleize | downcase -%}
+          {%- assign selected = selected_preset.settings[setting] | handleize | default: first_option_value -%}
+
+          {{ type }}: "{{- selected -}}",
+        {%- endfor -%}
+      },
+      items: {
+        {%- for item in metaobjects -%}
+          "{{- item.item_type | handleize -}}--{{- item.label | handleize -}}": {
+            label: "{{- item.label -}}",
+            itemType: "{{- item.item_type -}}",
+            thumbnail: "{{- item.thumbnail | image_url: width: 144 -}}",
+            itemImageMobile: "{{- item.item_image_mobile | image_url: width: 480 -}}",
+            itemImageDesktop: "{{- item.item_image | image_url: width: 900 -}}",
+            {%- if item.order != blank -%}order:{{ item.order }},{%- endif -%}
+          }{%- unless forloop.last -%},{%- endunless -%}
+        {%- endfor -%}
+      },
+      saveToLocalStorage() {
+        localStorage.setItem( "mfr-lb__dress-up", JSON.stringify( $data.selectedItems ) );
+      },
+      saveAs(uri, filename) {
+        var link = document.createElement("a");
+
+        if (typeof link.download === "string") {
+          link.href = uri;
+          link.download = filename;
+
+          //Firefox requires the link to be in the body
+          document.body.appendChild(link);
+
+          //simulate click
+          link.click();
+
+          //remove the link when done
+          document.body.removeChild(link);
+        } else {
+          window.open(uri);
+        }
+      },
+      preloadImages(imageUrls, callback) {
+        let loadedImages = 0;
+        const totalImages = imageUrls.length;
+
+        imageUrls.forEach((url) => {
+          const img = new Image();
+          img.src = url;
+          img.onload = () => {
+            loadedImages++;
+            if (loadedImages === totalImages && callback) {
+              callback();
+            }
+          };
+          img.onerror = () => {
+            console.error(`Failed to load image: ${url}`);
+            loadedImages++;
+            if (loadedImages === totalImages && callback) {
+              callback();
+            }
+          };
+        });
+      }
+    }'
+    x-init='
+      saveToLocalStorage();
+      $dispatch("update-character-data", { data: selectedItems });
+      const mobileImages = Object.values(items).map( (e,i) => e.itemImageMobile);
+      const desktopImages = Object.values(items).map( (e,i) => e.itemImageMobile);
+      if( window.innerWidth <= 1023 )
+        preloadImages(mobileImages, () => {
+          console.log( "Mobile Dress Up Images Loaded" );
+        } );
+      else
+        preloadImages(desktopImages, () => {
+          console.log( "Desktop Dress Up Images Loaded" );
+        } );
+    '>
+    <div class="dress-up__media">
+      <div class="dress-up__image"
+        x-ref='heroImage'>
+        <div class="dress-up__image-scene">
+          <template
+            x-if='selectedItems.Scene && selectedItems.Scene != "" && window.innerWidth <= 1023'>
+            <img :src='items["scene--" + selectedItems.Scene].itemImageMobile' alt="super hero background" width="856" height="629">
+          </template>
+          <template
+            x-if='selectedItems.Scene && selectedItems.Scene != "" && window.innerWidth >= 1024'>
+            <img :src='items["scene--" + selectedItems.Scene].itemImageDesktop' alt="super hero background" width="856" height="629">
+          </template>
+        </div>
+        <div class="dress-up__image-character"
+          x-ref='heroCharacter'>
+          {%- for type in types -%}
+            {% if type != "Scene" %}
+              <div class="dress-up__image-{{ type | handleize }}">
+                <template
+                  x-if='selectedItems.{{ type }} && selectedItems.{{ type }} != "" && window.innerWidth <= 1023'>
+                  <img :src='items["{{- type | handleize -}}--" + selectedItems.{{ type }}].itemImageMobile'
+                    alt="super hero {{ type }}"
+                    width="856"
+                    height="629"
+                    loading="lazy">
+                </template>
+                <template
+                  x-if='selectedItems.{{ type }} && selectedItems.{{ type }} != "" && window.innerWidth >= 1024'>
+                  <img :src='items["{{- type | handleize -}}--" + selectedItems.{{ type }}].itemImageDesktop'
+                    alt="super hero {{ type }}"
+                    width="856"
+                    height="629"
+                    loading="lazy">
+                </template>
+              </div>
+            {% endif %}
+          {%- endfor -%}
+          <div class="dress-up__image-shadow">
+            {%- capture shadow_svg_code -%}
+              <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="204" height="46">
+                <path fill="#010101" transform="translate(7.2 18.9)" d="M190.2 6.5999999Q190.19998 6.7620211 190.08543 6.9238467Q189.97089 7.0856724 189.74205 7.246913Q189.51321 7.4081535 189.17065 7.5684204Q188.82809 7.7286873 188.37265 7.8875952Q187.91721 8.0465031 187.34995 8.2036686Q186.7827 8.3608341 186.10501 8.5158787Q185.42731 8.6709232 184.64081 8.823473Q183.85432 8.9760218 182.96092 9.1257095Q182.06752 9.2753973 181.06937 9.4218626Q180.0712 9.5683279 178.97069 9.7112179Q177.87018 9.8541069 176.66995 9.9930763Q175.46974 10.132046 174.17273 10.266762Q172.8757 10.401478 171.48502 10.531614Q170.09431 10.661751 168.61328 10.786995Q167.13223 10.912239 165.56444 11.032289Q163.99663 11.152338 162.34584 11.266904Q160.69504 11.38147 158.96524 11.490275Q157.23544 11.599083 155.4308 11.701868Q153.62614 11.804653 151.75099 11.901168Q149.87585 11.997684 147.93472 12.087698Q145.99359 12.177711 143.99117 12.261007Q141.98874 12.344303 139.92982 12.420679Q137.87091 12.497055 135.76047 12.566327Q133.65005 12.6356 131.49318 12.697603Q129.33632 12.759605 127.13821 12.814189Q124.94012 12.868773 122.70607 12.915805Q120.47202 12.962837 118.2074 13.002205Q115.94279 13.041573 113.65308 13.073181Q111.36337 13.104791 109.05406 13.128565Q106.74476 13.152338 104.42143 13.168219Q102.0981 13.184099 99.766327 13.192049Q97.43457 13.199999 95.099998 13.2Q92.765427 13.199999 90.433662 13.192049Q88.101898 13.184099 85.778572 13.168219Q83.455231 13.152338 81.145927 13.128565Q78.836624 13.104792 76.546906 13.073182Q74.257187 13.041574 71.992577 13.002206Q69.727966 12.962838 67.493919 12.915806Q65.259872 12.868773 63.061764 12.814189Q60.863663 12.759605 58.706799 12.697603Q56.549934 12.6356 54.439507 12.566328Q52.329079 12.497055 50.270168 12.420679Q48.211258 12.344302 46.208824 12.261006Q44.206394 12.177711 42.265266 12.087697Q40.324142 11.997683 38.448994 11.901168Q36.573845 11.804652 34.769199 11.701868Q32.964546 11.599083 31.234741 11.490275Q29.504936 11.38147 27.854143 11.266904Q26.20335 11.152338 24.635548 11.032288Q23.067741 10.912239 21.586704 10.786995Q20.105667 10.661751 18.714962 10.531614Q17.324259 10.401478 16.027239 10.266762Q14.730219 10.132046 13.530008 9.9930763Q12.329798 9.8541069 11.229287 9.7112179Q10.128777 9.5683279 9.1306171 9.4218626Q8.1324577 9.2753973 7.2390552 9.1257095Q6.3456526 8.9760218 5.5591583 8.823472Q4.7726641 8.6709232 4.0949736 8.5158787Q3.4172826 8.3608341 2.8500273 8.2036686Q2.2827721 8.0465031 1.8273195 7.8875952Q1.3718668 7.7286873 1.0293138 7.5684204Q0.68676066 7.4081535 0.45793244 7.246913Q0.22910419 7.0856724 0.1145521 6.9238462Q0 6.7620211 0 6.5999999Q0 6.4379787 0.1145521 6.2761531Q0.22910419 6.1143274 0.45793244 5.9530873Q0.68676066 5.7918463 1.0293138 5.6315789Q1.3718668 5.4713116 1.8273195 5.3124037Q2.2827721 5.1534958 2.8500273 4.9963307Q3.4172826 4.8391652 4.0949736 4.6841207Q4.7726641 4.5290766 5.5591583 4.3765264Q6.3456526 4.2239766 7.2390552 4.0742888Q8.1324577 3.9246011 9.1306171 3.778136Q10.128777 3.631671 11.229286 3.4887812Q12.329796 3.3458915 13.530006 3.2069216Q14.730217 3.0679517 16.027237 2.9332361Q17.324257 2.7985206 18.714962 2.6683843Q20.105665 2.5382481 21.586704 2.4130042Q23.067741 2.2877603 24.635546 2.1677108Q26.20335 2.0476611 27.854143 1.9330951Q29.504936 1.8185289 31.234741 1.7097223Q32.964546 1.6009158 34.769199 1.4981309Q36.573845 1.3953459 38.448994 1.2988302Q40.324142 1.2023144 42.265266 1.1123004Q44.206394 1.0222864 46.208824 0.93899107Q48.211254 0.85569572 50.270164 0.77931958Q52.329075 0.70294344 54.439503 0.63367057Q56.549934 0.56439769 58.706799 0.50239497Q60.863663 0.44039226 63.061768 0.38580906Q65.259872 0.33122593 67.493927 0.28419375Q69.727966 0.23716155 71.992584 0.19779369Q74.257187 0.15842582 76.546906 0.12681712Q78.836624 0.095208414 81.145927 0.071435012Q83.455231 0.047661621 85.778572 0.031780798Q88.101898 0.015899975 90.433655 0.0079499874Q92.765427 0 95.099998 0Q97.43457 0 99.766342 0.0079499874Q102.0981 0.015899975 104.42143 0.031780798Q106.74476 0.047661621 109.05406 0.071435019Q111.36337 0.095208414 113.65308 0.12681712Q115.94279 0.15842582 118.20741 0.19779369Q120.47202 0.23716155 122.70607 0.28419375Q124.94012 0.33122593 127.13822 0.38580909Q129.33632 0.44039226 131.49318 0.50239497Q133.65005 0.56439769 135.76048 0.63367057Q137.87091 0.70294344 139.92982 0.77931958Q141.98874 0.85569572 143.99117 0.93899107Q145.99359 1.0222864 147.93472 1.1123004Q149.87585 1.2023144 151.75099 1.2988302Q153.62614 1.3953459 155.4308 1.4981308Q157.23544 1.6009157 158.96524 1.7097223Q160.69504 1.8185289 162.34584 1.9330951Q163.99663 2.0476611 165.56444 2.1677108Q167.13223 2.2877603 168.61328 2.4130042Q170.09431 2.5382481 171.48502 2.6683843Q172.87572 2.7985206 174.17274 2.9332361Q175.46976 3.0679517 176.66997 3.2069216Q177.87018 3.3458915 178.9707 3.4887815Q180.0712 3.631671 181.06937 3.778136Q182.06752 3.9246011 182.96092 4.0742888Q183.85432 4.2239766 184.64082 4.3765268Q185.42731 4.5290766 186.10501 4.6841211Q186.7827 4.8391657 187.34995 4.9963307Q187.91721 5.1534958 188.37267 5.3124037Q188.82811 5.4713116 189.17067 5.6315789Q189.51321 5.7918463 189.74207 5.9530869Q189.97089 6.1143274 190.08545 6.2761531Q190.19998 6.4379787 190.2 6.5999999Z"/>
+              </svg>
+            {%- endcapture -%}
+            {% render 'component__svg-encoder',
+              svg_code: shadow_svg_code,
+              alt: "shadow" %}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="dress-up__actions"
+      x-data='{
+        types: {
+          {%- for type in types %}
+            {{ type }}: {{- forloop.first -}},
+          {%- endfor -%}
+        },
+        showWrapper: true
+      }'>
+      <div class="dress-up__actions-types">
+        <div class="dress-up__actions-types-inner">
+          {%- for type in types -%}
+            <button
+              aria-label="{{- type -}}"
+              :aria-expanded='types.{{ type }}'
+              @click='
+                if(!types.{{ type }}) {
+                  Object.keys(types).forEach(key => types[key] = false);
+                  showWrapper = false;
+                  types.{{ type }} = true;
+                  setTimeout( () => {
+                    showWrapper = true;
+                  }, 400 );
+                }
+              '>
+                {{- type -}}
+            </button>
+          {%- endfor -%}
+        </div>
+      </div>
+      <div class="dress-up__actions-selections">
+        {%- for type in types -%}
+          <div class="dress-up__actions-selection"
+            role="list-box"
+            x-show="types.{{ type }} && showWrapper"
+            x-transition:enter-start="opacity-0 -translate-x-full"
+            x-transition:enter-end="opacity-100 translate-x-0"
+            x-transition:leave-start="opacity-100 translate-x-0"
+            x-transition:leave-end="opacity-0 -translate-x-full"
+            x-cloak>
+            {% for item in metaobjects %}
+              {% if item.item_type == type %}
+                {%- assign first_option = metaobjects | where: "item_type", type | first -%}
+                {%- assign setting = "selected_" |  append: type | handleize | downcase -%}
+                {%- assign selected = selected_preset.settings[setting] | handleize | default: first_option_value -%}
+                {%- assign item_label = item.label | handleize -%}
+
+                {% if selected == item_label %}
+                  {% assign is_selected = true %}
+                {% else %}
+                  {% assign is_selected = false %}
+                {% endif %}
+
+                <button
+                  role="option"
+                  aria-selected="{{ is_selected }}"
+                  aria-label="{{- item.label -}}"
+                  :aria-selected='selectedItems.{{ type }} == "{{ item_label }}"'
+                  @click='
+                    if(selectedItems.{{ type }} != "{{ item_label }}") {
+                      selectedItems.{{ type }} = "{{ item_label }}"
+                    }
+
+                    $data.saveToLocalStorage();
+                    $dispatch("update-character-data", { data: selectedItems });
+                  '
+                  style="
+                    {%- if item.order -%}order: {{ item.order }};{%- endif -%}
+                  ">
+                  {% render 'component__lazyload-image',
+                    image: item.thumbnail,
+                    width: 144,
+                    widths: "144" %}
+                  <span class="visually-hidden">{{- item_label -}}</span>
+                </button>
+              {% endif %}
+            {% endfor %}
+          </div>
+        {%- endfor -%}
+      </div>
+      <div class="dress-up__actions-extras">
+        <button
+          aria-label="Start Over"
+          @click='
+            selectedItems = defaultSelectedItems;
+            $data.saveToLocalStorage();
+            $dispatch("update-character-data", { data: selectedItems });
+          '>Start Over</button>
+        <button
+          aria-label="Download"
+          @click='
+            html2canvas($refs.heroImage, {
+              useCORS: true
+            }).then((canvas) => {
+              dressUpHeroImage = canvas.toDataURL();
+              $data.saveAs(dressUpHeroImage, "hero-character.png");
+            });
+          '>Download</button>
+      </div>
+    </div>
+  </div>
+{% endcapture %}
+
+<section class="mfr-lb__dress-up {{ custom_class }} " id="{{ section_id }}">
+  <div class="section-spacer background {{ grid_gutter }}" style="{{ spacer }}">
+    <div class="grid-container {{ container_width }}" {{ max_width_style }}>
+      <div class="grid-x align-center">
+        {% if icons != blank or small_texts != blank or headings != blank or texts != blank or buttons != blank %}
+          <div class="cell small-12 large-12 section-content {{ color_theme }} {{ text_alignment }}">
+            <div class="inner">
+              {%- for block in section.blocks -%}
+                {% case block.type %}
+
+                  {%- when 'icon' -%}
+                    {% render 'renderer__block-icon', block: block %}
+
+                  {%- when 'small_text' -%}
+                    {% render "renderer__block-small-text", block: block %}
+
+                  {%- when 'heading' -%}
+                    {% render "renderer__block-title", block: block %}
+
+                  {%- when 'text' -%}
+                    {% render "renderer__block-text", block: block %}
+
+                {%- endcase -%}
+              {%- endfor -%}
+
+              {% if buttons != blank %}
+                <div class="button-set {{ content_alignment }}">
+                  {%- for block in section.blocks -%}
+                    {% case block.type %}
+                      {%- when 'button' -%}
+                        {% render 'renderer__block-button', block: block %}
+                    {%- endcase -%}
+                  {%- endfor -%}
+                </div>
+              {% endif %}
+            </div>
+          </div>
+        {% endif %}
+
+        <div class="cell small-12 large-12 dress-up__wrapper">
+          {{ custom_section_content }}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {%- render 'component__gradient-bg-styles' -%}
+  {%- render 'component__accent-graphics' -%}
+  {%- render 'component__section-dividers', is_video_background: true -%}
+</section>
+
+
+{% schema %}
+{
+  "name":"LB: Dress Up",
+  "disabled_on": {
+    "groups": [
+      "header", "footer", "custom.offcanvas","custom.modals"
+    ]
+  },
+  "settings":[
+    {
+      "type": "header",
+      "content": "Section Settings"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "options": [
+          { "value": "", "label": "Left" },
+          { "value": "text-center", "label": "Center" }
+          ],
+      "label": "Text Alignment",
+      "default": "text-center"
+    },
+    {
+      "type": "select",
+      "id": "container_width",
+      "options": [
+          { "value": "full", "label": "Full" },
+          { "value": "", "label": "Contain" }
+          ],
+      "label": "Width",
+      "default": "full"
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "rem",
+      "label": "Max Content Width",
+      "default": 0
+    },
+    {
+      "type": "select",
+      "id": "grid_gutter",
+      "options": [
+          { "value": "grid-gutter", "label": "Padding" },
+          { "value": "", "label": "No Padding" }
+          ],
+      "label": "Section Padding",
+      "default": ""
+    },
+      {
+        "type": "header",
+        "content": "Color Schemes Settings"
+      },
+      {
+        "type": "color_scheme",
+        "id": "color_scheme",
+        "default": "scheme_1",
+        "label": "Color Scheme",
+        "info": "This will be the color scheme of the header initially."
+      },
+
+    {
+      "type": "header",
+      "content": "Mobile Section Spacing"
+    },
+    {
+      "type": "range",
+      "id": "top_spacing_mobile",
+      "min": 0,
+      "max": 500,
+      "step": 10,
+      "unit": "px",
+      "label": "Top Spacing",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "bottom_spacing_mobile",
+      "min": 0,
+      "max": 500,
+      "step": 10,
+      "unit": "px",
+      "label": "Bottom Spacing",
+      "default": 100
+    },
+
+    {
+      "type": "header",
+      "content": "Desktop Section Spacing"
+    },
+    {
+      "type": "range",
+      "id": "top_spacing_desktop",
+      "min": 0,
+      "max": 500,
+      "step": 10,
+      "unit": "px",
+      "label": "Top Spacing",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "bottom_spacing_desktop",
+      "min": 0,
+      "max": 500,
+      "step": 10,
+      "unit": "px",
+      "label": "Bottom Spacing",
+      "default": 100
+    },
+
+    {
+      "type":"header",
+      "content":"Background"
+    },
+    {
+      "type": "color_background",
+      "id": "bg_color",
+      "label": "Background Color/Gradient"
+    },
+
+    {
+      "type": "image_picker",
+      "id": "bg_image_mobile",
+      "label": "Background Image - Mobile"
+    },
+    {
+      "type": "image_picker",
+      "id": "bg_image",
+      "label": "Background Image - Desktop"
+    },
+
+
+    {
+      "type": "header",
+      "content": "Divider Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "top_wave_divider",
+      "label": "Top Wave Divider",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "bottom_wave_divider",
+      "label": "Bottom Wave Divider",
+      "default": false
+    },
+    {
+      "type":"header",
+      "content":"Attribute Settings"
+    },
+    {
+      "type": "text",
+      "id": "custom_class",
+      "label": "Custom class"
+    },
+    {
+      "type": "text",
+      "id": "custom_id",
+      "label": "Custom ID"
+    }
+  ],
+  "blocks":[
+    {
+      "type": "selected_presets",
+      "name": "Selected Presets",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "select",
+          "id": "selected_skin",
+          "options": [
+            { "value": "skin-1", "label": "Skin 1" },
+            { "value": "skin-2", "label": "Skin 2" },
+            { "value": "skin-3", "label": "Skin 3" },
+            { "value": "skin-4", "label": "Skin 4" },
+            { "value": "skin-5", "label": "Skin 5" },
+            { "value": "skin-6", "label": "Skin 6" },
+            { "value": "skin-7", "label": "Skin 7" },
+            { "value": "skin-8", "label": "Skin 8" },
+            { "value": "skin-9", "label": "Skin 9" },
+            { "value": "skin-10", "label": "Skin 10" },
+            { "value": "skin-11", "label": "Skin 11" },
+            { "value": "skin-12", "label": "Skin 12" },
+            { "value": "skin-13", "label": "Skin 13" },
+            { "value": "skin-14", "label": "Skin 14" },
+            { "value": "skin-15", "label": "Skin 15" }
+          ],
+          "label": "Skin",
+          "default": "skin-1"
+        },
+        {
+          "type": "select",
+          "id": "selected_faces",
+          "options": [
+            { "value": "face-1", "label": "Face 1" },
+            { "value": "face-2", "label": "Face 2" },
+            { "value": "face-3", "label": "Face 3" },
+            { "value": "face-4", "label": "Face 4" },
+            { "value": "face-5", "label": "Face 5" },
+            { "value": "face-6", "label": "Face 6" },
+            { "value": "face-7", "label": "Face 7" },
+            { "value": "face-8", "label": "Face 8" },
+            { "value": "face-9", "label": "Face 9" },
+            { "value": "face-10", "label": "Face 10" },
+            { "value": "face-11", "label": "Face 11" }
+          ],
+          "label": "Face",
+          "default": "face-1"
+        },
+        {
+          "type": "select",
+          "id": "selected_hair",
+          "options": [
+            { "value": "hair-1", "label": "Hair 1" },
+            { "value": "hair-2", "label": "Hair 2" },
+            { "value": "hair-3", "label": "Hair 3" },
+            { "value": "hair-4", "label": "Hair 4" },
+            { "value": "hair-5", "label": "Hair 5" },
+            { "value": "hair-6", "label": "Hair 6" },
+            { "value": "hair-7", "label": "Hair 7" },
+            { "value": "hair-8", "label": "Hair 8" },
+            { "value": "hair-9", "label": "Hair 9" },
+            { "value": "hair-10", "label": "Hair 10" },
+            { "value": "hair-11", "label": "Hair 11" },
+            { "value": "hair-12", "label": "Hair 12" }
+          ],
+          "label": "Hair",
+          "default": "hair-1"
+        },
+        {
+          "type": "select",
+          "id": "selected_outfits",
+          "options": [
+            { "value": "outfit-1", "label": "Outfit 1" },
+            { "value": "outfit-2", "label": "Outfit 2" },
+            { "value": "outfit-3", "label": "Outfit 3" },
+            { "value": "outfit-4", "label": "Outfit 4" },
+            { "value": "outfit-5", "label": "Outfit 5" },
+            { "value": "outfit-6", "label": "Outfit 6" },
+            { "value": "outfit-7", "label": "Outfit 7" },
+            { "value": "outfit-8", "label": "Outfit 8" },
+            { "value": "outfit-9", "label": "Outfit 9" },
+            { "value": "outfit-10", "label": "Outfit 10" },
+            { "value": "outfit-11", "label": "Outfit 11" },
+            { "value": "outfit-12", "label": "Outfit 12" }
+          ],
+          "label": "Outfit",
+          "default": "outfit-1"
+        },
+        {
+          "type": "select",
+          "id": "selected_scene",
+          "options": [
+            { "value": "outside-scene", "label": "Outside Scene" },
+            { "value": "market-scene", "label": "Market Scene" },
+            { "value": "birthday-scene", "label": "Birthday Scene" },
+            { "value": "canteen-scene", "label": "Canteen Scene" }
+          ],
+          "label": "Scene",
+          "default": "outside-scene"
+        }
+      ]
+    },
+    {
+      "type": "icon",
+      "name": "Icon",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon"
+        },
+        {
+          "type": "text",
+          "id": "file_lottie_url",
+          "label": "File Lottie URL"
+        },
+        {
+          "type": "number",
+          "id": "icon_width",
+          "label": "Image width",
+          "default": 150,
+          "info": "in pixels."
+        }
+      ]
+    },
+    {
+      "type":"small_text",
+      "name":"Accent Text",
+      "limit":1,
+      "settings":[
+        {
+          "type":"text",
+          "id":"text",
+          "default":"Accent Text",
+          "label":"Text"
+        },
+        {
+          "type": "color",
+          "id": "small_text_color",
+          "label": "Color"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "name": "Heading",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "inline_richtext",
+          "id": "heading",
+          "default": "Heading H1",
+          "label": "Heading H1"
+        },
+        {
+          "type": "checkbox",
+          "id": "disable_animation",
+          "label": "Disable Animation",
+          "default": false
+        },
+        {
+          "type": "select",
+          "id": "header_style",
+          "options": [
+              { "value": "h1", "label": "H1"},
+              { "value": "h2", "label": "H2"},
+              { "value": "h3", "label": "H3"},
+              { "value": "h4", "label": "H4"},
+              { "value": "h5", "label": "H5"},
+              { "value": "h6", "label": "H6"}
+              ],
+          "label": "Header Style",
+          "default": "h1"
+        },
+
+        {
+          "type": "header",
+          "content": "Accent Settings"
+        },
+        {
+          "type": "select",
+          "id": "make_xl",
+          "options": [
+              { "value": "", "label": "Normal"},
+              { "value": "xl-title", "label": "Oversize"}
+              ],
+          "label": "H1 Size",
+          "default": "",
+          "info": "H1s can be set to oversize if they need to be extra big"
+        },
+
+        {
+            "type": "color",
+            "id": "highlight_color",
+            "label": "Highlight Color",
+            "info": "Use [highlight][/highlight] to highlight text"
+        },
+        {
+            "type": "color",
+            "id": "underline_color",
+            "label": "Underline Color",
+            "info": "Use [underline][/underline] to underline text"
+        },
+
+        {
+          "type": "header",
+          "content": "Width Settings"
+        },
+        {
+            "type": "range",
+            "id": "max_width",
+            "min": 0,
+            "max": 60,
+            "step": 1,
+            "unit": "rem",
+            "label": "Max Width",
+            "default": 0
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "name": "Text",
+      "limit": 2,
+      "settings": [
+
+        {
+          "type": "richtext",
+          "id": "text",
+          "default": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum vel metus auctor.</p>",
+          "label": "Text"
+        },
+        {
+          "type": "checkbox",
+          "id": "disable_animation",
+          "label": "Disable Animation",
+          "default": false
+        },
+        {
+          "type":"select",
+          "id":"text_style",
+          "options":[
+            { "value":"", "label":"Default" },
+            { "value":"xsmall", "label":"xSmall" },
+            { "value":"small", "label":"Small" },
+            { "value":"regular", "label":"Regular" },
+            { "value":"large", "label":"Large" },
+            { "value":"xlarge", "label":"xLarge" }
+          ],
+          "label":"Style",
+          "default":"regular"
+        },
+        {
+          "type": "color",
+          "id": "color",
+          "label": "Color",
+          "info": "Leave it blank to use system settings."
+        },
+        {
+            "type": "range",
+            "id": "max_width",
+            "min": 0,
+            "max": 50,
+            "step": 1,
+            "unit": "rem",
+            "label": "Width",
+            "default": 0
+        }
+      ]
+    },
+    {
+      "type":"button",
+      "name":"Button",
+      "limit":2,
+      "settings":[
+        {
+          "type":"text",
+          "id":"button_label",
+          "default":"Button label",
+          "label":"Button",
+          "info":"Leave the label blank to hide the button."
+        },
+        {
+          "type":"url",
+          "id":"button_link",
+          "label":"Button Link"
+        },
+        {
+          "type": "select",
+          "id": "color_theme",
+          "label": "Color Theme",
+          "options": [
+            {
+              "value": "primary",
+              "label": "Primary"
+            },
+            {
+              "value": "secondary",
+              "label": "Secondary"
+            },
+            {
+              "value": "tertiary",
+              "label": "Tertiary"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "accent_graphic",
+      "name": "Accent Graphic",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon"
+        },
+        {
+          "type":"html",
+          "id":"svg_code",
+          "label":"Graphic SVG Code",
+          "info":"Paste SVG code for vector graphic"
+        },
+        {
+          "type":"header",
+          "content":"Visibility"
+        },
+        {
+          "type": "select",
+          "id": "visibility",
+          "options": [
+              { "value": "always", "label": "Always" },
+              { "value": "desktop_only", "label": "Desktop Only" },
+              { "value": "mobile_only", "label": "Mobile Only" }
+              ],
+          "label": "Show on..",
+          "default": "always"
+        },
+        {
+          "type":"header",
+          "content":"Value Type"
+        },
+        {
+          "type": "select",
+          "id": "value_type",
+          "options": [
+              { "value": "px", "label": "Pixels" },
+              { "value": "%", "label": "Percentage" }
+              ],
+          "label": "Position Value Type",
+          "default": "%",
+          "info": "Pixel values are multiplied by 5"
+        },
+        {
+          "type":"header",
+          "content":"Position"
+        },
+        {
+          "type": "select",
+          "id": "x_setting",
+          "options": [
+              { "value": "left", "label": "Left" },
+              { "value": "center", "label": "Center" },
+              { "value": "right", "label": "Right" }
+              ],
+          "label": "X Position",
+          "default": "left"
+        },
+        {
+          "type": "select",
+          "id": "y_setting",
+          "options": [
+              { "value": "top", "label": "Top" },
+              { "value": "bottom", "label": "Bottom" }
+              ],
+          "label": "Y Position",
+          "default": "top"
+        },
+        {
+          "type":"header",
+          "content":"Large Screen Settings"
+        },
+        {
+          "type": "range",
+          "id": "width_large",
+          "min": 10,
+          "max": 400,
+          "step": 10,
+          "unit": "px",
+          "label": "Graphic Width",
+          "default": 150
+        },
+        {
+          "type": "range",
+          "id": "position_x_large",
+          "min": -100,
+          "max": 100,
+          "step": 2,
+          "label": "X Position",
+          "default": 10
+        },
+        {
+          "type": "range",
+          "id": "position_y_large",
+          "min": -100,
+          "max": 100,
+          "step": 2,
+          "label": "Y Position",
+          "default": 10
+        },
+        {
+          "type":"header",
+          "content":"Small Screen Settings"
+        },
+        {
+          "type": "range",
+          "id": "width_small",
+          "min": 10,
+          "max": 400,
+          "step": 10,
+          "unit": "px",
+          "label": "Graphic Width",
+          "default": 150
+        },
+        {
+          "type": "range",
+          "id": "position_x_small",
+          "min": -100,
+          "max": 100,
+          "step": 2,
+          "label": "X Position",
+          "default": 10
+        },
+        {
+          "type": "range",
+          "id": "position_y_small",
+          "min": -100,
+          "max": 100,
+          "step": 2,
+          "label": "Y Position",
+          "default": 10
+        },
+        {
+          "type":"header",
+          "content":"Animation Settings"
+        },
+        {
+          "type": "select",
+          "id": "animation",
+          "options": [
+              { "value": "none", "label": "None" },
+              { "value": "rotating", "label": "Rotate" },
+              { "value": "floating", "label": "Float" },
+              { "value": "spark", "label": "Spark" }
+            ],
+          "label": "Animation",
+          "default": "none"
+        },
+
+        {
+          "type":"header",
+          "content":"Appearance Settings"
+        },
+        {
+          "type": "range",
+          "id": "rotate",
+          "min": 0,
+          "max": 360,
+          "step": 36,
+          "unit": "%",
+          "label": "Rotate",
+          "default": 0
+        },
+        {
+          "type": "checkbox",
+          "id": "flip",
+          "label": "Flip Graphics?",
+          "default": false
+        }
+      ]
+    }
+  ],
+  "presets":[
+    {
+      "name":"LB: Dress Up",
+      "blocks":[
+        {
+          "type":"heading"
+        },
+        {
+          "type":"text"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

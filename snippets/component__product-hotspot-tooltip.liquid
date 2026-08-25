@@ -1,0 +1,90 @@
+  {%- comment -%}
+    Settings
+    --
+    product_hotspot
+    icon
+    svg_code
+
+    x_setting
+    y_setting
+    
+    width_desktop
+    position_x_desktop
+    position_y_desktop
+
+    width_mobile
+    position_x_mobile
+    position_y_mobile 
+
+    rotate
+    flip
+    layer
+  {%- endcomment -%}
+ 
+  {% assign product_hotspot = section.blocks | where: "type", "product_hotspot" %}
+
+  {% if product_hotspot.size > 0 %}
+    
+    
+
+    <div class="accent-graphic-wrapper product-hotspot">
+      {% for block in section.blocks %}
+        {% if block.type == "product_hotspot" %}
+          {%- assign product = all_products[block.settings.product] -%}
+          <div class="accent-graphic graphic-{{ forloop.index }} visible__{{ block.settings.visibility }}">
+            <a href="{{ product.url }}" class="accent-graphic__inner" data-inview {{ scroll_speed }} aria-haspopup="true" title="Tooltip Text">
+              <div data-inview>
+                <div class="">
+                  <div class="tooltip" data-toggler=".is-active">
+                    <div class="tooltip-header">{{ product.metafields.mfr_fields.product_type | default: product.type }}</div>
+                    <div class="tooltip-title">{{ product.metafields.mfr_fields.nice_title | default: product.title | truncate: "100" }}</div>
+                    <div class="arrow">{% render 'icon__caret-left' %}</div>
+                  </div>
+                  <div class="icon">
+                    {% render 'icon__plus' %}
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+        {% endif %}
+      {% endfor %}
+
+      <style>
+        {%- for block in section.blocks -%}
+          {%- if block.type == "product_hotspot" -%}
+          #shopify-section-{{ section.id }} .accent-graphic.graphic-{{ forloop.index }} {
+            {%- if block.settings.x_setting == 'center' -%}
+              left: 0;
+              right: 0;
+              margin: auto;
+            {% else %}
+              {{ block.settings.x_setting }}: {{ block.settings.position_x_small }}%;
+            {%- endif -%}
+            {{ block.settings.y_setting }}: {{ block.settings.position_y_small }}%;
+            width: {{ block.settings.width_small }}px;
+            {% if layer != blank %}z-index: {{ layer }};{% endif %}
+          }
+          @media print, screen and (min-width: 64em) {
+            #shopify-section-{{ section.id }} .accent-graphic.graphic-{{ forloop.index }} {
+              {%- if block.settings.x_setting == 'center' -%}
+                left: 0;
+                right: 0;
+                margin: auto;
+              {% else %}
+                {{ block.settings.x_setting }}: {{ block.settings.position_x_large }}%;
+              {%- endif -%}
+              {{ block.settings.y_setting }}: {{ block.settings.position_y_large }}%;
+              width: {{ block.settings.width_large }}px;
+            }
+          }
+
+         
+          {%- endif -%}
+        {%- endfor -%}
+      </style>
+    </div>
+
+
+
+  {% endif %}

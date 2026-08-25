@@ -1,0 +1,169 @@
+{%- assign s = section.settings -%}
+
+{{ 'section-block-list-with-image.css' | asset_url | stylesheet_tag }}
+
+
+<div class="feature-list-section" style="background-color: {{ s.bg_color }};">
+  
+  {% render 'component__section-dividers' %}
+
+  <div class="feature-list-container">
+    
+    <div class="feature-list-layout">
+      
+      <div class="feature-list-content">
+        {%- if s.heading != blank -%}
+          <h2 class="feature-list-heading">{{ s.heading | newline_to_br }}</h2>
+        {%- endif -%}
+
+        <div class="feature-list-items">
+          {%- for block in section.blocks -%}
+            {%- assign b = block.settings -%}
+
+            <div class="feature-list-item">
+              <div class="feature-item-number-dsk">
+                <span class="number-text">{{ forloop.index }}</span>
+              </div>
+              <div class="feature-item-text-wrapper">
+                <div class="feature-title-wrapper">
+                  <div class="feature-item-number-mob">
+                    <span class="number-text">{{ forloop.index }}</span>
+                  </div>
+                  <h3 class="feature-item-title">{{ b.title }}</h3>
+                </div>
+                <p class="feature-item-description">{{ b.description }}</p>
+              </div>
+            </div>
+          {%- endfor -%}
+        </div>
+      </div>
+
+      <div class="feature-list-media">
+        <div class="feature-media-wrapper">
+          <div class="feature-media-inner-wrapper">
+            {% if s.featured_image != blank %}
+              {{ s.featured_image | image_url: width: 1000 | image_tag: class: 'feature-image', loading: 'lazy' }}
+            {% else %}
+              {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+            {% endif %}
+            <img src="{{ 'stacked-paper.png' | asset_url }}" width="725" height="589" class="underneath-image" alt="" loading="lazy">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Image with Feature List",
+    "tag": "section",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Section Background & Dividers"
+      },
+      {
+        "type": "color",
+        "id": "bg_color",
+        "label": "Background Color",
+        "default": "#2B3990"
+      },
+      {
+        "type": "checkbox",
+        "id": "top_wave_divider",
+        "label": "Show Top Wave Divider",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "bottom_wave_divider",
+        "label": "Show Bottom Wave Divider",
+        "default": false
+      },
+      {
+        "type": "header",
+        "content": "Section Header"
+      },
+      {
+        "type": "text",
+        "id": "heading",
+        "label": "Main Heading",
+        "default": "5 Reasons to Rebalance \nYour Baby's Gut"
+      },
+      {
+        "type": "header",
+        "content": "Image Settings"
+      },
+      {
+        "type": "image_picker",
+        "id": "featured_image",
+        "label": "Featured Image"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "feature_item",
+        "name": "Feature Item",
+        "limit": 5,
+        "settings": [
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Title",
+            "default": "Feature Title Placeholder"
+          },
+          {
+            "type": "textarea",
+            "id": "description",
+            "label": "Description",
+            "default": "Provide a brief description of this feature."
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Image with Feature List",
+        "category": "Custom Content",
+        "blocks": [
+          {
+            "type": "feature_item",
+            "settings": {
+              "title": "Relieves Gas & Colic At The Root Cause",
+              "description": "Probiotics can help restore balance to the gut microbiome, easing the bloating and discomfort that cause fussiness and crying."
+            }
+          },
+          {
+            "type": "feature_item",
+            "settings": {
+              "title": "Promotes Healthy, Regular Poops",
+              "description": "Balanced gut flora supports smooth digestion, reducing constipation and helping your baby poop with ease."
+            }
+          },
+          {
+            "type": "feature_item",
+            "settings": {
+              "title": "Restores What Modern Birth Can Disrupt",
+              "description": "If your baby was born via C-section, formula-fed, or had antibiotics, probiotics can help replenish essential beneficial bacteria."
+            }
+          },
+          {
+            "type": "feature_item",
+            "settings": {
+              "title": "Calmer Baby, Calmer Nights",
+              "description": "When the gut is balanced, discomfort fades, leading to better sleep and more peaceful days for the whole family."
+            }
+          },
+          {
+            "type": "feature_item",
+            "settings": {
+              "title": "Sets Up Lifelong Gut Health",
+              "description": "The first 1,000 days build the foundation of your child’s microbiome for life. Start now to support better digestion, immunity, and resilience long-term."
+            }
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

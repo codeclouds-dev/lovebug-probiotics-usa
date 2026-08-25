@@ -1,0 +1,36 @@
+{% comment %}
+    Attribute
+
+    - tags
+    - limit
+    - custom_tags
+{% endcomment %}
+{% assign tag_colors = settings.tag_colors | newline_to_br | split: '<br />' %}
+
+{% if custom_tags %}
+    {% assign tags = tags | split: "|" %}
+{% endif %}
+
+<div class="tags-block">
+    {% for tag in tags limit: limit %}
+        {% assign tag_color_style = "" %}
+        {% for tag_color in tag_colors %}
+            {% assign tag_in_condition = tag | downcase | strip %}
+            {% assign tag_name = tag_color | split: ":" | first | downcase | strip %}
+            {% assign color = tag_color | split: ":" | last %}
+            {% capture tag_color_style_capture %}
+                {% if tag_name == tag_in_condition %}
+                    style="background: {{ color }};"
+                {% endif %}
+            {% endcapture %}
+            
+            {% if tag_name == tag_in_condition %}
+                {% assign tag_color_style = tag_color_style_capture %}
+            {% endif %}
+        {% endfor %}
+
+        <div class="tags-block__tag" {{ tag_color_style }}>
+            {{ tag }}
+        </div>
+    {% endfor %}
+</div>

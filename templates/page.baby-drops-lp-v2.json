@@ -1,0 +1,721 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "hero": {
+      "type": "lifestylehero-v2",
+      "blocks": {
+        "feature_7AEHag": {
+          "type": "feature",
+          "settings": {
+            "icon": "shopify://shop_images/Capa_23.png",
+            "text": "Multi-Strain Formulas"
+          }
+        },
+        "feature_bwYHLz": {
+          "type": "feature",
+          "settings": {
+            "icon": "shopify://shop_images/Capa_22.png",
+            "text": "High CFU Count"
+          }
+        },
+        "feature_XVcrWf": {
+          "type": "feature",
+          "settings": {
+            "icon": "shopify://shop_images/Capa_24.png",
+            "text": "Clinician Approved"
+          }
+        },
+        "feature_fCcYH3": {
+          "type": "feature",
+          "settings": {
+            "icon": "shopify://shop_images/Capa_20_1.png",
+            "text": "Organic"
+          }
+        }
+      },
+      "block_order": [
+        "feature_7AEHag",
+        "feature_bwYHLz",
+        "feature_XVcrWf",
+        "feature_fCcYH3"
+      ],
+      "name": "Lifestyle Hero v2",
+      "settings": {
+        "bg_color": "#2b3990",
+        "lifestyle_image_desktop": "shopify://shop_images/hero-baby-drops-desktop_2x_25643963-27d5-4201-a584-cc6cd84a4dde.png",
+        "lifestyle_image_mobile": "shopify://shop_images/hero-baby-drops-mobile_2x_db85b6ea-607b-4795-9a51-ca4ab5023a39.png",
+        "stars_color": "#ffc931",
+        "reviews_text": "<p>Over 10,000+ 5 Star Reviews</p>",
+        "badge_image": "shopify://shop_images/Hundreds_-_BannerWhite_774393d9-8227-4de1-85bc-384a6f42a6e9.svg",
+        "badge_size_mobile": 195,
+        "badge_size_desktop": 380,
+        "heading": "<p>Calmer Tummy. Calmer Baby. Calmer Nights.</p>",
+        "subheading": "<p>Daily probiotic drops that target colic, gas, and irregularity from day one</p>",
+        "cta_text": "Shop now",
+        "cta_link": "#lp-buy-box",
+        "cta_bg_color": "#9db4ff",
+        "cta_text_color": "#2b3990",
+        "custom_class": "lp-v2-hero",
+        "custom_id": ""
+      }
+    },
+    "five_reasons": {
+      "type": "five-reasons",
+      "blocks": {
+        "reason_1": {
+          "type": "reason",
+          "settings": {
+            "title": "Eases Colic & Gas",
+            "text": "Targeted strains help calm fussy tummies, turning hard days into peaceful ones."
+          }
+        },
+        "reason_2": {
+          "type": "reason",
+          "settings": {
+            "title": "Promotes Regularity",
+            "text": "Supports smooth, consistent digestion, so there are fewer surprises at diaper changes."
+          }
+        },
+        "reason_3": {
+          "type": "reason",
+          "settings": {
+            "title": "Replenishes Naturally",
+            "text": "Restores what modern birth can disrupt, including C-sections and formula feeding."
+          }
+        },
+        "reason_4": {
+          "type": "reason",
+          "settings": {
+            "title": "Supports Immune Health",
+            "text": "Helps strengthen a developing immune system from day one."
+          }
+        },
+        "reason_5": {
+          "type": "reason",
+          "settings": {
+            "title": "Mess-Free & Tasteless",
+            "text": "No fighting, no spills. Just one easy drop, every single day."
+          }
+        }
+      },
+      "block_order": [
+        "reason_1",
+        "reason_2",
+        "reason_3",
+        "reason_4",
+        "reason_5"
+      ],
+      "settings": {
+        "bg_color": "#2b3990",
+        "top_wave_divider": true,
+        "bottom_wave_divider": false,
+        "heading": "5 Reasons You’ll Love Our Drops"
+      }
+    },
+    "testimonials": {
+      "type": "mfr-lb__video-reviews-carousel",
+      "blocks": {
+        "small_text_dCQYpD": {
+          "type": "small_text",
+          "settings": {
+            "text": "Testimonials",
+            "small_text_color": ""
+          }
+        },
+        "heading_zp6PCM": {
+          "type": "heading",
+          "settings": {
+            "heading": "Mom & Dad Approved",
+            "disable_animation": false,
+            "header_style": "h3",
+            "make_xl": "",
+            "highlight_color": "",
+            "underline_color": "",
+            "max_width": 0
+          }
+        },
+        "star_rating_z3tC6W": {
+          "type": "star_rating",
+          "settings": {
+            "stars": 5,
+            "label": "Over 2,000+ 5 star review"
+          }
+        },
+        "button_WDhcaX": {
+          "type": "button",
+          "settings": {
+            "button_label": "Read Our Reviews",
+            "button_link": "#",
+            "color_theme": "primary"
+          }
+        }
+      },
+      "block_order": [
+        "small_text_dCQYpD",
+        "heading_zp6PCM",
+        "star_rating_z3tC6W",
+        "button_WDhcaX"
+      ],
+      "name": "LB: Video Reviews",
+      "settings": {
+        "video_reviews": [
+          "hayastan-s",
+          "anna-c",
+          "samantha-c"
+        ],
+        "order_mobile": "text-top",
+        "order_desktop": "text-left",
+        "vertical_alignment": "flex-start",
+        "image_column_size": "two-thirds",
+        "text_alignment": "",
+        "container_width": "",
+        "max_width": 0,
+        "grid_gutter": "",
+        "color_scheme": "",
+        "top_spacing_mobile": 0,
+        "bottom_spacing_mobile": 60,
+        "top_spacing_desktop": 30,
+        "bottom_spacing_desktop": 80,
+        "bg_color": "#E9F4FC",
+        "top_wave_divider": true,
+        "bottom_wave_divider": false,
+        "custom_class": "lp-v2-testimonials",
+        "custom_id": ""
+      }
+    },
+    "buy_box": {
+      "type": "landing-product-top-v2",
+      "blocks": {
+        "okendo_star_rating_mJGXAf": {
+          "type": "shopify://apps/okendo/blocks/star-rating/bb689e69-ea70-4661-8fb7-ad24a2e23c29",
+          "settings": {
+            "product": "baby-probiotic-drops"
+          }
+        },
+        "heading_j4CXHq": {
+          "type": "heading",
+          "settings": {
+            "heading": "{{ section.settings.selected_product.metafields.mfr_fields.product_card_nice_title.value }}",
+            "heading_below": "",
+            "disable_animation": true,
+            "header_style": "h3",
+            "make_xl": "",
+            "highlight_color": "",
+            "underline_color": "",
+            "max_width": 0
+          }
+        },
+        "text_W6Ubyt": {
+          "type": "text",
+          "settings": {
+            "text": "<p><strong>DESIGNED FOR BABIES 0 + MONTHS</strong></p>",
+            "text_style": "regular",
+            "font_family": "",
+            "color": "#96238d",
+            "bold_color": "rgba(0,0,0,0)",
+            "underline_color": "",
+            "max_width": 0,
+            "bottom_spacing": true,
+            "custom_font_size": 0
+          }
+        },
+        "icon_grid_hwBmie": {
+          "type": "icon_grid",
+          "settings": {
+            "use_metafield": false,
+            "text_1": "5 Billion CFU",
+            "text_4": "Multi-Strain Formula",
+            "text_2": "400 IU Vitamin D",
+            "text_5": "No Seed Oil",
+            "text_3": "USDA Organic",
+            "text_6": "Sugar Free"
+          }
+        },
+        "frontrow_TbXdwY": {
+          "type": "frontrow",
+          "settings": {
+            "product_handle": "baby-probiotic-drops"
+          }
+        },
+        "subscription_option_UmRMKt": {
+          "type": "subscription_option",
+          "settings": {
+            "index": 0,
+            "one_time_label": "One-Time Purchase",
+            "perk_1": "30 day money-back guarantee!",
+            "perk_2": "No commitment, cancel anytime",
+            "perk_3": "Save <|discount|>% on every order",
+            "perk_4": "Ships <|unit|> every <|days|> days",
+            "enable_toggle_layout": false,
+            "supply_heading": "Select Quantity:",
+            "supply_pill_label": "<|days|> Days",
+            "frequency_heading": "Select Frequency:",
+            "subscription_title": "Subscribe & Save <|discount|>%",
+            "subscription_subtext": "Free Shipping + No Hidden Fees",
+            "one_time_subtext": "Want to save <|discount|>%? Switch to Subscription!",
+            "one_time_perk_1": "FREE shipping on all subscription orders!",
+            "one_time_perk_2": "Save up to <|discount|>% on every order"
+          }
+        },
+        "submit_button_tzCgkL": {
+          "type": "submit_button",
+          "settings": {
+            "show_price": false,
+            "label": "Add To Cart",
+            "bottom_caption": ""
+          }
+        },
+        "form_DDqy4A": {
+          "type": "form",
+          "settings": {}
+        },
+        "accordion_dDTQtH": {
+          "type": "accordion",
+          "settings": {
+            "title": "Description",
+            "content": "{{ section.settings.selected_product.description }}",
+            "accordion_style": "version_2"
+          }
+        },
+        "accordion_EQgqT7": {
+          "type": "accordion",
+          "settings": {
+            "title": "Supplement Facts",
+            "content": "<p>Baby Probiotic Drops<br/><br/>Vitamin D (as cholecalciferol) Proprietary Probiotic Blend Bifidobacterium lactis Lactobacillus reuteri Lactobacillus plantarum Lactobacillus acidophilus Lactobacillus rhamnosus GG Bifidobacterium infantis + Daily Value (DV) not established Amount % Daily Value Infants through Per Serving 12 months 10 mcg (400 IU) 100% 5 Billion CFU Other ingredients: Organic Medium Chain Triglycerid (MCT) Oil, Silicon Dioxide, Natural Source of Vitamin E. At time of manufacture.</p>",
+            "accordion_style": "version_2"
+          }
+        },
+        "accordion_DGLUb9": {
+          "type": "accordion",
+          "settings": {
+            "title": "How To Use",
+            "content": "<p>{{ section.settings.selected_product.metafields.mfr_fields.product_card_how_to_use | metafield_tag }}</p>",
+            "accordion_style": "version_2"
+          }
+        },
+        "dynamic_faqs_pUHEe4": {
+          "type": "dynamic_faqs",
+          "settings": {
+            "title": "FAQs",
+            "accordion_style": "version_2"
+          }
+        },
+        "stat_xUTKQG": {
+          "type": "stat",
+          "settings": {
+            "percentage": 98,
+            "caption": "Customers reported <mark>improvement in their mood.</mark>",
+            "progress_bar_color": "#ff8300",
+            "mark_color": "#faff00"
+          }
+        },
+        "stat_CtRrmp": {
+          "type": "stat",
+          "settings": {
+            "percentage": 96,
+            "caption": "Customers reported <mark>fewer skin related issues.</mark>",
+            "progress_bar_color": "#798bfb",
+            "mark_color": "#faff00"
+          }
+        },
+        "stat_qBaLBY": {
+          "type": "stat",
+          "settings": {
+            "percentage": 89,
+            "caption": "Customers reported <mark>improved regularity, and reduced digestive upsets.</mark>",
+            "progress_bar_color": "#ed40a9",
+            "mark_color": "#faff00"
+          }
+        },
+        "stat_pVENiE": {
+          "type": "stat",
+          "settings": {
+            "percentage": 82,
+            "caption": "Customers reported <mark>fewer sick days.</mark>",
+            "progress_bar_color": "#3e52ce",
+            "mark_color": "#faff00"
+          }
+        }
+      },
+      "block_order": [
+        "okendo_star_rating_mJGXAf",
+        "heading_j4CXHq",
+        "text_W6Ubyt",
+        "icon_grid_hwBmie",
+        "frontrow_TbXdwY",
+        "subscription_option_UmRMKt",
+        "submit_button_tzCgkL",
+        "form_DDqy4A",
+        "accordion_dDTQtH",
+        "accordion_EQgqT7",
+        "accordion_DGLUb9",
+        "dynamic_faqs_pUHEe4",
+        "stat_xUTKQG",
+        "stat_CtRrmp",
+        "stat_qBaLBY",
+        "stat_pVENiE"
+      ],
+      "name": "LP Product v2",
+      "settings": {
+        "selected_product": "baby-probiotic-drops-lp",
+        "custom_id": "lp-buy-box",
+        "bg_color": "#ffffff",
+        "top_wave_divider": true,
+        "bottom_wave_divider": false,
+        "stats_heading": "Real Results from Real Customers",
+        "stats_bg_color": "#ffe9e2",
+        "stats_accent_image": "shopify://shop_images/star-with-tail.png",
+        "show_carousel_arrows": true,
+        "clinicians_choice_first_slide_only": false,
+        "quantity_label": "Select Quantity",
+        "color_scheme": "",
+        "grid_gutter": "grid-gutter",
+        "top_spacing_mobile": 40,
+        "bottom_spacing_mobile": 100,
+        "top_spacing_desktop": 40,
+        "bottom_spacing_desktop": 160,
+        "hide_dress_up_character": true
+      }
+    },
+    "note_media": {
+      "type": "mfr-lb__note-media",
+      "blocks": {
+        "heading_HyaUKj": {
+          "type": "heading",
+          "settings": {
+            "heading": "Made by a Mom,[br]for Moms",
+            "disable_animation": false,
+            "header_style": "h3",
+            "make_xl": "",
+            "highlight_color": "",
+            "underline_color": "",
+            "max_width": 0
+          }
+        },
+        "text_qQxRMB": {
+          "type": "text",
+          "settings": {
+            "text": "<p>During the birth of my son, Hudson, I was put on broad-spectrum antibiotics as a preventive measure for group B strep. Over the next few months, both Hudson and I started getting sick, <strong>the culprit: Bad Gut Bacteria</strong>. That’s why I created Lovebug…</p>",
+            "disable_animation": false,
+            "text_style": "large",
+            "color": "",
+            "max_width": 0
+          }
+        },
+        "button_yxRYYe": {
+          "type": "button",
+          "settings": {
+            "button_label": "Discover Our Journey",
+            "button_link": "shopify://pages/about-us",
+            "color_theme": "primary"
+          }
+        }
+      },
+      "block_order": [
+        "heading_HyaUKj",
+        "text_qQxRMB",
+        "button_yxRYYe"
+      ],
+      "settings": {
+        "note_background": "#ffe9e2",
+        "alternate_layout": false,
+        "image": "shopify://shop_images/Mask_1.png",
+        "text_alignment": "text-center",
+        "container_width": "",
+        "max_width": 0,
+        "grid_gutter": "",
+        "color_scheme": "",
+        "top_spacing_mobile": 120,
+        "bottom_spacing_mobile": 100,
+        "top_spacing_desktop": 70,
+        "bottom_spacing_desktop": 90,
+        "bg_color": "#2B3990",
+        "top_wave_divider": true,
+        "bottom_wave_divider": false,
+        "custom_class": "",
+        "custom_id": ""
+      }
+    },
+    "waved_texts": {
+      "type": "mfr-lb__scrolling-waved-texts",
+      "settings": {
+        "lottie_desktop": "https://cdn.shopify.com/s/files/1/0509/9677/3062/files/text-banner__desktop.json?v=1736756419",
+        "background_top": "#2B3990",
+        "background_bottom": "#FFFFFF",
+        "text_alignment": "text-center",
+        "container_width": "full",
+        "max_width": 0,
+        "grid_gutter": "",
+        "color_scheme": "",
+        "top_spacing_mobile": 0,
+        "bottom_spacing_mobile": 0,
+        "top_spacing_desktop": 0,
+        "bottom_spacing_desktop": 0,
+        "bg_color": "",
+        "top_wave_divider": false,
+        "bottom_wave_divider": false,
+        "custom_class": "lp-v2-waved",
+        "custom_id": ""
+      }
+    },
+    "stats_mobile": {
+      "type": "mfr-lb__animated-numbers",
+      "blocks": {
+        "heading_37fXqw": {
+          "type": "heading",
+          "settings": {
+            "heading": "Real Results from Real Customers",
+            "disable_animation": false,
+            "header_style": "h3",
+            "make_xl": "",
+            "highlight_color": "",
+            "underline_color": "",
+            "max_width": 0
+          }
+        },
+        "entry_xUTKQG": {
+          "type": "entry",
+          "settings": {
+            "percentage": 98,
+            "caption": "Customers reported <mark>improvement in their mood.</mark>",
+            "progress_bar_color": "#ff8300",
+            "mark_color": "#faff00"
+          }
+        },
+        "entry_CtRrmp": {
+          "type": "entry",
+          "settings": {
+            "percentage": 96,
+            "caption": "Customers reported <mark>fewer skin related issues.</mark>",
+            "progress_bar_color": "#798bfb",
+            "mark_color": "#faff00"
+          }
+        },
+        "entry_qBaLBY": {
+          "type": "entry",
+          "settings": {
+            "percentage": 89,
+            "caption": "Customers reported <mark>improved regularity, and reduced digestive upsets.</mark>",
+            "progress_bar_color": "#ed40a9",
+            "mark_color": "#faff00"
+          }
+        },
+        "entry_pVENiE": {
+          "type": "entry",
+          "settings": {
+            "percentage": 82,
+            "caption": "Customers reported <mark>fewer sick days.</mark>",
+            "progress_bar_color": "#3e52ce",
+            "mark_color": "#faff00"
+          }
+        },
+        "accent_graphic_x3Hj4f": {
+          "type": "accent_graphic",
+          "settings": {
+            "icon": "shopify://shop_images/Group_70_4x-min.png",
+            "svg_code": "",
+            "visibility": "always",
+            "value_type": "%",
+            "x_setting": "right",
+            "y_setting": "top",
+            "width_large": 110,
+            "position_x_large": 4,
+            "position_y_large": 14,
+            "width_small": 100,
+            "position_x_small": -6,
+            "position_y_small": 14,
+            "animation": "floating",
+            "rotate": 0,
+            "flip": false
+          }
+        }
+      },
+      "block_order": [
+        "heading_37fXqw",
+        "entry_xUTKQG",
+        "entry_CtRrmp",
+        "entry_qBaLBY",
+        "entry_pVENiE",
+        "accent_graphic_x3Hj4f"
+      ],
+      "settings": {
+        "text_alignment": "text-center",
+        "container_width": "",
+        "max_width": 0,
+        "grid_gutter": "",
+        "color_scheme": "",
+        "top_spacing_mobile": 0,
+        "bottom_spacing_mobile": 110,
+        "top_spacing_desktop": 0,
+        "bottom_spacing_desktop": 180,
+        "bg_color": "#FFE9E2",
+        "top_wave_divider": false,
+        "bottom_wave_divider": false,
+        "custom_class": "lp-v2-mobile-only",
+        "custom_id": ""
+      }
+    },
+    "faq": {
+      "type": "mfr-core__accordion-section",
+      "blocks": {
+        "small_text_gotmore": {
+          "type": "small_text",
+          "settings": {
+            "text": "Got more questions?",
+            "small_text_color": ""
+          }
+        },
+        "heading_gNip7L": {
+          "type": "heading",
+          "settings": {
+            "heading": "Frequently Asked Questions",
+            "disable_animation": false,
+            "header_style": "h3",
+            "make_xl": "",
+            "highlight_color": "",
+            "underline_color": "",
+            "max_width": 0
+          }
+        },
+        "entry_bhNUAF": {
+          "type": "entry",
+          "settings": {
+            "title": "Do babies really start life without bacteria?",
+            "caption": "<p>Yes, newborns enter the world with a nearly sterile gut. Their microbiome starts developing through birth, breastfeeding and close contact. Probiotics help support that process from day one.</p>"
+          }
+        },
+        "entry_XTmgVR": {
+          "type": "entry",
+          "settings": {
+            "title": "How do these probiotics help with colic, gas, or digestive discomfort?",
+            "caption": "<p>By introducing beneficial bacteria, Lovebug helps gently rebalance your baby's gut—reducing gas, easing colic, and supporting smoother digestion for a calmer, more comfortable baby.</p>"
+          }
+        },
+        "entry_A4ptwU": {
+          "type": "entry",
+          "settings": {
+            "title": "Why are probiotics especially important in the first year?",
+            "caption": "<p>The first 1,000 days are when your baby's gut and immune system is growing the fastest. Daily probiotics help guide that development, supporting smoother digestion and stronger immune balance.</p>"
+          }
+        },
+        "entry_LUmytY": {
+          "type": "entry",
+          "settings": {
+            "title": "Is it safe to give every day?",
+            "caption": "<p>Yes, probiotic drops are safe for full-term babies from day one. Lovebug baby probiotic drops are gentle enough for newborns and made with organic ingredients.</p><p>They're designed for daily use to keep good bacteria steady as your baby grows. Probiotics are not recommended for pre-term infants who have special health needs and should be cared for under medical supervision.</p>"
+          }
+        },
+        "entry_LUyb3e": {
+          "type": "entry",
+          "settings": {
+            "title": "When is the best time of day to give them?",
+            "caption": "<p>Any time works—just stay consistent. Many parents prefer giving drops during or after a feeding for ease and routine.</p>"
+          }
+        },
+        "entry_Tk7kc7": {
+          "type": "entry",
+          "settings": {
+            "title": "How long does it take for probiotic drops to start working?",
+            "caption": "<p>Many parents notice subtle improvements in just a few days, with more consistent digestive support developing over 1–2 weeks of daily use.</p>"
+          }
+        },
+        "entry_iF7D7i": {
+          "type": "entry",
+          "settings": {
+            "title": "What are the signs that they're working?",
+            "caption": "<p>Look for small but meaningful changes: less gas and fussiness, more regularity, greater comfort after feeding and improved overall calmness.</p>"
+          }
+        },
+        "entry_yALnDh": {
+          "type": "entry",
+          "settings": {
+            "title": "What makes Lovebug Baby Probiotic Drops different from other baby probiotics?",
+            "caption": "<p>Lovebug is designed with intention. We have targeted, baby specific strains, an exceptionally clean formulation that is certified organic which provides gentle, effective support for your baby.</p>"
+          }
+        },
+        "entry_D39bNC": {
+          "type": "entry",
+          "settings": {
+            "title": "What if my baby was born by C-section or needed antibiotics?",
+            "caption": "<p>Those early experiences can sometimes reduce the amount of beneficial bacteria baby receives, adding probiotics can help restore balance and support a healthier gut environment.</p>"
+          }
+        },
+        "entry_KtrrDa": {
+          "type": "entry",
+          "settings": {
+            "title": "Why do practitioners recommend Lovebug Baby Probiotic drops?",
+            "caption": "<p>Practitioners trust Lovebug for its science-backed strains, purity standards, and gentle effectiveness—making it a reliable choice for supporting infant gut health from the very beginning.</p>"
+          }
+        },
+        "entry_MzM3b9": {
+          "type": "entry",
+          "settings": {
+            "title": "Do they need to be kept in the fridge?",
+            "caption": "<p>Only if you like them cold! They should be stored in a cool, dry place. All of our probiotics have a 2 year shelf life from time of manufacture.</p>"
+          }
+        },
+        "entry_dgbmCy": {
+          "type": "entry",
+          "settings": {
+            "title": "What if it doesn't work?",
+            "caption": "<p>You're covered by our 30-day money back guarantee. Try it risk free!</p>"
+          }
+        }
+      },
+      "block_order": [
+        "small_text_gotmore",
+        "heading_gNip7L",
+        "entry_bhNUAF",
+        "entry_XTmgVR",
+        "entry_A4ptwU",
+        "entry_LUmytY",
+        "entry_LUyb3e",
+        "entry_Tk7kc7",
+        "entry_iF7D7i",
+        "entry_yALnDh",
+        "entry_D39bNC",
+        "entry_KtrrDa",
+        "entry_MzM3b9",
+        "entry_dgbmCy"
+      ],
+      "name": "Accordion FAQ",
+      "settings": {
+        "use_as_faq": true,
+        "accordion_style": "version_2",
+        "layout": "",
+        "text_alignment": "text-center",
+        "container_width": "full",
+        "max_width": 0,
+        "grid_gutter": "",
+        "color_scheme": "",
+        "top_spacing_mobile": 100,
+        "bottom_spacing_mobile": 100,
+        "top_spacing_desktop": 60,
+        "bottom_spacing_desktop": 100,
+        "bg_color": "#FFFFFF",
+        "top_wave_divider": true,
+        "bottom_wave_divider": false,
+        "custom_class": "lp-v2-faq",
+        "custom_id": ""
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "five_reasons",
+    "testimonials",
+    "buy_box",
+    "note_media",
+    "waved_texts",
+    "stats_mobile",
+    "faq"
+  ]
+}
