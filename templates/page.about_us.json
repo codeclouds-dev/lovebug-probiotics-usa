@@ -68,7 +68,7 @@
       ],
       "settings": {
         "disable_entrance_animation": true,
-        "content_alignment": "align-left",
+        "content_alignment": "align-center",
         "text_alignment": "text-center",
         "container_width": "",
         "max_width": 0,
@@ -81,7 +81,7 @@
         "bg_color": "",
         "top_wave_divider": false,
         "bottom_wave_divider": false,
-        "custom_class": "",
+        "custom_class": "about_herob",
         "custom_id": ""
       }
     },
