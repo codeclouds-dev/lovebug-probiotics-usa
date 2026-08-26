@@ -102,7 +102,7 @@ assign section settings to variables
   </div> {% endcomment %}
 
 {% elsif image != blank %}
-  <div class="hero-section__image">
+  {% comment %} <div class="hero-section__image">
     {% render 'component__responsive-image',
       mobile_image: image.settings.image_mobile,
       desktop_image: image.settings.image_desktop,
@@ -110,7 +110,7 @@ assign section settings to variables
       loading_lazy: image.settings.lazyload_image,
       desktop_sizing: "100vw",
       double_rendering_size: true %}
-  </div>
+  </div> {% endcomment %}
 {% endif %}
 
     <div class="grid-container {{ container_width }}" {{ max_width_style }}>
