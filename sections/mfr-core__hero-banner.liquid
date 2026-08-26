@@ -91,7 +91,7 @@ assign section settings to variables
 <section class="mfr-core__hero-section {{ custom_class }} {{ disable_entrance_class }}" id="{{ section_id }}" data-activate-functions="true">
   <div class="section-spacer background {{ grid_gutter }} solidbg_hero1" style="{{ spacer }}">
    {% if collection_banner != blank %}
-  <div class="hero-section__image">
+  {% comment %} <div class="hero-section__image">
     {% render 'component__responsive-image',
       desktop_image: collection_banner,
       mobile_image: collection_banner,
@@ -99,7 +99,7 @@ assign section settings to variables
       loading_lazy: true,
       desktop_sizing: "100vw",
       double_rendering_size: true %}
-  </div>
+  </div> {% endcomment %}
 
 {% elsif image != blank %}
   <div class="hero-section__image">
