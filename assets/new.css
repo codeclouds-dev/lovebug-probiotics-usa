@@ -175,6 +175,10 @@
     top: -50px;
 }
 
+body{
+    border-bottom: 20px solid !important;
+}
+
 
 @media(max-width:1330px) {
 
