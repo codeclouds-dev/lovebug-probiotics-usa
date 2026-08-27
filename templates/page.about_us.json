@@ -42,6 +42,7 @@
         },
         "heading_ffzfX9": {
           "type": "heading",
+          "disabled": true,
           "settings": {
             "heading": "Behind The Capes",
             "disable_animation": false,
