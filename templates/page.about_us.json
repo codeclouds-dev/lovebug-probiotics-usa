@@ -42,9 +42,8 @@
         },
         "heading_ffzfX9": {
           "type": "heading",
-          "disabled": true,
           "settings": {
-            "heading": "Behind The Capes",
+            "heading": "Our Story",
             "disable_animation": false,
             "header_style": "h1",
             "make_xl": "",
