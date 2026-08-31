@@ -244,6 +244,7 @@
       "blocks": {
         "small_text_7Aegjr": {
           "type": "small_text",
+          "disabled": true,
           "settings": {
             "text": "Little Heros (12+ months)",
             "small_text_color": "",
@@ -280,7 +281,6 @@
         "heading_MpJjHV",
         "review_h9zAQ3"
       ],
-      "disabled": true,
       "settings": {
         "no_ajax": true,
         "collection": "for-kids",
