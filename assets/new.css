@@ -236,7 +236,8 @@
     }
 
     .solidbg_hero1 .section-title__inner {
-        font-size: 35px;
+        font-size: 30px;
+        line-height: 33px;
     }
 
     .solidbg_hero .anchor-links__anchors li a.button {
