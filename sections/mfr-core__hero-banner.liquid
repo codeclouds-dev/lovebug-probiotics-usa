@@ -116,7 +116,7 @@ assign section settings to variables
     <div class="grid-container {{ container_width }}" {{ max_width_style }}>
       <div class="grid-x {{ section.settings.content_alignment }}" style="--vertical-alignment: {{ section.settings.vertical_alignment }};">
         {% if icons != blank or small_texts != blank or headings != blank or texts != blank or buttons != blank %}
-          <div class="cell small-12 large-5 section-content {{ color_theme }} {{ text_alignment }}">
+          <div class="cell small-12 large-12 section-content {{ color_theme }} {{ text_alignment }}">
             <div class="inner">
               {%- for block in section.blocks -%}
                 {% case block.type %}
